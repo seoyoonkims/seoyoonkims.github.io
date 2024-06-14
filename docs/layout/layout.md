@@ -38,7 +38,7 @@ A child and grandchild page of this page use the minimal layout. This differs fr
 ---
 layout: default
 title: Home
-nav_enabled: false
+nav_enabled: true
 ---
 
 ```

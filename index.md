@@ -31,8 +31,8 @@ B.S.
 
 ## Expericence
 
-Internship at HyperAccel (2024.06 - Present)  
-USRG, KAIST (2023.06 - 2023.08)
+- Internship at HyperAccel (2024.06 - Present)  
+- USRG, KAIST (2023.06 - 2023.08)
 
 
 ## Programming Skills

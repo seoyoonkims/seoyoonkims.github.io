@@ -13,12 +13,14 @@ South Korea
 {: .fs-5 .fw-300 }
 
 ![ex_screenshot](./assets/images/me.jpg)  
+
 Thank you for visiting my page!  
+
 [GitHub][Github]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
 
 ---
 
-## Research Interest
+## Research Interests
 
 > AI Accelerator, Unmanned System
 

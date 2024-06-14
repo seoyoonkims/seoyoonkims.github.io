@@ -19,24 +19,25 @@ South Korea
 ---
 
 ## Research Interest
+---
 AI Accelerator, Unmanned System
 
 
 ## Education
-B.S.  
+---
+> B.S.
 - Major in Electrical Engineering at KAIST, Korea (2021.02 ~ Present)
 - Minor in Mechanical Engineering at NYU, USA (2023.08 ~ 2023.12)
 
 
 ## Expericence
-HyperAccel (2024.06 ~ Present)  
-> Internship  
-
-USRG, KAIST (2023.06 ~ 2023.08)
-> Individual Research
+---
+> HyperAccel (Internship, 2024.06 ~ Present)  
+> USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)
 
 
 ## Programming
+---
 C/C++  
 Verilog  
 Python  
@@ -44,7 +45,7 @@ ROS
 
 
 ## Contact
-
+---
 Email: seoyoonkims@kaist.ac.kr
 Github: https://github.com/seoyoonkims
 

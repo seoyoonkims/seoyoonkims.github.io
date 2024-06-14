@@ -12,9 +12,15 @@ permalink: /
 Electrical Engineering
 {: .fs-6 .fw-300 }
 
+![ex_screenshot](./assets/images/me.jpg)
+
 [My GitHub][My Github]{: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
 ---
+
+## Research Interest
+AI Accelerator, Unmanned System
+
 
 ## Education
 

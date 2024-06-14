@@ -9,7 +9,7 @@ permalink: /
 # Seoyoon Kim
 {: .fs-9 }
 
-Electrical Engineering
+South Korea
 {: .fs-6 .fw-300 }
 
 ![ex_screenshot](./assets/images/me.jpg)
@@ -24,25 +24,29 @@ AI Accelerator, Unmanned System
 
 ## Education
 B.S.  
-- KAIST, Korea (Major: Electrical Engineering, 2021.02 ~ Present)
-- NYU, USA (Minor: Mechanical Engineering, 2023.08 ~ 2023.12)
+- Major in Electrical Engineering at KAIST, Korea (2021.02 ~ Present)
+- Minor in Mechanical Engineering at NYU, USA (2023.08 ~ 2023.12)
 
 
 ## Expericence
-- Internship at HyperAccel (2024.06 - Present)  
-- USRG, KAIST (2023.06 - 2023.08)
+HyperAccel (2024.06 ~ Present)  
+> Internship  
+
+USRG, KAIST (2023.06 ~ 2023.08)
+> Individual Research
 
 
-## Programming Skills
-
+## Programming
 C/C++  
 Verilog  
-Python
+Python  
+ROS
 
 
 ## Contact
 
 Email: seoyoonkims@kaist.ac.kr
+Github: https://github.com/seoyoonkims
 
 {: .note }
 

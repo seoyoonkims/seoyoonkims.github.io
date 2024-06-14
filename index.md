@@ -7,14 +7,13 @@ permalink: /
 ---
 
 # Seoyoon Kim
-{: .fs-9 }
+{: .fs-8 }
 
 South Korea
-{: .fs-4 .fw-300 }
+{: .fs-5 .fw-300 }
 
 ![ex_screenshot](./assets/images/me.jpg)
-
-Thank you for visiting my page!
+Thank you for visiting my page!  
 [GitHub][Github]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
 
 ---

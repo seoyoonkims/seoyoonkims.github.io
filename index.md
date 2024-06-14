@@ -17,31 +17,31 @@ Electrical Engineering
 ---
 
 ## Education
----
+
 B.S. 
-- Major in Electrical Engineering (KAIST, Korea)
-- Minor in Mechanical Engineering (New York University, USA)
+- KAIST, Korea (Major: Electrical Engineering, 2021.02 ~ Present)
+- NYU, USA (Minor: Mechanical Engineering, 2023.08 ~ 2023.12)
 
 
 ## Expericence
----
-Internship at HyperAccel (2024.06 - Present)
-Internship at URSG, KAIST (2023.06 - 2023.08)
+
+Internship at HyperAccel (2024.06 - Present)  
+USRG, KAIST (2023.06 - 2023.08)
 
 
 ## Programming Skills
----
-C/C++
-Verilog
-Python
-Matlab
 
-{: .note }
+C/C++  
+Verilog  
+Python  
+Matlab
 
 
 ## Contact
----
+
 Email: seoyoonkims@kaist.ac.kr
+
+{: .note }
 
 
 

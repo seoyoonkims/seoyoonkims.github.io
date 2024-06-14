@@ -44,8 +44,8 @@ ROS
 
 
 ## Contact
----
-Email: seoyoonkims@kaist.ac.kr
+
+Email: seoyoonkims@kaist.ac.kr  
 Github: https://github.com/seoyoonkims
 
 {: .note }

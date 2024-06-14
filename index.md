@@ -13,7 +13,6 @@ Electrical Engineering
 {: .fs-6 .fw-300 }
 
 ![ex_screenshot](./assets/images/me.jpg)
-<img src="./assets/images/me.jpg", height="100x", width="100px">
 
 [My GitHub][My Github]{: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 

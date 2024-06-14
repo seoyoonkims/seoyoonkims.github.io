@@ -14,7 +14,7 @@ South Korea
 
 ![ex_screenshot](./assets/images/me.jpg)
 
-[My GitHub][My Github]{: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[My GitHub][My Github]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
 
 ---
 

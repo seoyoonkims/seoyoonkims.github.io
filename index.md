@@ -37,10 +37,7 @@ AI Accelerator, Unmanned System
 
 ## Programming
 
-C/C++  
-Verilog  
-Python  
-ROS
+C/C++, Python, Verilog, ROS
 
 
 ## Contact

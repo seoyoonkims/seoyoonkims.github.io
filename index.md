@@ -14,30 +14,30 @@ South Korea
 
 ![ex_screenshot](./assets/images/me.jpg)
 
-[My GitHub][My Github]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
+[GitHub][Github]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
 
 ---
 
 ## Research Interest
----
+
 AI Accelerator, Unmanned System
 
 
 ## Education
----
-> B.S.
+
+**B.S.**
 - Major in Electrical Engineering at KAIST, Korea (2021.02 ~ Present)
 - Minor in Mechanical Engineering at NYU, USA (2023.08 ~ 2023.12)
 
 
 ## Expericence
----
-> HyperAccel (Internship, 2024.06 ~ Present)  
-> USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)
+
+- HyperAccel (Internship, 2024.06 ~ Present)  
+- USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)
 
 
 ## Programming
----
+
 C/C++  
 Verilog  
 Python  
@@ -62,7 +62,7 @@ Github: https://github.com/seoyoonkims
 [source file for this page]: https://github.com/just-the-docs/just-the-docs/blob/main/index.md
 [Just the Docs Template]: https://just-the-docs.github.io/just-the-docs-template/
 [Just the Docs]: https://just-the-docs.com
-[My Github]: https://github.com/seoyoonkims
+[Github]: https://github.com/seoyoonkims
 [Just the Docs README]: https://github.com/just-the-docs/just-the-docs/blob/main/README.md
 [GitHub Pages]: https://pages.github.com/
 [Template README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md

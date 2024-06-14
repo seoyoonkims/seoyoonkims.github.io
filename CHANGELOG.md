@@ -1,6 +1,6 @@
 ---
 title: CHANGELOG
-layout: minimal
+layout: default
 ---
 
 # CHANGELOG

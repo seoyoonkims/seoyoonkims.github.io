@@ -4,6 +4,7 @@ layout: default
 parent: Posts
 has_children: true
 nav_order: 1
+permalink: /docs/Paper-Review
 ---
 
 

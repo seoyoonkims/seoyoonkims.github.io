@@ -1,7 +1,7 @@
 ---
-title: 논문 리뷰 1
+title: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation
 layout: default
-parent: Posts
+parent: Paper Review
 nav_order: 1
 ---
 

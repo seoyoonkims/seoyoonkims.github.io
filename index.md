@@ -10,10 +10,11 @@ permalink: /
 {: .fs-9 }
 
 South Korea
-{: .fs-6 .fw-300 }
+{: .fs-4 .fw-300 }
 
 ![ex_screenshot](./assets/images/me.jpg)
 
+Thank you for visiting my page!
 [GitHub][Github]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
 
 ---

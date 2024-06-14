@@ -12,7 +12,7 @@ permalink: /
 South Korea
 {: .fs-5 .fw-300 }
 
-![ex_screenshot](./assets/images/me.jpg)
+![ex_screenshot](./assets/images/me.jpg)  
 Thank you for visiting my page!  
 [GitHub][Github]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
 
@@ -20,7 +20,7 @@ Thank you for visiting my page!
 
 ## Research Interest
 
-AI Accelerator, Unmanned System
+> AI Accelerator, Unmanned System
 
 
 ## Education
@@ -37,13 +37,13 @@ AI Accelerator, Unmanned System
 
 ## Programming
 
-C/C++, Python, Verilog, ROS
+> C/C++, Python, Verilog, ROS
 
 
 ## Contact
 
-Email: seoyoonkims@kaist.ac.kr  
-Github: https://github.com/seoyoonkims
+> Email: seoyoonkims@kaist.ac.kr  
+> Github: https://github.com/seoyoonkims
 
 {: .note }
 

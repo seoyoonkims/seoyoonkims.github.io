@@ -42,7 +42,7 @@ This document contains instructions on how to migrate and upgrade Just the Docs 
 > you may need to resolve merge conflicts.
 
 [CHANGELOG]: {{ site.baseurl }}{% link CHANGELOG.md %}
-
+ 
 ## v0.6.x - v0.7.0
 
 ### POTENTIALLY-BREAKING CHANGES in v0.7.0

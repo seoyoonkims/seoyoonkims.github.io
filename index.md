@@ -23,14 +23,12 @@ AI Accelerator, Unmanned System
 
 
 ## Education
-
-B.S. 
+B.S.  
 - KAIST, Korea (Major: Electrical Engineering, 2021.02 ~ Present)
 - NYU, USA (Minor: Mechanical Engineering, 2023.08 ~ 2023.12)
 
 
 ## Expericence
-
 - Internship at HyperAccel (2024.06 - Present)  
 - USRG, KAIST (2023.06 - 2023.08)
 
@@ -39,8 +37,7 @@ B.S.
 
 C/C++  
 Verilog  
-Python  
-Matlab
+Python
 
 
 ## Contact

@@ -12,22 +12,37 @@ permalink: /
 Electrical Engineering
 {: .fs-6 .fw-300 }
 
-[About Me](#about-me){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[My GitHub][My Github]{: .btn .fs-5 .mb-4 .mb-md-0 }
+[My GitHub][My Github]{: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
 ---
 
-## About Me
+## Education
+---
+B.S. 
+- Major in Electrical Engineering (KAIST, Korea)
+- Minor in Mechanical Engineering (New York University, USA)
 
 
+## Expericence
+---
+Internship at HyperAccel (2024.06 - Present)
+Internship at URSG, KAIST (2023.06 - 2023.08)
+
+
+## Programming Skills
+---
+C/C++
+Verilog
+Python
+Matlab
 
 {: .note }
 
 
-{: .note }
+## Contact
+---
+Email: seoyoonkims@kaist.ac.kr
 
-
-## About the project
 
 
 

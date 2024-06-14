@@ -1,7 +1,6 @@
 ---
 title: CHANGELOG
 layout: default
-sidebar: false
 ---
 
 # CHANGELOG

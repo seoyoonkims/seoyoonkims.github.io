@@ -1,7 +1,4 @@
 ---
-layout: default
-title: ""
-nav_order: 
 ---
 
 <button class="btn js-toggle-dark-mode">Preview dark color scheme</button>

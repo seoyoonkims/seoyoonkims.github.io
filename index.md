@@ -12,7 +12,7 @@ permalink: /
 South Korea
 {: .fs-5 .fw-300 }
 
-![ex_screenshot](./assets/images/me.jpg)  
+![ex_screenshot](./assets/images/me2.jpg)  
 
 Thank you for visiting my page!  
 

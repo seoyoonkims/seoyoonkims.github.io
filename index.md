@@ -45,7 +45,7 @@ Thank you for visiting my page!
 ## Contact
 
 > Email: <seoyoonkims@kaist.ac.kr>  
-> Github: https://github.com/seoyoonkims
+> Github: <https://github.com/seoyoonkims>
 
 {: .note }
 

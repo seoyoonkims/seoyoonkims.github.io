@@ -21,7 +21,7 @@ Thank you for visiting my page!
 ---
 
 ## Recent Posts
-[AI-based Autonomous Rover](https://seoyoonkims.github.io/docs/posts/ee405/)
+[AI-based Autonomous Rover](https://seoyoonkims.github.io/docs/posts/ee405/)  
 
 
 ## Research Interests

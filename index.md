@@ -22,7 +22,7 @@ Thank you for visiting my page!
 
 ## Recent Posts
 [AI-based Autonomous Rover](https://seoyoonkims.github.io/docs/posts/ee405/)  
-[GPT 모델 서버 가속기 구현 논문 리뷰](https://seoyoonkims.github.io/docs/posts/A%20Low-latency%20Multi-FPGA%20Appliance%20for%20Accelerating%20Transformer-based%20Text%20Generation/)
+[GPT 모델 서버 가속기](https://seoyoonkims.github.io/docs/posts/A%20Low-latency%20Multi-FPGA%20Appliance%20for%20Accelerating%20Transformer-based%20Text%20Generation/)
 
 
 ## Research Interests

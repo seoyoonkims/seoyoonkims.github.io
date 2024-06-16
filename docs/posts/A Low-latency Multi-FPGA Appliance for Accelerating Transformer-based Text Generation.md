@@ -1,0 +1,34 @@
+---
+title: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation
+layout: default
+parent: Posts
+nav_order: 2
+---
+
+## 논문 리뷰 1  
+
+DFX: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation
+
+
+### Abstract  
+
+트랜스포머(Transformer)는 데이터 센터에서 자연어 처리(NLP)를 하는 데 널리 사용하는 딥러닝 언어 모델이다. 여러 트랜스포머 모델 중 GPT는 가장 주목할 만한 성과를 만들었다. 요약 단계에서 큰 사이즈의 인풋 텍스트를 처리한 후 생성 단계에서는 하나의 단어를 시간 순서대로 생성한다. GPU는 병렬 처리에 특화되어 있으므로 요약 단계에서는 잘 작동하지만 생성 단계에서는 텍스트 생성의 Sequential Characteristic 때문에 성능이 크게 떨어진다. 이로 인한 high latency 문제를 해결할 수 있는 효과적인 하드웨어 플랫폼이 필요하다.  
+
+DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 모두 low latency 및 high throughput으로 처리할 수 있다. DFX는 모델 병렬 처리 및 최적화된 데이터 흐름을 사용하며, 모델과 하드웨어를 인식하고 있어서 여러 장치 간의 작업을 동시에 빠르게 실행할 수 있다. DFX의 코어는 맞춤형 명령어들을 사용하며 GPT-2의 동작을 처음부터 끝까지 제공한다. 우리는 이 하드웨어 구조를 4개의 Xilinx Alveo U280 FPGA에 적용하였고 모든 HBM 채널과 계산 리소스들을 사용하여 하드웨어 효율을 높인다. DFX는 GPT-2 모델을 작동시켰을 때 NVIDIA V100 GPUs 대비 5.58배의 속도 향상과 3.99배의 에너지 효율 향상을 달성하였다. 또한, GPU appliance보다 비용 효율이 8.21배 높기 때문에 텍스트 생성 기술의 유망한 해결책이다.
+
+### Introduction
+
+트랜스포머는 딥러닝 언어 모델로 인풋 데이터의 각 부분마다 중요도 가중치를 다르게 주는 어텐션 기법을 사용한다. RNN와 LSTM으로 회귀와 글로벌 디펜던시 문제를 해결하면서 사실상 텍스트 생성과 같은 자연어 처리의 표준 기법으로 자리 잡았다. 트랜스포머 모델 중 Generative Pre-trained Transformer (GPT)는 클라우드 서비스에 널리 이용되며 텍스트 생성에 주목할만한 성과를 거두고 있다.  
+
+
+
+
+
+
+
+
+---
+### 용어 정리
+- FPGA는 프로그래밍이 가능한 반도체 장치로 많은 게이트와 논리 블록을 포함하여 다양한 하드웨어 기능을 구현하도록 연결할 수 있다. Multi-FPGA는 말 그대로 여러 개의 FPGA를 동시에 사용하는 시스템을 말한다.
+
+

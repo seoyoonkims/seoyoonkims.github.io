@@ -1,7 +1,7 @@
 ---
 title: DFX 논문
 layout: default
-parent: posts
+parent: Posts
 nav_order: 2
 ---
 

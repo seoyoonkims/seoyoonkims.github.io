@@ -1,5 +1,5 @@
 ---
-title: DFX 논문
+title: GPT 모델 서버 가속기
 layout: default
 parent: Posts
 nav_order: 2

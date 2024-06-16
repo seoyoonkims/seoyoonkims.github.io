@@ -6,7 +6,10 @@ nav_order: 2
 ---
 ## Paper Review 1  
 
-## DFX: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation
+## DFX: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation  
+
+By Seongmin Hong(KAIST), Seungjae Moon(KAIST), Junsoo Kim(KAIST), Sungjae Lee(NAVER), Minsub Kim(NAVER), Dongsoo Lee(NAVER), and Joo-Young Kim(KAIST)  
+
 ---
 
 ### Abstract  
@@ -66,15 +69,31 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
   Model Parallelism은 모델 파라미터를 여러 worker로 나눈 후 동시에 프로세스한다. 각 worker에 할당되는 양이 줄어들기 때문에 GPT-2나 BERT 같은 거대 모델에 적합하다. 가장 많이 사용되는 scheme은 pipelined parallelism과 intra-layer parallelism이다. 전자의 경우 하나의 worker만 group of operations을 수행하고 결과를 다른 operation을 수행하는 worker로 넘긴다. 전체 과정은 높은 throughput을 위해 파이프라인 되지만 latency는 줄어들지 않는다. 후자는 행렬 곱처럼 병렬 처리가 가능한 연산들을 여러 장치로 나눔으로써 실행 시간이 상당히 줄어든다. 반면 전체 아웃풋을 필요로 하는 연산이 나오면 그 전에 synchronization이 필요하여 performance가 synchronizations과 physical devices 수에 의존한다.  
 
 
-**III. Motivation**  
+### III. Motivation  
+
 **A. Sequential Characteristic**  
-위에서 말한 것처럼 요약 단계는 여러 토큰을 동시에 처리해야 하고, 생성 단계는 연속적으로 처리해야 한다. 그래서 대량의 병렬처리 유닛과 높은 Bandwidth을 가지고 거대한 인풋 토큰을 처리하는 GPU는 생성 단계 때 성능이 저하된다. 생성 단계의 Sequential Process는 병렬화가 어렵고 연산이 GPU의 모든 거대 연산 유닛을 이용할만큼 intensive 하지 않다. 결과적으로 상당한 underutilization이 발생한다. 아래 그림은 각각의 아웃풋 토큰들이 평균 75.45 ms 정도로 latency를 크게 증가시키는 것을 보여준다. 반면 인풋 토큰들은 평균 0.02ms 정도 밖에 증가시키지 않았다. 텍스트 생성은 주로 긴 아웃풋 토큰을 내보내기 때문에 아키텍쳐를 개선해서 throughput을 유지하면서 생성단계의 속도를 높이는 것이 필요하다.  
+  위에서 말한 것처럼 요약 단계는 여러 토큰을 동시에 처리해야 하고, 생성 단계는 연속적으로 처리해야 한다. 그래서 대량의 병렬처리 유닛과 높은 Bandwidth을 가지고 거대한 인풋 토큰을 처리하는 GPU는 생성 단계 때 성능이 저하된다. 생성 단계의 Sequential Process는 병렬화가 어렵고 연산이 GPU의 모든 거대 연산 유닛을 이용할만큼 intensive 하지 않다. 결과적으로 상당한 underutilization이 발생한다. 아래 그림은 각각의 아웃풋 토큰들이 평균 75.45 ms 정도로 latency를 크게 증가시키는 것을 보여준다. 반면 인풋 토큰들은 평균 0.02ms 정도 밖에 증가시키지 않았다. 텍스트 생성은 주로 긴 아웃풋 토큰을 내보내기 때문에 아키텍쳐를 개선해서 throughput을 유지하면서 생성단계의 속도를 높이는 것이 필요하다.  
 
 ![latency](../images/latency.png)  
 
-또한 batch size가 GPT-2 모델의 latency와 throughput에 미치는 영향도 조사하였다. 응용 레벨에서 데이터 센터가 다양한 사용자의 입력을 배치 처리하는 경우, 사용자로부터 입력을 수집하는데 걸리는 시간으로 인해 배치 크기가 증가하여 latency가 증가한다. 결과적으로 현재 데이터 센터들은 입력을 완전히 수집하지 않고 모델을 실행하는 것을 선호한다. 이 경우 주어진 배치에서 채워지지 않은 인풋 수에 따라 Utilization이 선형적으로 감소하므로, 적은 latency로 싱글 인풋 토큰을 처리할 수 있는 최적화된 datapath가 필요하다.  
+  또한 batch size가 GPT-2 모델의 latency와 throughput에 미치는 영향도 조사하였다. 응용 레벨에서 데이터 센터가 다양한 사용자의 입력을 배치 처리하는 경우, 사용자로부터 입력을 수집하는데 걸리는 시간으로 인해 배치 크기가 증가하여 latency가 증가한다. 결과적으로 현재 데이터 센터들은 입력을 완전히 수집하지 않고 모델을 실행하는 것을 선호한다. 이 경우 주어진 배치에서 채워지지 않은 인풋 수에 따라 Utilization이 선형적으로 감소하므로, 적은 latency로 싱글 인풋 토큰을 처리할 수 있는 최적화된 datapath가 필요하다.  
 
-**End-to-End Acceleration**  
+**B. End-to-End Acceleration**  
+
+  대부분의 이전 연구들은 트랜스포머의 어텐션 메커니즘만 목표로 두고 몇 개만 Feed-forward Network를 포함시켰다. 반면 GPT-2는 토큰 임베딩, layer normalization, residual, LM head 같은 추가적인 프로세스를 포함한다. 어텐션이 시간의 대부분을 차지하기 때문에 다른 프로세스들은 무시했던 것이다. 반면, 만약 GPT-2를 처음부터 끝까지 실행하게 되면 나머지 프로세스들도 호스트에 의해 완성되어야 한다. 모델이 디코더 층을 반복적으로 실행하기 때문에 호스트와 가속기 사이에 데이터 전송이 과도해져서 쉽게 병목현상으로 이어질 수 있다. 그러므로 전체적인 GPT-2 프로세스를 지원하는 가속기가 필요하다.  
+
+  게다가 GPT-2는 GPU가 완성하기에 덜 최적화된 연산들이 포함되어 있다. 아래 그림은 Layer Normalization과 Residual에 사용된 연산의 비율이 전체의 0.11%에 불과함에도 시간은 22.8%로 GPU에서 아주 비효율적이라는 것을 보여준다. Domain-specific 가속기는 하드웨어가 이런 복잡한 연산에 특화되도록 한다. 그러므로 GPT-2에 최적화된 대체 가속기가 필요하다.  
+
+**C. Parallel Computing**  
+
+  GPT-2는 거대 모델 파라미터의 대량 연산을 요구하므로, 거대 모델을 여러개의 노드로 나누어 병렬 처리 하는 것이 바람직하다. GPT-2의 증가하는 디멘션으로 인해 하나의 장치는 메모리 BW와 용량 면에서 부족하다. 텍스트 생성에서는 latency 역시 중요하므로 여러 장치가 workload를 나누어 전체적인 실행 시간을 줄여아한다. 이런 부족함을 달래기 위해 병렬 연산을 최소한의 latency 증가로 극대화 할 수 있는 Model Parallelism와 Efficient Network를 채택하는 다중 장치 시스템이 필요하다.  
+
+
+### IV. DFX Architecture  
+
+**A. Architecture Overview**  
+
+
 
 
 

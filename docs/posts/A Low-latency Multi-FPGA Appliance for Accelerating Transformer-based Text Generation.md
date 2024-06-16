@@ -93,7 +93,7 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
 **A. Architecture Overview**  
 
-
+  
 
 
 

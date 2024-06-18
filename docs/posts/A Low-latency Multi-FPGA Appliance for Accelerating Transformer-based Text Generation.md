@@ -4,7 +4,7 @@ layout: default
 parent: Posts
 nav_order: 2
 ---
-## Paper Review 1  
+### 논문 리뷰
 
 ## DFX: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation  
 
@@ -112,7 +112,7 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
   ![overall_DFX](../images/intra-layer.png)  
 
 
-  각 명령어 타입은 Instruction Chaining을 통해서 dependent한 명령어들은 최소한의 stalling으로 실행된다. Independent한 명령어들은 병렬적으로 처리된다. 예를 들어, compute는 데이터를 가공하고, dma는 데이터를 fetch 하고, router는 동기화를 위해 peer device에서 데이터를 가져와서 buffer를 채운다. Instruction Chaining과 Paraller Execution의 조합은 메모리와 통신 BW의 지속적인 이용을 가능하게 한다. 아래 그림은 GPT-2 decoder 층의 pseudocode를 보여준다.  
+  각 명령어 타입은 Instruction Chaining을 통해서 dependent한 명령어들은 최소한의 stalling으로 실행된다. Independent한 명령어들은 병렬적으로 처리된다. 예를 들어, compute는 데이터를 가공하고, dma는 데이터를 fetch 하고, router는 동기화를 위해 peer device에서 데이터를 가져와서 buffer를 채운다. Instruction Chaining과 Paraller Execution의 조합은 메모리와 통신 BW의 지속적인 이용을 가능하게 한다. 아래 그림은 GPT-2 decoder 층의 pseudocode를 보여준다.   
 
   ![pseudocode](../images/pseudocode.png) 
 
@@ -129,16 +129,19 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
   **Vector Instructions**는 load, store과 더불어 low-level 벡터-벡터 연산과 벡터-스칼라 연산을 실행한다. add, sub, mul, accum, recip_sqrt, recip, exp 같은 기본 연산도 수행한다. 따라서 LayerNorm과 Softmax 같은 high-level 연산들은 여러 개의 vector instructions들로 실행된다.  
 
-  1) LayerNorm: mu와 sigma는 각각 평균과 표준편차를 나타낸다. gamma와 beta는 weight와 bias 벡터를 나타낸다. 평균 계산에는 accum과 mul이 필요하고, 표준편차 계산에는 recip_sqrt가 추가로 필요하다. 그 후 sub, mul, add를 통해 LayerNorm을 계산한다. 파라미터들은 load를 통해 reg file로 fetch 된다. 
+  1) LayerNorm: mu와 sigma는 각각 평균과 표준편차를 나타낸다. gamma와 beta는 weight와 bias 벡터를 나타낸다. 평균 계산에는 accum과 mul이 필요하고, 표준편차 계산에는 recip_sqrt가 추가로 필요하다. 그 후 sub, mul, add를 통해 LayerNorm을 계산한다. 파라미터들은 load를 통해 reg file로 fetch 된다.  
+
   ![layernorm](../images/layernorm.png)  
 
   2) Softmax: j는 행의 원소 갯수를 나타낸다. 이 연산은 exp, add, accum과 같은 기본적인 벡터 연산으로 수행될 수 있다. Summation은 LayerNorm에서 평균을 계산하는 것과 비슷하다. 나누기는 recip과 mul로 대체된다.  
+  
   ![softmax](../images/softmax.png)  
 
 
-  ### V. Microarchitecture  
 
-  
+### V. Microarchitecture  
+
+
 
 
   

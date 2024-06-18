@@ -176,6 +176,12 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
 **C. Processing Units**  
 
+![Processing Units](../images/processing_units.png)
+
+  DFX 코어는 두 개의 Processing Units을 가지고 있다. 하나는 Matrix Processing Unit (MPU)이고, 다른 하나는 Vector Processing Unit (VPU)이다. 두 PU는 네 개의 메인 functional units, 행렬 function unit, 벡터 function unit, special function unit 으로 구성되어 있고 모두 FP16 operators 들이다. Functional Units은 깊도 다양한 파이프라인으로 구성되어 throughput을 최대화하고 bypasses를 구현한다.  
+
+  **Matrix Function Unit**  
+  
   
   
 

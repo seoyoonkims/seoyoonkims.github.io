@@ -103,15 +103,45 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
   **Memory Mapping**  
   FPGA는 8 GB HBM과 32GB DDR를 장착하여 이론적인 최고 BW가 각각 460 GB/s와 38 GB/s이다. 가중치 행렬은 HBM에 저장된다. 반면, 인풋/아웃풋 토큰, 바이어스 벡터, 다른 모델 파라미터들은 몇 iteration에 한 번 이나 전체 decoder 단계에서 한 번 접근되기 때문에 DDR에 저장된다. DFX는 표준 half-precision floating-point (FP16) 모델 파라미터를 이용해서 추론 정확도를 유지한다.  
 
+**C. Instruction Set Architecture**  
+  DFX는 어셈블리 레벨에서 유연하고 커스텀한 ISA를 갖고 있어서 어텐션에만 초점을 맞춘 이전의 NLP 가속기들과 달리 GPT-2 추론을 처음부터 끝까지 서포트하기 적합하다.  
   
-
-
-
-
-
+  **Instruction Set**  
+  DFX ISA에는 compute, dma, router의 3가지 명령어 타입이 있다. Compute 명령은 메인 프로세싱 유닛을 처리하기 위함이고 (type, src1, src2, dst)와 source나 destination이 off-chip memory에 있는지 on-chip memory에 있는지 결정하기 위한 추가 bit가 존재한다. Dma와 Router 명령어는 주어진 전송 사이즈에 맞게 데이터를 주고 받을 수 있도록 DMA와 Network Router를 컨트롤하기 위함이다. (type, src, dst, xfer_size) 형식으로 생겼다.  
 
   ![overall_DFX](../images/intra-layer.png)  
 
+
+  각 명령어 타입은 Instruction Chaining을 통해서 dependent한 명령어들은 최소한의 stalling으로 실행된다. Independent한 명령어들은 병렬적으로 처리된다. 예를 들어, compute는 데이터를 가공하고, dma는 데이터를 fetch 하고, router는 동기화를 위해 peer device에서 데이터를 가져와서 buffer를 채운다. Instruction Chaining과 Paraller Execution의 조합은 메모리와 통신 BW의 지속적인 이용을 가능하게 한다. 아래 그림은 GPT-2 decoder 층의 pseudocode를 보여준다.  
+
+  ![pseudocode](../images/pseudocode.png) 
+
+  **Compute Instructions**  
+  Compute instructions는 코어 명령어 세트의 대부분을 설명하며 메인 프로세싱 유닛을 제어하기 위한 두 개의 그룹으로 나뉘어 있다. Matrix Instruction와 Vector Instruction이다.  
+
+  **Matrix Instructions**는 행렬-벡터 곱과 GELU나 reduce max 같은 추가적인 함수를 실행하기 위함이다. 행렬은 tiles에 로드되고 벡터들은 portions에 로드된다. 어떠한 행렬 곱들은 일련의 행렬-벡터 곱으로 계산할 수 있다.  
+
+  1) Conv1D: ```Ax+b``` 는 Query, Key, Value 행렬 생성과 Feed-forward Network에 사용된다. 이 명령어에서 가중치 행렬 A와 인풋 벡터 x, 바이어스 벡터 b가 필요하다. Conv1D는 convolutional한 면을 가지고 있는데, 그 이유는 인풋 사이즈가 최대 인풋 사이즈보다 커지면 연산이 sliding window로 수행되기 때문이다.  
+
+  2) MaskedMM: Masked matirx multiplication (MM)은 ```Ax```의 형태다. 이것은 Score matrix로 알려진 Query x Key^T를 계산한다. Query 행렬이 vector들로 load가 되는 점에 주목하자. masking operation은 score 행렬의 upper diagonal elements에 음의 무한대 값을 부여해서 현재 토큰이 미래 contexts의 영향을 받지 않도록 한다. Softmax와의 combination으로 MaskedMM은 lower triangular matrix를 만들고 각 행의 최댓값을 반환한다.  
+
+  3) MM: MaskedMM에서 Masking을 뺀 것이다. LM head에서 logit을 계산하는데 사용된다. Logit은 아웃풋 임베딩 벡터를 토큰 ID로 변환하고 어텐션 레이어에서 Score x Value를 계산하는 데 사용된다.  
+
+  **Vector Instructions**는 load, store과 더불어 low-level 벡터-벡터 연산과 벡터-스칼라 연산을 실행한다. add, sub, mul, accum, recip_sqrt, recip, exp 같은 기본 연산도 수행한다. 따라서 LayerNorm과 Softmax 같은 high-level 연산들은 여러 개의 vector instructions들로 실행된다.  
+
+  1) LayerNorm: mu와 sigma는 각각 평균과 표준편차를 나타낸다. gamma와 beta는 weight와 bias 벡터를 나타낸다. 평균 계산에는 accum과 mul이 필요하고, 표준편차 계산에는 recip_sqrt가 추가로 필요하다. 그 후 sub, mul, add를 통해 LayerNorm을 계산한다. 파라미터들은 load를 통해 reg file로 fetch 된다. 
+  ![layernorm](../images/layernorm.png)  
+
+  2) Softmax: j는 행의 원소 갯수를 나타낸다. 이 연산은 exp, add, accum과 같은 기본적인 벡터 연산으로 수행될 수 있다. Summation은 LayerNorm에서 평균을 계산하는 것과 비슷하다. 나누기는 recip과 mul로 대체된다.  
+  ![softmax](../images/softmax.png)  
+
+
+  ### V. Microarchitecture  
+
+  
+
+
+  
 
 
 

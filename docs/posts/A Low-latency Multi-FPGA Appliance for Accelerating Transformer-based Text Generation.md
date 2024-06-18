@@ -93,7 +93,11 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
 **A. Architecture Overview**  
 
-  
+  DFX 구조는 FPGA에 기반한 거대 트랜스포머 언어 모델을 가속하기 위해 디자인되었다. 아래 그림처럼 DFX는 
+
+
+![overall_DFX](../images/overall_DFX.png)  
+
 
 
 

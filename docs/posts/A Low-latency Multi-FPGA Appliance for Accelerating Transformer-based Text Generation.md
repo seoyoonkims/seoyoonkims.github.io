@@ -156,8 +156,28 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
 **B. Direct Memory Access**  
 
+  Read와 Write의 Interface를 포함하는 DMA는 high bandwidth로 전송되는 데이터에서 중요한 역할을 한다. HBM의 bandwidth를 최대화 하기 위해서 DMA의 RW 인터페이스는 32개의 모든 HBM 채널과 연결되어 있고 512 bits의 단일 채널 BW를 200 MHz로 다루어 총 32 x 512 bits per cycle이 된다. DMA는 tiled weights, Key, Value를 행렬 연산에 최적화된 HBM에 저장하거나 로드한다. Value는 transposed 되어야 하므로 DMA 안헤 transpose 유닛이 들어가있다. HBM과 함께 DDR도 접근할 수 있다. 인풋 토큰, 바이어스, WTE, WPE는 DDR에서 읽어진 뒤 대응하는 DMA 안의 buffer로 전송된다. 최종 아웃풋 토큰도 DMA에서 DDR로 써진다. 게다가 input batching을 안하기 때문에 weights와 biases는 재사용 될 수 없어서 DMA에 buffered 된다. 그리고 Processing Units로 streamed 되어 연산에 사용된다.  
+
+  **Tiling Scheme**  
+  DFX는 요약단계에서의 성능을 유지하면서 생성단계에서 연산 수와 throughput을 최대화하는 최적화된 tiling scheme을 사용한다. 생성 단계에서 단일 토큰을 프로세스 하기 위해 거대한 양의 weights를 HBM으로부터 읽어들여야 한다. 따라서 weights들이 HBM에서 tiled 되어있고 DMA는 tiled weights를 32 x 512 bits per cycle로 읽는다. 차원은 d x l x BW weight bits로 조정될 수 있는데, d는 tile dimension, l은 number of lanes, BW는 data bandwidth를 나타낸다. Number of lanes는 행렬 연산 유닛에서 병렬적으로 계산할 수 있는 column의 수이다. DFX는 FP16을 이용하므로 BW는 16이다. 우리는 emb x emb 사이즈의 weight를 로딩할 수 있는 최적의 d와 l 값을 찾는다. 또한, 행렬-벡터 곱의 순서를 번역하는 효과적인 로딩 방향을 찾는다.  
+
+![design](../images/design.png)  
+
+  Design Space Exploration을 통해 (d, l) = (64, 16)라는 최적의 값을 얻었다. 다른 d로 퍼포먼스 평가를 진행한 후 대응하는 l을 찾았다. 보통 H 값이 64이므로 d > 64이면 unterutilized 된다는 것을 발견하였다. 구체적으로, Query x Key^T를 계산할 때 성능이 저하되는데, 왜냐하면 Key^T가 d > 64면 H < d이기 때문이다. 비슷하게 l > 64 일 때도 Score x Value 시에 성능 저하가 일어난다.  
+
+  DMA는 d x l weight을 수평방향으로 로드하면서 tile을 채운다. 수평 방향으로 움직이는 것은 input reuse를 최대화하지만 부분합을 저장하기 위한 상당 수의 버퍼를 살요로 한다. Deep pipelining을 위한 코어의 요구사항과 다른 버퍼들이 on-chip 메모리의 부족함을 유발하므로 수평방향으로 하는 것은 infeasible하다. 수직 방향은 퍼버의 수를 하나로 줄이지만, input reuse를 없앤다. 인풋을 재사용 하지 못하는 것은 레지스터 파일의 접근을 늘리고 throughput을 감소시킨다. 따라서 지그재그 방향의 접근은 하드웨어 자원과 데이터 재사용 사이의 균형을 맞추어 성능을 극대화한다.  
+
+![zigzag](../images/zigzag.png)  
+
+  **Transpose Scheme**  
+
+  표준 어텐션 연산에서, Key는 transposed 되어야한다. 그렇지만 이 모델에서는 HBM으로부터 읽기가 column-wise이고 쓰기는 row-wise 이므로 Value가 transposed 되어야 한다. 따라서 중간 행렬이 DMA로 로드 될 때 디폴트로 transposed 되어야한다. Value는 높은 메모리 용량을 요구하므로 컨벤셔널한 transpose는 비효율적이다. 이 문제를 해결하기 위해 DFX는 Value 행렬의 부분 행렬이 off-chip memory에 read 될 때가 아닌 write 할 때 transpose를 한다. Transpose의 긴 latency는 computation 순서를 바꿈으로써 완전히 숨겨질 수 있다. GPT의 연산 순서에 따르면 Value^T는 Query, Key, Value가 생성된 이후에 필요하다. 따라서 DFX instruction을 재배열해서 Value가 Query, Key보다 먼저 계산되게 한다. 이 재배열은 Query, Key가 생성되는 동안 Value가 transpose 되기에 충분한 시간을 제공한다.
 
 
+**C. Processing Units**  
+
+  
+  
 
 
 

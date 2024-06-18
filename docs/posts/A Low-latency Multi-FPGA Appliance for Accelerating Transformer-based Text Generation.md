@@ -143,6 +143,21 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
   ![uarch](../images/uarch.png)  
 
   **A. Control Unit**  
+  Control Unit은 각 모듈의 상태를 track하고 어떤 모듈을 쓸지 arbitrating 함으로써 데이터의 전반적인 흐름을 제어한다. Controller, Scheduler, Scoreboard로 구성되어있다.  
+
+
+  **Controller**의 주된 역할은 호스트로부터 start signal와 system configuration을 받는 것이다. System Configuration은 코어 ID, 코어의 수, 디코더 레이어 층 개수, 토큰 개수 등을 포함한다. 이러한 파라미터들이 각 코어의 행동을 결정한다. 코어 ID와 코어 개수가 어떤 코어를 사용하고, 어떤 장치들로부터 송수신을 할지 결정한다. 디코더 레이어 개수는 단일 토큰의 프로세싱이 언제 끝나는지를 결정하고, 인풋 토큰과 아웃풋 토큰의 개수는 언제 전체 서비스가 끝나는지를 결정한다. 각 층마다 HBM의 다른 부분이 사용되어야 하므로 레이어 개수는 DMA가 접근해야하는 주소를 지정한다. 토큰 개수는 MaskedMM에서 어떤 부분을 mask 할지 결정한다. 마지막으로, GPT-2 연산이 끝나면 호스트에게 done signal을 보낸다.  
+  
+
+  **Scheduler**는 컨트롤러로부터 decoded system configuration을 전달받고 instruction buffer로부터 instruction을 받는다. Scheduler는 여러 개의 FSM (Finite State Machine)을 갖고 있어서 DMA, Processing Unit, Register File, Router 등의 상태를 포함해서 각 instruction을 run 할지 wait 할지 결정한다. 선택된 instruction은 scoreboard로 보내져서 실행되고 있는 instruction 과의 dependency를 확인한다.  
+
+  **Scoreboard**  레지스터 파일은 chaining method에 기반해서 dependency check를 해줘야 한다. Instructions가 데이터 하자드를 발생시킬 수 있기 때문에 scoreboard는 source와 destination 주소를 계속 모니터한다. RAM으로 주소 공간 및 현재 instruction 주소를 나타낸다. Instruction이 Execution 일 때는 stale bit, Writeback 일 때는 valid bit을 이용한다. Source와 destination이 겹치는 경우 다음 instruction은 stall 한다.  
+
+
+**B. Direct Memory Access**  
+
+
+
 
 
 

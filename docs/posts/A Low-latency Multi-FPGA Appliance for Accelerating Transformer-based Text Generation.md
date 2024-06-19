@@ -51,8 +51,7 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
   GPT-2는 Token Embedding과 LM head 사이에 N개(모델 사이즈가 결정)의 디코더 레이어를 가지고 있다. 하나의 디코더 레이어는 크게 4가지로 구분된다: Self-attention, Feed-forward Network, Layer Normalization, Residual. Self-attention은 디코더를 위한 어텐션 기법이고 트랜스포머의 주된 요소다. Query, Key, Value 행렬을 생성해서 어텐션 행렬을 구한다. Query는 현재 주어진 단어와 관련이 있고 Key와 Value는 전체 문맥의 흐름을 나타낸다. GPT-2는 H개의 독립적인 행렬 계산을 수행하기 위해 어텐션 가중치를 H개의 열로 나누는 멀티헤드 어텐션을 사용한다. H는 어텐션 헤드 개수를 나타내는 하이퍼 파라미터이며 모델 사이즈가 증가함에 따라 증가한다. 또 다른 중요한 동작은 Feed-forward Network인데, 이것은 DNN에서 흔히 사용된다. 이것은 두 개의 FC Layers와 GELU 활성화 함수로 이루어져 있다. Layer Normalization와 Residual은 Self-attention와 Feed-forward Network 주변에 위치하며 거대 모델을 fine-tune 하기 위함이다.  
 
-  주어진 Context에 따라 토큰을 생성하기 위해서 GPT-2 모델은 요약 단계외 생성 단계를 포함한다. 요약 단계는 전체 Context를 인풋으로 받기 때문에 디코더의 인풋 차원은 n x emb 이다. n은 context의 토큰 길이(갯수)이다. 참고로 1.5B 모델의 emb = 1600이다. 임베딩 벡터는 디코더로 fed 되는데 가중치 행렬 사이즈가 emb x emb 거나 더 크며 아웃풋 행렬은 초기 디멘션과 크기가 같은 n x emb이다. 아웃풋 행렬의 마지막 행만 LM head에서 처리되고 첫번째 토큰이 생성된다. 맥락을 나타내는 Key와 Value 행렬도 요약 단계에서 생성된다. 생성 단계에서 이전에 생성된 토큰이 디코더에 들어가므로 인풋 디멘션이 1 x emb 이다. 토큰 생성은 이전의 문맥에 따라 결정되므로 생성 단계는 새 인풋의 context를 Key와 Value 행렬의 행에 appending 함으로써 row demension을 1씩 늘려서 업데이트한다. 예를 들어 "Hello, my name"이 context이고 input token length가 4이면 4 x emb Key and Value 행렬이 생성되고 요약 단계 때 첫번째 output token인 "is"가 생성된다. 만약 output token length가 3이면 2번의 iterations를 더 하게 되고 Key and Value 행렬의 행이 iteration 마다 1씩 늘어난다. 그러면 디코더에서 "James"와 "."가 차례로 출력된다. 최종적으로 생성된 토큰들이 합쳐져서 "Hello, my name is James."가 되는 것이다.  
-  주어진 Context의 길이와 아웃풋 단어들의 길이는 요약 단계와 생성 단계에서 연산의 양에 영향을 주므로 workloads에 따라 걸리는 시간이 달라진다.  
+  주어진 Context에 따라 토큰을 생성하기 위해서 GPT-2 모델은 요약 단계외 생성 단계를 포함한다. 요약 단계는 전체 Context를 인풋으로 받기 때문에 디코더의 인풋 차원은 n x emb 이다. n은 context의 토큰 길이(갯수)이다. 참고로 1.5B 모델의 emb = 1600이다. 임베딩 벡터는 디코더로 fed 되는데 가중치 행렬 사이즈가 emb x emb 거나 더 크며 아웃풋 행렬은 초기 디멘션과 크기가 같은 n x emb이다. 아웃풋 행렬의 마지막 행만 LM head에서 처리되고 첫번째 토큰이 생성된다. 맥락을 나타내는 Key와 Value 행렬도 요약 단계에서 생성된다. 생성 단계에서 이전에 생성된 토큰이 디코더에 들어가므로 인풋 디멘션이 1 x emb 이다. 토큰 생성은 이전의 문맥에 따라 결정되므로 생성 단계는 새 인풋의 context를 Key와 Value 행렬의 행에 appending 함으로써 row demension을 1씩 늘려서 업데이트한다. 예를 들어 "Hello, my name"이 context이고 input token length가 4이면 4 x emb Key and Value 행렬이 생성되고 요약 단계 때 첫번째 output token인 "is"가 생성된다. 만약 output token length가 3이면 2번의 iterations를 더 하게 되고 Key and Value 행렬의 행이 iteration 마다 1씩 늘어난다. 그러면 디코더에서 "James"와 "."가 차례로 출력된다. 최종적으로 생성된 토큰들이 합쳐져서 "Hello, my name is James."가 되는 것이다. 주어진 Context의 길이와 아웃풋 단어들의 길이는 요약 단계와 생성 단계에서 연산의 양에 영향을 주므로 workloads에 따라 걸리는 시간이 달라진다.  
 
 
   **GPT-2 Workload**  
@@ -84,6 +83,8 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
   대부분의 이전 연구들은 트랜스포머의 어텐션 메커니즘만 목표로 두고 몇 개만 Feed-forward Network를 포함시켰다. 반면 GPT-2는 토큰 임베딩, layer normalization, residual, LM head 같은 추가적인 프로세스를 포함한다. 어텐션이 시간의 대부분을 차지하기 때문에 다른 프로세스들은 무시했던 것이다. 반면, 만약 GPT-2를 처음부터 끝까지 실행하게 되면 나머지 프로세스들도 호스트에 의해 완성되어야 한다. 모델이 디코더 층을 반복적으로 실행하기 때문에 호스트와 가속기 사이에 데이터 전송이 과도해져서 쉽게 병목현상으로 이어질 수 있다. 그러므로 전체적인 GPT-2 프로세스를 지원하는 가속기가 필요하다.  
 
   게다가 GPT-2는 GPU가 완성하기에 덜 최적화된 연산들이 포함되어 있다. 아래 그림은 Layer Normalization과 Residual에 사용된 연산의 비율이 전체의 0.11%에 불과함에도 시간은 22.8%로 GPU에서 아주 비효율적이라는 것을 보여준다. Domain-specific 가속기는 하드웨어가 이런 복잡한 연산에 특화되도록 한다. 그러므로 GPT-2에 최적화된 대체 가속기가 필요하다.  
+
+  ![latency2](../images/latency2.png) 
 
 **C. Parallel Computing**  
 

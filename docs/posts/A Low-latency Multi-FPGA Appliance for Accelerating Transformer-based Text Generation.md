@@ -88,7 +88,7 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
 **C. Parallel Computing**  
 
-  GPT-2는 거대 모델 파라미터의 대량 연산을 요구하므로, 거대 모델을 여러개의 노드로 나누어 병렬 처리 하는 것이 바람직하다. GPT-2의 증가하는 디멘션으로 인해 하나의 장치는 메모리 BW와 용량 면에서 부족하다. 텍스트 생성에서는 latency 역시 중요하므로 여러 장치가 workload를 나누어 전체적인 실행 시간을 줄여아한다. 이런 부족함을 달래기 위해 병렬 연산을 최소한의 latency 증가로 극대화 할 수 있는 Model Parallelism와 Efficient Network를 채택하는 다중 장치 시스템이 필요하다.  
+  GPT-2는 거대 모델 파라미터의 대량 연산을 요구하므로, 거대 모델을 여러개의 노드로 나누어 병렬 처리 하는 것이 바람직하다. GPT-2의 증가하는 디멘션으로 인해 하나의 장치는 메모리 BW와 용량 면에서 부족하다. 텍스트 생성에서는 latency 역시 중요하므로 여러 장치가 workload를 나누어 전체적인 실행 시간을 줄여야한다. 이런 부족함을 달래기 위해 병렬 연산을 최소한의 latency 증가로 극대화 할 수 있는 Model Parallelism와 Efficient Network를 채택하는 다중 장치 시스템이 필요하다.  
 
 
 ### IV. DFX Architecture  
@@ -114,7 +114,7 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
   ![overall_DFX](../images/intra-layer.png)  
 
 
-  각 명령어 타입은 Instruction Chaining을 통해서 dependent한 명령어들은 최소한의 stalling으로 실행된다. Independent한 명령어들은 병렬적으로 처리된다. 예를 들어, compute는 데이터를 가공하고, dma는 데이터를 fetch 하고, router는 동기화를 위해 peer device에서 데이터를 가져와서 buffer를 채운다. Instruction Chaining과 Paraller Execution의 조합은 메모리와 통신 BW의 지속적인 이용을 가능하게 한다. 아래 그림은 GPT-2 decoder 층의 pseudocode를 보여준다.   
+  각 명령어 타입은 Instruction Chaining을 통해서 dependent한 명령어들은 최소한의 stalling으로 실행된다. Independent한 명령어들은 병렬적으로 처리된다. 예를 들어, compute는 데이터를 가공하고, dma는 데이터를 fetch 하고, router는 동기화를 위해 peer device에서 데이터를 가져와서 buffer를 채운다. Instruction Chaining과 Parallel Execution의 조합은 메모리와 통신 BW의 지속적인 이용을 가능하게 한다. 아래 그림은 GPT-2 decoder 층의 pseudocode를 보여준다.   
 
   ![pseudocode](../images/pseudocode.png) 
 

@@ -7,6 +7,8 @@ nav_order: 4
 
 ## Scalable Diffusion Models with Transformers  
 
+(작성 중)
+
 **Abstract**  
 트랜스포머 기반의 새로운 확산 모델이다. 일반적인 U-Net 구조의 트랜스포머가 아닌 다른 방법으로 이미지를 학습하게 했다. Gflops로 측정된 forward pass complexity를 통해 Diffusion Transformers (DiTs)의 확장성을 분석한다. 트랜스포머의 깊이/넓이나 입력 토큰 수를 증가하면서 테스트 한 결과 더 높은 Gflops를 가진 DiTs가 일관되게 낮은 FID를 갖고 있음을 확인했다. 확장성과 더불어 DiT-XL/2 모델은 ImageNet 512x512 및 256x256 벤치 마크에서 이전에 나온 모든 확산 모델을 능가한다.
 

@@ -1,7 +1,7 @@
 ---
 title: GPT 모델 서버 가속기
 layout: default
-parent: Posts
+parent: Paper Review
 nav_order: 2
 ---
 ### 논문 리뷰

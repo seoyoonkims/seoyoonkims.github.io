@@ -1,4 +1,11 @@
-< Scalable Diffusion Models with Transformers>
+---
+title: Scalable Diffusion Models with Transformers
+layout: default
+parent: Paper Review
+nav_order: 4
+---
+
+## Scalable Diffusion Models with Transformers
 
 * Abstract
 트랜스포머 기반의 새로운 확산 모델이다. 일반적인 U-Net 구조의 트랜스포머가 아닌 다른 방법으로 이미지를 학습하게 했다. 

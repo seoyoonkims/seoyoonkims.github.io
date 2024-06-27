@@ -1,4 +1,12 @@
+---
+title: DDPM
+layout: default
+parent: Paper Review
+nav_order: 3
+---
+
 ## Denoising Diffusion Probabilistic Models
+
 
 #### Abstract 
 이 논문은 diffusion probabilistic models 방법으로 높은 퀄리티의 이미지를 합성한 결과를 제시한다. Non-equilibrium thermodynamics에 영감을 받은 잠재 변수 모델의 한 종류이다. 최고의 결과는 diffusion probabilistic model과  Langevin dynamics를 이용한 denoising score matching 사이의 연결을 통해 설계된 weighted variational bound로 훈련함으로써 얻을 수 있었다. 이 모델은 자연스럽게 progressive lossy decompression을 따르며 autoregressive decoding의 일반화로 해석될 수 있다. 무조건적 CIFAR10 데이터셋에서 9.46의 Inception 점수와 3.17의 FID 점수를 기록했다. 256 * 256 LSUN 데이터셋에서는 ProgressiveGAN과 유사한 샘플 퀄리티를 달성했다.  

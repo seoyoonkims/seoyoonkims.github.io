@@ -58,6 +58,6 @@ forward process는 반대.
 
 
 ---
-### **용어 정리**
+### **용어 정리**  
 - Variational Inference: posterior 분포 $p(z \vert x)$를 다루기 쉬운 확률분포 $q(z)$로 근사하는 것
 - Parametrize: 하나의 표현식을 다른 파라미터를 사용해서 간단하게 표현하는 것 (차수 줄일 수 있음)

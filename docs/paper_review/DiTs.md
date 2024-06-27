@@ -1,5 +1,5 @@
 ---
-title: Scalable Diffusion Models with Transformers
+title: DiTs
 layout: default
 parent: Paper Review
 nav_order: 4

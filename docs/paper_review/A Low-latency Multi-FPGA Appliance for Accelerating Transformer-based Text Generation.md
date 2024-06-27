@@ -51,7 +51,7 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
   GPT-2는 Token Embedding과 LM head 사이에 N개(모델 사이즈가 결정)의 디코더 레이어를 가지고 있다. 하나의 디코더 레이어는 크게 4가지로 구분된다: Self-attention, Feed-forward Network, Layer Normalization, Residual. Self-attention은 디코더를 위한 어텐션 기법이고 트랜스포머의 주된 요소다. Query, Key, Value 행렬을 생성해서 어텐션 행렬을 구한다. Query는 현재 주어진 단어와 관련이 있고 Key와 Value는 전체 문맥의 흐름을 나타낸다. GPT-2는 H개의 독립적인 행렬 계산을 수행하기 위해 어텐션 가중치를 H개의 열로 나누는 멀티헤드 어텐션을 사용한다. H는 어텐션 헤드 개수를 나타내는 하이퍼 파라미터이며 모델 사이즈가 증가함에 따라 증가한다. 또 다른 중요한 동작은 Feed-forward Network인데, 이것은 DNN에서 흔히 사용된다. 이것은 두 개의 FC Layers와 GELU 활성화 함수로 이루어져 있다. Layer Normalization와 Residual은 Self-attention와 Feed-forward Network 주변에 위치하며 거대 모델을 fine-tune 하기 위함이다.  
 
-  주어진 Context에 따라 토큰을 생성하기 위해서 GPT-2 모델은 요약 단계외 생성 단계를 포함한다. 요약 단계는 전체 Context를 인풋으로 받기 때문에 디코더의 인풋 차원은 $\n*emb$ 이다. n은 context의 토큰 길이(갯수)이다. 참고로 1.5B 모델의 emb = 1600이다. 임베딩 벡터는 디코더로 fed 되는데 가중치 행렬 사이즈가 emb x emb 거나 더 크며 아웃풋 행렬은 초기 디멘션과 크기가 같은 n x emb이다. 아웃풋 행렬의 마지막 행만 LM head에서 처리되고 첫번째 토큰이 생성된다. 맥락을 나타내는 Key와 Value 행렬도 요약 단계에서 생성된다. 생성 단계에서 이전에 생성된 토큰이 디코더에 들어가므로 인풋 디멘션이 1 x emb 이다. 토큰 생성은 이전의 문맥에 따라 결정되므로 생성 단계는 새 인풋의 context를 Key와 Value 행렬의 행에 appending 함으로써 row demension을 1씩 늘려서 업데이트한다. 예를 들어 "Hello, my name"이 context이고 input token length가 4이면 4 x emb Key and Value 행렬이 생성되고 요약 단계 때 첫번째 output token인 "is"가 생성된다. 만약 output token length가 3이면 2번의 iterations를 더 하게 되고 Key and Value 행렬의 행이 iteration 마다 1씩 늘어난다. 그러면 디코더에서 "James"와 "."가 차례로 출력된다. 최종적으로 생성된 토큰들이 합쳐져서 "Hello, my name is James."가 되는 것이다. 주어진 Context의 길이와 아웃풋 단어들의 길이는 요약 단계와 생성 단계에서 연산의 양에 영향을 주므로 workloads에 따라 걸리는 시간이 달라진다.  
+  주어진 Context에 따라 토큰을 생성하기 위해서 GPT-2 모델은 요약 단계외 생성 단계를 포함한다. 요약 단계는 전체 Context를 인풋으로 받기 때문에 디코더의 인풋 차원은 $n \times emb$ 이다. n은 context의 토큰 길이(갯수)이다. 참고로 1.5B 모델의 $emb = 1600$이다. 임베딩 벡터는 디코더로 fed 되는데 가중치 행렬 사이즈가 $emb \times emb$ 거나 더 크며 아웃풋 행렬은 초기 디멘션과 크기가 같은 $n \times emb$ 이다. 아웃풋 행렬의 마지막 행만 LM head에서 처리되고 첫번째 토큰이 생성된다. 맥락을 나타내는 Key와 Value 행렬도 요약 단계에서 생성된다. 생성 단계에서 이전에 생성된 토큰이 디코더에 들어가므로 인풋 디멘션이 $1 \times emb$ 이다. 토큰 생성은 이전의 문맥에 따라 결정되므로 생성 단계는 새 인풋의 context를 Key와 Value 행렬의 행에 appending 함으로써 row demension을 1씩 늘려서 업데이트한다. 예를 들어 "Hello, my name"이 context이고 input token length가 4이면 $4 \times emb$ Key and Value 행렬이 생성되고 요약 단계 때 첫번째 output token인 "is"가 생성된다. 만약 output token length가 3이면 2번의 iterations를 더 하게 되고 Key and Value 행렬의 행이 iteration 마다 1씩 늘어난다. 그러면 디코더에서 "James"와 "."가 차례로 출력된다. 최종적으로 생성된 토큰들이 합쳐져서 "Hello, my name is James."가 되는 것이다. 주어진 Context의 길이와 아웃풋 단어들의 길이는 요약 단계와 생성 단계에서 연산의 양에 영향을 주므로 workloads에 따라 걸리는 시간이 달라진다.  
 
 
   **GPT-2 Workload**  
@@ -123,9 +123,9 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
   **Matrix Instructions**는 행렬-벡터 곱과 GELU나 reduce max 같은 추가적인 함수를 실행하기 위함이다. 행렬은 tiles에 로드되고 벡터들은 portions에 로드된다. 어떠한 행렬 곱들은 일련의 행렬-벡터 곱으로 계산할 수 있다.  
 
-  1) Conv1D: ```Ax+b``` 는 Query, Key, Value 행렬 생성과 Feed-forward Network에 사용된다. 이 명령어에서 가중치 행렬 A와 인풋 벡터 x, 바이어스 벡터 b가 필요하다. Conv1D는 convolutional한 면을 가지고 있는데, 그 이유는 인풋 사이즈가 최대 인풋 사이즈보다 커지면 연산이 sliding window로 수행되기 때문이다.  
+  1) Conv1D: $Ax+b$ 는 Query, Key, Value 행렬 생성과 Feed-forward Network에 사용된다. 이 명령어에서 가중치 행렬 A와 인풋 벡터 x, 바이어스 벡터 b가 필요하다. Conv1D는 convolutional한 면을 가지고 있는데, 그 이유는 인풋 사이즈가 최대 인풋 사이즈보다 커지면 연산이 sliding window로 수행되기 때문이다.  
 
-  2) MaskedMM: Masked matirx multiplication (MM)은 ```Ax```의 형태다. 이것은 Score matrix로 알려진 Query x Key^T를 계산한다. Query 행렬이 vector들로 load가 되는 점에 주목하자. masking operation은 score 행렬의 upper diagonal elements에 음의 무한대 값을 부여해서 현재 토큰이 미래 contexts의 영향을 받지 않도록 한다. Softmax와의 combination으로 MaskedMM은 lower triangular matrix를 만들고 각 행의 최댓값을 반환한다.  
+  2) MaskedMM: Masked matirx multiplication (MM)은 $Ax$의 형태다. 이것은 Score matrix로 알려진 $Query \times Key^T$를 계산한다. Query 행렬이 vector들로 load가 되는 점에 주목하자. masking operation은 score 행렬의 upper diagonal elements에 음의 무한대 값을 부여해서 현재 토큰이 미래 contexts의 영향을 받지 않도록 한다. Softmax와의 combination으로 MaskedMM은 lower triangular matrix를 만들고 각 행의 최댓값을 반환한다.  
 
   3) MM: MaskedMM에서 Masking을 뺀 것이다. LM head에서 logit을 계산하는데 사용된다. Logit은 아웃풋 임베딩 벡터를 토큰 ID로 변환하고 어텐션 레이어에서 Score x Value를 계산하는 데 사용된다.  
 

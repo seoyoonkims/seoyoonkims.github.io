@@ -27,9 +27,9 @@ Diffusion probabilistic model은 variational inference로 훈련된 parameterize
 
 확산 모델은 식 (1) 형태의 잠재 변수 모델임.
 
-Joint distribution $p_{theta}(x_{0:T})$ 이 reverse process이고 Markov chain으로 정의된다. 
+Joint distribution $p_\theta(x_{0:T})$ 이 reverse process이고 Markov chain으로 정의된다. 
 
-확산 모델이 다른 잠재 변수 모델과 구분되는 점은 posterior $q(x_{1:T}|x_{0})$ 이며 forward process에 해당함.
+확산 모델이 다른 잠재 변수 모델과 구분되는 점은 posterior $q(x_{1:T}\{|} x_{0})$ 이며 forward process에 해당함.
 
 Markov chain 형태이고 점차 가우시안 노이즈를 ${beta}$ 에 따라 더해가면서 스케줄링함. 
 

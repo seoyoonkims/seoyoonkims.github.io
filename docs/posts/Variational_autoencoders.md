@@ -39,12 +39,13 @@ $$
 2. Nonlinear Latent Variable Model  
 
 데이터 $\mathbf{x}$ 와 잠재 변수 $\mathbf{z}$ 모두 multivariate가 되어 벡터로 표현된다.
-Prior $Pr(\mathbf{z})$ 가 표준 정규분포를 따른다.
+$Pr(\mathbf{z})$ 는 표준 정규분포를 따른다.  
+
 $$
-Pr(\mathbf{z}) = N_(\mathbf{z})[0, \mathbf(I)]
+Pr(\mathbf{z}) = N_\mathbf{z}[\mathbf{0}, \mathbf{I}]
 $$
 
-$Pr(\mathbf{x} \vert \mathbf{z}, \mathbf{\phi})$ 는 평균이 $f[\mathbf{z}, \mathbf{phi}]$ 이고, 공분산이 $\mathbf{\sigma ^2}\mathbf{I}$ 인 정규분포를 따른다. 
+$Pr(\mathbf{x} \vert \mathbf{z}, \mathbf{\phi})$ 는 평균이 $f[\mathbf{z}, \mathbf{\phi}]$ 이고, 공분산이 $\mathbf{\sigma ^2}\mathbf{I}$ 인 정규분포를 따른다. 
 
 
 $$
@@ -55,7 +56,7 @@ $$
 
 $$
 Pr(\mathbf{x} \vert \mathbf{\phi}) = \int Pr(\mathbf{x} \vert \mathbf{z}, \mathbf{\phi}) \dot Pr(\mathbf{z}) d\mathbf{z}
-= \int N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \mathbf{phi}], \mathbf{\sigma ^2}\mathbf{I}] \dot N_\mathbf{z} [0, \mathbf{I} d\mathbf{z}]
+= \int N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \mathbf{\phi}], \mathbf{\sigma ^2}\mathbf{I}] \dot N_\mathbf{z} [0, \mathbf{I} d\mathbf{z}]
 $$
 
 

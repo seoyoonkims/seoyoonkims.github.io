@@ -23,7 +23,11 @@ $$
 
 Pr(x)가 복잡하면 Pr(x \vert z)와 Pr(z)로 간접적으로 나타내는 것이 상대적으로 간단할 수 있다.  
 
+- Mixture of Gaussians  
 
+$$
+Pr(x \vert z = n) = N_x [(\mu)_n, ((\sigma)_n)^2]
+$$
 
 
 

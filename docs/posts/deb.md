@@ -1,5 +1,5 @@
 ---
-title: Tetris.deb 만들기
+title: 테트리스 DEBIAN 패키지 만들기
 layout: default
 parent: Posts
 nav_order: 2
@@ -8,12 +8,11 @@ nav_order: 2
 ## Tetris.deb 파일 만들기
 
 ### Set up  
-
-Ubuntu 22.04 LTS
+> Ubuntu 22.04 LTS
 
 1. vitetris 소스 파일 다운로드  
 
-https://developers.redhat.com/blog/2019/03/18/rpm-packaging-guide-creating-rpm#ascii_based_tetris_game 에 가서 소스 파일을 다운로드 한다.
+[소스 파일](https://developers.redhat.com/blog/2019/03/18/rpm-packaging-guide-creating-rpm#ascii_based_tetris_game) 에 가서 소스 파일을 다운로드 한다.
 
 ```
 tar -xzf vitetris-0.57.tar.gz
@@ -142,7 +141,7 @@ sudo dpkg -i vitetris_0.57-1_amd64.deb
 
 **파일 계층 구조**  
 
-$(HOME)/tetris/
+\$(HOME)/tetris/
 │   ├── bin/
 │   │   └── tetris               (installed from $(prefix)/bin)
 │   ├── share/
@@ -156,4 +155,4 @@ $(HOME)/tetris/
 │   │       └── vitetris.xpm      (installed from $(pixmapdir))
 
 
-Makefile로 패키지를 빌드할 때, $(CURDIR)/debian/vitetris는 빌드 시의 임시 경로이고, 이 경로 내부의 파일 구조는 실제 시스템에 설치될 경로를 그대로 반영한다. 빌드 과정이 끝나고 패키지가 생성된 후 dpkg 또는 apt를 사용하여 설치하면, 이 임시 경로의 구조가 실제 시스템 경로로 대체된다.  
+Makefile로 패키지를 빌드할 때, \$(CURDIR)/debian/vitetris는 빌드 시의 임시 경로이고, 이 경로 내부의 파일 구조는 실제 시스템에 설치될 경로를 그대로 반영한다. 빌드 과정이 끝나고 패키지가 생성된 후 dpkg 또는 apt를 사용하여 설치하면, 이 임시 경로의 구조가 실제 시스템 경로로 대체된다.  

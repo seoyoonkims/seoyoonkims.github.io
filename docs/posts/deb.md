@@ -38,7 +38,7 @@ cd debian
 
 
 **필수 요소**   
-- debian/control: 제어 파일로 패키지에 대한 중요 정보를 제공한다.  
+- debian/control: 제어 파일로 패키지에 대한 빌드 시에 중요 정보를 제공한다.  
 
 ```
 Source: vitetris
@@ -46,8 +46,7 @@ Section: games
 Priority: optional
 Maintainer: Seoyoon <seoyoonkims@kaist.ac.kr>
 Build-Depends: debhelper-compat (= 13), gcc
-Standards-Version: 3.9.8
-Homepage: https://www.victornils.net/tetris/
+Standards-Version: 3.9.8  
 
 Package: vitetris
 Architecture: any
@@ -55,6 +54,21 @@ Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: ASCII based tetris game
  vitetris is a multiplayer ASCII-based Tetris game
 ```
+  Source: 패키지의 소스 이름  
+  Section: 패키지의 카테고리. 저장소 내에서 적절한 위치에 분류되도록 하며 admin, devel, doc, games, libs 등 다양하다.    
+  Priority: 패키지의 중요도  
+  Maintainer: 관리자 정보  
+  Build-Depends: 의존성 목록  
+  Standards-Version: Debian 매뉴얼 버전  
+
+  Package: 바이너리 패키지 이름  
+  Architecture: 패키지가 작동하는 아키텍쳐  
+  Depends: 런타임 의존성 목록  
+  Description: 패키지 설명  
+
+```Depends: ${shlibs:Depends}, ${misc:Depends}``` 는 dependency를 자동으로 계산하고 채워넣는다.  ```${shlibs}```, ```${misc}```는 각각 dpkg-shlibdeps, debhelper 도구가 사용하는 변수로, 파일에서 사용된 모든 라이브러리를 분석하고, 그에 따라 필요한 패키지를 나열한다.  
+
+  
 
 - debian/rules: 빌드 및 설치 과정을 정의한다.  
 

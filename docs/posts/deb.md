@@ -143,17 +143,18 @@ sudo dpkg -i vitetris_0.57-1_amd64.deb
 설치되고 나면, home/bin에 실행파일이 생긴 것을 확인할 수 있다.  
 
 - dpkg -i package.deb의 역할
-##### 1. 패키지 파일 열기  
-##### 2. 파일 압축 해제 및 복사  
+1. 패키지 파일 열기  
+2. 파일 압축 해제 및 복사  
 패키지에 포함된 파일들을 시스템의 적절한 위치에 복사한다.
-##### 3. 설치 스크립트 실행  
+3. 설치 스크립트 실행  
 preinst, postinst, prerm, postrm 등을 실행한다.  
-##### 4. 설치 상태 업데이트
+4. 설치 상태 업데이트
 시스템의 패키지 데이터베이스에 새로 설치된 패키지 정보를 업데이트한다.  
 
 
 **파일 계층 구조**  
 
+```
 home/tetris/  
 │   ├── bin/  
 │   │   └── tetris               (installed from $(prefix)/bin)  
@@ -166,6 +167,6 @@ home/tetris/
 │   │   │       └── licence.txt   (installed from $(docdir))  
 │   │   └── pixmaps/  
 │   │       └── vitetris.xpm      (installed from $(pixmapdir))  
+```
 
-
-Makefile로 패키지를 빌드할 때, $(CURDIR)/debian/vitetris는 빌드 시의 임시 경로이고, 이 경로 내부의 파일 구조는 실제 시스템에 설치될 경로를 그대로 반영한다. 빌드 과정이 끝나고 패키지가 생성된 후 dpkg 또는 apt를 사용하여 설치하면, 이 임시 경로의 구조가 실제 시스템 경로로 대체된다.  
+Makefile로 패키지를 빌드할 때, ```$(CURDIR)/debian/vitetris```는 빌드 시의 임시 경로이고, 이 경로 내부의 파일 구조는 실제 시스템에 설치될 경로를 그대로 반영한다. 빌드 과정이 끝나고 패키지가 생성된 후 ```dpkg``` 또는 ```apt```를 사용하여 설치하면, 이 임시 경로의 구조가 실제 시스템 경로로 대체된다.  

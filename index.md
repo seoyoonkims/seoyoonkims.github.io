@@ -22,7 +22,7 @@ Thank you for visiting my page!
 
 ## Recent Posts
 
-> 2024.07.02 [테트리스 설치 파일 만들기]()
+> 2024.07.02 [테트리스 데비안 패키지 만들기](https://seoyoonkims.github.io/docs/posts/deb/)
 > 2024.06.19 [GPT 모델 서버 가속기](https://seoyoonkims.github.io/docs/posts/A%20Low-latency%20Multi-FPGA%20Appliance%20for%20Accelerating%20Transformer-based%20Text%20Generation/)  
 > 2024.06.16 [AI-based Autonomous Rover](https://seoyoonkims.github.io/docs/posts/ee405/)  
 

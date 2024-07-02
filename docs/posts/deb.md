@@ -1,5 +1,5 @@
 ---
-title: 테트리스 DEBIAN 패키지 만들기
+title: Tetris DEBIAN 패키지 만들기
 layout: default
 parent: Posts
 nav_order: 2

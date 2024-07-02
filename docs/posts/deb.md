@@ -5,9 +5,8 @@ parent: Posts
 nav_order: 2
 ---
 
-## Tetris.deb 파일 만들기
+## 테트리스 데비안 패키지 만들기  
 
-### Set up  
 > Ubuntu 22.04 LTS
 
 **1. vitetris 소스 파일 다운로드**  

@@ -73,9 +73,9 @@ override_dh_auto_install:
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/vitetris
 ```
 
-dh는 debhelper, $@는 현재 타겟을 의미한다. %는 모든 타겟을 의미하므로, make build가 호출되면 모든 타겟에 대해 dh build가 실행된다.  
-override_dh_auto_build 타겟은 dh_auto_build의 기본 동작을 덮어쓴다. ```$(MAKE)``` 명령을 실행하여 빌드 과정을 수행하며, Makefile에 정의된 빌드 규칙을 따른다.  
-override_dh_auto_install 타겟은 dh_auto_install의 기본 동작을 덮어쓴다. ```$(MAKE) install``` 명령을 실행하여 설치 과정을 수행한. 설치 경로는 DESTDIR=$(CURDIR)/debian/vitetris로 지정되어 있다. 이 경로는 패키지 빌드 과정에서 임시 설치 경로로 사용된다.  
+```dh```는 ```debhelper```, ```$@```는 현재 타겟을 의미한다. ```%```는 모든 타겟을 의미하므로, ```make build```가 호출되면 모든 타겟에 대해 ```dh build```가 실행된다.  
+```override_dh_auto_build``` 타겟은 ```dh_auto_build```의 기본 동작을 덮어쓴다. ```$(MAKE)``` 명령을 실행하여 빌드 과정을 수행하며, Makefile에 정의된 빌드 규칙을 따른다.  
+```override_dh_auto_install``` 타겟은 ```dh_auto_install```의 기본 동작을 덮어쓴다. ```$(MAKE) install``` 명령을 실행하여 설치 과정을 수행한. 설치 경로는 ```DESTDIR=$(CURDIR)/debian/vitetris```로 지정되어 있다. 이 경로는 패키지 빌드 과정에서 임시 설치 경로로 사용된다.  
 
 
 - debian/changelog: 패키지의 변경 사항을 기록한다.    
@@ -96,6 +96,7 @@ vitetris (0.57-1) unstable; urgency=low
 prefix = $(HOME)/tetris
 # prefix = /usr/local
 ```
+
 기본으로 /usr/bin에 설치되도록 설정되어 있는데, 이를 /home/tetris로 바꿔주었다.  
 
 
@@ -145,7 +146,7 @@ sudo dpkg -i vitetris_0.57-1_amd64.deb
 ##### 1. 패키지 파일 열기  
 ##### 2. 파일 압축 해제 및 복사  
 패키지에 포함된 파일들을 시스템의 적절한 위치에 복사한다.
-##### 3.설치 스크립트 실행  
+##### 3. 설치 스크립트 실행  
 preinst, postinst, prerm, postrm 등을 실행한다.  
 ##### 4. 설치 상태 업데이트
 시스템의 패키지 데이터베이스에 새로 설치된 패키지 정보를 업데이트한다.  

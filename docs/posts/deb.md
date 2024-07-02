@@ -11,6 +11,7 @@ nav_order: 2
 
 ![tetris](../images/tetris.png)  
 
+---
 **1. vitetris 소스 파일 다운로드**  
 
 [Download](https://developers.redhat.com/blog/2019/03/18/rpm-packaging-guide-creating-rpm#ascii_based_tetris_game) 에 가서 소스 파일을 다운로드 한다.
@@ -20,13 +21,15 @@ tar -xzf vitetris-0.57.tar.gz
 ```
 압축을 풀어준다.
 
+---
+
 **2. 필요한 툴 설치**  
 
 ```
 sudo apt-get update
 sudo apt-get install dpkg-dev debhelper
 ```
-
+---
 
 **3. DEB 패키지 디렉토리 구조 생성**  
 
@@ -101,6 +104,7 @@ vitetris (0.57-1) unstable; urgency=low
 
  -- Seoyoon Kim <seoyoonkims@kaist.ac.kr>  Mon, 01 Jul 2024 00:00:00 +0000
  ```
+---
 
 **4. 경로 설정**  
 
@@ -133,7 +137,7 @@ datadir = $(datarootdir)/allegro
 prefix만 수정해주면 나머지는 자동으로 수정된다.  
 바이너리 파일은 bindir인 /home/tetris/bin에 생성될 것이다.  
 
-
+---
 
 **5. 소스 빌드 및 패키지화**  
 
@@ -146,7 +150,7 @@ debian/rules를 참고하여 빌드 및 임시 경로에 설치 과정 시뮬레
 권한 문제가 생기면 ```chmod 777 <파일명>``` 해준다.  
 빌드에 성공하면 ../에 vitetris_0.57-1_amd64.deb가 생성된다.  
 
-
+---
 
 **6. 패키지 설치**  
 
@@ -165,6 +169,7 @@ preinst, postinst, prerm, postrm 등을 실행한다.
 4. 설치 상태 업데이트
 시스템의 패키지 데이터베이스에 새로 설치된 패키지 정보를 업데이트한다.  
 
+---
 
 **파일 계층 구조**  
 

@@ -7,7 +7,9 @@ nav_order: 2
 
 ## 테트리스 데비안 패키지 만들기  
 
-> Ubuntu 22.04 LTS
+> Ubuntu 22.04 LTS  
+
+![tetris](../images/tetris.png)  
 
 **1. vitetris 소스 파일 다운로드**  
 

@@ -74,9 +74,7 @@ override_dh_auto_install:
 ```
 
 dh는 debhelper, $@는 현재 타겟을 의미한다. %는 모든 타겟을 의미하므로, make build가 호출되면 모든 타겟에 대해 dh build가 실행된다.  
-
 override_dh_auto_build 타겟은 dh_auto_build의 기본 동작을 덮어쓴다. ```$(MAKE)``` 명령을 실행하여 빌드 과정을 수행하며, Makefile에 정의된 빌드 규칙을 따른다.  
-
 override_dh_auto_install 타겟은 dh_auto_install의 기본 동작을 덮어쓴다. ```$(MAKE) install``` 명령을 실행하여 설치 과정을 수행한. 설치 경로는 DESTDIR=$(CURDIR)/debian/vitetris로 지정되어 있다. 이 경로는 패키지 빌드 과정에서 임시 설치 경로로 사용된다.  
 
 
@@ -129,8 +127,10 @@ cd ..
 dpkg-buildpackage -us -uc
 ```
 
+debian/rules를 참고하여 빌드 및 임시 경로에 설치 과정 시뮬레이션을 한다.  
 권한 문제가 생기면 ```chmod 777 <파일명>``` 해준다.  
 빌드에 성공하면 ../에 vitetris_0.57-1_amd64.deb가 생성된다.  
+
 
 
 **6. 패키지 설치**  
@@ -139,7 +139,16 @@ dpkg-buildpackage -us -uc
 sudo dpkg -i vitetris_0.57-1_amd64.deb
 ```
 
-설치되고 나면, home/bin에 실행파일이 생긴 것을 확인할 수 있다.
+설치되고 나면, home/bin에 실행파일이 생긴 것을 확인할 수 있다.  
+
+- dpkg -i package.deb의 역할
+##### 1. 패키지 파일 열기  
+##### 2. 파일 압축 해제 및 복사  
+패키지에 포함된 파일들을 시스템의 적절한 위치에 복사한다.
+##### 3.설치 스크립트 실행  
+preinst, postinst, prerm, postrm 등을 실행한다.  
+##### 4. 설치 상태 업데이트
+시스템의 패키지 데이터베이스에 새로 설치된 패키지 정보를 업데이트한다.  
 
 
 **파일 계층 구조**  

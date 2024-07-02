@@ -1,5 +1,5 @@
 ---
-title: TETRIS DEBIAN 패키지 만들기
+title: Tetris Debian Package
 layout: default
 parent: Posts
 nav_order: 2

@@ -143,7 +143,7 @@ sudo dpkg -i vitetris_0.57-1_amd64.deb
 
 **파일 계층 구조**  
 
-(HOME)/tetris/  
+home/tetris/  
 │   ├── bin/  
 │   │   └── tetris               (installed from $(prefix)/bin)  
 │   ├── share/  
@@ -157,4 +157,4 @@ sudo dpkg -i vitetris_0.57-1_amd64.deb
 │   │       └── vitetris.xpm      (installed from $(pixmapdir))  
 
 
-Makefile로 패키지를 빌드할 때, (CURDIR)/debian/vitetris는 빌드 시의 임시 경로이고, 이 경로 내부의 파일 구조는 실제 시스템에 설치될 경로를 그대로 반영한다. 빌드 과정이 끝나고 패키지가 생성된 후 dpkg 또는 apt를 사용하여 설치하면, 이 임시 경로의 구조가 실제 시스템 경로로 대체된다.  
+Makefile로 패키지를 빌드할 때, $(CURDIR)/debian/vitetris는 빌드 시의 임시 경로이고, 이 경로 내부의 파일 구조는 실제 시스템에 설치될 경로를 그대로 반영한다. 빌드 과정이 끝나고 패키지가 생성된 후 dpkg 또는 apt를 사용하여 설치하면, 이 임시 경로의 구조가 실제 시스템 경로로 대체된다.  

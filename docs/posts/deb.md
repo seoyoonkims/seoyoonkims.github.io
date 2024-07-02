@@ -1,3 +1,9 @@
+---
+title: Tetris.deb 만들기
+layout: default
+parent: Posts
+nav_order: 2
+---
 
 ## Tetris.deb 파일 만들기
 

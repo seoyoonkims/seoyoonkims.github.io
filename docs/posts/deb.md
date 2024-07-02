@@ -19,9 +19,8 @@ nav_order: 2
 ```
 tar -xzf vitetris-0.57.tar.gz
 ```
-압축을 풀어준다.
+압축을 풀어준다.  
 
----
 
 **2. 필요한 툴 설치**  
 
@@ -29,7 +28,7 @@ tar -xzf vitetris-0.57.tar.gz
 sudo apt-get update
 sudo apt-get install dpkg-dev debhelper
 ```
----
+
 
 **3. DEB 패키지 디렉토리 구조 생성**  
 
@@ -40,8 +39,9 @@ cd debian
 ```
 
 
-**필수 요소**   
-- debian/control: 제어 파일로 패키지에 대한 빌드 시에 중요 정보를 제공한다.  
+***필수 요소**   
+
+**debian/control:** 제어 파일로 패키지에 대한 빌드 시에 중요 정보를 제공한다.  
 
 ```
 Source: vitetris
@@ -57,23 +57,23 @@ Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: ASCII based tetris game
  vitetris is a multiplayer ASCII-based Tetris game
 ```
-  Source: 패키지의 소스 이름  
-  Section: 패키지의 카테고리. 저장소 내에서 적절한 위치에 분류되도록 하며 admin, devel, doc, games, libs 등 다양하다.    
-  Priority: 패키지의 중요도  
-  Maintainer: 관리자 정보  
-  Build-Depends: 의존성 목록  
-  Standards-Version: Debian 매뉴얼 버전  
+> Source: 패키지의 소스 이름  
+> Section: 패키지의 카테고리. 저장소 내에서 적절한 위치에 분류되도록 하며 admin, devel, doc, games, libs 등 다양하다.    
+> Priority: 패키지의 중요도  
+> Maintainer: 관리자 정보  
+> Build-Depends: 의존성 목록  
+> Standards-Version: Debian 매뉴얼 버전  
 
-  Package: 바이너리 패키지 이름  
-  Architecture: 패키지가 작동하는 아키텍쳐  
-  Depends: 런타임 의존성 목록  
-  Description: 패키지 설명  
+> Package: 바이너리 패키지 이름  
+> Architecture: 패키지가 작동하는 아키텍쳐  
+> Depends: 런타임 의존성 목록  
+> Description: 패키지 설명  
 
 ```Depends: ${shlibs:Depends}, ${misc:Depends}``` 는 dependency를 자동으로 계산하고 채워넣는다.  ```${shlibs}```, ```${misc}```는 각각 dpkg-shlibdeps, debhelper 도구가 사용하는 변수로, 파일에서 사용된 모든 라이브러리를 분석하고, 그에 따라 필요한 패키지를 나열한다.  
 
   
 
-- debian/rules: 빌드 및 설치 과정을 정의한다.  
+**debian/rules:** 빌드 및 설치 과정을 정의한다.  
 
 ```
 #!/usr/bin/make -f
@@ -95,7 +95,7 @@ override_dh_auto_install:
 ```override_dh_auto_install``` 타겟은 ```dh_auto_install```의 기본 동작을 덮어쓴다. ```$(MAKE) install``` 명령을 실행하여 설치 과정을 수행한. 설치 경로는 ```DESTDIR=$(CURDIR)/debian/vitetris```로 지정되어 있다. 이 경로는 패키지 빌드 과정에서 임시 설치 경로로 사용된다.  
 
 
-- debian/changelog: 패키지의 변경 사항을 기록한다.    
+**debian/changelog:** 패키지의 변경 사항을 기록한다.    
 
 ```
 vitetris (0.57-1) unstable; urgency=low
@@ -150,7 +150,7 @@ debian/rules를 참고하여 빌드 및 임시 경로에 설치 과정 시뮬레
 권한 문제가 생기면 ```chmod 777 <파일명>``` 해준다.  
 빌드에 성공하면 ../에 vitetris_0.57-1_amd64.deb가 생성된다.  
 
----
+
 
 **6. 패키지 설치**  
 

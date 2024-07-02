@@ -10,7 +10,7 @@ nav_order: 2
 ### Set up  
 > Ubuntu 22.04 LTS
 
-1. vitetris 소스 파일 다운로드  
+**1. vitetris 소스 파일 다운로드**  
 
 [소스 파일](https://developers.redhat.com/blog/2019/03/18/rpm-packaging-guide-creating-rpm#ascii_based_tetris_game) 에 가서 소스 파일을 다운로드 한다.
 
@@ -19,7 +19,7 @@ tar -xzf vitetris-0.57.tar.gz
 ```
 
 
-2. 필요한 툴 설치  
+**2. 필요한 툴 설치**  
 
 ```
 sudo apt-get update
@@ -27,7 +27,7 @@ sudo apt-get install dpkg-dev debhelper
 ```
 
 
-3. DEB 패키지 디렉토리 구조 생성  
+**3. DEB 패키지 디렉토리 구조 생성**  
 
 ```
 cd vitetris-0.57
@@ -89,7 +89,7 @@ vitetris (0.57-1) unstable; urgency=low
  -- Seoyoon Kim <seoyoonkims@kaist.ac.kr>  Mon, 01 Jul 2024 00:00:00 +0000
  ```
 
-4. 경로 설정  
+**4. 경로 설정**  
 
 - config.mk 파일에 가서 prefix를 수정하면 원하는 곳에 설치되도록 할 수 있다.  
 
@@ -121,7 +121,7 @@ prefix만 수정해주면 나머지는 자동으로 수정된다.
 
 
 
-5. 소스 빌드 및 패키지화  
+**5. 소스 빌드 및 패키지화**  
 
 ```
 cd ..
@@ -132,11 +132,13 @@ dpkg-buildpackage -us -uc
 빌드에 성공하면 ../에 vitetris_0.57-1_amd64.deb가 생성된다.  
 
 
-6. 패키지 설치  
+**6. 패키지 설치**  
 
 ```
 sudo dpkg -i vitetris_0.57-1_amd64.deb
 ```
+
+설치되고 나면, home/bin에 실행파일이 생긴 것을 확인할 수 있다.
 
 
 **파일 계층 구조**  

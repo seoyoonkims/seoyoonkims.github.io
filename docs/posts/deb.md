@@ -13,12 +13,12 @@ nav_order: 2
 
 **1. vitetris 소스 파일 다운로드**  
 
-[소스 파일](https://developers.redhat.com/blog/2019/03/18/rpm-packaging-guide-creating-rpm#ascii_based_tetris_game) 에 가서 소스 파일을 다운로드 한다.
+[Download](https://developers.redhat.com/blog/2019/03/18/rpm-packaging-guide-creating-rpm#ascii_based_tetris_game) 에 가서 소스 파일을 다운로드 한다.
 
 ```
 tar -xzf vitetris-0.57.tar.gz
 ```
-
+압축을 풀어준다.
 
 **2. 필요한 툴 설치**  
 

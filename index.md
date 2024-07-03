@@ -25,7 +25,7 @@ Thank you for visiting my page!
 > 2024.06.16 [AI-based Autonomous Rover](https://seoyoonkims.github.io/docs/posts/ee405/)  
 
 ## Paper Review  
-> 2024.06.19 [GPT 모델 서버 가속기](https://seoyoonkims.github.io/docs/paper_review/A%20Low-latency%20Multi-FPGA%20Appliance%20for%20Accelerating%20Transformer-based%20Text%20Generation/)  
+> 2024.06.19 [DFX](https://seoyoonkims.github.io/docs/paper_review/A%20Low-latency%20Multi-FPGA%20Appliance%20for%20Accelerating%20Transformer-based%20Text%20Generation/)  
 
 
 

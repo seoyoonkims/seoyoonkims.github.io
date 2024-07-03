@@ -1,5 +1,5 @@
 ---
-title: GPT 모델 서버 가속기
+title: DFX
 layout: default
 parent: Paper Review
 nav_order: 2

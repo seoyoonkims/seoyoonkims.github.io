@@ -92,7 +92,7 @@ override_dh_auto_install:
 
 ```dh```는 ```debhelper```, ```$@```는 현재 타겟을 의미한다. ```%```는 모든 타겟을 의미하므로, ```make build```가 호출되면 모든 타겟에 대해 ```dh build```가 실행된다.  
 ```override_dh_auto_build``` 타겟은 ```dh_auto_build```의 기본 동작을 덮어쓴다. ```$(MAKE)``` 명령을 실행하여 빌드 과정을 수행하며, Makefile에 정의된 빌드 규칙을 따른다.  
-```override_dh_auto_install``` 타겟은 ```dh_auto_install```의 기본 동작을 덮어쓴다. ```$(MAKE) install``` 명령을 실행하여 설치 과정을 수행한다. 설치 경로는 ```DESTDIR=$(CURDIR)/debian/vitetris```로 지정되어 있다. 이 경로는 패키지 빌드 과정에서 임시 설치 경로로 사용된다.  
+```override_dh_auto_install``` 타겟은 ```dh_auto_install```의 기본 동작을 덮어쓴다. ```$(MAKE) install``` 명령을 실행하여 설치 과정을 수행한다. 설치 경로는 ```DESTDIR=$(CURDIR)/debian/vitetris```로 지정되어 있다. 이 경로는 패키지 빌드 과정에서 임시 설치 경로로 사용된다. ```DESTDIR```는 실제 시스템 경로의 ```/```를 대체하고 .deb 파일을 dpkg로 설치하면 임시 경로의 파일들이 실제 경로로 옮겨진다.  
 
 
 **debian/changelog:** 패키지의 변경 사항을 기록한다.    

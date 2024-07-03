@@ -130,6 +130,16 @@ datadir = $(datarootdir)/allegro
 prefix만 수정해주면 나머지는 자동으로 수정된다.  
 바이너리 파일은 bindir인 /home/tetris/bin에 생성될 것이다.  
 
+
+
+```
+build: src/src-conf.mk
+	cd src; $(MAKE) tetris
+	mv -f src/tetris$(EXE) $(PROGNAME)
+	@echo stripping symbols to reduce program size:
+	-strip --strip-all $(PROGNAME)
+```
+
 ```
 install: $(PROGNAME)
 	$(INSTALL) -d $(DESTDIR)$(prefix)

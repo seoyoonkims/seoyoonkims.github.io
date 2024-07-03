@@ -111,11 +111,12 @@ vitetris (0.57-1) unstable; urgency=low
 - config.mk 파일에 가서 prefix를 수정하면 원하는 곳에 설치되도록 할 수 있다.  
 
 ```
-prefix = $(HOME)/tetris
-# prefix = /usr/local
+prefix = /home/tetris
+# prefix = /usr
 ```
 
 기본으로 /usr/bin에 설치되도록 설정되어 있는데, 이를 /home/tetris로 바꿔주었다.  
+어떤 경로에서도 실행하고 싶으면 /usr/bin에 바이너리 파일이 있어야 한다.  
 
 
 - Makefile의 install에서 다음 코드를 추가하여 설치 전에 /home/tetris 디렉토리가 생성되도록 한다.

@@ -162,7 +162,10 @@ install: $(PROGNAME)
 
 ```$(INSTALL) -m755 $(PROGNAME) $(DESTDIR)$(bindir)```는 ```$(PRONAME)``` 파일을 ```$(DESTDIR)$(bindir)``` 디렉토리에 복사하고, 권한을 755로 설정한다.  
 
-
+```
+tetris: $(OBJS) libs ../config.mk
+	$(CC) -o tetris $(OBJS) game.a $(menuext_lib) menu.a $(netw_lib) input.a draw.a textgfx.a $(LDFLAGS) $(LDLIBS)
+```
 
 ---
 

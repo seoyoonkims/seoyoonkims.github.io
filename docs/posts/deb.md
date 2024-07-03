@@ -113,20 +113,6 @@ vitetris (0.57-1) unstable; urgency=low
 ```
 prefix = /home/tetris
 # prefix = /usr
-```
-
-기본으로 /usr/bin에 설치되도록 설정되어 있는데, 이를 /home/tetris로 바꿔주었다.  
-어떤 경로에서도 실행하고 싶으면 /usr/bin에 바이너리 파일이 있어야 한다.  
-
-
-- Makefile의 install에서 다음 코드를 추가하여 설치 전에 /home/tetris 디렉토리가 생성되도록 한다.
-
-```
-install: $(PROGNAME)
-	$(INSTALL) -d $(DESTDIR)$(prefix)
-```
-
-```
 bindir = $(prefix)/bin
 datarootdir = $(prefix)/share
 docdir     = $(datarootdir)/doc/vitetris
@@ -135,8 +121,38 @@ desktopdir = $(datarootdir)/applications
 datadir = $(datarootdir)/allegro
 ```
 
+기본으로 /usr/bin에 설치되도록 설정되어 있는데, 이를 /home/tetris로 바꿔주었다.  
+어떤 경로에서도 실행하고 싶으면 /usr/bin에 바이너리 파일이 있어야 한다.  
+
+
+- Makefile의 install에서 ```$(INSTALL) -d $(DESTDIR)$(prefix)```를 추가하여 설치 전에 /home/tetris 디렉토리가 생성되도록 한다.
+
 prefix만 수정해주면 나머지는 자동으로 수정된다.  
 바이너리 파일은 bindir인 /home/tetris/bin에 생성될 것이다.  
+
+```
+install: $(PROGNAME)
+	$(INSTALL) -d $(DESTDIR)$(prefix)
+	$(INSTALL) -d $(DESTDIR)$(bindir) $(DESTDIR)$(docdir)
+	$(INSTALL) -m755 $(PROGNAME) $(DESTDIR)$(bindir)
+	$(INSTALL) -m644 README licence.txt $(DESTDIR)$(docdir)
+	if [ -n "$(pixmapdir)" ]; then \
+  $(INSTALL) -d $(DESTDIR)$(pixmapdir) && \
+  $(INSTALL) -m644 vitetris.xpm $(DESTDIR)$(pixmapdir); fi
+	if [ -n "$(desktopdir)" ]; then \
+  $(INSTALL) -d $(DESTDIR)$(desktopdir) && \
+  $(INSTALL) -m644 vitetris.desktop $(DESTDIR)$(desktopdir); fi
+	if [ -n "$(ALLEGRO)" ]; then \
+  $(INSTALL) -d $(DESTDIR)$(datadir) && \
+  $(INSTALL) -m644 pc8x16.fnt $(DESTDIR)$(datadir); fi
+	@echo Done.
+	@echo You may also wish to create the system-wide highscore file
+	@echo 'with "make install-hiscores"'.
+```
+
+```$(INSTALL) -m755 $(PROGNAME) $(DESTDIR)$(bindir)```는 ```$(PRONAME)``` 파일을 ```$(DESTDIR)$(bindir)``` 디렉토리에 복사하고, 권한을 755로 설정한다.  
+
+
 
 ---
 

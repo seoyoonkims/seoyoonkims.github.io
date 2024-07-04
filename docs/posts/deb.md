@@ -45,11 +45,11 @@ Overall Structure
 
 ```
 vitetris 
-│   ├── debian
+│   ├── debian/
 |   |   ├── control
 |   |   ├── rules
 │   │   └── changelog
-│   ├── src
+│   ├── src/
 |   |   └── ...
 |   ├── Makefile
 |   ├── config.mk

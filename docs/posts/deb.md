@@ -41,6 +41,21 @@ cd debian
 
 ***필수 요소**   
 
+Overall Structure  
+
+```
+vitetris 
+│   ├── debian
+|   |   ├── control
+|   |   ├── rules
+│   │   └── changelog
+│   ├── src
+|   |   └── ...
+|   ├── Makefile
+|   ├── config.mk
+...
+```
+
 **debian/control:** 제어 파일로 패키지에 대한 빌드 시에 중요 정보를 제공한다.  
 
 ```

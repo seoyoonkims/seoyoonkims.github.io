@@ -5,6 +5,8 @@ parent: Posts
 nav_order: 4
 ---
 
+<span style = "color: red"> red </span>
+<span style = 'background-color: #fff5b1'> 형광팬 </span>
 
 **Bayes' Filter**  
 

@@ -137,8 +137,7 @@ datadir = $(datarootdir)/allegro
 ```
 
 기본으로 /usr/bin에 설치되도록 설정되어 있는데, 이를 /home/tetris로 바꿔주었다.  
-어떤 경로에서도 실행하고 싶으면 /usr/bin에 바이너리 파일이 있어야 한다.  
-
+어떤 경로에서도 실행하고 싶으면 ```~/.bashrc```에 ```PATH=/home/tetris/bin:$PATH```를 추가해준다.  
 
 - Makefile의 install에서 ```$(INSTALL) -d $(DESTDIR)$(prefix)```를 추가하여 설치 전에 /home/tetris 디렉토리가 생성되도록 한다.
 

@@ -43,14 +43,14 @@ Update Step: $p(x_t \vert z_{1:t}, u_{1:t}) = \eta p(z_t \vert x_t) p(x_t \vert 
 - Prior follows a Gaussian distribution  
 $p(x_0) ~ N(\mu _0, \sigma _0)$
 
-- Process model $p(x_t | x_{t-1}, u_t)$ is linear with additive Gaussian white noise
+- Process model $p(x_t \vert x_{t-1}, u_t)$ is linear with additive Gaussian white noise
 
 $$
 x_t = A_t x_{t-1} + B_t u_t + n_t
 n_t ~ N(0, Q_t)
 $$
 
-- Measurement model $p(z_t | x_t)$ is linear with additive Gaussian white noise
+- Measurement model $p(z_t \vert x_t)$ is linear with additive Gaussian white noise
 
 $$
 z_t = C_t x_t + v_t

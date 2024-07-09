@@ -5,27 +5,26 @@ parent: Posts
 nav_order: 4
 ---
 
-<span style="color:red"> red </span>
-<span style="color:#ffd33d"> yellow </span>
-<span style="color:blue"> blue </span>
-<span style="color:brown"> brown </span>
-<span style="color:orange"> orange </span>
-<span style="color:green"> green </span>
-<span style="color:violet"> violet </span>
-<span style="color:yellowgreen"> yellowgreen </span>
-<span style="color:blueviolet"> blueviolet </span>
-<span style="color:gray"> gray</span>
-<span style="color:indigo"> indigo </span>
-
-<span style="background-color:#fff5b1"> 노란형광펜 </span>
-<span style="background-color:#FFE6E6"> 빨강형광펜 </span>
-<span style="background-color:#E6E6FA"> 보라형광펜 </span>
-<span style="background-color:#C0FFFF"> 파랑형광펜 </span>
-<span style="background-color:#FFFFF0"> 노란형광펜 </span>
-<span style="background-color:#F5F5F5"> 회색형광펜 </span>
-<span style="background-color:#DCFFE4"> 초록형광펜 </span>
+칼만 필터는 루돌프 칼만이 개발한 제어 알고리즘으로, 노이즈가 포함된 관측값을 바탕으로 선형 시스템의 상태를 추정하는 재귀 필터이다.  
 
 
+**Markov Property**  
+
+Definition: Future state of the system is conditionally independent of the past states given the current state  
+
+=> State가 완전하기 위해서는 미래를 예측하는데 필요한 정보들만 갖고 있으면 된다. 과거의 정보나 독립적인 정보들은 필요하지 않다. 
+
+이를 식으로 보면,
+
+$$
+p(x_{t+1} \vert x_{0:t}, z_{0:t}, u_{0:t}) = p(x_{t+1} \vert x_t, z_t, u_t)  
+
+p(x_{t+1} \vert x_{0:t}, z_{0:t-1}, u_{0:t}) = p(x_{t+1} \vert x_t, u_t)  
+
+p(z_t \vert x_{0:t}, u_{0:t}) = p(z_t \vert x_t)  
+$$
+
+![Markov](../images/markov.png)
 
 
 **Bayes' Filter**  
@@ -56,3 +55,4 @@ $$
 z_t = C_t x_t + v_t  
 v_t \sim N(0, R_t)
 $$
+

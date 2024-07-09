@@ -21,7 +21,7 @@ Thank you for visiting my page!
 ---
 
 ## Recent Posts
-> 2024.07.02 [Tetris Debian Package](https://seoyoonkims.github.io/docs/posts/deb/)  
+> 2024.07.02 [Tetris Debian Package](https://seoyoonkims.github.io/docs/posts/Debian/)  
 > 2024.06.16 [AI-based Autonomous Rover](https://seoyoonkims.github.io/docs/posts/ee405/)  
 
 ## Paper Review  

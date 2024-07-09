@@ -31,8 +31,8 @@ nav_order: 4
 **Bayes' Filter**  
 
 Prior: $p(x_0)$  
-Process model: $p(x_t | x_t-1, u_t)$  
+Process model: $p(x_t | x_{t-1}, u_t)$  
 Measurement model: $(z_t | x_t)$  
 
-Prediction Step: $p(x_t \vert z_1:t-1, u_1:t) = \int p(x_t \vert x_t-1, u_t) p(x_t-1 \vert z_1:t-1, u_1:t) dx_t-1$  
+Prediction Step: $p(x_t \vert z_1:t-1, u_1:t) = \int p(x_t \vert x_{t-1}, u_t) p(x_{t-1} \vert z_1:t-1, u_1:t) dx_{t-1}$  
 

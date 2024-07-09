@@ -21,10 +21,10 @@ Definition: Future state of the system is conditionally independent of the past 
 
 $$
 p(x_{t+1} \vert x_{0:t}, z_{0:t}, u_{0:t}) = p(x_{t+1} \vert x_t, z_t, u_t)  
-$$
+$$  
 $$
 p(x_{t+1} \vert x_{0:t}, z_{0:t-1}, u_{0:t}) = p(x_{t+1} \vert x_t, u_t)  
-$$
+$$  
 $$
 p(z_t \vert x_{0:t}, u_{0:t}) = p(z_t \vert x_t)  
 $$

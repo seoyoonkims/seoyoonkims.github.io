@@ -5,10 +5,13 @@ parent: Posts
 nav_order: 4
 ---
 
+## 칼만 필터 원리 & 구현  
+
+
 칼만 필터는 루돌프 칼만이 개발한 제어 알고리즘으로, 노이즈가 포함된 관측값을 바탕으로 선형 시스템의 상태를 추정하는 재귀 필터이다.  
 
 
-**Markov Property**  
+**1. Markov Property**  
 
 Definition: Future state of the system is conditionally independent of the past states given the current state  
 
@@ -27,7 +30,7 @@ $$
 ![Markov](../images/markov.png)
 
 
-**Bayes' Filter**  
+**2. Bayes' Filter**  
 
 Prior: $p(x_0)$  
 Process model: $p(x_t | x_{t-1}, u_t)$  
@@ -37,8 +40,10 @@ Prediction Step: $p(x_t \vert z_{1:t-1}, u_{1:t}) = \int p(x_t \vert x_{t-1}, u_
 
 Update Step: $p(x_t \vert z_{1:t}, u_{1:t}) = \eta p(z_t \vert x_t) p(x_t \vert z_{1:t-1}, u_{1:t})$
 
+$\eta$ 는 marginal distribution 이다.  
 
-**Assumptions**  
+
+**3. Assumptions**  
 - Prior follows a Gaussian distribution  
 $p(x_0) \sim N(\mu _0, \sigma _0)$
 

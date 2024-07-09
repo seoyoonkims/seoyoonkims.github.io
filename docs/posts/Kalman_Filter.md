@@ -5,7 +5,7 @@ parent: Posts
 nav_order: 4
 ---
 
-## 칼만 필터 원리 & 구현  
+## **칼만 필터 원리 & 구현**  
 
 
 칼만 필터는 루돌프 칼만이 개발한 제어 알고리즘으로, 노이즈가 포함된 관측값을 바탕으로 선형 시스템의 상태를 추정하는 재귀 필터이다.  
@@ -15,15 +15,17 @@ nav_order: 4
 
 Definition: Future state of the system is conditionally independent of the past states given the current state  
 
-=> State가 완전하기 위해서는 미래를 예측하는데 필요한 정보들만 갖고 있으면 된다. 과거의 정보나 독립적인 정보들은 필요하지 않다. 
+즉, State가 완전하기 위해서는 미래를 예측하는데 필요한 정보들만 갖고 있으면 된다. 과거의 정보나 독립적인 정보들은 필요하지 않다. 
 
 이를 식으로 보면,
 
 $$
 p(x_{t+1} \vert x_{0:t}, z_{0:t}, u_{0:t}) = p(x_{t+1} \vert x_t, z_t, u_t)  
-
+$$
+$$
 p(x_{t+1} \vert x_{0:t}, z_{0:t-1}, u_{0:t}) = p(x_{t+1} \vert x_t, u_t)  
-
+$$
+$$
 p(z_t \vert x_{0:t}, u_{0:t}) = p(z_t \vert x_t)  
 $$
 

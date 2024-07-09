@@ -51,6 +51,8 @@ $p(x_0) \sim N(\mu _0, \sigma _0)$
 
 $$
 x_t = A_t x_{t-1} + B_t u_t + n_t  
+$$
+$$
 n_t \sim N(0, Q_t)
 $$
 
@@ -58,6 +60,8 @@ $$
 
 $$
 z_t = C_t x_t + v_t  
+$$
+$$
 v_t \sim N(0, R_t)
 $$
 

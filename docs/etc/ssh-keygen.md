@@ -1,7 +1,7 @@
 ---
 title: ssh keygen
 layout: default
-parent: Posts
+parent: etc
 nav_order: 2
 ---
 

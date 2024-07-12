@@ -1,13 +1,13 @@
 ---
 title: ssh keygen
 layout: default
-parent: etc
+parent: ETC
 nav_order: 2
 ---
 
-1. mac -> server  
+**1. mac -> server**   
  
-(mac mini)  
+<mac mini>  
  
 ssh-keygen -t rsa  
 하면 .ssh에 id_rsa id_rsa.pub 가 생성됨  
@@ -16,7 +16,7 @@ cd .ssh
 cat id_rsa.pub  
 하면 public code가 나오고 이걸 복사해둔다.  
  
-(server)  
+<server>  
  
 cd .ssh/  
 vi authorized_keys
@@ -24,9 +24,9 @@ vi authorized_keys
  
  
  
-2. server -> git  
+**2. server -> git**  
  
-(server)  
+<server>  
  
 ssh-keygen  
  
@@ -34,7 +34,7 @@ cd .ssh/
 cat id_rsa.pub  
 출력된 코드 복사  
  
-(git)
+<GitHub>
  
 settings > SSH and GPG keys 에 들어간다
  

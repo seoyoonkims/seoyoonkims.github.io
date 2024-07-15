@@ -5,9 +5,11 @@ parent: etc
 nav_order: 1
 ---
 
-**1. mac -> server**   
+## 비밀번호 없이 서버 및 깃허브 SSH로 접속하는 법
+
+### 1. mac -> server    
  
-- mac mini  
+**mac mini**  
 
 ```
 ssh-keygen -t rsa  
@@ -20,7 +22,7 @@ cat id_rsa.pub
 ```
 하면 public code가 나오고 이걸 복사해둔다.  
  
-- server  
+**server**  
  
 ```
 cd .ssh/  
@@ -30,9 +32,9 @@ vi authorized_keys
  
  
  
-**2. server -> git**  
+### 2. server -> GitHub    
  
-- server  
+**server**  
 
 ```
 ssh-keygen  
@@ -41,7 +43,7 @@ cat id_rsa.pub
 ``` 
 출력된 코드 복사  
  
-- GitHub
+**GitHub**
  
 settings > SSH and GPG keys 에 들어간다
  

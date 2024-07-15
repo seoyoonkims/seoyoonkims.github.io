@@ -1,3 +1,9 @@
+---
+title: DiTs
+layout: default
+parent: Paper Review
+nav_order: 4
+---
 
 ## Scalable Diffusion Models with Transformers  
 

@@ -1,3 +1,9 @@
+---
+title: DFX
+layout: default
+parent: Paper Review
+nav_order: 1
+---
 
 ### 논문 리뷰
 

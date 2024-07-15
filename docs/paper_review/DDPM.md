@@ -1,4 +1,9 @@
-
+---
+title: DDPM
+layout: default
+parent: Paper Review
+nav_order: 3
+---
 
 ## **Denoising Diffusion Probabilistic Models**
 

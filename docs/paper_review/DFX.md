@@ -1,9 +1,4 @@
----
-title: DFX
-layout: default
-parent: Paper Review
-nav_order: 2
----
+
 ### 논문 리뷰
 
 ## DFX: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation  

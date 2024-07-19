@@ -9,3 +9,4 @@ nav_order: 2
 
 ## Tender: Accelerating Large Language Models via Tensor Decomposition and Runtime Requantization  
 
+[Tender PPT](https://github.com/seoyoonkims/seoyoonkims.github.io/blob/main/docs/pdf/Tender_PPT.pdf) 

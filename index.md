@@ -17,13 +17,10 @@ South Korea
 Thank you for visiting my page!  
 
 
-
----
-
 ## Contact
 
 > Email: <seoyoonkims@kaist.ac.kr>  
-> Github: [GitHub][Github]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
+> Github: <https://github.com/seoyoonkims>
 
 ## Research Interests
 
@@ -55,8 +52,3 @@ Thank you for visiting my page!
 > 2024.07.19 [Tender: Accelerating Large Language Models via Tensor Decomposition and Runtime Requantization](https://seoyoonkims.github.io/docs/paper_review/Tender/)  
 > 2024.06.19 [DFX: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation](https://seoyoonkims.github.io/docs/paper_review/DFX/)  
 
-
-{: .note }
-
-
-[Github]: https://github.com/seoyoonkims

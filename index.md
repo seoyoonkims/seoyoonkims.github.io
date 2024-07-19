@@ -16,9 +16,14 @@ South Korea
 
 Thank you for visiting my page!  
 
-[GitHub][Github]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
+
 
 ---
+
+## Contact
+
+> Email: <seoyoonkims@kaist.ac.kr>  
+> Github: [GitHub][Github]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
 
 ## Research Interests
 
@@ -39,13 +44,7 @@ Thank you for visiting my page!
 
 ## Programming
 
-> C/C++, Python, Verilog, ROS
-
-
-## Contact
-
-> Email: <seoyoonkims@kaist.ac.kr>  
-> Github: <https://github.com/seoyoonkims>
+> C/C++, Python, Verilog, ROS  
 
 
 ## Recent Posts

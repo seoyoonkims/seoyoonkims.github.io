@@ -6,15 +6,18 @@ nav_order: 2
 ---
 
 논문 리뷰  
-> [Tender PPT](https://github.com/seoyoonkims/seoyoonkims.github.io/blob/main/docs/pdf/Tender_PPT.pdf)  
 
 
 2024 ACM/IEEE 51st Annual International Symposium on Computer Architecture (ISCA)  
 
 ## Tender: Accelerating Large Language Models via Tensor Decomposition and Runtime Requantization  
 
-서울대학교 연구팀이 최근에 ISCA에서 발표한 논문이다. Tensor를 분할하는 방법과 런타임 Re-quantization에 대한 새로운 접근 방법을
-제시하면서 LLM을 가속하는 모델에 대해 이야기한다.  
+Tensor를 분할하는 방법과 런타임 Re-quantization에 대한 새로운 접근 방법을 제시하면서 LLM을 가속하는 모델에 대해 이야기한다.  
+
+
+HyperAccel에서 인턴하면서 처음으로 리뷰해본 논문이다.  
+
+PPT Slide: [Tender](https://github.com/seoyoonkims/seoyoonkims.github.io/blob/main/docs/pdf/Tender_PPT.pdf)  
 
 
 ### **I. Introduction**  

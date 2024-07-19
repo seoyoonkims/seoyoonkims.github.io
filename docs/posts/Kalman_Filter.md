@@ -1,9 +1,4 @@
----
-title: Kalman Filter
-layout: default
-parent: Posts
-nav_order: 4
----
+
 
 ## **칼만 필터 원리 & 구현**  
 

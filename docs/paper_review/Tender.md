@@ -97,18 +97,30 @@ Tensor를 어떻게 분할해서 Quantization을 하느냐에 따라서 여러�
 
 **Challenges and Opportunities**  
 
-$P_i = \frac{X_i \times W_i}{s_i s_w}$  
-$Y=\sum_{i=1}^G (s_i s_w) \cdot P_i$  
+$$
+P_i = \frac{X_i \times W_i}{s_i s_w}  
+$$  
+$$
+Y=\sum_{i=1}^G (s_i s_w) \cdot P_i  
+$$  
 
 직관적으로 정확도를 높이기 위해서 Column을 따라서 Tensor를 분해하되, 몇 개의 그룹으로 나누어서 진행할 수 있다. 그룹이 G개가 있다고 하면, 행렬 계산 시에 각 그룹에 해당하는 부분 합을 계산한 후 마지막에 그룹마다 각각의 Scale Factor를 곱해서 더하면 최종 행렬을 얻는다. 그렇지만 이렇게 마지막에 그룹마다 Scale Factor를 곱하면 이들을 더할 때마다 매번 소수 연산이 필요해서 정수 연산 유닛의 Utilization이 떨어진다. 
 
-$A_1 = P_1$  
-$A_{i+1} = A_{i} \cdot \frac{s_i}{s_{i+1}} + P_{i+1}$  
-$Y = A_G \cdot (s_w s_G)$
+$$
+A_1 = P_1  
+$$  
+$$
+A_{i+1} = A_{i} \cdot \frac{s_i}{s_{i+1}} + P_{i+1}  
+$$  
+$$
+Y = A_G \cdot (s_w s_G)  
+$$
 
 그래서 Tender는 마지막에 부분합들을 Scaling 해서 더해주는 것이 아니라 다음 그룹으로 넘어가기 전마다 Scaling을 해서 넘겨준다. 이때 현재 그룹과 다음 그룹 사이의 Scale Factor 간의 비율인 Rescaling Factor 라는 것을 곱해주게 되고 이것을 정수로 만들어서 기존에 부분합을 더할 때 필요했던 소수 연산의 필요성을 없앤다.  
 
-$rescale factor = \frac{s_i}{s_{i+1}} = 2^g$
+$$
+rescale factor = \frac{s_i}{s_{i+1}} = 2^g  
+$$
 
 이를 가능하게 하기 위해서 Tender는 비슷한 범위 안에 들어오는 채널들을 같은 Scale Factor를 공유하도록 그룹화하고 연산을 진행해야 한다. 미리 말하자면 Tender는 Rescale Factor를 2의 거듭제곱으로 설정해서 오직 시프트 로직으로만 기존의 소수 연산을 대체한다.  
 
@@ -120,20 +132,28 @@ $rescale factor = \frac{s_i}{s_{i+1}} = 2^g$
 **1. Bias Subtraction**  
 각 채널에서 Bias를 빼서 영점을 맞춰주는 단계다. 각 채널에서 최댓값과 최솟값을 구하고, 이 둘의 평균을 빼 주면, 채널 내 최대 최소 값의 절댓값이 같아지므로 bit 사용을 최적화할 수 있다. 이때 Bias는 Calibration 때 미리 계산이 되어있는 값이다.  
 
-$bias = (max + min)/2$
+$$
+bias = (max + min)/2  
+$$
 
 **2. Tensor Decomposition**  
 Tensor를 분해하는 단계이다. 이때 어떤 식으로 그룹화하고, 어떤 Scale Factor를 이용할지도 모두 Calibration 때 미리 계산된 값들을 사용한다. 따라서 아래 식에서 보이는 Rescale Factor인 알파와 그룹의 개수인 G는 모두 알고 있는 값이다.
 
-$\frac{TMax}{\alpha^g} < CMax_i \le \frac{TMax}{\alpha^{g-1}}$
+$$
+\frac{TMax}{\alpha^g} < CMax_i \le \frac{TMax}{\alpha^{g-1}}  
+$$$
 
-$rescale factor = \frac{TMax}{\alpha ^{g-1} (2^{b-1}-1)}$
+$$
+rescale factor = \frac{TMax}{\alpha ^{g-1} (2^{b-1}-1)}  
+$$
 
 Tender는 Activation Tensor가 들어오면 첫번째로 각 채널 별 최댓값인 CMax 값을 구하고, 그 CMax 값들 중 가장 큰 값을 구해서 Tensor의 최댓값인 TMax 구한다. 그리고 채널 i 별로 아래의 부등식을 만족하는 g 값을 찾아서 해당 채널이 어떤 그룹에 속하게 될지를 결정한다. 그룹이 결정되면 각 채널들은 이 식과 같은 Scale Factor를 이용해서 Quantization 된다. 여기서 $\alpha = 2$ 로 설정하면 Rescaling이 Shifting이 된다.  
 
 여기서 생길 수 있는 의문이 왜 큰 값들은 큰 threshold를 사용하고, 작은 값들은 작은 threshold를 사용하는지이다. Quantization 시에 threshold가 커질수록 Rounding 할 때 에러도 커지기 때문이다. Tender에서 말한 방법대로면 큰 값일수록 작은 g값을 부여하게 되므로 이 부등식의 범위가 커진다. 이 논문에서는 이에 대한 답으로 Q_err가 Absolute Maximum과 채널 수의 곱에 비례하는데 큰 스케일을 가진 채널들이 아주 적기 때문에 Q_err가 전체적인 정확도에 큰 영향을 미치지 않을 것이라고 대답한다.
 
-$Q_{err} \propto Absolute Maximum \times Number of Channels$
+$$
+Q_{err} \propto Absolute Maximum \times Number of Channels  
+$$
 
 
 **3. Grouping (Indirect Indexing)**  

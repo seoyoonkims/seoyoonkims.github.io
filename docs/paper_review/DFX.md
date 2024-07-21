@@ -134,11 +134,17 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
   1) LayerNorm: mu와 sigma는 각각 평균과 표준편차를 나타낸다. gamma와 beta는 weight와 bias 벡터를 나타낸다. 평균 계산에는 accum과 mul이 필요하고, 표준편차 계산에는 recip_sqrt가 추가로 필요하다. 그 후 sub, mul, add를 통해 LayerNorm을 계산한다. 파라미터들은 load를 통해 reg file로 fetch 된다.  
 
-  ![layernorm](../images/layernorm.png)  
+  $$
+  y(x_i) = \gamma \frac{x_i - \mu}{\sigma} + \beta_i  
+  $$
 
   2) Softmax: j는 행의 원소 갯수를 나타낸다. 이 연산은 exp, add, accum과 같은 기본적인 벡터 연산으로 수행될 수 있다. Summation은 LayerNorm에서 평균을 계산하는 것과 비슷하다. 나누기는 recip과 mul로 대체된다.  
 
-  ![softmax](../images/softmax.png)  
+  $$
+  y(x_i) = \frac {e^{x_i}}{\sum_{j} e^{x_j}}  
+  $$
+
+  
 
 ---
 

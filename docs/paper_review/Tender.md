@@ -133,7 +133,7 @@ Tender는 Activation Tensor가 들어오면 첫번째로 각 채널 별 최댓�
 
 여기서 생길 수 있는 의문이 왜 큰 값들은 큰 threshold를 사용하고, 작은 값들은 작은 threshold를 사용하는지이다. Quantization 시에 threshold가 커질수록 Rounding 할 때 에러도 커지기 때문이다. Tender에서 말한 방법대로면 큰 값일수록 작은 g값을 부여하게 되므로 이 부등식의 범위가 커진다. 이 논문에서는 이에 대한 답으로 Q_err가 Absolute Maximum과 채널 수의 곱에 비례하는데 큰 스케일을 가진 채널들이 아주 적기 때문에 Q_err가 전체적인 정확도에 큰 영향을 미치지 않을 것이라고 대답한다.
 
-$Q_err \propto Absolute Maximum \times Number of Channels$
+$Q_{err} \propto Absolute Maximum \times Number of Channels$
 
 
 **3. Grouping (Indirect Indexing)**  
@@ -171,7 +171,7 @@ MSA는 Output Stationary한 모듈이어서 부분합들이 각 PE에 저장된�
 
 **4. Controllers & Index Buffer**  
 
-![Indirect Indexing](../images/Indirect%20Indexing.png)  
+![Indirect Indexing](../images/Indirect_Indexing.png)  
 
 Tender는 Tensor를 채널 별로 나눈 다음에 이를 Scale Factor가 큰 그룹부터 차례대로 연산을 실행해야 하므로 이를 위해서 Indirect Indexing을 이용한다. Calibration 단계 때 결정되는 연산 순서를 Index Buffer에 미리 저장해두면, Execution Controller가 이를 참조해서 Base와 Index로 구성된 주소를 Scratchpad Memory로 보내서 알맞은 데이터를 로드하고, 이 데이터를 MSA로 보내서 연산을 한다. HBM Controller는 HBM2에 있던 데이터를 Scratchpad Memory로 보내는 역할이다.  
 
@@ -183,14 +183,14 @@ Scratchpad Memory는 앞에서 Quantize된 input과 weight들이 저장되는 �
 
 **PTQ Performance on LLMs**  
 
-![PTQ Results](../images/PTQ%20results.png)  
+![PTQ Results](../images/PTQ_results.png)  
 
 여러가지 LLM 모델과 기존의 Quantization Scheme들을 이용해서 Perplexity를 비교한 결과이다. 초록 박스가 쳐진 부분이 FP16 Baseline인데, Tender는 이 Baseline과 거의 비슷한 Perplexity를 보이고 있다. 그리고 Llama-2 모델을 PTB Dataset으로 돌렸을 때는 Tender가 Baseline보다도 좋은 성능을 보이고 있다. INT8에서는 Quantization 에러가 상당히 작기 때문에 Quantization을 하면 Rounding을 할 때 불필요한 작은 값들이 제거되어 중요한 값에 집중한 결과라고 설명한다.  
 
 표에서 굵은 글씨로 표현된 것이 해당 모델과 데이터 셋에서 가장 좋은 Perplexity를 나타내는데 거의 대부분의 경우에서 Tender가 가장 좋은 Perplexity를 보여준다. 그리고 특히 INT4 Precision일 때 다른 Scheme들보다 성능이 훨씬 좋은 것도 확인할 수 있다.  
 
 **Sequence Length Sensitivity**  
-![sequence length](../images/sequence%20length.png)  
+![sequence length](../images/sequence_length.png)  
 
 시퀀스 길이에 대한 민감도를 보여준다. 여기서 Tender는 공정한 비교를 위해 Activation 사이에 있는 행렬 곱에 대해서는 Quantization을 적용하지 않은 Scheme이고 Tender(all)은 모든 행렬 곱에 대해 Quantization을 진행한 것이다.  
 여기서도 역시 Tender가 대부분의 경우에서 가장 좋은 퍼포먼스를 보이고 있고, FP16에 가까운 Perplexity를 유지하고 있다. 그리고 Tender(all)의 경우에도 Activation 사이에 행렬 곱을 Quantize하지 않는 다른 Scheme보다 나은 성능을 보이고 있다. 따라서 Tender가 여러가지 시퀀스 시나리오에서 Outlier들을 처리하는데 가장 적합하다.  

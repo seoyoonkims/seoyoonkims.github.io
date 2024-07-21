@@ -136,12 +136,92 @@ Tender는 Activation Tensor가 들어오면 첫번째로 각 채널 별 최댓�
 $Q_err \propto Absolute Maximum \times Number of Channels$
 
 
-
 **3. Grouping (Indirect Indexing)**  
-
-
+바로 앞에서 각 채널들이 어떤 그룹에 속하는지를 결정했다. 이 단계에서는 그 채널들의 순서를 가장 큰 값을 가진 채널부터 가장 작은 값을 가진 채널로 차례로 배치해서 그룹화를 한다. 이때 실제로 자리를 옮기는 것은 아니고 Indirect Indexing의 방법으로 순서를 바꾸게 되는데, 자세한 설명은 하드웨어 부분에 나온다.  
 
 **4. Runtime Requantization**  
+![runtime](../images/runtime.png)  
+Tensor 분해는 Quantization 에러를 줄일 수 있지만, 분해한 채널들 별로 행렬 계산을 하고, 나중에 합해줄 때 각각의 Scale Factor를 다 곱해서 De-quantize를 해준 후 더해야 하므로 Floating-Point 연산이 많아진다. 
+그래서 Tensor는 이러한 오버헤드를 줄이기 위해서 그때 그때 부분합에 Re-quantize를 해주게 됩니다. 앞에서 Scale Factor를 2의 거듭제곱으로 설정하고 Tensor를 분해했기 때문에 다음 그룹의 계산으로 넘어가기 전에 1-bit만 Shift 해주면 된다. 따라서 Floating-Point 연산이 필요 없기 때문에 기존의 비효율성이 개선된다.  
+
+**+ Optimization**  
+앞선 네 가지의 과정 외에도 논문에서는 Optimization도 시행한다고 나와있다. Outlier들을 잘 보면 inter-channel variance만 갖고 있는 것이 아니라 intra-channel variance도 갖고 있기 때문에 채널 내에서도 Outlier들을 분리하면 더 좋은 성능을 낼 수 있다.  
+
+Tender는 그래서 Row Chunking이라는 방법을 사용해서 채널 뿐만 아니라 Row 단위로도 Tensor를 분해하게 되고 바이어스와 Scale Factor들은 모두 Offline에서 보정된다. 원래 Activation Tensor를 계산할 때 행을 따라서 계산하기 때문에 Row Chunking은 별다른 Complexity를 요구하지 않는다. Row Chunking을 작게 쪼갤수록 성능은 좋아질 수 있지만, Systolic Array의 Dimension보다 작아지면 Underutilization이 일어나므로 Balance Point를 찾는 것이 중요하다. 이 논문에서는 Chunk Size를 256로 설정하였다.  
+
+## **IV. Hardware Architecture**  
+
+**1.Overview of Tender Architecture**  
+
+![Hardware](../images/hardware.png)  
+
+이 그림이 Tender의 전반적인 구조를 보여준다. 메모리로는 HBM2랑 Scratchpad Memory, Output Buffer, 그리고 Index Buffer를 이용한다. HBM Controller가 온 칩 버퍼와 HBM2 사이의 데이터 전송을 담당한다. Execution Controller는 Scratchpad Memory에 주소를 보내서 온 칩 메모리에서 데이터를 읽어온 후 이를 Systolic Array로 전달한다. 그리고 Systolic Array에 컨트롤 신호를 보내서 어떤 연산을 할지 관리한다.  
+
+**2. Multi-Scale Systolic Array (MSA)**  
+
+데이터 연산은 Multi-Scale Systolic Array와 VPU에서 진행된다. 먼저 MSA는 가운데 그림과 같은 구조로 이루어져 있다. 각 PE (Processing Element)는 매 사이클마다 4-bit의 연산을 수행할 수 있는데 Tender에서는 64 x 64의 PE들이 2D Mesh 형태로 배열되어 있다. 그렇기 때문에 만약 Model Precision이 INT8이라면, 한 데이터를 입력 받는데 2개의 PE가 필요하므로 2 x 2 해서 4개의 PE가 필요하다.
+
+![MSA](../images/MSA.png)  
+
+MSA는 Output Stationary한 모듈이어서 부분합들이 각 PE에 저장된다. 일반적인 행렬 계산 시에는 평범한 MAC Operation을 진행하고, Rescale이 필요할 때는 1 cycle 동안 Accumulator Register를 왼쪽으로 한 칸 움직여서 Re-quantization을 진행한다. Rescale Signal을 알맞은 타이밍에 내보내기 위해서 Execution Controller가 모든 메타 데이터들을 저장하고 있다.  
+
+**3. Vector Processing Unit (VPU)**  
+
+심드(SIMD) 스타일의 Floating-Point Unit이고 Output Buffer에서 오는 INT32 데이터를 INT4나 INT8로 Scaling 하는 역할을 하고 선택적으로 활성화 함수들을 사용한다. 트랜스포머에서는 Softmax나 Layer Normalization도 수행한다. 계산이 끝나면 이를 Scratchpad Memory에 저장한다. VPU도 역시 미리 보정된 바이어스와 Scale Factor를 이용하고 이를 저장하기 위한 버퍼들도 내장되어 있다. VPU는 64개의 FPU와 내부 벡터 레지스터들로 구성된다.  
+
+**4. Controllers & Index Buffer**  
+
+![Indirect Indexing](../images/Indirect%20Indexing.png)  
+
+Tender는 Tensor를 채널 별로 나눈 다음에 이를 Scale Factor가 큰 그룹부터 차례대로 연산을 실행해야 하므로 이를 위해서 Indirect Indexing을 이용한다. Calibration 단계 때 결정되는 연산 순서를 Index Buffer에 미리 저장해두면, Execution Controller가 이를 참조해서 Base와 Index로 구성된 주소를 Scratchpad Memory로 보내서 알맞은 데이터를 로드하고, 이 데이터를 MSA로 보내서 연산을 한다. HBM Controller는 HBM2에 있던 데이터를 Scratchpad Memory로 보내는 역할이다.  
+
+**5. Scratchpad Memory & Output Buffer**  
+
+Scratchpad Memory는 앞에서 Quantize된 input과 weight들이 저장되는 장소이다. Output Buffer에는 연산 결과가 저장되어 있다가 Rescaling을 위해서 VPU로 보내진다.  
+
+## **V. Evaluation**  
+
+**PTQ Performance on LLMs**  
+
+![PTQ Results](../images/PTQ%20results.png)  
+
+여러가지 LLM 모델과 기존의 Quantization Scheme들을 이용해서 Perplexity를 비교한 결과이다. 초록 박스가 쳐진 부분이 FP16 Baseline인데, Tender는 이 Baseline과 거의 비슷한 Perplexity를 보이고 있다. 그리고 Llama-2 모델을 PTB Dataset으로 돌렸을 때는 Tender가 Baseline보다도 좋은 성능을 보이고 있다. INT8에서는 Quantization 에러가 상당히 작기 때문에 Quantization을 하면 Rounding을 할 때 불필요한 작은 값들이 제거되어 중요한 값에 집중한 결과라고 설명한다.  
+
+표에서 굵은 글씨로 표현된 것이 해당 모델과 데이터 셋에서 가장 좋은 Perplexity를 나타내는데 거의 대부분의 경우에서 Tender가 가장 좋은 Perplexity를 보여준다. 그리고 특히 INT4 Precision일 때 다른 Scheme들보다 성능이 훨씬 좋은 것도 확인할 수 있다.  
+
+**Sequence Length Sensitivity**  
+![sequence length](../images/sequence%20length.png)  
+
+시퀀스 길이에 대한 민감도를 보여준다. 여기서 Tender는 공정한 비교를 위해 Activation 사이에 있는 행렬 곱에 대해서는 Quantization을 적용하지 않은 Scheme이고 Tender(all)은 모든 행렬 곱에 대해 Quantization을 진행한 것이다.  
+여기서도 역시 Tender가 대부분의 경우에서 가장 좋은 퍼포먼스를 보이고 있고, FP16에 가까운 Perplexity를 유지하고 있다. 그리고 Tender(all)의 경우에도 Activation 사이에 행렬 곱을 Quantize하지 않는 다른 Scheme보다 나은 성능을 보이고 있다. 따라서 Tender가 여러가지 시퀀스 시나리오에서 Outlier들을 처리하는데 가장 적합하다.  
+
+**Quantization Accuracy on BERT (with GLUE benchmark)**  
+
+![accuracy](../images/accuracy.png)  
+
+Perplexity와 다르게 큰 값이 좋은 성능을 나타낸다. BERT-Large의 Outlier들은 다른 LLM 모델들보다 훨씬 작음에도 Tender가 가장 좋은 성능을 보이고 있다. 따라서 Tender의 알고리즘이 Encoder-only 모델이나 상대적으로 작은 모델에 대해서도 잘 작동하는 것을 확인할 수 있다.  
+
+**Multi-scale Quantization**  
+
+![num_groups](../images/num_groups.png)
+
+이 그래프는 Llama-2 모델에 PTB 데이터 셋을 적용한 후 Channel Decomposition 시에 그룹 수를 다르게 한 결과이다. 그룹의 수를 늘릴수록 성능이 급격하게 좋아지는 것을 볼 수 있다. 그래서 Tender처럼 Channel Decomposition을 해서 채널의 그룹 수를 늘리되, Re-scaling으로 인한 오버헤드를 줄여야 한다.  
+
+**Tender Performance**  
+![efficiency](../images/efficiency.png)
+
+다른 하드웨어 가속기들과의 Speedup과 에너지 효율을 비교한 것이다. Tender가 ANT, OLAccel, OliVe에 비해 각각 2.63배, 1.84배, 1.48배 더 빠른 속도를 보이고 있고 에너지 효율은 각각 1.84배, 1.53배, 1.24배로 좋은 효율을 보이고 있다.  
+
+## **VI.Conclusion**  
+
+Tender는 Activation Tensor를 채널 단위로 분할해서 Outlier들을 효과적으로 분리하기 때문에 Quantization 에러를 최소화한다. 또한 Tensor는 기존의 Re-scaling 작업을 Shifter Logic으로 대체할 수 있는 방법을 제안함으로써 런타임 오버헤드 문제를 해결한다. 마지막으로 Tender는 기존의 PTQ에 비해 성능 또한 크게 향상시켜서 INT4 같이 아주 작은 비트로 Quantiztion 할 때도 좋은 퍼포먼스를 보여준다.
+
+
+---
+2024/07/21
+
+
+
 
 
 

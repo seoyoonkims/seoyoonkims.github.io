@@ -97,14 +97,14 @@ Tensor를 어떻게 분할해서 Quantization을 하느냐에 따라서 여러�
 
 **Challenges and Opportunities**  
 
-$\frac{X_i \times W_i}{s_i s_w}$  
-$Y=\sum_{i=1}^G (s_i s_w) \dot P_i$  
+$P_i = \frac{X_i \times W_i}{s_i s_w}$  
+$Y=\sum_{i=1}^G (s_i s_w) \cdot P_i$  
 
 직관적으로 정확도를 높이기 위해서 Column을 따라서 Tensor를 분해하되, 몇 개의 그룹으로 나누어서 진행할 수 있다. 그룹이 G개가 있다고 하면, 행렬 계산 시에 각 그룹에 해당하는 부분 합을 계산한 후 마지막에 그룹마다 각각의 Scale Factor를 곱해서 더하면 최종 행렬을 얻는다. 그렇지만 이렇게 마지막에 그룹마다 Scale Factor를 곱하면 이들을 더할 때마다 매번 소수 연산이 필요해서 정수 연산 유닛의 Utilization이 떨어진다. 
 
 $A_1 = P_1$  
-$A_{i+1} = A_{i} \dot \frac{s_i}{s_{i+1}} + P_{i+1}$  
-$Y = A_G \dot (s_w s_G)$
+$A_{i+1} = A_{i} \cdot \frac{s_i}{s_{i+1}} + P_{i+1}$  
+$Y = A_G \cdot (s_w s_G)$
 
 그래서 Tender는 마지막에 부분합들을 Scaling 해서 더해주는 것이 아니라 다음 그룹으로 넘어가기 전마다 Scaling을 해서 넘겨준다. 이때 현재 그룹과 다음 그룹 사이의 Scale Factor 간의 비율인 Rescaling Factor 라는 것을 곱해주게 되고 이것을 정수로 만들어서 기존에 부분합을 더할 때 필요했던 소수 연산의 필요성을 없앤다.  
 

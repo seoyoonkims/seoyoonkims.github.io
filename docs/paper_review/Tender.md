@@ -73,7 +73,7 @@ $$
 어텐션 인풋 텐서의 히트맵이다. 여기서도 역시 선들은 수직적으로 나타나고, 몇 개의 고정된 채널에 존재하는 것을 볼 수 있다.  
 
 $$
-s=\frac{x_max}{2^{b-1}-1};  x_q = round(\frac{x_f}{s})  
+s=\frac{x_{max}}{2^{b-1}-1};  x_q = round(\frac{x_f}{s})  
 $$
 
 Quantizaiton은 위와 같은 식을 통해서 진행이 된다. 여기서 b는 bit width를 뜻한다. 예를 들어 INT8로 Quantization을 한다고 하면 b는 8이 된다. 그리고 실제 값을 Scale Factor로 나눈 뒤 rounding 한 값을 사용한다.  

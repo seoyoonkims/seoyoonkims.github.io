@@ -39,7 +39,7 @@ Activation Tensor를 채널을 따라서 여러 개의 Subtensor들로 나눈다
 ---
 ### **Background**  
 
-**1.Transformer**  
+**Transformer**  
 
 앞에서 Activation과 Weight이라는 용어가 등장했는데, 트랜스포머의 경우에는 인풋에 해당하는 X가 Activation, 가중치에 해당하는 W가 Weight이라고 보면 된다. 여기서 주목할 점은 Activation들은 행 단위로 계산이 되고, Weight들은 대부분 열 단위로 계산이 된다는 점이다.  
 
@@ -60,4 +60,22 @@ $$
 $$
 X_T = ReLU(X_O W_FC1) W_FC2 + X_O  
 $$
+
+**Outliers in LLMs**  
+
+논문에서는 Outlier들의 존재로 Quantization이 까다롭다는 점을 반복해서 이야기하고 있다. 선행 연구 결과를 보면 Post-Training Quantization의 방법으로 LLM의 Weights들을 효과적으로 Quantize 할 수 있는 반면에, Activation의 경우에는 Outlier들 때문에 Quantization이 어렵다.  
+
+![Outlier](../images/outliers_.png)  
+
+이 그림은 Activation Tensor와 Weight Tensor의 값들을 보여주고 있는데, In Dimension은 인풋 토큰의 차원을 나타내고, Token은 토큰 개수를 나타낸다. Activation Tensor에는 특정 인풋 Dimension, 즉 채널은 따라서 Outlier들이 존재하고 있다. Weight의 경우에는 상대적으로 비슷한 값들이 분포하고 있는 것을 볼 수 있다.  
+
+![Outlier](../images/outlier__.png)  
+어텐션 인풋 텐서의 히트맵이다. 여기서도 역시 선들은 수직적으로 나타나고, 몇 개의 고정된 채널에 존재하는 것을 볼 수 있다. 
+\frac{1}{2}
+$$
+s=\frac{x_max}{2^{b-1}-1};  x_q = round(\frac{x_f}{s})
+$$
+Quantizaiton은 위와 같은 식을 통해서 진행이 된다. 여기서 b는 bit width를 뜻한다. 예를 들어 INT8로 Quantization을 한다고 하면 b는 8이 된다. 그리고 실제 값을 Scale Factor로 나눈 뒤 rounding 한 값을 사용한다.  
+
+
 

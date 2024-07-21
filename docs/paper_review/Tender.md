@@ -99,7 +99,8 @@ Tensor를 어떻게 분할해서 Quantization을 하느냐에 따라서 여러�
 
 $$
 P_i = \frac{X_i \times W_i}{s_i s_w}  
-$$  
+$$
+  
 $$
 Y=\sum_{i=1}^G (s_i s_w) \cdot P_i  
 $$  
@@ -109,9 +110,11 @@ $$
 $$
 A_1 = P_1  
 $$  
+
 $$
 A_{i+1} = A_{i} \cdot \frac{s_i}{s_{i+1}} + P_{i+1}  
 $$  
+
 $$
 Y = A_G \cdot (s_w s_G)  
 $$
@@ -141,7 +144,7 @@ Tensor를 분해하는 단계이다. 이때 어떤 식으로 그룹화하고, �
 
 $$
 \frac{TMax}{\alpha^g} < CMax_i \le \frac{TMax}{\alpha^{g-1}}  
-$$$
+$$
 
 $$
 rescale factor = \frac{TMax}{\alpha ^{g-1} (2^{b-1}-1)}  

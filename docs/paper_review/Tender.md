@@ -58,7 +58,7 @@ X_O = X_S X_V W_O + X
 $$
 
 $$
-X_T = ReLU(X_O W_FC1) W_FC2 + X_O  
+X_T = ReLU(X_O W_{FC1}) W_{FC2} + X_O  
 $$
 
 **Outliers in LLMs**  

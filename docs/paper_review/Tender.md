@@ -100,7 +100,7 @@ Tensor를 어떻게 분할해서 Quantization을 하느냐에 따라서 여러�
 $$
 P_i = \frac{X_i \times W_i}{s_i s_w}  
 $$
-  
+
 $$
 Y=\sum_{i=1}^G (s_i s_w) \cdot P_i  
 $$  
@@ -128,7 +128,7 @@ $$
 이를 가능하게 하기 위해서 Tender는 비슷한 범위 안에 들어오는 채널들을 같은 Scale Factor를 공유하도록 그룹화하고 연산을 진행해야 한다. 미리 말하자면 Tender는 Rescale Factor를 2의 거듭제곱으로 설정해서 오직 시프트 로직으로만 기존의 소수 연산을 대체한다.  
 
 
-## **III. Algorithmic Implementation**  
+### **III. Algorithmic Implementation**  
 
 ![Tender Algorighm](../images/tender_algorithm.png)  
 
@@ -172,7 +172,7 @@ Tensor 분해는 Quantization 에러를 줄일 수 있지만, 분해한 채널�
 
 Tender는 그래서 Row Chunking이라는 방법을 사용해서 채널 뿐만 아니라 Row 단위로도 Tensor를 분해하게 되고 바이어스와 Scale Factor들은 모두 Offline에서 보정된다. 원래 Activation Tensor를 계산할 때 행을 따라서 계산하기 때문에 Row Chunking은 별다른 Complexity를 요구하지 않는다. Row Chunking을 작게 쪼갤수록 성능은 좋아질 수 있지만, Systolic Array의 Dimension보다 작아지면 Underutilization이 일어나므로 Balance Point를 찾는 것이 중요하다. 이 논문에서는 Chunk Size를 256로 설정하였다.  
 
-## **IV. Hardware Architecture**  
+### **IV. Hardware Architecture**  
 
 **1.Overview of Tender Architecture**  
 
@@ -202,7 +202,7 @@ Tender는 Tensor를 채널 별로 나눈 다음에 이를 Scale Factor가 큰 �
 
 Scratchpad Memory는 앞에서 Quantize된 input과 weight들이 저장되는 장소이다. Output Buffer에는 연산 결과가 저장되어 있다가 Rescaling을 위해서 VPU로 보내진다.  
 
-## **V. Evaluation**  
+### **V. Evaluation**  
 
 **PTQ Performance on LLMs**  
 
@@ -235,9 +235,9 @@ Perplexity와 다르게 큰 값이 좋은 성능을 나타낸다. BERT-Large의 
 
 다른 하드웨어 가속기들과의 Speedup과 에너지 효율을 비교한 것이다. Tender가 ANT, OLAccel, OliVe에 비해 각각 2.63배, 1.84배, 1.48배 더 빠른 속도를 보이고 있고 에너지 효율은 각각 1.84배, 1.53배, 1.24배로 좋은 효율을 보이고 있다.  
 
-## **VI.Conclusion**  
+### **VI. Conclusion**  
 
-Tender는 Activation Tensor를 채널 단위로 분할해서 Outlier들을 효과적으로 분리하기 때문에 Quantization 에러를 최소화한다. 또한 Tensor는 기존의 Re-scaling 작업을 Shifter Logic으로 대체할 수 있는 방법을 제안함으로써 런타임 오버헤드 문제를 해결한다. 마지막으로 Tender는 기존의 PTQ에 비해 성능 또한 크게 향상시켜서 INT4 같이 아주 작은 비트로 Quantiztion 할 때도 좋은 퍼포먼스를 보여준다.
+Tender는 Activation Tensor를 채널 단위로 분할해서 Outlier들을 효과적으로 분리하기 때문에 Quantization 에러를 최소화한다. 기존의 Re-scaling 작업을 Shifter Logic으로 대체할 수 있는 방법을 제안함으로써 런타임 오버헤드 문제를 해결한다. 마지막으로 기존의 PTQ에 비해 성능 또한 크게 향상시켜서 INT4 같이 아주 작은 비트로 Quantiztion 할 때도 좋은 퍼포먼스를 보여준다.
 
 
 ---

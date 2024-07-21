@@ -37,7 +37,7 @@ Tender는 이중에서 알고리즘-하드웨어 co-design에 해당하는 해�
 Activation Tensor를 채널을 따라서 여러 개의 Subtensor들로 나눈다. Outlier들이 주로 채널을 따라 존재하기 때문에 Channel Dimension으로 나누면 Outlier들을 효과적으로 분리할 수 있게 된다. 그후, 각각의 Subtensor들은 다른 Scale Factor를 이용해서 Quantize가 되고 기존의 Tensor나 Row 단위로 Quantization 할 때에 비해 에러가 줄어든다. 하지만, 채널마다 Scale Factor를 다르게 하는 것은 행렬 계산을 하고 부분합을 구할 때 계속 Re-scaling과 Re-quantization이 필요하므로 Scale Factor 간의 관계가 2의 거듭제곱이 되도록 해서 소수 계산을 간단한 Shiter Logic으로 구현한다. 이렇게 하면 소수 연산이 필요했던 Re-quantization이 없어지고 Mixed-Precision이나 Custom Datatype도 필요가 없어진다.  
 
 ---
-### **Background**  
+### **II. Background**  
 
 **Transformer**  
 
@@ -110,7 +110,39 @@ $Y = A_G \dot (s_w s_G)
 
 $rescale factor = \frac{s_i}{s_{i+1}} = 2^g$
 
-이를 가능하게 하기 위해서 Tender는 비슷한 범위 안에 들어오는 채널들을 같은 Scale Factor를 공유하도록 그룹화하고 연산을 진행해야 한다. 미리 말하자면 Tender는 Rescale Factor를 2의 거듭제곱으로 설정해서 오직 시프트 로직으로만 기존의 소수 연산을 대체한다.
+이를 가능하게 하기 위해서 Tender는 비슷한 범위 안에 들어오는 채널들을 같은 Scale Factor를 공유하도록 그룹화하고 연산을 진행해야 한다. 미리 말하자면 Tender는 Rescale Factor를 2의 거듭제곱으로 설정해서 오직 시프트 로직으로만 기존의 소수 연산을 대체한다.  
+
+
+## **III. Algorithmic Implementation**  
+
+![Tender Algorighm](../images/tender_algorithm.png)  
+
+**1. Bias Subtraction**  
+각 채널에서 Bias를 빼서 영점을 맞춰주는 단계다. 각 채널에서 최댓값과 최솟값을 구하고, 이 둘의 평균을 빼 주면, 채널 내 최대 최소 값의 절댓값이 같아지므로 bit 사용을 최적화할 수 있다. 이때 Bias는 Calibration 때 미리 계산이 되어있는 값이다.  
+
+$bias = (max + min)/2$
+
+**2. Tensor Decomposition**  
+Tensor를 분해하는 단계이다. 이때 어떤 식으로 그룹화하고, 어떤 Scale Factor를 이용할지도 모두 Calibration 때 미리 계산된 값들을 사용한다. 따라서 아래 식에서 보이는 Rescale Factor인 알파와 그룹의 개수인 G는 모두 알고 있는 값이다.
+
+$\frac{TMax}{\alpha^g} < CMax_i \le \frac{TMax}{\alpha^{g-1}}$
+
+$rescale factor = \frac{TMax}{\alpha ^{g-1} (2^{b-1}-1)}$
+
+Tender는 Activation Tensor가 들어오면 첫번째로 각 채널 별 최댓값인 CMax 값을 구하고, 그 CMax 값들 중 가장 큰 값을 구해서 Tensor의 최댓값인 TMax 구한다. 그리고 채널 i 별로 아래의 부등식을 만족하는 g 값을 찾아서 해당 채널이 어떤 그룹에 속하게 될지를 결정한다. 그룹이 결정되면 각 채널들은 이 식과 같은 Scale Factor를 이용해서 Quantization 된다. 여기서 $\alpha = 2$ 로 설정하면 Rescaling이 Shifting이 된다.  
+
+
+
+
+
+
+**3. Grouping (Indirect Indexing)**  
+
+
+
+**4. Runtime Requantization**  
+
+
 
 
 

@@ -16,6 +16,9 @@ South Korea
 
 Thank you for visiting my page!  
 
+[Recent Posts][https://github.com/seoyoonkims]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
+[Paper Review][https://github.com/seoyoonkims]{: .btn .fs-5 .mb-4 .mb-md-0 }
+
 
 ## Contact
 
@@ -52,3 +55,5 @@ Thank you for visiting my page!
 > 2024.07.21 [Tender: Accelerating Large Language Models via Tensor Decomposition and Runtime Requantization](https://seoyoonkims.github.io/docs/paper_review/Tender/)  
 > 2024.06.19 [DFX: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation](https://seoyoonkims.github.io/docs/paper_review/DFX/)  
 
+
+---

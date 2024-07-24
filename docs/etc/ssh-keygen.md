@@ -1,5 +1,5 @@
 ---
-title: ssh keygen
+title: SSH keygen
 layout: default
 parent: etc
 nav_order: 1
@@ -7,9 +7,9 @@ nav_order: 1
 
 ## 비밀번호 없이 서버 및 깃허브 SSH로 접속하는 법
 
-### 1. mac -> server    
+### 1. local -> server    
  
-**mac mini**  
+**local**  
 
 ```
 ssh-keygen -t rsa  

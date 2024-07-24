@@ -9,10 +9,8 @@ nav_order: 1
 
 ---
 
-#### **1. 2024/06/24**
+#### **1. 2024/06/28**
 ### **QLLM: Accurate and Efficient Low-Bitwidth Quantization for Large Language Models**  
-
-**메인 아이디어:**
 
 - Channel Disassembly
 
@@ -55,13 +53,11 @@ Merge에는 이 단순한 식을 사용한다.
 
 - Choosing T and $\theta$  
 
-Find $\theta$ that satisfies
-
 $$
 arg min_\theta \vert Softmax(\mathbf{QK}^T)\mathbf{V} - Softmax(\mathbf{\tilde{Q}\tilde{K}}^T)\mathbf{\tilde{V}}
 $$
 
-를 Grid Search로 찾는다.    
+$\theta$ 를 Grid Search로 찾는다.    
 
 - Efficient Gradient Based Error Correction  
 
@@ -74,5 +70,21 @@ $$
 로 $W_{correction}$ 을 학습을 시키는데 $W_{correction}=AB$ 로 해서 결국 AB를 학습시킨다. 이렇게 하면 메모리를 줄일 수 있기 때문이다.  
 
 한줄 평가: 재미: 3.5 / 유익: 3.5 / 난이도: 2.5
+
+---
+
+
+#### **2. 2024/07/05**
+### **NeuPIMs: NPU-PIM Heterogeneous Acceleration for Batched LLM Inferencing**  
+
+---
+
+#### **3. 2024/07/12**
+### **TCP: A Tensor Contraction Processor for AI Workloads**  
+
+---
+
+#### **3. 2024/07/19**
+### **Tender: Accelerating Large Language Models via Tensor Decomposition and Runtime Requantization**  
 
 ---

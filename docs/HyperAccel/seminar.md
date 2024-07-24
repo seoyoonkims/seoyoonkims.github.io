@@ -53,7 +53,7 @@ Merge에는 이 단순한 식을 사용한다.
 Find $\theta$ that satisfies
 
 $$
-arg min_\theta \vert Softmax(\mathbf{QK}^T)\mathbf{V} - Softmax(\mathbf{\tilda{Q}\tilda{K}}^T)\mathbf{\tilda{V}}
+arg min_\theta \vert Softmax(\mathbf{QK}^T)\mathbf{V} - Softmax(\mathbf{\tilde{Q}\tilde{K}}^T)\mathbf{\tilde{V}}
 $$
 
 를 Grid Search로 찾는다.  
@@ -70,9 +70,6 @@ $$
 로 $W_{correction}$ 을 학습을 시키는데 $W_{correction}=AB$ 로 해서 결국 AB를 학습시킨다. 이렇게 하면 메모리를 줄일 수 있기 때문이다.  
 (근데 FFN은 다 이렇게 하지 않나)
 
-한줄 평가:
-**재미: 3.5**  
-**유익: 3.5**
-**이해: 4**  
+한줄 평가: 재미: 3.5 / 유익: 3.5 / 난이도: 2.0
 
 

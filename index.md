@@ -22,10 +22,6 @@ Thank you for visiting my page!
 [GitHub][GitHub]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
 [LinkedIn][LinkedIn]{: .btn .fs-3 .mb-4 .mb-md-0 }
 
-[Recent Posts][Recent Posts]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
-[Paper Review][Paper Review]{: .btn .fs-3 .mb-4 .mb-md-0 }
-
-
 ## Research Interests
 
 > AI Accelerator, Unmanned System
@@ -58,7 +54,5 @@ Thank you for visiting my page!
 
 
 ---
-[Recent Posts]: https://seoyoonkims.github.io/docs/posts/
-[Paper Review]: https://seoyoonkims.github.io/docs/paper_review/
 [GitHub]: https://github.com/seoyoonkims
 [LinkedIn]: https://www.linkedin.com/in/kim-seoyoon-9085b3319/

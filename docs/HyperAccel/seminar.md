@@ -56,8 +56,7 @@ $$
 arg min_\theta \vert Softmax(\mathbf{QK}^T)\mathbf{V} - Softmax(\mathbf{\tilde{Q}\tilde{K}}^T)\mathbf{\tilde{V}}
 $$
 
-를 Grid Search로 찾는다.  
-(좀 원시적인 방법..)  
+를 Grid Search로 찾는다.    
 
 - Efficient Gradient Based Error Correction  
 
@@ -68,8 +67,7 @@ Y = quant(X)quant(W) + quant(X)W_{correction}
 $$
 
 로 $W_{correction}$ 을 학습을 시키는데 $W_{correction}=AB$ 로 해서 결국 AB를 학습시킨다. 이렇게 하면 메모리를 줄일 수 있기 때문이다.  
-(근데 FFN은 다 이렇게 하지 않나)
 
-한줄 평가: 재미: 3.5 / 유익: 3.5 / 난이도: 2.0
+한줄 평가: 재미: 3.5 / 유익: 3.5 / 난이도: 2.5
 
 

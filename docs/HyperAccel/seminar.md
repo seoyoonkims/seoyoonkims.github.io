@@ -20,7 +20,7 @@ $$
 M 번째 채널에 아웃라이어가 존재한다고 하면 해당 채널을 T개로 쪼갤 수 있다. 하나의 큰 Activation 값을 여러 개의 작은 값들로 표현하는 것이다.
 
 $$
-\mathbf{y_k} = \sum_{i=1}^M \mathbf{x}_i\mathbf{W}_{ik} + \frac {\mathbf{x}_M}{T}\mathbf{W}_Mk + \cdots + \frac {\mathbf{x}_M}{T}\mathbf{W}_Mk
+\mathbf{y_k} = \sum_{i=1}^M \mathbf{x}_i\mathbf{W}_{ik} + \frac {\mathbf{x}_M}{T}\mathbf{W}_{Mk} + \cdots + \frac {\mathbf{x}_M}{T}\mathbf{W}_{Mk}
 $$
 
 $$

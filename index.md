@@ -16,30 +16,31 @@ South Korea
 
 Thank you for visiting my page!  
 
-## Contact
+[GitHub][GitHub]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
+[LinkedIn][LinkedIn]{: .btn .fs-3 .mb-4 .mb-md-0 }  
+
+## Contact  
+
 > Email: <seoyoonkims@kaist.ac.kr>  
 
-[GitHub][GitHub]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
-[LinkedIn][LinkedIn]{: .btn .fs-3 .mb-4 .mb-md-0 }
-
-## Research Interests
+## Research Interests  
 
 > AI Accelerator, Unmanned System
 
 
-## Education
+## Education  
 
 > **B.S.** in Electrical Engineering at KAIST, Korea (2021.02 ~ Present)  
 > Minor in Mechanical Engineering at NYU, USA (2023.08 ~ 2023.12)
 
 
-## Expericence
+## Expericence  
 
 > HyperAccel (Internship, 2024.06 ~ Present)  
 > USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)
 
 
-## Programming
+## Programming  
 
 > C/C++, Python, Verilog, ROS  
 

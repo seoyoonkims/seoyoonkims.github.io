@@ -7,12 +7,12 @@ nav_order: 1
 
 ## HyperAccel 논문 세미나 정리
 
-**1. 2024/06/24**
+---
 
+#### **1. 2024/06/24**
 ### **QLLM: Accurate and Efficient Low-Bitwidth Quantization for Large Language Models**  
 
-
-#### 메인 아이디어:
+**메인 아이디어:**
 
 - Channel Disassembly
 

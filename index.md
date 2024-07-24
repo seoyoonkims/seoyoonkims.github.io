@@ -36,8 +36,8 @@ Thank you for visiting my page!
 
 ## Expericence  
 
-> HyperAccel (Internship, 2024.06 ~ Present)  
-> USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)
+> [HyperAccel](https://hyperaccel.ai/) (Internship, 2024.06 ~ Present)  
+> [USRG, KAIST](http://unmanned.kaist.ac.kr/) (Individual Research, 2023.06 ~ 2023.08)
 
 
 ## Programming  

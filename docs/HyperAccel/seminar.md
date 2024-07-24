@@ -38,7 +38,7 @@ $\theta$ 는 아웃라이어 채널이 어떤 크기로 쪼개질지 조절하�
 Distance가 가까운 채널들을 Merge 해주는데, 식을 잘보면 Activation 차와 가중치 차의 곱으로 인수분해가 가능하다. 두 가지 모두 비슷해야 Distance가 작아짐을 알 수 있다.
 
 $$
-D(i, j) = \vert \frac {\mathbf{x}_i(\mathbf{W}_{ik}-\mathbf{W}_{jk})}{2} + \frac {\mathbf{x}_j(\mathbf{W}_{jk}-\mathbf{W}_{ik})}{2} \vert ^2
+D(i, j) = \begin{Vmatrix} \frac {\mathbf{x}_i(\mathbf{W}_{ik}-\mathbf{W}_{jk})}{2} + \frac {\mathbf{x}_j(\mathbf{W}_{jk}-\mathbf{W}_{ik})}{2} \vert ^2 \end{Vmatrix} 
 $$
 
 

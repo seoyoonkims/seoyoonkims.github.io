@@ -11,9 +11,9 @@ nav_order: 1
 
 #### **1. 2024/06/28**
 ### **QLLM: Accurate and Efficient Low-Bitwidth Quantization for Large Language Models**  
-####   
 
-- Channel Disassembly
+
+**Channel Disassembly**  
 
 LLM은 두 개의 코어 파트가 있는데, 멀티헤드 셀프 어텐션과 FFN이다. 이들은 주로 Linear layers로 구성되어 있으며 다음과 같이 표현된다.  
 
@@ -33,7 +33,7 @@ $$
 
 $\theta$ 는 아웃라이어 채널이 어떤 크기로 쪼개질지 조절하는 매개변수다.  
 
-- Channel Assembly
+**Channel Assembly**  
 
 채널을 쪼개고 나면 채널의 개수는 $M + T - 1$ 가 된다. 원래 M개 였으므로 이를 M개로 다시 줄여주는 작업이 필요하다.
 
@@ -52,7 +52,7 @@ $$
 
 Merge에는 이 단순한 식을 사용한다.  
 
-- Choosing T and $\theta$  
+**Choosing T and $\theta$**  
 
 $$
 arg min_\theta \vert Softmax(\mathbf{QK}^T)\mathbf{V} - Softmax(\mathbf{\tilde{Q}\tilde{K}}^T)\mathbf{\tilde{V}}
@@ -69,8 +69,6 @@ Y = quant(X)quant(W) + quant(X)W_{correction}
 $$
 
 로 $W_{correction}$ 을 학습을 시키는데 $W_{correction}=AB$ 로 해서 결국 AB를 학습시킨다. 이렇게 하면 메모리를 줄일 수 있기 때문이다.  
-
-한줄 평가: 재미: 3.5 / 유익: 3.5 / 난이도: 2.5
 
 ---
 

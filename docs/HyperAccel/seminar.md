@@ -5,12 +5,11 @@ parent: HyperAccel
 nav_order: 1
 ---
 
-**1. 2024/6/28**  
-### **QLLM: Accurate and Efficient Low-Bitwidth Quantization for Large Language Models**  
+## HyperAccel 논문 세미나 정리
 
-Main Idea:
+### **1. QLLM: Accurate and Efficient Low-Bitwidth Quantization for Large Language Models (6/24)**  
 
-1. Channel Disassembly
+- Channel Disassembly
 
 LLM은 두 개의 코어 파트가 있는데, 멀티헤드 셀프 어텐션과 FFN이다. 이들은 주로 Linear layers로 구성되어 있으며 다음과 같이 표현된다.  
 
@@ -30,7 +29,7 @@ $$
 
 $\theta$ 는 아웃라이어 채널이 어떤 크기로 쪼개질지 조절하는 매개변수다.  
 
-2. Channel Assembly
+- Channel Assembly
 
 채널을 쪼개고 나면 채널의 개수는 $M + T - 1$ 가 된다. 원래 M개 였으므로 이를 M개로 다시 줄여주는 작업이 필요하다.
 

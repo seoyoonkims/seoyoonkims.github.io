@@ -25,7 +25,7 @@ $$
 $$
 
 $$
-T = \floor*max(\vert \mathbf{x_M}/\theta)
+T = \lceil max(\vert \mathbf{x_M}/\theta) \rceil
 $$
 
 $\theta$ 는 아웃라이어 채널이 어떤 크기로 쪼개질지 조절하는 매개변수다.  

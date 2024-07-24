@@ -57,5 +57,5 @@ Thank you for visiting my page!
 
 
 ---
-[Recent Posts]: https://github.com/seoyoonkims
-[Paper Review]: https://github.com/seoyoonkims
+[Recent Posts]: https://seoyoonkims.github.io/docs/posts/
+[Paper Review]: https://seoyoonkims.github.io/docs/paper_review/

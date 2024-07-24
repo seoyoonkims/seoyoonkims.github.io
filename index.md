@@ -17,7 +17,7 @@ South Korea
 Thank you for visiting my page!  
 
 [Recent Posts][Recent Posts]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
-[Paper Review][Paper Review]{: .btn .fs-5 .mb-4 .mb-md-0 }
+[Paper Review][Paper Review]{: .btn .fs-3 .mb-4 .mb-md-0 }
 
 
 ## Contact

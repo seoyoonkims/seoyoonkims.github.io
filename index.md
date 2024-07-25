@@ -41,7 +41,7 @@ Thank you for visiting my page!
 
 ## Programming  
 
-> C/C++, SystemVerilog, Python, ROS  
+> C/C++, System Verilog, Python, ROS  
 
 
 ## Recent Posts

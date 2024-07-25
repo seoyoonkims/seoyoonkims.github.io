@@ -1,18 +1,21 @@
 ---
-title: AXI Protocol
+title: Study
 layout: default
 parent: HyperAccel
 nav_order: 2
 ---
 
-## AXI Protocol  
+### HyperAccel 인턴하면서 찾아본 것들  
+
+
+## 1. AXI Protocol  
 
 AMBA **AXI(Advanced eXtensible Interface)** protocol  
 
 
 SoC (System on Chip) 설계에서 데이터를 주고받는 표준 통신 프로토콜이다.
 
-**Feature**  
+### **Feature**  
 - High bandwidth  
 - Pipelined Operation: AW, W, B 같은 stage가 pipeline으로 시행된다.    
 - **Burst transfer**: 하나의 주소를 던지면 여러개의 데이터를 주고 받을 수 있다.  
@@ -20,7 +23,7 @@ SoC (System on Chip) 설계에서 데이터를 주고받는 표준 통신 프로
 - **Out-of-order transaction completion**: 던진 순서대로 처리하지 않고 순서를 바꿔서 더 빠르게 처리한다.  
 
 
-**Handshake** 
+### **Handshake** 
 
 Source: 보낼 데이터가 유효함 (VALID)  
 Destination: 데이터를 받을 준비가 됨 (READY)
@@ -29,7 +32,7 @@ VALID && READY 일 때를 Handshake 라고 부르며 데이터가 transfer 된�
 
 
 
-**Overview**  
+### **Overview**  
 ![AXI-Channels](../images/axi-channels.png)  
 
 
@@ -41,7 +44,7 @@ Read: AR -> R
 Write Response(B)는 Slave가 Master한테 데이터를 제대로 받았는지 알려준다. Read Response가 없는 이유는 에러 정보를 데이터에 담아서 같이 보내면 되기 때문이다.  
 
 
-**Transaction**  
+### **Transaction**  
 
 **1. Write**  
 
@@ -86,6 +89,38 @@ ARLEN은 Burst Length, ARSIZE는 R 채널에서 전송되는 데이터의 Bitwid
 
 **주소 채널과 데이터 채널이 분리되어 있기 때문에 Transaction이 끝나기 전에 새로운 Request를 날리는 것이 가능하다**  
 
+
 ---
 
-2024/07/25
+## 2. DMA (Direct Memory Access)  
+
+CPU의 개입 없이 메모리들 간에 데이터를 주고 받을 수 있다. CPU cycle을 소모하지 않고 DMA Engine을 사용하므로 Data를 전송하는 동안 CPU Cycle을 다른 곳에 사용할 수 있다.  
+
+![DMA](../images/DMA_block_diagram-1.jpg)
+
+CPU와 DMA는 Master Interfaces를 갖고 있다. DMA Controller가 DMA의 동작을 수행하는 Functional Unit인데, CPU가 인식할 수 있는 register를 포함하고 있어서 src addr, dest addr, num byte 등을 요청할 수 있다.  
+
+각 DMA Controller를 FIFO Buffer를 가지고 있어서 데이터를 일시적으로 저장하고 전송 속도를 조절한다.  
+
+![DMA_FIFO](../images/DMA_two_part_transfer-600x171.jpg)
+
+1. Read access – data is transferred from the source address to the DMA FIFO
+2. Write access – data is transferred from the DMA FIFO to the destination address
+
+
+
+
+---
+
+
+## 3. Systolic Array  
+
+---
+
+## 4. HBM  
+
+
+---
+
+
+

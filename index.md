@@ -35,7 +35,7 @@ Thank you for visiting my page!
 
 
 ## Expericence  
-> [CastLab](https://castlab.kaist.ac.kr/) (Individual Research, 2024.08 ~ Present)
+> [CastLab](https://castlab.kaist.ac.kr/) (Individual Research, 2024.08 ~ Present)  
 > [HyperAccel](https://hyperaccel.ai/) (Internship, 2024.06 ~ 2024.08)  
 > [USRG, KAIST](http://unmanned.kaist.ac.kr/) (Individual Research, 2023.06 ~ 2023.08)
 

@@ -7,9 +7,8 @@ nav_order: 2
 
 ## AXI Protocol  
 
-AMBA **AXI(Advanced eXtensible Interface)** protocol
+AMBA **AXI(Advanced eXtensible Interface)** protocol  
 
----
 
 SoC (System on Chip) 설계에서 데이터를 주고받는 표준 통신 프로토콜이다.
 

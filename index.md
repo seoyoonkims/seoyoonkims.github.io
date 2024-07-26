@@ -44,11 +44,11 @@ Thank you for visiting my page!
 
 > C/C++, System Verilog, Python, ROS  
 
----
 
-[Posts][Posts]{: .btn .fs-3 .btn-blue .mb-4 .mb-md-0 }
-[Paper Review][Paper Review]{: .btn .btn-purple .fs-3 .mb-4 .mb-md-0 }
-[HyperAccel][HyperAccel]{: .btn .btn-green .fs-3 .mb-4 .mb-md-0 }  
+
+[Posts][Posts]{: .btn .fs-3 .mb-4 .mb-md-0 }
+[Paper Review][Paper Review]{: .btn .fs-3 .mb-4 .mb-md-0 }
+[HyperAccel][HyperAccel]{: .btn .fs-3 .mb-4 .mb-md-0 }  
 
 ---
 [GitHub]: https://github.com/seoyoonkims

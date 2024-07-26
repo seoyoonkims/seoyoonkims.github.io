@@ -47,10 +47,13 @@ Thank you for visiting my page!
 
 ## Recent Posts  
 
-> [Posts](https://seoyoonkims.github.io/docs/posts/)  
-> [Paper Review](https://seoyoonkims.github.io/docs/paper_review/)  
-> [HyperAccel](https://seoyoonkims.github.io/docs/HyperAccel/)
+> [Posts][Posts]{: .btn .fs-3 .mb-4 .mb-md-0 }  
+> [Paper Review][Paper Review]{: .btn .fs-3 .mb-4 .mb-md-0 }  
+> [HyperAccel][HyperAccel]{: .btn .fs-3 .mb-4 .mb-md-0 } 
 
 ---
 [GitHub]: https://github.com/seoyoonkims
 [LinkedIn]: https://www.linkedin.com/in/kim-seoyoon-9085b3319/
+[Posts]: https://seoyoonkims.github.io/docs/posts/  
+[Paper Review]: https://seoyoonkims.github.io/docs/paper_review/  
+[HyperAccel]: https://seoyoonkims.github.io/docs/HyperAccel/

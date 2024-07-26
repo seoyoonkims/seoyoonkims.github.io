@@ -17,7 +17,12 @@ South Korea
 Thank you for visiting my page!  
 
 [GitHub][GitHub]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
-[LinkedIn][LinkedIn]{: .btn .fs-3 .mb-4 .mb-md-0 }  
+[LinkedIn][LinkedIn]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }  
+
+[Posts][Posts]{: .btn .fs-3 .mb-4 .mb-md-0 }
+[Paper Review][Paper Review]{: .btn .fs-3 .mb-4 .mb-md-0 }
+[HyperAccel][HyperAccel]{: .btn .fs-3 .mb-4 .mb-md-0 }  
+
 
 ## Contact  
 
@@ -42,19 +47,6 @@ Thank you for visiting my page!
 ## Programming  
 
 > C/C++, System Verilog, Python, ROS  
-
-
-[Posts][Posts]{: .btn .fs-5 .mb-4 .mb-md-0 }  
-[Paper Review][Paper Review]{: .btn .fs-5 .mb-4 .mb-md-0 }  
-[HyperAccel][HyperAccel]{: .btn .fs-5 .mb-4 .mb-md-0 }  
-
-## Recent Posts
-> 2024.07.02 [Tetris Debian Package](https://seoyoonkims.github.io/docs/posts/Debian/)  
-> 2024.06.16 [AI-based Autonomous Rover](https://seoyoonkims.github.io/docs/posts/ee405/)  
-
-## Paper Review  
-> 2024.07.21 [Tender: Accelerating Large Language Models via Tensor Decomposition and Runtime Requantization](https://seoyoonkims.github.io/docs/paper_review/Tender/)  
-> 2024.06.19 [DFX: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation](https://seoyoonkims.github.io/docs/paper_review/DFX/)  
 
 
 ---

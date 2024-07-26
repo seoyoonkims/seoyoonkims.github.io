@@ -49,7 +49,7 @@ Thank you for visiting my page!
 
 [Posts][Posts]{: .btn .btn-blue .fs-3 .mb-4 .mb-md-0 }
 [Paper Review][Paper Review]{: .btn btn-primary .fs-3 .mb-4 .mb-md-0 }
-[HyperAccel][HyperAccel]{: .btn .btn-green .fs-4 .mb-3 .mb-md-0 }  
+[HyperAccel][HyperAccel]{: .btn .btn-green .fs-3 .mb-4 .mb-md-0 }  
 
 ---
 [GitHub]: https://github.com/seoyoonkims

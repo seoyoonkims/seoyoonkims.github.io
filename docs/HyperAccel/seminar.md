@@ -83,7 +83,34 @@ $$
 
 ---
 
-#### **3. 2024/07/19**
+#### **4. 2024/07/19**
 ### **Tender: Accelerating Large Language Models via Tensor Decomposition and Runtime Requantization**  
 
+내 발표라 따로 정리해놓았다.  
+
+[Tender](https://seoyoonkims.github.io/docs/paper_review/Tender/)  
+
 ---
+
+#### **5. 2024/07/26**
+### **8-bit Transformer Inference and Fine-tuning for Edge Accelerators**  
+
+Edge Accelerator는 리소스가 제한되어 있으므로 compressed model이 필요한데, 여전히 많은 메모리를 요구하고 있다. quantization이 활발하게 연구되고 있지만, inference 시에 disadvantage가 많고 주로 GEMM 연산에만 quantization이 적용되어 데이터들이 여전히 high precision을 유지하고 있다.  
+
+이 논문은 **8-bit Inference and Fine Tuning with FP8 and Posit**에 관한 연구이며 
+1. 8-bit Quantization + Operation Fusion이 Inference Accuracy에 미치는 영향 분석  
+2. Fine Tuning을 위해 FP8과 Posit8에 LoRA 적용  
+3. Softmax Hardware 설계  
+로 크게 나누어진다.  
+
+**Posit**  
+
+                ![Posit](../images/posit.png)  
+
+
+
+
+
+
+
+

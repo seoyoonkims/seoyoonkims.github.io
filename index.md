@@ -48,7 +48,7 @@ Thank you for visiting my page!
 ## Recent Posts  
 
 [Posts][Posts]{: .btn .btn-blue .fs-3 .mb-4 .mb-md-0 }
-[Paper Review][Paper Review]{: .btn btn-primary .fs-3 .mb-4 .mb-md-0 }
+[Paper Review][Paper Review]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 }
 [HyperAccel][HyperAccel]{: .btn .btn-green .fs-3 .mb-4 .mb-md-0 }  
 
 ---

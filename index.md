@@ -17,11 +17,11 @@ South Korea
 Thank you for visiting my page!  
 
 [GitHub][GitHub]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }
-[LinkedIn][LinkedIn]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 .mr-2 }  
+[LinkedIn][LinkedIn]{: .btn .fs-3 .mb-4 .mb-md-0 }  
 
-[Posts][Posts]{: .btn .fs-3 .mb-4 .mb-md-0 }
-[Paper Review][Paper Review]{: .btn .fs-3 .mb-4 .mb-md-0 }
-[HyperAccel][HyperAccel]{: .btn .fs-3 .mb-4 .mb-md-0 }  
+[Posts][Posts]{: .btn .fs-3 .btn-blue .mb-4 .mb-md-0 }
+[Paper Review][Paper Review]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 }
+[HyperAccel][HyperAccel]{: .btn .btn-greet .fs-3 .mb-4 .mb-md-0 }  
 
 
 ## Contact  

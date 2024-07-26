@@ -44,6 +44,10 @@ Thank you for visiting my page!
 > C/C++, System Verilog, Python, ROS  
 
 
+[Posts][Posts]{: .btn .fs-5 .mb-4 .mb-md-0 }  
+[Paper Review][Paper Review]{: .btn .fs-5 .mb-4 .mb-md-0 }  
+[HyperAccel][HyperAccel]{: .btn .fs-5 .mb-4 .mb-md-0 }  
+
 ## Recent Posts
 > 2024.07.02 [Tetris Debian Package](https://seoyoonkims.github.io/docs/posts/Debian/)  
 > 2024.06.16 [AI-based Autonomous Rover](https://seoyoonkims.github.io/docs/posts/ee405/)  
@@ -56,3 +60,6 @@ Thank you for visiting my page!
 ---
 [GitHub]: https://github.com/seoyoonkims
 [LinkedIn]: https://www.linkedin.com/in/kim-seoyoon-9085b3319/
+[Posts]: https://seoyoonkims.github.io/docs/posts/
+[Paper Review]: https://seoyoonkims.github.io/docs/paper_review/
+[HyperAccel]: https://seoyoonkims.github.io/docs/HyperAccel/

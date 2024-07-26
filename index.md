@@ -54,6 +54,3 @@ Thank you for visiting my page!
 ---
 [GitHub]: https://github.com/seoyoonkims
 [LinkedIn]: https://www.linkedin.com/in/kim-seoyoon-9085b3319/
-[Posts]: https://seoyoonkims.github.io/docs/posts/
-[Paper Review]: https://seoyoonkims.github.io/docs/paper_review/
-[HyperAccel]: https://seoyoonkims.github.io/docs/HyperAccel/

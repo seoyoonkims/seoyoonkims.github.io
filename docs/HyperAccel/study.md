@@ -160,11 +160,13 @@ print("Sorted array is:", arr)
 
 1. 왜 병렬 처리에 유용한가  
  분할할 때 부분 배열 간 간섭이 전혀 없고 재귀적으로 이루어지므로 다른 프로세서가 독립적으로 처리할 수 있어서 그런것 같다. 그리고 Merge를 할 때도 k 만큼 떨어진 원소끼리만 비교 및 교환을 하므로 여러 프로세서가 동시에 작업을 수행할 수 있다.  
-2. 왜 Sorting이 되는가
+
+2. 왜 Sorting이 되는가  
  ![Sorting](../images/sort.jpg)  
- 이게 되네  
+ 이게 되네?
+
 3. 왜 Ascending / Descending 을 번갈아 사용하는가
-![Why Ascend/Descend](../images/ascend.jpg)  
+ ![Why Ascend/Descend](../images/ascend.jpg)  
  Ascending / Ascending 이면 원소 교환해도 Sorting이 안됨
 
 

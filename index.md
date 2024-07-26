@@ -47,9 +47,9 @@ Thank you for visiting my page!
 
 ## Recent Posts  
 
-> [Posts][Posts]{: .btn .fs-3 .mb-4 .mb-md-0 }  
-> [Paper Review][Paper Review]{: .btn .fs-3 .mb-4 .mb-md-0 }  
-> [HyperAccel][HyperAccel]{: .btn .fs-3 .mb-4 .mb-md-0 } 
+> [Posts][Posts]{: .btn .fs-3 .mb-4 .mb-md-0 }
+[Paper Review][Paper Review]{: .btn .fs-3 .mb-4 .mb-md-0 }
+[HyperAccel][HyperAccel]{: .btn .fs-3 .mb-4 .mb-md-0 } 
 
 ---
 [GitHub]: https://github.com/seoyoonkims

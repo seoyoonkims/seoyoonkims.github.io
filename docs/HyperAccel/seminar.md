@@ -105,12 +105,59 @@ Edge Accelerator는 리소스가 제한되어 있으므로 compressed model이 �
 
 **Posit**  
 
-                ![Posit](../images/posit.png)  
+![Posit](../images/posit.png)  
+
+기존의 수 체계가 아니라 새로운 방식을 채택한다.  
+
+exponent, mantissa가 고정되어 있었던 것과 달리 Posit은 flexible 하게 bit 수가 조절된다.
+
+es: Predetermined 되는 값으로 $2^{2^{es}}$ 에 따라 수가 띄엄띄엄 표현될지가 결정된다.  
+
+e: es가 뛰어넘는 수 사이를 e가 모두 커버해줘야 하므로 es에 따라 결정된다.  
+
+s: sign bit
+
+k: regime으로 s 이후에 나오는 0과 1에 따라 결정된다. 만약 0000이 나오면 이는 작은 수이므로 $k = -4$ 가 되어 촘촘한 간격으로 표현되고 1111이면 큰 수이므로 $k=3$ 이 되어 넓은 간격으로 표현된다.  
 
 
+![accuracy](../images/posit_accuracy.png)
+
+모든 수를 동일한 간격으로 매핑하는 FP8 Quantization에 비해 Posit은 작은 수에 대해서는 더 높은 정확도를 보이고 큰 수에서는 낮은 정확도를 갖게 될 것이다.  
+
+**Posit Encoding**  
+
+$$
+x = (-1)^S \cdot 1.f \cdot (2^{2^{es}})^k \cdot 2^e  
+$$
+
+1. 실수 x를 $(2^{2^{es}})^k$ 로 나눠서 k 추출 (1.xxx 지나기 전까지)  
+2. 2로 나눠가며 e 추출 (1.xxx 나올 때까지)  
+3. f 추출  
+4. round to even  
 
 
+**FP8, Posit8 Quantization**  
+
+GEMM만 Quantization 하는 것이 아니라 Residual, LayerNorm, Activation, Attension Scaling 등에도 적용했더니 Accuracy drop이 상당했다.  
+
+그래서 Operation Fusion을 이용한다. 각 단계마다 Quantization 하는 것이 아니라 Fusion된 Operation까지 FP8로 진행하다가 마지막에 Posit8로 바꾸는? 그런 거 같음..  
+
+![Operation Fusion](../images/operation_fusion.png)
+
+MobileBERT 모델의 경우 모든 operation을 fusion 해야 정확도 차이가 1% 내로 줄어든다.  
 
 
+**Fine-tuning for Edge device**  
 
+![Tensor Value Distribution](../images/tensor_value_distribution.png)
+
+Dark gray region은 E4M3으로 표현가능하고, light gray region은 Posit8로 표현 가능한 범위인데 activation과 weight의 경우는 대부분 범위 내에 들어오지만 gradient는 벗어나는 부분이 많아서 scaling을 해줘야 한다. 일반적인 FP8 같은 경우는 Tensor Max 값이랑 그 Format이 나타낼 수 있는 최댓값으로 매핑을 진행하는데, Posit8은 최댓값인 2^12일 때 정확도가 많이 떨어져서 64로 매핑했을 때 결과가 가장 좋았다고 한다.   
+
+**Appriximate Softmax Using Posits**  
+
+Softmax는 exponential와 division을 요구하는데 posit은 sigmoid와 reciprocal을 bitwise로 연산할 수 있어서 간단하게 구현할 수 있다.  
+
+$$
+S(x) = \frac {1}{1+e^{-x}} => e^x = \frac {1}{S(-x)}-1
+$$
 

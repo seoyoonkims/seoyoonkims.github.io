@@ -107,17 +107,86 @@ CPU와 DMA는 Master Interfaces를 갖고 있다. DMA Controller가 DMA의 동�
 1. Read access – data is transferred from the source address to the DMA FIFO
 2. Write access – data is transferred from the DMA FIFO to the destination address
 
-
++ 메인 컨트롤러에 Register File이 있어서 여기에 Set / Check 하는 방식으로 통신하는 것 같다.  
 
 
 ---
 
+## 3. Bitonic Sort  
 
-## 3. Systolic Array  
+병렬처리 컴퓨터에서 많이 쓰는 Sorting 알고리즘이다.  
+
+![bitonic sort](../images/bitonic_sort_architecture.png)
+
+
+1. Bitonic Sequence  
+
+배열을 원소 개수가 2개가 될 때까지 계속 절반으로 쪼개나가서 (재귀적으로) Ascending / Descending 이 반복되도록 각 부분 배열을 Sorting을 한다.  
+
+2. Bitonic Merge  
+
+두 개의 부분 배열을 비교하여 Merge 하는데, 일정 인덱스 만큼 떨어진 원소를 규칙에 맞게 교환하는 식으로 한다. 역시 Ascending / Descending 이 반복되도록 한다.  
+
+코드로 보면 이해가 편하다.  
+
+```
+def compare_and_swap(arr, i, j, direction):
+    if direction == (arr[i] > arr[j]):
+        arr[i], arr[j] = arr[j], arr[i]
+
+def bitonic_merge(arr, low, cnt, direction):
+    if cnt > 1:
+        k = cnt // 2
+        for i in range(low, low + k):
+            compare_and_swap(arr, i, i + k, direction)
+        bitonic_merge(arr, low, k, direction)
+        bitonic_merge(arr, low + k, k, direction)
+
+def bitonic_sort(arr, low, cnt, direction):
+    if cnt > 1:
+        k = cnt // 2
+        bitonic_sort(arr, low, k, 1)  # Ascending order
+        bitonic_sort(arr, low + k, k, 0)  # Descending order
+        bitonic_merge(arr, low, cnt, direction)
+
+def sort(arr, N, up):
+    bitonic_sort(arr, 0, N, up)
+
+# Example usage
+arr = [3, 7, 4, 8, 6, 2, 1, 5]
+N = len(arr)
+up = 1  # 1 for ascending order, 0 for descending order
+sort(arr, N, up)
+print("Sorted array is:", arr)
+
+```
+
+처음에 3가지 의문이 있었는데,
+
+1. 왜 병렬 처리에 유용한가  
+
+분할할 때 부분 배열 간 간섭이 전혀 없고 재귀적으로 이루어지므로 다른 프로세서가 독립적으로 처리할 수 있어서 그런것 같다. 그리고 Merge를 할 때도 k 만큼 떨어진 원소끼리만 비교 및 교환을 하므로 여러 프로세서가 동시에 작업을 수행할 수 있다.  
+
+
+2. 왜 Sorting이 되는가
+
+![Sorting](../images/sort.jpg)  
+
+이게 되네  
+
+3. 왜 Ascending / Descending 을 번갈아 사용하는가
+
+![Why Ascend/Descend](../images/ascend.jpg)  
+
+Ascending / Ascending 이면 원소 교환해도 Sorting이 안됨
+
+
+
+## 4. Systolic Array  
 
 ---
 
-## 4. HBM  
+## 5. HBM  
 
 
 ---

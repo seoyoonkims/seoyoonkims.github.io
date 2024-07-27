@@ -21,11 +21,6 @@ Thank you for visiting my page!
 [HyperAccel][HyperAccel]{: .btn .btn-green .fs-3 .mb-4 .mb-md-0 }  
 
 
-## Contact  
-
-> Email: <seoyoonkims@kaist.ac.kr>  
-> GitHub: <https://github.com/seoyoonkims>  
-
 ## Research Interests  
 
 > AI Accelerator, Unmanned System
@@ -49,4 +44,10 @@ Thank you for visiting my page!
 ---
 [Posts]: https://seoyoonkims.github.io/docs/posts/  
 [Paper Review]: https://seoyoonkims.github.io/docs/paper_review/  
-[HyperAccel]: https://seoyoonkims.github.io/docs/HyperAccel/
+[HyperAccel]: https://seoyoonkims.github.io/docs/HyperAccel/  
+
+
+## Contact  
+
+> Email: <seoyoonkims@kaist.ac.kr>  
+> GitHub: <https://github.com/seoyoonkims>  

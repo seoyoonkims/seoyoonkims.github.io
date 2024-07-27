@@ -20,6 +20,11 @@ Thank you for visiting my page!
 [Paper Review][Paper Review]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 }
 [HyperAccel][HyperAccel]{: .btn .btn-green .fs-3 .mb-4 .mb-md-0 }  
 
+## Contacts  
+
+> Email: <seoyoonkims@kaist.ac.kr>  
+> GitHub: <https://github.com/seoyoonkims>  
+
 
 ## Research Interests  
 
@@ -41,13 +46,7 @@ Thank you for visiting my page!
 
 > C/C++, System Verilog, Python, ROS  
 
----
+
 [Posts]: https://seoyoonkims.github.io/docs/posts/  
 [Paper Review]: https://seoyoonkims.github.io/docs/paper_review/  
 [HyperAccel]: https://seoyoonkims.github.io/docs/HyperAccel/  
-
-
-## Contact  
-
-> Email: <seoyoonkims@kaist.ac.kr>  
-> GitHub: <https://github.com/seoyoonkims>  

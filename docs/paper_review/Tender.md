@@ -5,7 +5,7 @@ parent: Paper Review
 nav_order: 2
 ---
 
-논문 리뷰  
+### 논문 리뷰  
 
 
 2024 ACM/IEEE 51st Annual International Symposium on Computer Architecture (ISCA)  

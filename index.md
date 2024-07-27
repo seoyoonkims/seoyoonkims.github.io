@@ -16,16 +16,15 @@ South Korea
 
 Thank you for visiting my page!  
 
-> [Posts][Posts]{: .btn .fs-4 .mb-4 .mb-md-0 }
-[Paper Review][Paper Review]{: .btn .fs-4 .mb-4 .mb-md-0 }
-[HyperAccel][HyperAccel]{: .btn .fs-4 .mb-4 .mb-md-0 }  
+> [Posts][Posts]{: .btn .btn-blue .fs-3 .mb-4 .mb-md-0 }
+[Paper Review][Paper Review]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 }
+[HyperAccel][HyperAccel]{: .btn .btn-green .fs-3 .mb-4 .mb-md-0 }  
 
 
 ## Contact  
 
 > Email: <seoyoonkims@kaist.ac.kr>  
 > GitHub: <https://github.com/seoyoonkims>  
-> LinkedIn: <https://www.linkedin.com/in/kim-seoyoon-9085b3319>  
 
 ## Research Interests  
 
@@ -46,13 +45,6 @@ Thank you for visiting my page!
 ## Programming  
 
 > C/C++, System Verilog, Python, ROS  
-
-
-## Recent Posts  
-
-> [Posts][Posts]{: .btn .fs-3 .mb-4 .mb-md-0 }
-[Paper Review][Paper Review]{: .btn .fs-3 .mb-4 .mb-md-0 }
-[HyperAccel][HyperAccel]{: .btn .fs-3 .mb-4 .mb-md-0 } 
 
 ---
 [Posts]: https://seoyoonkims.github.io/docs/posts/  

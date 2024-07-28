@@ -10,14 +10,15 @@ nav_order: 3
 ---
 
 
-### Debian Package (7월 1,2주)  
+### 1. Debian Package (7월 1,2주)  
 
 Debian 계열의 리눅스에서 Software를 배포하고 설치하는데 사용되는 패키지이다.  
 
 HyperDex Runtime Library와 HyperDex Compiler의 Debian Package를 만들어서 성공적으로 설치되는 것까지 확인하였다. 나는 Ubuntu 22.04-LTS 환경에서 작업하였다. GitHub도 배울 수 있었다.  
 
+---
 
-### Docker (7월 3주)  
+### 2. Docker (7월 3주)  
 
 ![Docker](../images/dockerfile.png)  
 
@@ -27,17 +28,18 @@ Docker Image는 리눅스 커널을 공유하고 Base Image로 Ubuntu, CentOS, R
 
 어떤 환경에서도 HyperDex Runtime Library와 HyperDex Compiler를 사용할 수 있도록 Dockerfile을 작성하고 생성된 Docker Container에서 실제로 LPU를 사용해서 TinyLlama를 돌려보았다.  
 
+---
 
-### LPU Code Review (7월 4주)  
+### 3. LPU Code Review (7월 4주)  
 
 Monitoring 업무를 위해 필요한 사전 지식 공부  
 
-LPU의 Control Flow를 이해하고 Control Unit, Computation Unit, On-Chip Memory Unit, Off-Chip Memory Unit의 구조를 코드를 보면서 공부했다.  
+LPU의 Control Flow를 이해하고 Control Unit, Computation Unit, On-Chip Memory Unit, Off-Chip Memory Unit의 구조를 코드를 보면서 공부했다. 어려웠다..  
+
+---
 
 
-
-
-### Monitoring  
+### 4. Monitoring  
 
 
 

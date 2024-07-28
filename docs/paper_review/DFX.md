@@ -79,43 +79,44 @@ By Seongmin Hong(KAIST), Seungjae Moon(KAIST), Junsoo Kim(KAIST), Sungjae Lee(NA
 
 **A. Architecture Overview**  
 
-  DFX 구조는 FPGA에 기반한 거대 트랜스포머 언어 모델을 가속하기 위해 디자인되었다. 아래 그림처럼 DFX는 듀얼 소켓 CPU와 여러개의 FPGA들로 이루어진 서버 어플라이언스 아키텍쳐이다. 하나의 CPU와 4개의 동일한 FPGA로 구성된 클러스터가 독립적인 연산을 수행하는 시스템이 된다. 각 FPGA는 하나의 연산 코어를 갖고 있어서 클러스터 마다 4개의 코어를 갖게 된다. FPGA 들은 16 GB/s로 데이터를 전송할 수 있는 PCIe Gen3 Subsystem으로 호스트 CPU와 연결되어 있다. FPGA-to-FPGA 통신은 100 Gb/s의 전송 속도를 가진 QSFP transceiver로 이뤄진다. 각 FPGA가 두 개의 QSFP 포트들로 한정되어 있어서 네트워크 토폴로지 중 ring network가 선택되었다. 클러스터 당 4개의 FPGA만 선택했음에도 monetary 비용만 고려하면 scalable 하다.  
+  DFX는 듀얼 소켓 CPU와 여러개의 FPGA들로 이루어진 서버 어플라이언스 아키텍쳐이다. 하나의 CPU와 4개의 FPGA로 구성된 클러스터가 독립적인 연산을 수행한다. 각 FPGA가 하나의 연산 코어를 갖고 있어서 클러스터 마다 4개의 코어를 갖는다. FPGA 들은 16 GB/s로 데이터를 전송할 수 있는 PCIe Gen3 Subsystem으로 호스트 CPU와 연결되어 있다. FPGA 간 통신은 100 Gb/s QSFP transceiver로 이뤄진다. 각 FPGA가 두 개의 QSFP 포트들로 한정되어 있어서 ring network가 선택되었다. 
   ![overall_DFX](../images/overall_DFX.png)  
 
 **B. Homogeneous Multi-FPGA Cluster**  
 
-  거대 스케일의 언어 모델을 효과적으로 처리하게 위해서 Intra-Layer Parallelism을 적용했다. 최소한의 동기화 오버헤드로 Worker의 수에 비례하여 행렬 계산의 latency를 줄이기 위해 특정 Intra-Layer 분할 기법이 사용된다. 반대로, 파이프라이닝은 높은 latency를 발생시키는데, 그 이유는 모든 worker 들이 단일 인풋을 위해 각 연산을 완전히 실행하기 때문이다. 게다가 만약 텍스트 생성처럼 최종 아웃풋 결과가 다음 인풋이 되는 경우 두 scheme 간 latency 차이가 디코더 갯수에 따라 선형으로 증가할 것이다. 아래 그림을 보면, 멀티 헤드 어텐션을 위해서 가중치 행렬이 헤드 마다 나눠지고, FC layer를 위한 가중치 행렬이 column-wise 하게 나뉘어서 FPGA가 개인적으로 일할 수 있게 한다. 나눠진 행렬들은 주어진 코어에 해당하는 FPGA의 메모리 부분에 저장되고, 각 코어는 동일한 연산을 나눠진 모델 파라미터들을 이용해 병렬적으로 실행한다. 각 코어는 Subvector에 해당하는 최종 결과를 얻고, 각 Subvector 들은 동기화를 위해 ring network를 통해 다른 FPGA로 순환된다. 동기화가 끝나면 각 코어들은 완전한 vector를 얻게 되어 다음 벡터 연산을 진행하게 된다. 전반적으로 이 동기화가 셀프 어텐션과 Feed-forward Network 중간과 이후에 한번씩 필요하여 decoder layer 마다 총 4번이 필요하다. 따라서 데이터 동기화와 전송을 줄여서 각 FPGA는 동일한 연산을 동일한 하드웨어에서 진행하고 4개의 FPGA가 클러스터를 형성한다.  
+  Intra-Layer Parallelism을 적용했다. 최소한의 Synchronization 오버헤드로 latency를 줄이기 위해 특정 Intra-Layer 분할 기법이 사용된다. Pipelining은 높은 latency를 발생시키는데, 그 이유는 모든 worker 들이 단일 인풋을 위해 일하기 때문이다. 게다가 만약 텍스트 생성처럼 최종 아웃풋 결과가 다음 인풋이 되는 경우 두 scheme 간 latency 차이가 디코더 갯수에 따라 선형으로 증가할 것이다.  
+  
+  아래 그림을 보면, 멀티 헤드 어텐션을 위해서 가중치 행렬이 헤드 마다 나눠지고, FC layer를 위한 가중치 행렬이 column-wise 하게 나뉘어서 FPGA가 개인적으로 일할 수 있게 된다. 나눠진 행렬들은 FPGA의 메모리에 저장되고, 각 코어는 동일한 연산을 나눠진 모델 파라미터들에 대해 병렬적으로 실행한다. 각 코어는 Subvector에 해당하는 최종 결과를 얻고, 각 Subvector 들은 Synchronization을 위해 ring network를 통해 다른 FPGA로 순환된다. Synchronization이 끝나면 각 코어들은 완전한 vector를 얻게 되어 다음 벡터 연산을 진행하게 된다. 전반적으로 이 동기화가 셀프 어텐션과 Feed-forward Network 중간과 이후에 한번씩 필요하여 decoder layer 마다 총 4번이 필요하다.  
 
   ![overall_DFX](../images/intra-layer.png) 
 
   **Memory Mapping**  
-  FPGA는 8 GB HBM과 32GB DDR를 장착하여 이론적인 최고 BW가 각각 460 GB/s와 38 GB/s이다. 가중치 행렬은 HBM에 저장된다. 반면, 인풋/아웃풋 토큰, 바이어스 벡터, 다른 모델 파라미터들은 몇 iteration에 한 번 이나 전체 decoder 단계에서 한 번 접근되기 때문에 DDR에 저장된다. DFX는 표준 half-precision floating-point (FP16) 모델 파라미터를 이용해서 추론 정확도를 유지한다.  
+  FPGA는 8 GB HBM과 32GB DDR를 장착하여 이론적으로 최대 Bandwidth가 각각 460 GB/s와 38 GB/s이다. 가중치 행렬은 HBM에 저장된다. 반면, 인풋/아웃풋 토큰, 바이어스 벡터, 다른 모델 파라미터들은 몇 iteration에 한 번 이나 전체 decoder 단계에서 한 번 접근되기 때문에 DDR에 저장된다. DFX는 FP16 모델 파라미터를 사용해서 추론 정확도를 유지한다.  
 
 **C. Instruction Set Architecture**  
-  DFX는 어셈블리 레벨에서 유연하고 커스텀한 ISA를 갖고 있어서 어텐션에만 초점을 맞춘 이전의 NLP 가속기들과 달리 GPT-2 추론을 처음부터 끝까지 서포트하기 적합하다.  
+  DFX는 커스텀한 ISA를 갖고 있어서 어텐션에만 초점을 맞춘 이전의 NLP 가속기들과 달리 GPT-2 추론을 end-to-end로 서포트한다.  
   
   **Instruction Set**  
-  DFX ISA에는 compute, dma, router의 3가지 명령어 타입이 있다. Compute 명령은 메인 프로세싱 유닛을 처리하기 위함이고 (type, src1, src2, dst)와 source나 destination이 off-chip memory에 있는지 on-chip memory에 있는지 결정하기 위한 추가 bit가 존재한다. Dma와 Router 명령어는 주어진 전송 사이즈에 맞게 데이터를 주고 받을 수 있도록 DMA와 Network Router를 컨트롤하기 위함이다. (type, src, dst, xfer_size) 형식으로 생겼다.   
+  DFX ISA에는 Compute, DMA, Router의 3가지 명령어 타입이 있다. Compute은 메인 프로세싱 유닛을 처리하기 위함이고 (type, src1, src2, dst)와 source나 destination이 off-chip memory에 있는지 on-chip memory에 있는지 결정하기 위한 추가 bit가 존재한다. DMA와 Router 명령어는 주어진 전송 사이즈에 맞게 데이터를 주고 받을 수 있도록 컨트롤하기 위함이다. (type, src, dst, xfer_size) 형식으로 생겼다.  
 
-
-  각 명령어 타입은 Instruction Chaining을 통해서 dependent한 명령어들은 최소한의 stalling으로 실행된다. Independent한 명령어들은 병렬적으로 처리된다. 예를 들어, compute는 데이터를 가공하고, dma는 데이터를 fetch 하고, router는 동기화를 위해 peer device에서 데이터를 가져와서 buffer를 채운다. Instruction Chaining과 Parallel Execution의 조합은 메모리와 통신 BW의 지속적인 이용을 가능하게 한다. 아래 그림은 GPT-2 decoder 층의 pseudocode를 보여준다.   
+  각 명령어 타입은 Instruction Chaining을 통해서 dependent한 명령어들은 최소한의 stalling으로 실행된다. Independent한 명령어들은 병렬적으로 처리된다. 예를 들어, compute는 데이터를 가공하고, DMA는 데이터를 fetch 하고, router는 동기화를 위해 peer device에서 데이터를 가져와서 buffer를 채운다.  
 
   ![pseudocode](../images/pseudocode.png) 
 
   **Compute Instructions**  
-  Compute instructions는 코어 명령어 세트의 대부분을 설명하며 메인 프로세싱 유닛을 제어하기 위한 두 개의 그룹으로 나뉘어 있다. Matrix Instruction와 Vector Instruction이다.  
+  Compute instructions는 코어 명령어 세트의 대부분을 차지하며 Matrix Instruction와 Vector Instruction로 나눠진다.  
 
-  **Matrix Instructions**는 행렬-벡터 곱과 GELU나 reduce max 같은 추가적인 함수를 실행하기 위함이다. 행렬은 tiles에 로드되고 벡터들은 portions에 로드된다. 어떠한 행렬 곱들은 일련의 행렬-벡터 곱으로 계산할 수 있다.  
+  **Matrix Instructions**는 행렬-벡터 곱과 GELU나 reduce max 같은 추가적인 함수를 실행하기 위함이다. 행렬은 tiles에 로드되고 벡터들은 portions에 로드된다.  
 
-  1) Conv1D: $Ax+b$ 는 Query, Key, Value 행렬 생성과 Feed-forward Network에 사용된다. 이 명령어에서 가중치 행렬 A와 인풋 벡터 x, 바이어스 벡터 b가 필요하다. Conv1D는 convolutional한 면을 가지고 있는데, 그 이유는 인풋 사이즈가 최대 인풋 사이즈보다 커지면 연산이 sliding window로 수행되기 때문이다.  
+  1. Conv1D: $Ax+b$ 는 Query, Key, Value 행렬 생성과 Feed-forward Network에 사용된다. 이 명령어에서 가중치 행렬 A와 인풋 벡터 x, 바이어스 벡터 b가 필요하다. Conv1D는 convolutional한 면을 가지고 있는데, 그 이유는 인풋 사이즈가 최대 인풋 사이즈보다 커지면 연산이 sliding window로 수행되기 때문이다.  
 
-  2) MaskedMM: Masked matirx multiplication (MM)은 $Ax$의 형태다. 이것은 Score matrix로 알려진 $Query \times Key^T$를 계산한다. Query 행렬이 vector들로 load가 되는 점에 주목하자. masking operation은 score 행렬의 upper diagonal elements에 음의 무한대 값을 부여해서 현재 토큰이 미래 contexts의 영향을 받지 않도록 한다. Softmax와의 combination으로 MaskedMM은 lower triangular matrix를 만들고 각 행의 최댓값을 반환한다.  
+  2. MaskedMM: $Ax$의 형태로 Score matrix로 알려진 $Query \times Key^T$를 계산한다. Masking operation은 score 행렬의 upper diagonal elements에 음의 무한대 값을 부여해서 현재 토큰이 미래 contexts의 영향을 받지 않도록 한다. Softmax와의 combination으로 MaskedMM은 lower triangular matrix를 만들고 각 행의 최댓값을 반환한다.  
 
-  3) MM: MaskedMM에서 Masking을 뺀 것이다. LM head에서 logit을 계산하는데 사용된다. Logit은 아웃풋 임베딩 벡터를 토큰 ID로 변환하고 어텐션 레이어에서 Score x Value를 계산하는 데 사용된다.  
+  3. MM: MaskedMM에서 Masking을 뺀 것이다. LM head에서 logit을 계산하는데 사용된다. Logit은 아웃풋 임베딩 벡터를 토큰 ID로 변환하고 어텐션 레이어에서 Score x Value를 계산하는 데 사용된다.  
 
-  **Vector Instructions**는 load, store과 더불어 low-level 벡터-벡터 연산과 벡터-스칼라 연산을 실행한다. add, sub, mul, accum, recip_sqrt, recip, exp 같은 기본 연산도 수행한다. 따라서 LayerNorm과 Softmax 같은 high-level 연산들은 여러 개의 vector instructions들로 실행된다.  
+  **Vector Instructions**는 load, store과 더불어 벡터-벡터 연산과 벡터-스칼라 연산을 실행한다. add, sub, mul, accum, recip_sqrt, recip, exp 같은 기본 연산도 수행한다. 따라서 LayerNorm과 Softmax 같은 high-level 연산들은 여러 개의 vector instructions들로 실행된다.  
 
-  1) LayerNorm: mu와 sigma는 각각 평균과 표준편차를 나타낸다. gamma와 beta는 weight와 bias 벡터를 나타낸다. 평균 계산에는 accum과 mul이 필요하고, 표준편차 계산에는 recip_sqrt가 추가로 필요하다. 그 후 sub, mul, add를 통해 LayerNorm을 계산한다. 파라미터들은 load를 통해 reg file로 fetch 된다.  
+  1) LayerNorm: $\mu$와 $\sigma$ 는 각각 평균과 표준편차를 나타낸다. $\gamma$와 $\beta$는 weight와 bias 벡터를 나타낸다. 평균 계산에는 accum과 mul이 필요하고, 표준편차 계산에는 recip_sqrt가 추가로 필요하다. 그 후 sub, mul, add를 통해 LayerNorm을 계산한다. 파라미터들은 load를 통해 reg file로 fetch 된다.  
 
   $$
   y(x_i) = \gamma \frac{x_i - \mu}{\sigma} + \beta_i  
@@ -128,7 +129,6 @@ By Seongmin Hong(KAIST), Seungjae Moon(KAIST), Junsoo Kim(KAIST), Sungjae Lee(NA
   $$
 
   
-
 ---
 
 ### **V. Microarchitecture**  

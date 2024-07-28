@@ -38,9 +38,7 @@ By Seongmin Hong(KAIST), Seungjae Moon(KAIST), Junsoo Kim(KAIST), Sungjae Lee(NA
   ![GPT-2](../images/transformer.png)  
 
 
-  GPT-2는 Token Embedding과 LM head 사이에 N개의 디코더 레이어를 가지고 있다. 하나의 디코더 레이어는 Self-attention, Feed-forward Network, Layer Normalization, Residual. Self-attention로 구분된다.  
-  
-  Query는 현재 주어진 단어와 관련이 있고 Key와 Value는 전체 문맥의 흐름을 나타낸다. GPT-2는 어텐션 가중치를 H개의 열로 나누는 멀티헤드 어텐션을 사용한다. Feed-forward Network은 두 개의 FC Layers와 GELU 활성화 함수로 이루어져 있다. Layer Normalization와 Residual은 fine-tunning 하기 위함이다.  
+  GPT-2는 Token Embedding과 LM head 사이에 N개의 디코더 레이어를 가지고 있다. 하나의 디코더 레이어는 Self-attention, Feed-forward Network, Layer Normalization, Residual. Self-attention로 구분된다. Query는 현재 주어진 단어와 관련이 있고 Key와 Value는 전체 문맥의 흐름을 나타낸다. GPT-2는 어텐션 가중치를 H개의 열로 나누는 멀티헤드 어텐션을 사용한다. Feed-forward Network은 두 개의 FC Layers와 GELU 활성화 함수로 이루어져 있다. Layer Normalization와 Residual은 fine-tunning 하기 위함이다.  
 
   Summarization은 전체 Context를 인풋으로 받기 때문에 디코더의 인풋 차원이 $n \times emb$ 이다. n은 context의 토큰 길이(갯수)이다. 참고로 1.5B 모델의 $emb = 1600$이다. 임베딩 벡터는 디코더로 fed 되는데 가중치 행렬 사이즈가 $emb \times emb$ 거나 더 크며 아웃풋 행렬은 초기 디멘션과 같은 $n \times emb$ 이다. 아웃풋 행렬의 마지막 행만 LM head에서 처리되고 첫번째 토큰이 생성된다.  
   
@@ -49,18 +47,14 @@ By Seongmin Hong(KAIST), Seungjae Moon(KAIST), Junsoo Kim(KAIST), Sungjae Lee(NA
 
 **B. Parallelism in Deep Learning**  
 
-  하나의 모델을 여러개의 Worker로 나누어 프로세스 하는데 여러 방법이 있다.  
-
   **Data Parallelism**  
   Data Parallelism은 batch를 여러개의 Worker에 분산시키는 방법이다. 각 Worker는 batch data를 가지고 개인적으로 연산을 수행한다. 추론에는 사용자의 요청이 반영된 싱글 사이즈의 batch나 batch가 아닌 인풋이 사용되기 때문에 적합하지 않다.  
 
   **Model Parallelism**  
-  Model Parallelism은 모델 파라미터를 여러 Worker로 나눈 후 동시에 프로세스한다. 각 worker에 할당되는 양이 줄어들기 때문에 GPT-2나 BERT 같은 거대 모델에 적합하다. 가장 많이 사용되는 scheme은 pipelined parallelism과 intra-layer parallelism이다.  
-  
-  전자의 경우 하나의 Worker만 operation을 수행하고 결과를 다른 operation을 수행하는 worker로 넘긴다. 전체 과정은 높은 throughput을 위해 파이프라인 되지만 latency는 줄어들지 않는다. 후자는 행렬 곱처럼 병렬 처리가 가능한 연산들을 여러 장치로 나눔으로써 실행 시간이 상당히 줄어든다. 반면 전체 아웃풋을 필요로 하는 연산이 나오면 그 전에 synchronization이 필요하다. 
+  Model Parallelism은 모델 파라미터를 여러 Worker로 나눈 후 동시에 프로세스한다. 각 worker에 할당되는 양이 줄어들기 때문에 GPT-2나 BERT 같은 거대 모델에 적합하다. 가장 많이 사용되는 scheme은 pipelined parallelism과 intra-layer parallelism이다. 전자의 경우 하나의 Worker만 operation을 수행하고 결과를 다른 operation을 수행하는 worker로 넘긴다. 전체 과정은 높은 throughput을 위해 파이프라인 되지만 latency는 줄어들지 않는다. 후자는 행렬 곱처럼 병렬 처리가 가능한 연산들을 여러 장치로 나눔으로써 실행 시간이 상당히 줄어든다. 반면 전체 아웃풋을 필요로 하는 연산이 나오면 그 전에 synchronization이 필요하다. 
 
 ---
-### III. Motivation  
+### **III. Motivation**  
 
 **A. Sequential Characteristic**  
   생성 단계의 Sequential Process는 병렬화가 어렵고 연산이 GPU의 모든 거대 연산 유닛을 이용할만큼 intensive 하지 않아서 상당한 underutilization이 발생한다. 아래 그림은 Output Size가 평균 75.45 ms 정도로 latency를 크게 증가시키는 것을 보여준다. 반면 Input Size는 평균 0.02ms 정도 밖에 증가시키지 않았다.  
@@ -81,7 +75,7 @@ By Seongmin Hong(KAIST), Seungjae Moon(KAIST), Junsoo Kim(KAIST), Sungjae Lee(NA
   GPT-2는 대량 연산을 요구하므로, 거대 모델을 여러개의 노드로 나누어 병렬 처리 하는 것이 바람직하다. 병렬 연산을 최소한의 latency 증가로 극대화 할 수 있는 Model Parallelism와 Efficient Network를 채택하는 다중 장치 시스템이 필요하다.  
 
 
-### IV. DFX Architecture  
+### **IV. DFX Architecture**    
 
 **A. Architecture Overview**  
 
@@ -137,7 +131,7 @@ By Seongmin Hong(KAIST), Seungjae Moon(KAIST), Junsoo Kim(KAIST), Sungjae Lee(NA
 
 ---
 
-### V. Microarchitecture  
+### **V. Microarchitecture**  
 
   ![uarch](../images/uarch.png)  
 

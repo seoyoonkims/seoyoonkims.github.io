@@ -14,7 +14,7 @@ nav_order: 3
 
 Debian 계열의 리눅스에서 Software를 배포하고 설치하는데 사용되는 패키지이다.  
 
-HyperDex Runtime Library와 HyperDex Compiler의 Debian Package를 만들어서 성공적으로 설치되는 것까지 확인하였다. 나는 Ubuntu 22.04-LTS 환경에서 작업하였다.    
+HyperDex Runtime Library와 HyperDex Compiler의 Debian Package를 만들어서 성공적으로 설치되는 것까지 확인하였다. 나는 Ubuntu 22.04-LTS 환경에서 작업하였다. GitHub도 배울 수 있었다.  
 
 
 ### Docker (7월 3주)  

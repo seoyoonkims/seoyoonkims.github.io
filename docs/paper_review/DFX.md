@@ -13,17 +13,9 @@ By Seongmin Hong(KAIST), Seungjae Moon(KAIST), Junsoo Kim(KAIST), Sungjae Lee(NA
 
 ---
 
-### Abstract  
-
-**트랜스포머(Transformer)**는 데이터 센터에서 자연어 처리(NLP)를 하는 데 널리 사용하는 딥러닝 언어 모델이다. 여러 트랜스포머 모델 중 GPT는 가장 주목할 만한 성과를 만들었다. 요약 단계에서 큰 사이즈의 인풋 텍스트를 처리한 후 생성 단계에서는 하나의 단어를 시간 순서대로 생성한다. GPU는 병렬 처리에 특화되어 있으므로 요약 단계에서는 잘 작동하지만 생성 단계에서는 텍스트 생성의 Sequential Characteristic 때문에 성능이 크게 떨어진다. 이로 인한 high latency 문제를 해결할 수 있는 효과적인 하드웨어 플랫폼이 필요하다.  
-
-DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 모두 low latency 및 high throughput으로 처리할 수 있다. DFX는 모델 병렬 처리 및 최적화된 데이터 흐름을 사용하며, 모델과 하드웨어를 인식하고 있어서 여러 장치 간의 작업을 동시에 빠르게 실행할 수 있다. DFX의 코어는 맞춤형 명령어들을 사용하며 GPT-2의 동작을 처음부터 끝까지 제공한다. 우리는 이 하드웨어 구조를 4개의 Xilinx Alveo U280 FPGA에 적용하였고 모든 HBM 채널과 계산 리소스들을 사용하여 하드웨어 효율을 높인다. DFX는 GPT-2 모델을 작동시켰을 때 NVIDIA V100 GPUs 대비 5.58배의 속도 향상과 3.99배의 에너지 효율 향상을 달성하였다. 또한, GPU appliance보다 비용 효율이 8.21배 높기 때문에 텍스트 생성 기술의 유망한 해결책이다.
-
----
-
 ### I. Introduction  
 
-트랜스포머는 딥러닝 언어 모델로 인풋 데이터의 각 부분마다 중요도 가중치를 다르게 주는 어텐션 기법을 사용한다. RNN와 LSTM으로 회귀와 글로벌 디펜던시 문제를 해결하면서 사실상 텍스트 생성과 같은 자연어 처리의 표준 기법으로 자리 잡았다. 트랜스포머 모델 중 Generative Pre-trained Transformer (GPT)는 클라우드 서비스에 널리 이용되며 텍스트 생성에 주목할만한 성과를 거두고 있다.  
+트랜스포머는 딥러닝 언어 모델로 인풋 데이터의 각 부분마다 중요도 가중치를 다르게 주는 어텐션 기법을 사용한다. 회귀와 RNN과 LSTM의 글로벌 디펜던시 문제를 해결하면서 사실상 텍스트 생성과 같은 자연어 처리의 표준 기법으로 자리 잡았다. 트랜스포머 모델 중 Generative Pre-trained Transformer (GPT)는 클라우드 서비스에 널리 이용되며 텍스트 생성에 주목할만한 성과를 거두고 있다.  
 
 텍스트 생성 과정은 요약과 생성 단계로 나뉘는데, 언어 모델은 인풋 토큰으로부터 생성된 인풋 context를 이용하여 지속적으로 연속적인 아웃풋 토큰을 생성한다. 생성 단계는 각 iteration 마다 하나의 아웃풋 토큰을 생성하며 이전 단계의 아웃풋 토큰을 인풋으로 사용한다. 반면에 언어 모델은 iteraions 동안 Contextual Features를 저장한다. 현재의 서버 플랫폼에서는 택스트 생성에 GPU를 사용한다. GPU의 대량 병렬 계산 유닛은 인풋 토큰을 동시에 계산할 수 있게 하기 때문에 요약 단계에서 좋은 성능을 발휘한다. 그치만 Sequential Processing에는 맞지 않기 때문에 성능이 생성 단계에서는 성능이 저하된다.  
 
@@ -31,15 +23,10 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
 여러 개의 아키텍쳐가 트랜스포머를 가속시키기 위해 제안된 바 있다. 어텐션 메커니즘은 문맥 이해를 위한 행렬 곱과 소프트맥스로 구성되어 있고 연산적으로 가장 intensive 하기 때문에 주된 걱정거리였다. 그러나 언어 서비스는 트랜스포머의 전체적인 구조를 고려해야 한다. 데이터 센터가 위의 가속기 구조들을 채택하려면 서버 플랫폼이 추가적인 CPU나 연산 모듈을 필요로 해서 overhead가 늘어난다. 따라서 전체적인 GPT 작동을 수행할 수 있는 단일화되고 프로그램할 수 있는 아키텍쳐가 필요하다.  
 
-본 논문에서는 DFX라는 Multi-FPGA 가속기를 제안한다. 이 가속기는 텍스트 생성에 최적화 되어있고 다양한 GPT 모델에 적용할 수 있다. Sequential Characteristic을 다루기 위해 DFX의 연산 코어는 단일 토큰 처리에 최적화 되어있다. 또한, 최대 HBM을 위해 GPT의 특성에 기반한 효과적인 Tiling Scheme과 dataflow를 사용한다. 증가하는 모델 사이즈를 다루기 위해 모델 병렬 처리를 하여 연산 코어의 피지컬 수를 늘리고 로드를 고르게 분배한다. GPT 모델은 지속적으로 변화하고 다른 언어 서비스로 확장할 수 있도록 FPGA 모델을 이용한다. FPGA 기반 가속기 ASIC 기반과 비교했을 때 다시 프로그래밍 할 수 있는 하드웨어를 최저 비용으로 제공한다.  
-
-- GPU 같은 병렬 하드웨어에서 텍스트 생성은 텍스트 생성의 순차적 특성으로 인해 병목 현상이 발생하는 것을 확인한다.  
-- 높은 하드웨어 활용도를 가진 GPT 추론 가속화에 최적화된 프로그래밍 가능한 맞춤형 코어를 설계한다.
-- GPT에 기반한 tiling scheme과 dataflow로 full HBM을 이용하여 low latency와 high throughput을 달성한다.
-- 최소한의 data synchronization과 최고의 병렬 처리를 달성하는 방향으로 Multi-FPGA 시스템에 모델 병렬 처리와 효율적인 네트워크를 적용해서 모델 파라미터를 고르게 분배한다.
-- GPU 기반 플랫폼보다 몇배 더 적은 비용으로 몇배 더 좋은 성능과 효율을 내는 트랜스포머 기반 언어 서비스를 구동할 수 있는 Multi-FPGA 시스템을 만든다.  
+본 논문에서는 DFX라는 Multi-FPGA 가속기를 제안한다. 이 가속기는 텍스트 생성에 최적화 되어있고 다양한 GPT 모델에 적용할 수 있다. Sequential Characteristic을 다루기 위해 DFX의 연산 코어는 단일 토큰 처리에 최적화 되어있다. 또한, 최대 HBM을 위해 GPT의 특성에 기반한 효과적인 Tiling Scheme과 dataflow를 사용한다. 증가하는 모델 사이즈를 다루기 위해 Model Parallelism으로 연산 코어의 피지컬 수를 늘리고 로드를 고르게 분배한다. GPT 모델은 지속적으로 변화하고 다른 언어 서비스로 확장할 수 있도록 FPGA 모델을 이용한다. FPGA 기반 가속기 ASIC 기반과 비교했을 때 다시 프로그래밍 할 수 있는 하드웨어를 최저 비용으로 제공한다.  
 
 ---
+
 ### II. Background  
 **A. GPT Language Model**  
   GPT는 자연어 처리에서 가장 높은 정확도를 보이는 트랜스포머 기반의 구조이다. 원시적인 트랜스포머는 인코더와 디코더 파트로 이루어져 있는데 각각 인풋과 아웃 시퀀스의 처리를 담당한다. 그러나 GPT는 텍스트 생성에 초점을 맞췄기 때문에 디코더만 가지고 있다. GPT가 인코더를 없앨 수 있었던 것은 인코더 대신 미리 훈련된 행렬을 사용하는 Token Embedding 이라는 방법을 사용하기 때문이다. 게다가, GPT의 모델 사이즈와 디코더 레이어 수는 더 높은 정확도와 토큰 생성의 정교함을 위해 더 많은 파라미터를 요구하면서 점점 증가하고 있다. 최근에 OpenAI는 GPT-3를 발표했는데 공공 도메인에서는 사용할 수 없다. 이 논문에서는 공공 도메인에서 사용가능 한 GPT-2 모델을 사용하였다. GPT-2 모델의 하드웨어 가속 전략은 Size만 늘리면 GPT-3에도 적용이 가능하다는 점에 주목한다.  
@@ -101,7 +88,7 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
 
 **B. Homogeneous Multi-FPGA Cluster**  
 
-  거대 스케일의 언어 모델을 효과적으로 처리하게 위해서 Intra-Layer Parallelism을 적용했다. 최소한의 동기화 오버헤드로 Worker의 수에 비례하여 행렬 계산의 latency를 줄이기 위해 특정 Intra-Layer 분할 기법이 사용된다. 반대로, 파이프라이닝은 높은 latency를 발생시키는데, 그 이유는 모든 worker 들이 단일 인풋을 위해 각 연산을 완전히 실행하기 때문이다. 게다가 만약 텍스트 생성처럼 최종 아웃풋 결과가 다음 인풋이 되는 경우 두 scheme 간 latency 차이가 디코더 갯수에 따라 선형으로 증가할 것이다. 아래 그림을 보면, 멀티 헤드 어텐션을 위해서 가중치 행렬이 헤드 마다 나눠지고, FC layer를 위한 가중치 행렬이 column-wise 하게 나뉘어서 FPGA가 개인적으로 일할 수 있게 한다. 나눠진 행렬들은 주어진 코어에 해당하는 FPGA의 메모리 부분에 저장되고, 각 코어는 동일한 연산을 나눠진 모델 파라미터들을 이용해 병렬적으로 실행한다. 각 코어는 Subvector에 해당하는 최종 결과를 얻고, 각 Subvector 들은 동기화를 위해 ring network를 통해 다른 FPGA로 순환된다. 동기화가 끝나면 각 코어들은 완전한 vector를 얻게 되어 다음 벡터 연산을 진행하게 된다. 전반적으로 우리는 이 동기화가 셀프 어텐션과 Feed-forward Network 중간과 이후에 한번씩 필요하여 decoder layer 마다 총 4번이 필요하다. 따라서 데이터 동기화와 전송을 줄여서 각 FPGA는 동일한 연산을 동일한 하드웨어에서 진행하고 4개의 FPGA가 클러스터를 형성한다.  
+  거대 스케일의 언어 모델을 효과적으로 처리하게 위해서 Intra-Layer Parallelism을 적용했다. 최소한의 동기화 오버헤드로 Worker의 수에 비례하여 행렬 계산의 latency를 줄이기 위해 특정 Intra-Layer 분할 기법이 사용된다. 반대로, 파이프라이닝은 높은 latency를 발생시키는데, 그 이유는 모든 worker 들이 단일 인풋을 위해 각 연산을 완전히 실행하기 때문이다. 게다가 만약 텍스트 생성처럼 최종 아웃풋 결과가 다음 인풋이 되는 경우 두 scheme 간 latency 차이가 디코더 갯수에 따라 선형으로 증가할 것이다. 아래 그림을 보면, 멀티 헤드 어텐션을 위해서 가중치 행렬이 헤드 마다 나눠지고, FC layer를 위한 가중치 행렬이 column-wise 하게 나뉘어서 FPGA가 개인적으로 일할 수 있게 한다. 나눠진 행렬들은 주어진 코어에 해당하는 FPGA의 메모리 부분에 저장되고, 각 코어는 동일한 연산을 나눠진 모델 파라미터들을 이용해 병렬적으로 실행한다. 각 코어는 Subvector에 해당하는 최종 결과를 얻고, 각 Subvector 들은 동기화를 위해 ring network를 통해 다른 FPGA로 순환된다. 동기화가 끝나면 각 코어들은 완전한 vector를 얻게 되어 다음 벡터 연산을 진행하게 된다. 전반적으로 이 동기화가 셀프 어텐션과 Feed-forward Network 중간과 이후에 한번씩 필요하여 decoder layer 마다 총 4번이 필요하다. 따라서 데이터 동기화와 전송을 줄여서 각 FPGA는 동일한 연산을 동일한 하드웨어에서 진행하고 4개의 FPGA가 클러스터를 형성한다.  
 
   **Memory Mapping**  
   FPGA는 8 GB HBM과 32GB DDR를 장착하여 이론적인 최고 BW가 각각 460 GB/s와 38 GB/s이다. 가중치 행렬은 HBM에 저장된다. 반면, 인풋/아웃풋 토큰, 바이어스 벡터, 다른 모델 파라미터들은 몇 iteration에 한 번 이나 전체 decoder 단계에서 한 번 접근되기 때문에 DDR에 저장된다. DFX는 표준 half-precision floating-point (FP16) 모델 파라미터를 이용해서 추론 정확도를 유지한다.  
@@ -169,7 +156,7 @@ DFX는 Multi-FPGA 가속기인데, GPT-2 모델의 요약 및 생성 단계를 �
   Read와 Write의 Interface를 포함하는 DMA는 high bandwidth로 전송되는 데이터에서 중요한 역할을 한다. HBM의 bandwidth를 최대화 하기 위해서 DMA의 RW 인터페이스는 32개의 모든 HBM 채널과 연결되어 있고 512 bits의 단일 채널 BW를 200 MHz로 다루어 총 32 x 512 bits per cycle이 된다. DMA는 tiled weights, Key, Value를 행렬 연산에 최적화된 HBM에 저장하거나 로드한다. Value는 transposed 되어야 하므로 DMA 안에 transpose 유닛이 들어가있다. HBM과 함께 DDR도 접근할 수 있다. 인풋 토큰, 바이어스, WTE, WPE는 DDR에서 읽어진 뒤 대응하는 DMA 안의 buffer로 전송된다. 최종 아웃풋 토큰도 DMA에서 DDR로 써진다. 게다가 input batching을 안하기 때문에 weights와 biases는 재사용 될 수 없어서 DMA에 buffered 된다. 그리고 Processing Units로 streamed 되어 연산에 사용된다.  
 
   **Tiling Scheme**  
-  DFX는 요약단계에서의 성능을 유지하면서 생성단계에서 연산 수와 throughput을 최대화하는 최적화된 tiling scheme을 사용한다. 생성 단계에서 단일 토큰을 프로세스 하기 위해 거대한 양의 weights를 HBM으로부터 읽어들여야 한다. 따라서 weights들이 HBM에서 tiled 되어있고 DMA는 tiled weights를 32 x 512 bits per cycle로 읽는다. 차원은 d x l x BW weight bits로 조정될 수 있는데, d는 tile dimension, l은 number of lanes, BW는 data bandwidth를 나타낸다. Number of lanes는 행렬 연산 유닛에서 병렬적으로 계산할 수 있는 column의 수이다. DFX는 FP16을 이용하므로 BW는 16이다. 우리는 emb x emb 사이즈의 weight를 로딩할 수 있는 최적의 d와 l 값을 찾는다. 또한, 행렬-벡터 곱의 순서를 번역하는 효과적인 로딩 방향을 찾는다.  
+  DFX는 요약단계에서의 성능을 유지하면서 생성단계에서 연산 수와 throughput을 최대화하는 최적화된 tiling scheme을 사용한다. 생성 단계에서 단일 토큰을 프로세스 하기 위해 거대한 양의 weights를 HBM으로부터 읽어들여야 한다. 따라서 weights들이 HBM에서 tiled 되어있고 DMA는 tiled weights를 32 x 512 bits per cycle로 읽는다. 차원은 d x l x BW weight bits로 조정될 수 있는데, d는 tile dimension, l은 number of lanes, BW는 data bandwidth를 나타낸다. Number of lanes는 행렬 연산 유닛에서 병렬적으로 계산할 수 있는 column의 수이다. DFX는 FP16을 이용하므로 BW는 16이다. emb x emb 사이즈의 weight를 로딩할 수 있는 최적의 d와 l 값을 찾는다. 또한, 행렬-벡터 곱의 순서를 번역하는 효과적인 로딩 방향을 찾는다.  
 
 ![design](../images/design.png)  
 

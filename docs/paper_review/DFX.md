@@ -116,13 +116,13 @@ By Seongmin Hong(KAIST), Seungjae Moon(KAIST), Junsoo Kim(KAIST), Sungjae Lee(NA
 
   **Vector Instructions**는 load, store과 더불어 벡터-벡터 연산과 벡터-스칼라 연산을 실행한다. add, sub, mul, accum, recip_sqrt, recip, exp 같은 기본 연산도 수행한다. 따라서 LayerNorm과 Softmax 같은 high-level 연산들은 여러 개의 vector instructions들로 실행된다.  
 
-  1) LayerNorm: $\mu$와 $\sigma$ 는 각각 평균과 표준편차를 나타낸다. $\gamma$와 $\beta$는 weight와 bias 벡터를 나타낸다. 평균 계산에는 accum과 mul이 필요하고, 표준편차 계산에는 recip_sqrt가 추가로 필요하다. 그 후 sub, mul, add를 통해 LayerNorm을 계산한다. 파라미터들은 load를 통해 reg file로 fetch 된다.  
+  1. LayerNorm: $\mu$와 $\sigma$ 는 각각 평균과 표준편차를 나타낸다. $\gamma$와 $\beta$는 weight와 bias 벡터를 나타낸다. 평균 계산에는 accum과 mul이 필요하고, 표준편차 계산에는 recip_sqrt가 추가로 필요하다. 그 후 sub, mul, add를 통해 LayerNorm을 계산한다. 파라미터들은 load를 통해 reg file로 fetch 된다.  
 
   $$
   y(x_i) = \gamma \frac{x_i - \mu}{\sigma} + \beta_i  
   $$
 
-  2) Softmax: j는 행의 원소 갯수를 나타낸다. 이 연산은 exp, add, accum과 같은 기본적인 벡터 연산으로 수행될 수 있다. Summation은 LayerNorm에서 평균을 계산하는 것과 비슷하다. 나누기는 recip과 mul로 대체된다.  
+  2. Softmax: j는 행의 원소 갯수를 나타낸다. 이 연산은 exp, add, accum과 같은 기본적인 벡터 연산으로 수행될 수 있다. Summation은 LayerNorm에서 평균을 계산하는 것과 비슷하다. 나누기는 recip과 mul로 대체된다.  
 
   $$
   y(x_i) = \frac {e^{x_i}}{\sum_{j} e^{x_j}}  
@@ -136,34 +136,30 @@ By Seongmin Hong(KAIST), Seungjae Moon(KAIST), Junsoo Kim(KAIST), Sungjae Lee(NA
   ![uarch](../images/uarch.png)  
 
   **A. Control Unit**  
-  Control Unit은 각 모듈의 상태를 track하고 어떤 모듈을 쓸지 arbitrating 함으로써 데이터의 전반적인 흐름을 제어한다. Controller, Scheduler, Scoreboard로 구성되어있다.  
+  각 모듈의 상태를 track하고 어떤 모듈을 쓸지 arbitrating 함으로써 데이터의 전반적인 흐름을 제어한다. Controller, Scheduler, Scoreboard로 구성되어있다.  
 
 
-  **Controller**의 주된 역할은 호스트로부터 start signal와 system configuration을 받는 것이다. System Configuration은 코어 ID, 코어의 수, 디코더 레이어 층 개수, 토큰 개수 등을 포함한다. 이러한 파라미터들이 각 코어의 행동을 결정한다. 코어 ID와 코어 개수가 어떤 코어를 사용하고, 어떤 장치들로부터 송수신을 할지 결정한다. 디코더 레이어 개수는 단일 토큰의 프로세싱이 언제 끝나는지를 결정하고, 인풋 토큰과 아웃풋 토큰의 개수는 언제 전체 서비스가 끝나는지를 결정한다. 각 층마다 HBM의 다른 부분이 사용되어야 하므로 레이어 개수는 DMA가 접근해야하는 주소를 지정한다. 토큰 개수는 MaskedMM에서 어떤 부분을 mask 할지 결정한다. 마지막으로, GPT-2 연산이 끝나면 호스트에게 done signal을 보낸다.  
+  **Controller**의 주된 역할은 호스트로부터 Start Signal와 System Configuration을 받는 것이다. System Configuration은 코어 ID, 코어의 수, 디코더 layer 개수, 토큰 개수 등을 포함한다. 각 layer마다 HBM의 다른 부분이 사용되어야 하므로 layer 개수는 DMA가 접근할 주소를 지정한다. 토큰 개수는 MaskedMM에서 어떤 부분을 mask 할지 결정한다. GPT-2 연산이 끝나면 호스트에게 done signal을 보낸다.  
   
+  **Scheduler**는 컨트롤러로부터 Decoded System Configuration을 전달받고 Instruction Buffer로부터 Instruction을 받는다. Scheduler는 여러 개의 FSM(Finite State Machine)으로 DMA, Processing Unit, Register File, Router 등의 상태를 체크하고 Instruction을 run 할지 wait 할지 결정한다. 선택된 Instruction은 Scoreboard로 보내져서 실행되고 있는 Instruction 과의 Dependency를 확인한다.  
 
-  **Scheduler**는 컨트롤러로부터 decoded system configuration을 전달받고 instruction buffer로부터 instruction을 받는다. Scheduler는 여러 개의 FSM (Finite State Machine)을 갖고 있어서 DMA, Processing Unit, Register File, Router 등의 상태를 포함해서 각 instruction을 run 할지 wait 할지 결정한다. 선택된 instruction은 scoreboard로 보내져서 실행되고 있는 instruction 과의 dependency를 확인한다.  
-
-  **Scoreboard**  레지스터 파일은 chaining method에 기반해서 dependency check를 해줘야 한다. Instructions가 데이터 하자드를 발생시킬 수 있기 때문에 scoreboard는 source와 destination 주소를 계속 모니터한다. RAM으로 주소 공간 및 현재 instruction 주소를 나타낸다. Instruction이 Execution 일 때는 stale bit, Writeback 일 때는 valid bit을 이용한다. Source와 destination이 겹치는 경우 다음 instruction은 stall 한다.  
+  **Scoreboard**  Chaining Method에 기반해서 Dependency Check를 하는 레지스터 파일이다. Instruction이 Data Hazard를 발생시킬 수 있기 때문에 Source와 Destination 주소를 계속 모니터한다. RAM을 이용하는데, Execution 일 때는 stale bit, Writeback 일 때는 valid bit으로 마킹한다. Source와 Destination이 겹치는 경우 Stall 한다.  
 
 
 **B. Direct Memory Access**  
-
-  Read와 Write의 Interface를 포함하는 DMA는 high bandwidth로 전송되는 데이터에서 중요한 역할을 한다. HBM의 bandwidth를 최대화 하기 위해서 DMA의 RW 인터페이스는 32개의 모든 HBM 채널과 연결되어 있고 512 bits의 단일 채널 BW를 200 MHz로 다루어 총 32 x 512 bits per cycle이 된다. DMA는 tiled weights, Key, Value를 행렬 연산에 최적화된 HBM에 저장하거나 로드한다. Value는 transposed 되어야 하므로 DMA 안에 transpose 유닛이 들어가있다. HBM과 함께 DDR도 접근할 수 있다. 인풋 토큰, 바이어스, WTE, WPE는 DDR에서 읽어진 뒤 대응하는 DMA 안의 buffer로 전송된다. 최종 아웃풋 토큰도 DMA에서 DDR로 써진다. 게다가 input batching을 안하기 때문에 weights와 biases는 재사용 될 수 없어서 DMA에 buffered 된다. 그리고 Processing Units로 streamed 되어 연산에 사용된다.  
+  Read와 Write의 Interface를 포함하는 DMA는 High Bandwidth로 전송되는 데이터에서 중요한 역할을 한다. HBM의 Bandwidth를 최대화 하기 위해서 DMA의 R/W 인터페이스는 32개의 모든 HBM 채널과 연결되어 있고, 단일 채널이 512 bits, 200MHz라 총 $32 \times 512$ bits per cycle이 된다. DMA는 Tiled Weights, Key, Value를 행렬 연산에 최적화된 형태로 HBM에 저장하거나 로드한다. Value는 transposed 되어야 하므로 DMA 안에 transpose 유닛이 들어가있다. HBM과 함께 DDR도 접근할 수 있다. 인풋 토큰, 바이어스, WTE, WPE는 DDR에서 읽어진 뒤 대응하는 DMA 안의 buffer로 전송된다. 최종 아웃풋 토큰도 DMA에서 DDR로 써진다. Input Batching을 안하기 때문에 Weights와 Biases는 재사용 될 수 없어서 DMA에 buffered 된다. 그리고 Processing Units로 Streamed 되어 연산된다.  
 
   **Tiling Scheme**  
-  DFX는 요약단계에서의 성능을 유지하면서 생성단계에서 연산 수와 throughput을 최대화하는 최적화된 tiling scheme을 사용한다. 생성 단계에서 단일 토큰을 프로세스 하기 위해 거대한 양의 weights를 HBM으로부터 읽어들여야 한다. 따라서 weights들이 HBM에서 tiled 되어있고 DMA는 tiled weights를 32 x 512 bits per cycle로 읽는다. 차원은 d x l x BW weight bits로 조정될 수 있는데, d는 tile dimension, l은 number of lanes, BW는 data bandwidth를 나타낸다. Number of lanes는 행렬 연산 유닛에서 병렬적으로 계산할 수 있는 column의 수이다. DFX는 FP16을 이용하므로 BW는 16이다. emb x emb 사이즈의 weight를 로딩할 수 있는 최적의 d와 l 값을 찾는다. 또한, 행렬-벡터 곱의 순서를 번역하는 효과적인 로딩 방향을 찾는다.  
+  DFX는 Summarize 단계에서의 성능을 유지하면서 Generation 단계에서 연산 수와 throughput을 최대화하는 최적화된 tiling scheme을 사용한다. Generation 단계에서 단일 토큰을 처리하기 위해 거대한 양의 Weights를 HBM으로부터 $32 \times 512$ bits per cycle로 읽어들인다. 차원은 $d \times l \times BW$ 로 조정될 수 있는데, d는 tile dimension, l은 number of lanes, BW는 data bandwidth를 나타낸다. Number of lanes는 행렬 연산 유닛에서 병렬적으로 계산할 수 있는 column의 수이다. DFX는 FP16을 이용하므로 BW는 16이다. $emb \times emb$ 사이즈의 Weight를 로딩할 수 있는 최적의 d와 l 값을 찾는다. 또한, 행렬-벡터 곱의 순서를 translate하는 효과적인 로딩 방향을 찾는다. Design Space Exploration을 통해 (d, l) = (64, 16)라는 최적의 값을 얻었다.  
 
 ![design](../images/design.png)  
 
-  Design Space Exploration을 통해 (d, l) = (64, 16)라는 최적의 값을 얻었다. 다른 d로 퍼포먼스 평가를 진행한 후 대응하는 l을 찾았다. 보통 H 값이 64이므로 d > 64이면 unterutilized 된다는 것을 발견하였다. 구체적으로, Query x Key^T를 계산할 때 성능이 저하되는데, 왜냐하면 Key^T가 d > 64면 H < d이기 때문이다. 비슷하게 l > 64 일 때도 Score x Value 시에 성능 저하가 일어난다.  
-
-  DMA는 d x l weight을 수평방향으로 로드하면서 tile을 채운다. 수평 방향으로 움직이는 것은 input reuse를 최대화하지만 부분합을 저장하기 위한 상당 수의 버퍼를 필요로 한다. Deep pipelining을 위한 코어의 요구사항과 다른 버퍼들이 on-chip 메모리의 부족함을 유발하므로 수평방향으로 하는 것은 infeasible하다. 수직 방향은 버퍼의 수를 하나로 줄이지만, input reuse를 없앤다. 인풋을 재사용 하지 못하는 것은 레지스터 파일의 접근을 늘리고 throughput을 감소시킨다. 따라서 지그재그 방향의 접근은 하드웨어 자원과 데이터 재사용 사이의 균형을 맞추어 성능을 극대화한다.  
+  수평 방향으로 타일을 채우면 Input Reuse를 최대화하지만 부분합을 저장하기 위한 상당 수의 버퍼를 필요로 한다. 수직 방향은 버퍼의 수를 하나로 줄이지만, Input Reuse를 없앤다. 따라서 지그재그 방향의 접근으로 하드웨어 자원과 데이터 재사용 사이의 균형을 맞춘다.  
 
 ![zigzag](../images/zigzag.png)  
 
   **Transpose Scheme**  
-  표준 어텐션 연산에서, Key는 transposed 되어야한다. 그렇지만 이 모델에서는 HBM으로부터 읽기가 column-wise이고 쓰기는 row-wise 이므로 Value가 transposed 되어야 한다. 따라서 중간 행렬이 DMA로 로드 될 때 디폴트로 transposed 되어야한다. Value는 높은 메모리 용량을 요구하므로 컨벤셔널한 transpose는 비효율적이다. 이 문제를 해결하기 위해 DFX는 Value 행렬의 부분 행렬이 off-chip memory에 read 될 때가 아닌 write 할 때 transpose를 한다. Transpose의 긴 latency는 computation 순서를 바꿈으로써 완전히 숨겨질 수 있다. GPT의 연산 순서에 따르면 Value^T는 Query, Key, Value가 생성된 이후에 필요하다. 따라서 DFX instruction을 재배열해서 Value가 Query, Key보다 먼저 계산되게 한다. 이 재배열은 Query, Key가 생성되는 동안 Value가 transpose 되기에 충분한 시간을 제공한다.
+  어텐션에서 Key는 transposed 되어야한다. 이 모델에서는 HBM으로부터 읽기가 Column-wise이고 쓰기는 Row-wise 이므로 Value가 Transposed 되어야 한다. 따라서 중간 행렬이 DMA로 로드 될 때 디폴트로 Transposed 되어야한다. 이 문제를 해결하기 위해 DFX는 Value 행렬의 부분 행렬이 Off-chip memory에 Read 될 때가 아닌 Write 할 때 Transpose를 한다. DFX instruction을 재배열해서 Value가 Query, Key보다 먼저 계산되게 함으로써 Value가 Transpose 되기에 충분한 시간을 제공한다.  
 
 
 **C. Processing Units**  

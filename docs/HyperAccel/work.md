@@ -32,14 +32,16 @@ Docker Image는 리눅스 커널을 공유하고 Base Image로 Ubuntu, CentOS, R
 
 ### 3. LPU Code Review (7월 4주)  
 
-Monitoring 업무를 위해 필요한 사전 지식 공부  
+8월에 할 Monitoring 업무를 위해 필요한 사전 지식들을 공부했다. 주로 LPU의 Control Flow와 Control Unit, Computation Unit, On-Chip Memory Unit, Off-Chip Memory Unit에 관한 내용이었다.  
 
-LPU의 Control Flow를 이해하고 Control Unit, Computation Unit, On-Chip Memory Unit, Off-Chip Memory Unit의 구조를 코드를 보면서 공부했다. 어려웠다..  
+실제 LPU 코드를 열어주셔서 모듈별로 뜯어보면서 큰 그림을 이해하려고 노력했고, 실제 하드웨어가 어떻게 설계되고 코드로 구현되는지 조금이나마 알 수 있었다.  
 
 ---
 
 
-### 4. Monitoring  
+### 4. Monitoring (8월 1주 ~ 8월 4주) 
+
+
 
 
 

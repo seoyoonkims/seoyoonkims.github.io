@@ -166,36 +166,34 @@ By Seongmin Hong(KAIST), Seungjae Moon(KAIST), Junsoo Kim(KAIST), Sungjae Lee(NA
 
 ![Processing Units](../images/processing_units.png)
 
-  DFX 코어는 두 개의 Processing Units을 가지고 있다. 하나는 Matrix Processing Unit (MPU)이고, 다른 하나는 Vector Processing Unit (VPU)이다. 두 PU는 네 개의 메인 functional units, 행렬 function unit, 벡터 function unit, special function unit 으로 구성되어 있고 모두 FP16 operators 들이다. Functional Units은 깊도 다양한 파이프라인으로 구성되어 throughput을 최대화하고 bypasses를 구현한다.  
+  DFX 코어는 두 개의 Processing Units을 가지고 있다. 하나는 Matrix Processing Unit (MPU)이고, 다른 하나는 Vector Processing Unit (VPU)이다. 두 PU는 네 개의 Main Functional Units, Matrix Function Unit, Vector Function Unit, Special Function Unit 으로 구성되어 있고 모두 FP16다. Functional Units은 파이프라인으로 구성되어 Throughput을 최대화하고 Bypasses를 구현한다.  
 
   **Matrix Function Unit**  
-
-  행렬 명령어는 Matrix Functional Unit (MPU)에서 수행된다. 주된 작업은 행렬-벡터 곱이다. MFU는 트리 기반의 multiplier-accumulators를 갖고 있어서 d 차원의 벡터들을 인풋으로 받는다. Unit은 l lanes로 구성되어 있다. 인풋은 lane마다 동일하지만 l개의 다른 가중치 행렬의 column에서 온 multiplicands가 입력된다. 따라서 d x l 개의 곱하기가 병렬적으로 처리된다. 각 lane에서 나온 곱은 깊이가 log(d)인 트리로 들어가서 더해진다.  
-
-  각각의 FP16 multiplier와 adder은 각각 하나의 DSP와 두개의 DSP로 매핑된다. Multiplier는 6 cycle, adder는 11 cycle이 걸린다. MFU는 총 3 x (d x l) DSP를 사용한다. (d x l for Multipliers, 2 x (d - l) x l for adder tree, 2 x l for scalar additions).  
-
+  주된 작업은 행렬-벡터 곱이다. MFU는 트리 기반의 Multiplier-accumulators를 갖고 있어서 d차원의 벡터들을 인풋으로 받는다. Unit은 l lanes로 구성되어 있다. 인풋은 lane마다 동일하지만 l개의 다른 가중치 행렬의 column에서 온 multiplicands가 입력된다. 따라서 $d \times l$ 개의 곱하기가 병렬적으로 처리된다. 각 lane에서 나온 곱은 깊이가 log(d)인 트리로 들어가서 더해진다. FP16 multiplier와 adder은 각각 하나의 DSP와 두개의 DSP로 매핑된다. Multiplier는 6 cycle, adder는 11 cycle이 걸린다. MFU는 총 $3 \times (d \times l)$ 개의 DSP를 사용한다.  
+  
   **Vector Function Unit**  
-
-  벡터 명령어는 Vector Function Unit (VFU)에서 수행된다. VFU는 element-wise vector operations을 지원하는 ALU이다. VFU는 d 차원 벡터의 덧셈, 뺄셈, 곱셈을 지원한다. MFU와 비슷하게 DSP가 사용되며 덧셈, 뺄셈, 곱셈, 제곱 연산은 각각 11, 11, 6, 4 cycle이 걸린다. 제곱 연산은 두 개의 DSP를 이용하고 나머지는 하나를 이용한다. 모든 연산이 하나의 ALU 연산으로 완료되므로, 동기화 없이 가장 짧은 사이클이 걸린다. 추가적으로 VFU는 bypass를 지원해서 불필요한 사이클을 줄인다. 예를 들어 load, store는 어떠한 computational cycle도 필요로 하지 않으므로 EX 단계를 스킵하고 바로 인풋 및 아웃풋 포트에 연결해서 1 cycle 밖에 걸리지 않는다. 데이터 하자드는 scoreboard에서 처리된다.  
+  Element-wise vector operations을 지원하는 ALU이다. MFU와 비슷하게 DSP가 사용되며 덧셈, 뺄셈, 곱셈, 제곱 연산은 각각 11, 11, 6, 4 cycle이 걸린다. 제곱 연산은 두 개의 DSP를 이용하고 나머지는 하나를 이용한다. 모든 연산이 하나의 ALU 연산으로 완료되므로, Synchronization 없이 가장 짧은 사이클이 걸린다. 추가적으로 VFU는 bypass를 지원해서 불필요한 사이클을 줄인다. 예를 들어 load, store는 어떠한 computational cycle도 필요로 하지 않으므로 EX 단계를 스킵하고 바로 I/O 포트에 연결해서 1 cycle 밖에 걸리지 않는다. Data Hazard는 Scoreboard에서 처리된다.  
 
   **Special Function Units**  
-  SFU는 nonlinear functions를 다룬다. MFU와 VFU의 아웃풋은 SPU_M와 SFU_V로 각각 passed 되고, 최적의 하드웨어 Utilization을 위해 DSP, Combinational logic, lookup table method의 조합을 사용한다.  
-  SFU_M은 행렬-벡터 연산을 책임지며 masking, GELU, vectorization, reduce max 같은 과정에서 사용된다. Masking unit은 tile 정보에 따라 lower triangular matrix를 만들며 아웃풋 행렬의 upper diagonal matrix는 음의 무한대에 가장 가까운 수로 나타내진다. 어텐션 헤드로 나눌 때 필요한 나누기는 하드웨어 자원을 아끼기 위해 곱셈으로 대신한다. GELU를 지원하기 위해 lookup table로 linear approximation을 한다. 2048개의 인풋을 샘플링해서 MSE가 half-precision floating-point에서 0이 되도록 하고 [-8. 8]을 범위로 잡았다. 왜냐하면 slope이 이 범위에서 어느쪽으로든 수렴하기 때문이다. 선형 근사는 GELU에 충분하고 하드웨어 오버헤드를 줄여준다. Vectorizer는 asymmetric buffer를 사용해서 아웃풋을 concatenate 해서 tiling을 하며 위 모듈을 다음에 배치된다. 마지막으로 reduce max는 주어진 벡터의 최댓값을 찾는데, parallel tree of comparators로 디자인 되었다.  
-  SFU_V는 VFU 다음에 오는 벡터 연산을 책임진다. 이 계산들은 누적, 스칼라 역수, 곱셈, 덧셈, 역제곱근 등을 지원한다. VFU는 벡터 출력만을 요구하는 명령어를 지원하므로 adder tree는 SFU에 위치해있다. 나머지 기능들은 DSP에 의해 제공된다.  
+  Nonlinear functions를 다룬다. MFU와 VFU의 아웃풋은 SPU_M와 SFU_V로 각각 passed 되고, 최적의 하드웨어 Utilization을 위해 DSP, Combinational logic, Lookup Table Method를 사용한다.  
+
+  1. **SFU_M**은 행렬-벡터 연산을 책임지며 Masking, GELU, Vectorization, Reduce Max 같은 과정에서 사용된다. Masking unit은 Tile 정보에 따라 Lower Triangular Matrix를 만들며 아웃풋 행렬의 Upper Diagonal Matrix는 음의 무한대에 가장 가까운 수로 나타내진다. 어텐션 헤드로 나눌 때 필요한 나누기는 곱셈으로 대신한다. GELU를 지원하기 위해 Lookup Table로 Linear Approximation을 한다. 2048개의 인풋을 샘플링해서 MSE가 FP16에서 0이 되도록 하고 [-8. 8]을 범위로 잡았다. Vectorizer는 Asymmetric Buffer를 사용해서 아웃풋을 Concatenate 한다. Reduce Max는 Parallel Tree of Comparators로 벡터의 최댓값을 찾는다.  
+  
+  2. **SFU_V**는 VFU 다음에 오는 벡터 연산을 책임진다. 이 계산들은 누적, 스칼라 역수, 곱셈, 덧셈, 역제곱근 등을 지원한다. VFU는 벡터 출력만을 요구하는 명령어를 지원하므로 Adder Tree는 SFU에 위치해있다. 나머지 기능들은 DSP에 의해 제공된다.  
 
   **Matrix Operand Collector**  
-  IV-C에서 언급한 것처럼 Matrix Microcode를 생성하여 호스트로부터 전달되는 명령어의 양을 줄인다. Matrix Operand Collector는 이 Microcodes와 인풋 벡터, 가중치 행렬, 바이어스 벡터 같은 것들을 MPU에 보낸다. 이것은 벡터 레지스터 파일로부터 하나의 인풋을 읽으면서 DMA buffer로부터 가중치와 바이어스를 가져온다. Tiling 순서를 세면서 대응하는 인풋과 아웃풋을 MPU에 할당한다. 동일한 인풋 벡터가 parallel hardward에 broadcast 되는 반면, 다른 가중치와 바이어스들이 각 lane에 분배된다. 추가로 double buffer가 모든 operands에 사용되어 latency를 줄이고 높은 throughput을 얻는다.  
+  IV-C에서 언급한 것처럼 Matrix Microcode를 생성하여 호스트로부터 전달되는 명령어의 양을 줄인다. Matrix Operand Collector는 Microcodes와 인풋 벡터, 가중치 행렬, 바이어스 벡터 등을 MPU에 보낸다. Vector RF로부터 하나의 인풋을 읽으면서 DMA Buffer로부터 가중치와 바이어스를 가져온다. Tiling 순서를 세면서 대응하는 인풋과 아웃풋을 MPU에 할당한다. 동일한 인풋 벡터이 Broadcast 되는 반면 다른 가중치와 바이어스들이 각 lane에 분배된다. 추가로 Double Buffer가 모든 Operands에 사용되어 latency를 줄이고 높은 throughput을 얻는다.  
 
   **Vector Operand Collector**  
   Microcodes를 생성해서 VPU가 벡터 명령어를 실행하도록 한다. VPU는 다양한 operand 유형이 필요하므로 Vector Operand Collector는 벡터 레지스터 파일와 스칼라 레지스터 파일 모두를 읽을 수 있다. DMA와 Network Router Buffer도 접근 가능해서 load, store, synchronization 등을 수행할 수 있다.  
 
 **E. Router**  
-  Multi-FPGA 네트워크는 가벼운 router를 통해 가능해진다. 각 코어는 ring network에 있는 모든 다른 코어들의 레지스터 파일 안에 있는 데이터를 동기화하기 위해 router를 사용한다. 
   
 ![router](../images/router.png)  
-
-  위 그림이 라우터 구조와 데이터 동기화를 보여준다. 라우터는 64 x 16 bit 데이터를 전달해서 프로세싱 유닛으로부터 output vector를 fetch하고 다른 장치로 넘겨준다. 라우터는 컨트롤 유닛이 있어서 어떤 코어와 통신할지 나타내고 버퍼로 주고 받은 벡터들을 보관하며, 각 코어에서 데이터 순서가 동일하게 유지되도록 코어 ID를 Reorder 하는 모듈이 있다. 일반적인 라우터와 달리 이 라우터는 패킷 인코딩이나 디코딩을 위한 추가적인 로직을 포함하고 있지 않다. 셀프 어텐션과 피드 포워드 네트워크에서 Conv1D 명령어를 실행한 후에 동기화가 필요한 이유는 모델 병렬 처리로 인해 각 코어가 출력 행렬의 일부만을 계산하게 하는데, 다음 작업인 Layer Normalization이나 Residual은 전체 행을 필요로 하기 때문이다.  
-  네트워크의 피어 투 피어 통신은 Aurora 64b/66b IP로 인해 가능하다. Aurora IP는 높은 속도의 serial 통신을 위해 가벼운 link-layer 프로토콜을 사용한다. 프로토콜은 64b/66b 인코딩을 사용하는데 3%의 전송 오버헤드로 적은 비용이 든다. 결과적으로 라우터는 lightweight 통신 인터페이스를 제공해서 데이터 통신은 low latency가 된다.  
+  Multi-FPGA의 각 코어는 Ring Network에 있는 다른 코어들의 레지스터 파일 안에 있는 데이터를 동기화하기 위해 router를 사용한다. 라우터는 $64 \times 16$ bit 데이터를 전달해서 프로세싱 유닛으로부터 Output Vector를 Fetch하고 다른 장치로 넘겨준다. 라우터는 컨트롤 유닛이 있어서 어떤 코어와 통신할지 나타내고 버퍼로 주고 받은 벡터들을 보관하며, 각 코어에서 데이터 순서가 동일하게 유지되도록 코어 ID를 Reorder 하는 모듈이 있다.  
+  
+  셀프 어텐션과 피드 포워드 네트워크에서 Conv1D 명령어를 실행한 후에 동기화가 필요한 이유는 모델 병렬 처리로 인해 각 코어가 출력 행렬의 일부만을 계산하게 하는데, 다음 작업인 Layer Normalization이나 Residual은 전체 행을 필요로 하기 때문이다.  
+  네트워크의 P2P 통신은 Aurora 64b/66b IP를 사용한다. Aurora IP는 높은 속도의 Serial 통신을 위해 가벼운 link-layer 프로토콜을 사용한다. 프로토콜은 64b/66b 인코딩을 사용하는데 3%의 전송 오버헤드로 적은 비용이 든다.  
 
 ---
 ### 용어 정리

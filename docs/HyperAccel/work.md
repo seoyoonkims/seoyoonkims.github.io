@@ -39,7 +39,9 @@ Docker Image는 리눅스 커널을 공유하고 Base Image로 Ubuntu, CentOS, R
 ---
 
 
-### 4. Monitoring (8월 1주 ~ 8월 4주) 
+### 4. LPU Monitoring System (8월 1주 ~ 8월 4주)  
+
+LPU를 모니터링 하는 시스템 설계
 
 
 

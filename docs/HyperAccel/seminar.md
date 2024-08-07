@@ -86,16 +86,16 @@ $$
 #### **4. 2024/07/19**
 ### **Tender: Accelerating Large Language Models via Tensor Decomposition and Runtime Requantization**  
 
-내 발표라 따로 정리해놓았다.  
+내 발표라 따로 자세하게 정리해놓았다.  
 
-[Tender](https://seoyoonkims.github.io/docs/paper_review/Tender/)  
+[Tender: Accelerating Large Language Models via Tensor Decomposition and Runtime Requantization](https://seoyoonkims.github.io/docs/paper_review/Tender/)  
 
 ---
 
 #### **5. 2024/07/26**
 ### **8-bit Transformer Inference and Fine-tuning for Edge Accelerators**  
 
-Edge Accelerator는 리소스가 제한되어 있으므로 compressed model이 필요한데, 여전히 많은 메모리를 요구하고 있다. quantization이 활발하게 연구되고 있지만, inference 시에 disadvantage가 많고 주로 GEMM 연산에만 quantization이 적용되어 데이터들이 여전히 high precision을 유지하고 있다.  
+Edge Accelerator는 리소스가 제한되어 있으므로 compressed model이 필요한데, 여전히 많은 메모리를 요구하고 있다. Quantization이 활발하게 연구되고 있지만, inference 시에 disadvantage가 많고 주로 GEMM 연산에만 quantization이 적용되어 데이터들이 여전히 high precision을 유지하고 있다.  
 
 이 논문은 **8-bit Inference and Fine Tuning with FP8 and Posit**에 관한 연구이며 
 1. 8-bit Quantization + Operation Fusion이 Inference Accuracy에 미치는 영향 분석  
@@ -160,4 +160,13 @@ Softmax는 exponential와 division을 요구하는데 posit은 sigmoid와 recipr
 $$
 S(x) = \frac {1}{1+e^{-x}} => e^x = \frac {1}{S(-x)}-1
 $$
+
+
+#### **6.2024/08/02**  
+### **FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning**  
+
+
+
+#### **7.2024/08/09**  
+### **MECLA: Memory-Compute-Efficient LLM Accelerator with Scaling Sub-matrix Partition**  
 

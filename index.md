@@ -38,7 +38,7 @@ Thank you for visiting my page!
 
 
 ## Expericence  
-> CastLab, KAIST (Individual Research, 2024.08 ~ Present)  
+> CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
 > HyperAccel (Internship, 2024.06 ~ Present)  
 > USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)  
 

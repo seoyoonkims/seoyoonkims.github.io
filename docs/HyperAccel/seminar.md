@@ -191,7 +191,7 @@ Weight Matrix를 여러 개의 작은 Source Matrix(SS)와 Derived Matrix(DS)로
 
 Pre-trained Model Weight에서 시작해서, 이 가중치를 가장 잘 설명할 수 있는 새로운 파라미터를 찾는 것이다. LoRA와 비슷해보인다.  
 
-![SSMP Algorithm](../images/ssmp_finetuning.png)
+![SSMP Algorithm](../images/ssmp-algorithm.png)
 
 $\sigma$ 는 Forget Factor로 처음에 1부터 시작해서 점점 줄여나가는 방향으로 학습된다. 식을 보면 $\sigma$에 따라서 처음에 $W$에서 시작해서 $W_{new}$로 수렴하게 된다. 
 

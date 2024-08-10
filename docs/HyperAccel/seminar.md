@@ -198,11 +198,30 @@ Loss Function이 재밌는데, $L_{LM} (Output)$ 에다가 $\sigma$ 의 L2 Regul
 
 **MECLA Overall Architecture**  
 
+![Architecture](../images/mecla_arch.png)
 
+RISC-V 코어에 1.25MB의 On chip buffer(Data + Source Matrix + Scaling Param), DDR Controller, 8 PE Clusters, 그리고 Auxiliary Unit으로 구성되어 있다.  
 
+**Outer-product Reuse and Inner-product Re-association**  
 
+1. $n_x > n_y$
 
+Mecla는 Data Reuse도 크게 늘릴 수 있다. SS와 DS가 상수 배이므로 같은 Input에 대해 곱한 결과도 상수 배이기 때문이다. 따라서 MECLA는 SS Weight을 한번만 로드하면 DS Weight의 Output도 계산할 수 있다. 
 
+![Outer-Product Partial Sum Reuse](../images/Outer-Product.png)
+
+Weight Stationary 처럼 Systolic Array에 Weight을 고정해놓고 Input 조각을 순서대로 넣어주면 된다. 그리고 부분합이 나오면 거기에 Scaling Paramter만 곱해서 Output을 얻는다.  
+
+![Array](../images/output_array1.png)
+
+2. $n_x < n_y$
+
+Inner Product도 비슷한데 연산 순서만 다르다.  
+
+![Inner-Product Multiplicand Re-Association](../images/inner-prpduct.png)
+
+이번에는 Scaling Paramter를 고정해놓고 Input 조각들을 넣어준 뒤 Weight과 곱하게 된다.
+![Array](../images/output_array2.png)
 
 
 

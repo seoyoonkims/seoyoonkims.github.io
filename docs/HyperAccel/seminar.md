@@ -162,9 +162,14 @@ S(x) = \frac {1}{1+e^{-x}} => e^x = \frac {1}{S(-x)}-1
 $$
 
 
+---
+
+
 #### **6.2024/08/02**  
 ### **FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning**  
 
+
+---
 
 
 #### **7.2024/08/09**  

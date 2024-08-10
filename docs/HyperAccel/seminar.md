@@ -170,3 +170,39 @@ $$
 #### **7.2024/08/09**  
 ### **MECLA: Memory-Compute-Efficient LLM Accelerator with Scaling Sub-matrix Partition**  
 
+SSMP 기반 하드웨어 가속기를 소개하는 논문이다. 아이디어가 직관적이면서 메모리와 연산에 강력한 이점을 제공한다.  
+
+**SSMP Method**  
+
+Weight Matrix를 여러 개의 작은 Source Matrix(SS)와 Derived Matrix(DS)로 나눈다. DS는 SS에 Scaling Parameter를 곱해서 유도되는 Matrix다. 
+
+![ssmp](../images/ssmp.png)  
+
+위 그림을 예시로 들면 기존 Matrix를 $2 \times 3$ 의 submatrix로 나누고 1개를 SS로 지정한다. 나머지 5개의 DS는 SS에 Scaling Parameter를 곱해서 얻는다. 그러면 원래 $4 \times 6 = 24$ 개의 Parameter를 저장해야 했는데, 이제는 $4 + 5 = 9$ 개의 Parameter만 저장하면 되어서 메모리 측면에 큰 이점을 제공한다.  
+
+선행 연구에 따르면 Weight Matrix에서 중요한 정보는 1% 이하여서 이 1%는 따로 저장하고, 나머지 99%에 대해서 이 기법을 적용하면 정확도를 떨어뜨리지 않고 메모리를 절약할 수 있다. 
+
+![fine-tuning](../images/ssmp_finetuning.png)  
+
+Pre-trained Model Weight에서 시작해서, 이 가중치를 가장 잘 설명할 수 있는 새로운 파라미터를 찾는 것이다. LoRA와 비슷해보인다.  
+
+![SSMP Algorithm](../images/ssmp_finetuning.png)
+
+$\sigma$ 는 Forget Factor로 처음에 1부터 시작해서 점점 줄여나가는 방향으로 학습된다. 식을 보면 $\sigma$에 따라서 처음에 $W$에서 시작해서 $W_{new}$로 수렴하게 된다. 
+
+$$
+Loss \leftarrow L_{LM} (Output) + L(\sigma);  
+$$
+
+Loss Function이 재밌는데, $L_{LM} (Output)$ 에다가 $\sigma$ 의 L2 Regularization 항을 더해서 sigma가 커지는 것을 막는다. 이는 $W$가 $W_{new}$ 방향으로 학습되도록 하는 penalty 항이라고 보면 된다.  
+
+**MECLA Overall Architecture**  
+
+
+
+
+
+
+
+
+

@@ -220,8 +220,9 @@ Inner Product도 비슷한데 연산 순서만 다르다.
 
 ![Inner-Product Multiplicand Re-Association](../images/inner-prpduct.png)
 
-이번에는 Scaling Paramter를 고정해놓고 Input 조각들을 넣어준 뒤 Weight과 곱하게 된다.
+이번에는 Scaling Paramter를 고정해놓고 Input 조각들을 넣어준 뒤 Weight와 곱하게 된다.  
+
 ![Array](../images/output_array2.png)
 
-
+이렇게 두 가지로 나눠서 연산하는 이유는 조금만 생각해보면 알 수 있다. 당연히 더 길이가 짧은 쪽으로 연산을 하고 그거에 Scaling Parameter를 곱해서 얻는 것이 Compute 면에서 이득이기 때문이다. 
 

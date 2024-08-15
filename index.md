@@ -41,10 +41,9 @@ Thank you for visiting my page!
 
 > C/C++, System Verilog, Python, ROS  
 
-## Contacts  
+## Contact  
 
-> Email: <seoyoonkims@kaist.ac.kr>  
-> GitHub: <https://github.com/seoyoonkims>  
+> Email: seoyoonkims@kaist.ac.kr  
 
 
 [Posts]: https://seoyoonkims.github.io/docs/posts/  

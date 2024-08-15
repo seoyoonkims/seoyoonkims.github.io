@@ -41,11 +41,6 @@ Thank you for visiting my page!
 
 > C/C++, System Verilog, Python, ROS  
 
-## Recent Posts  
-> [Tender 논문 리뷰](https://seoyoonkims.github.io/docs/paper_review/Tender)  
-> [DFX 논문 리뷰](https://seoyoonkims.github.io/docs/paper_review/DFX)  
-> [AI-based Autonomous Rover](https://seoyoonkims.github.io/docs/posts/EE405)  
-
 
 ## Contact  
 

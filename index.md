@@ -33,8 +33,12 @@ Thank you for visiting my page!
 
 ## Expericence  
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
-> [HyperAccel](https://seoyoonkims.github.io/docs/HyperAccel/) (Internship, 2024.06 ~ 2024.08)  
+ - AI 가속기 연구  
+> HyperAccel (Internship, 2024.06 ~ 2024.08)  
+ - LPU 모니터링 시스템 설계  
+ - HyperDex 패키징 및 배포  
 > USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)  
+ - 자율비행 드론 개발  
 
 
 ## Programming  

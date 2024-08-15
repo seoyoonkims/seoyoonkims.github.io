@@ -26,9 +26,11 @@ Thank you for visiting my page!
 
 
 ## Education  
+> Korea Advanced Institute of Science and Technology (B.S., 2021.02 ~ Present)
+ - Major: Electrical Engineering  
 
-> **B.S.** in Electrical Engineering at KAIST, Korea (2021.02 ~ Present)  
-> Minor in Mechanical Engineering at NYU, USA (2023.08 ~ 2023.12)
+> New York Univserity (Exchange Student, 2023.08 ~ 2023.12) 
+ - Minor: Mechanical Engineering
 
 
 ## Expericence  

@@ -22,7 +22,7 @@ Thank you for visiting my page!
 
 ## Research Interests  
 
-> AI Accelerator, Unmanned System
+> AI Accelerator & Hardware Design, Unmanned System
 
 
 ## Education  

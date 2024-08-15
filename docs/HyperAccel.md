@@ -11,5 +11,5 @@ Research Intern (2024.06 ~ 2024.08)
 
 ![Logo](images/hyperaccel.png)  
 
-
+주요 업무: LPU Monitoring System, HyperDex Packaging  
 

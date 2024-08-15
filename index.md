@@ -17,7 +17,7 @@ South Korea
 Thank you for visiting my page!  
 
 [GitHub][GitHub]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 }
-[LinkedIn][LinkedIn]{: .btn .fs-3 .mb-4 .mb-md-0 }
+[LinkedIn][LinkedIn]{: .btn .btn-blue .fs-3 .mb-4 .mb-md-0 }
 
 
 ## Research Interests  

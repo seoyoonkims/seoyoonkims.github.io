@@ -29,7 +29,7 @@ Thank you for visiting my page!
 > Korea Advanced Institute of Science and Technology (**B.S.**, 2021.02 ~ Present)
  - Major: Electrical Engineering  
 
-> New York Univserity (Exchange Student, 2023.08 ~ 2023.12) 
+> New York Univserity (Minor Program, 2023.08 ~ 2023.12) 
  - Minor: Mechanical Engineering
 
 

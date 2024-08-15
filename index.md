@@ -33,8 +33,11 @@ Thank you for visiting my page!
 
 ## Expericence  
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
-> HyperAccel (Internship, 2024.06 ~ Present)  
+> HyperAccel (Internship, 2024.06 ~ 2024.08)  
+> - LPU 모니터링 시스템 개발  
+> - HyperDex 패키징  
 > USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)  
+> - 자율 비행 드론 개발  
 
 
 ## Programming  

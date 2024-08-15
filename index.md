@@ -41,6 +41,12 @@ Thank you for visiting my page!
 
 > C/C++, System Verilog, Python, ROS  
 
+## Recent Posts  
+> [Tender: Accelerating Large Language Models via Tensor Decomposition and Runtime Requantization](https://seoyoonkims.github.io/docs/paper_review/Tender)  
+> [DFX: A Low-latency Multi-FPGA Appliance for Accelerating Transformer-based Text Generation](https://seoyoonkims.github.io/docs/paper_review/DFX)  
+> [AI-based Autonomous Rover](https://seoyoonkims.github.io/docs/posts/)  
+
+
 ## Contact  
 
 > Email: seoyoonkims@kaist.ac.kr  

@@ -26,10 +26,10 @@ Thank you for visiting my page!
 
 
 ## Education  
-> KAIST, Korea (**B.S.**, 2021.02 ~ Present)
+> Korea Advanced Institute of Science & Technology (**B.S.**, 2021.02 ~ Present)
  - Major: Electrical Engineering  
 
-> New York Univserity, USA (Minor Program, 2023.08 ~ 2023.12) 
+> New York Univserity (Minor Program, 2023.08 ~ 2023.12) 
  - Minor: Mechanical Engineering  
 
 

@@ -22,32 +22,32 @@ Thank you for visiting my page!
 
 ## Research Interests  
 
-> AI Accelerator & Hardware Design, Unmanned System
+> AI Accelerator & Hardware Design
 
 
 ## Education  
-> Korea Advanced Institute of Science and Technology (**B.S.**, 2021.02 ~ Present)
+> KAIST, Korea (**B.S.**, 2021.02 ~ Present)
  - Major: Electrical Engineering  
 
-> New York Univserity (Minor Program, 2023.08 ~ 2023.12) 
- - Minor: Mechanical Engineering
+> New York Univserity, USA (Minor Program, 2023.08 ~ 2023.12) 
+ - Minor: Mechanical Engineering  
 
 
 ## Expericence  
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
- - AI 가속기 연구  
+ - AI Accelerator  
 
 > HyperAccel (Internship, 2024.06 ~ Present)  
- - LPU 모니터링 시스템 설계  
- - HyperDex 패키징 및 배포  
+ - LPU Monitoring System  
+ - HyperDex Packaging  
 
 > USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)  
- - 자율비행 드론 개발  
+ - Unmanned System    
 
 
 ## Programming  
 
-> C/C++, System Verilog, Python, TensorFlow, ROS, MATLAB  
+> C/C++, System Verilog, Python, TensorFlow, ROS  
 
 
 ## Contact  

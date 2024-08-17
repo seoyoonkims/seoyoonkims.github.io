@@ -47,7 +47,7 @@ Thank you for visiting my page!
 
 ## Programming  
 
-> C/C++, System Verilog, Python, TensorFlow, ROS  
+> C/C++, System Verilog, Python, ROS  
 
 
 ## Contact  

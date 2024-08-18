@@ -5,10 +5,12 @@ parent: Posts
 nav_order: 3
 ---
 
-### Understanding Deep Learning (Simon J.D. Prince, The MIT Press, 2023) 책의 17장을 정리한 것이다.  
+#### Understanding Deep Learning (Simon J.D. Prince, The MIT Press, 2023) 책의 17장을 정리한 것이다.  
 
+  
+  
 
-**Variational Autoencoders**  
+## **Variational Autoencoders**  
 
 **1. Latent Variable Models**  
 
@@ -309,3 +311,5 @@ $$
 \mathbf{z}^{\ast} = \boldsymbol{\mu} + \boldsymbol{\Sigma}^{1/2}\boldsymbol{\epsilon}^{\ast}  
 $$
 
+---
+2024/08/18

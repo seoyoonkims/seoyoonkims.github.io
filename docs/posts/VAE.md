@@ -82,7 +82,7 @@ $$
 
 Ancestral sampling으로 샘플 $\mathbf{x}^{\ast}$을 생성해낼 수 있다. Prior $Pr(z)$로부터 $\mathbf{z}^{\ast}$ 추출하고 $\mathbf{f}[z^{\ast}, \boldsymbol{\phi}]$에 통과시켜 $Pr(\mathbf{x} \vert z^{\ast}, \boldsymbol{\phi})$의 mean을 구한다. Variance는 $\sigma^2 \mathbf{I}$로 고정된 값이다. 이것으로부터 $\mathbf{x}^{\ast}$를 추출한다. 이 과정을 반복하면 $Pr(\mathbf{x} \vert \boldsymbol{\phi})$를 얻을 수 있다.  
 
-     ![17.3](../images/VAE17.3.png)  
+![17.3](../images/VAE17.3.png)  
 
 ---
 
@@ -129,11 +129,6 @@ $$
 log[\int Pr(y)h[y]dy] \geq \int Pr(y)log[h[y]]dy  
 $$
 
- $log[Pr(\mathbf{x} \vert \boldsymbol{\phi})]$ 는 $\boldsymbol{\phi}$ 의 함수이므로 아래 그림처럼 x축에 해당하는 $\boldsymbol{\phi}$ 에 따라 값이 변한다. 반면 ELBO는 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 의 함수이므로, 두 파라미터를 조정하면서 최적의 ELBO 값을 찾아야 한다. 
-
-![17.6](../images/VAE17.6.png)
-
-
 
 **Deriving the bound**  
 
@@ -155,8 +150,35 @@ $$
 ELBO[\boldsymbol{\theta}, \boldsymbol{\phi}] = \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]d\mathbf{z}  
 $$
 
-
-
 ---
 
 **4. ELBO properties**  
+
+ $log[Pr(\mathbf{x} \vert \boldsymbol{\phi})]$ 는 $\boldsymbol{\phi}$ 의 함수이므로 x축에 해당하는 $\boldsymbol{\phi}$ 에 대해서만 값이 변한다. 반면 ELBO는 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 의 함수이므로, 두 파라미터를 조정하면서 최적의 ELBO 값을 찾아야 한다. $\boldsymbol{\theta}$ 를 조정하면 ELBO 함수 자체가 바뀌게 되고, $\boldsymbol{\phi}$ 를 조정하면 ELBO 함수는 그대로인 상태에서 그 함수를 따라 움직이게 된다.  
+
+![17.6](../images/VAE17.6.png)
+
+
+**Tightness of bound**  
+
+고정된 $\phi$ 에 대해서 ELBO와 likelihood function이 닿으면 ELBO가 tight 하다고 표현한다. ELBO를 tight 하게 하는 $q(\mathbf{z} \vert \mathbf{\theta})$ 를 찾기 위해 조건부 확률을 이용한다.  
+
+$$
+ELBO[\boldsymbol{\theta}, \boldsymbol{\phi}] = \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]d\mathbf{z}  
+$$
+
+$$
+= \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[\frac{Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})Pr(\mathbf{x} \vert \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]d\mathbf{z}  
+$$
+
+$$
+= \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] d\mathbf{z} + \int q(\mathbf{z} \vert \boldsymbol{\theta}) log [frac{Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]  
+$$
+
+$$
+= log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] + \int q(\mathbf{z} \vert \boldsymbol{\theta}) log [frac{Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi}}{q(\mathbf{z} \vert \boldsymbol{\theta})}] 
+$$
+
+$$
+= log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] - D_{KL}[q(\mathbf{z} \vert \boldsymbol{\theta}) \vert \vert Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi}]
+$$

@@ -240,7 +240,9 @@ $$
 
 $Pr(\mathbf{z} \vert \mathbf{x})$ 와 가장 가까운 multivariate normal gaussian을 찾는 것이다. 두번째 ELBO 식에서 $D_{KL}$을 줄이는 것과 같다. 
 
-$q(\mathbf{z} \vert \boldsymbol{\theta})$ 의 optimal choice가 posteropr $Pr(\mathbf{z} \vert \mathbf{x})$ 인데, posterior이 $\mathbf{x}$ 에 의존하므로 q를 다음과 같이 선택할 수 있다.  
+![17.8](../images/VAE17.8.png)
+
+$q(\mathbf{z} \vert \boldsymbol{\theta})$ 의 optimal choice가 posterior $Pr(\mathbf{z} \vert \mathbf{x})$ 인데, posterior이 $\mathbf{x}$ 에 의존하므로 q를 다음과 같이 선택할 수 있다.  
 
 $$
 q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) = N_{\mathbf{z}} [\boldsymbol{g_{\mu}}[\mathbf{x}, \boldsymbol{\theta}], \boldsymbol{g_{\Sigma}}[\mathbf{x}, \boldsymbol{\theta}]]  
@@ -279,4 +281,10 @@ D_{KL} q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) \vert\vert Pr(\mathbf
 $$
 
 $D_{\mathbf{z}}$ 는 latent space의 dimensionality이다.  
+
+  
+
+**VAE algorithm**  
+
+![17.8](../images/VAE17.9.png)
 

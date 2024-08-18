@@ -143,10 +143,16 @@ $$
 log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] = log[\int Pr(\mathbf{x, z} \vert \boldsymbol{\phi})d\mathbf{z}] = log[\int q(\mathbf(z))\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z})}]d\mathbf{z}  
 $$
 
-위의 Jensen's inequality 식에서 Pr(y)가 q(\mathbf{z})에 해당하고 나머지가 h[y] 라고 보면 이해가 쉽다.  
+위의 Jensen's inequality 식에서 $Pr(y)$가 $q(\mathbf{z})$에 해당하고 나머지가 $h[y]$ 라고 보면 이해가 쉽다.  
 
 $$
 log[\int q(\mathbf{z})\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z})}d\mathbf{z}] \geq \int q(\mathbf{z}) log[\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z})}]d\mathbf{z}  
+$$
+
+이 부등식에서 오른쪽 부분이 ELBO라고 보면 된다. $q(\mathbf{z})$가 $\boldsymbol{\theta}$ 를 파라미터로 가지므로 ELBO는 다음과 같다.  
+
+$$
+ELBO[\boldsymbol{\theta}, \boldsymbol{\phi}] = \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]d\mathbf{z}  
 $$
 
 

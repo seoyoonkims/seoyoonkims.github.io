@@ -5,7 +5,7 @@ parent: Posts
 nav_order: 3
 ---
 
-Understanding Deep Learning 책의 17장을 정리한 것이다.  
+### Understanding Deep Learning 책의 17장을 정리한 것이다.  
 
 
 **Variational Autoencoders**  
@@ -26,7 +26,7 @@ $$
 
 $Pr(\mathbf{x})$가 복잡하면 $Pr(\mathbf{x} \vert \mathbf{z})$ 와 $Pr(\mathbf{z})$ 로 간접적으로 나타내는 것이 상대적으로 간단할 수 있다.  
   
-  
+
 **Mixture of Gaussians**  
 
 $$
@@ -224,6 +224,27 @@ $$
 
 **5. Variational Approximation**  
 
+위에서 $q(\mathbf{z} \vert \boldsymbol{\theta}) = Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})$ 일 때 ELBO가 tight 하다는 점을 유도했다. Bayes' rule을 적용하면 Posterior $Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})$ 를 다음과 같이 계산할 수 있다.  
 
+$$
+Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi}) = \frac{Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi})Pr(\mathbf{z})}{Pr(\mathbf{x} \vert \boldsymbol{\phi})}  
+$$
 
+그러나 실제로는 $Pr(\mathbf{x} \vert \boldsymbol{\phi})$ 를 계산할 수 없으므로 $Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})$ 는 intractable하다.  
+
+따라서 Variational Approximation 이라는 근사법을 이용한다.
+
+$$
+Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi}) \approx q(\mathbf{z} \vert \boldsymbol{\theta})
+$$
+
+$Pr(\mathbf{z} \vert \mathbf{x})$ 와 가장 가까운 multivariate normal gaussian을 찾는 것이다. 두번째 ELBO 식에서 $D_{KL}$을 줄이는 것과 같다. 
+
+$q(\mathbf{z} \vert \boldsymbol{\theta})$ 의 optimal choice가 posteropr $Pr(\mathbf{z} \vert \mathbf{x})$ 인데, posterior이 $\mathbf{x}$ 에 의존하므로 q를 다음과 같이 선택할 수 있다.  
+
+$$
+q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) = N_{\mathbf{z}} [\boldsymbol{g_{\mu}}[\mathbf{x}, \boldsymbol{\theta}], \boldsymbol{g_{\Sigma}}[\mathbf{x}, \boldsymbol{\theta}]]  
+$$
+
+$\boldsymbol{g}[\mathbf{x}, \boldsymbol{\theta}]$ 는 parameter $\theta$를 가지며, mean $\mu$와 variance $\Sigma$ 를 예측하는 second neural network이다.  
 

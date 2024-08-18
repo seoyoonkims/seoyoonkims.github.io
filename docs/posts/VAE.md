@@ -56,24 +56,26 @@ Pr(\mathbf{z}) = N_\mathbf{z}[\mathbf{0}, \mathbf{I}]
 $$
 
 $$
-Pr(\mathbf{x} \vert \mathbf{z}, \mathbf{\phi}) = N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \mathbf{\phi}], \sigma^2 \mathbf{I}]  
+Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi}) = N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}], \sigma^2 \mathbf{I}]  
 $$
 
-$\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}]$ 은 deep network parameter $\boldsymbol{\phi}$ 로 표현되고, 데이터의 중요한 특징을 설명한다. 나머지 설명되지 않는 부분들은 노이즈$\sigma^2 \mathbf{I}$에 포함된다.  
+$\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}]$ 은 deep network parameter $\boldsymbol{\phi}$ 로 표현되고, 데이터의 중요한 특징을 설명한다. 나머지 설명되지 않는 부분들은 노이즈 $\sigma^2 \mathbf{I}$에 포함된다.  
 
 
 잠재 변수 $\mathbf{z}$ 에 대해 marginalizing 하면 $Pr(\mathbf{x} \vert \boldsymbol{\phi})$ 를 얻을 수 있다.
 
 $$
 Pr(\mathbf{x} \vert \boldsymbol{\phi}) = \int Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi}) \cdot Pr(\mathbf{z}) d\mathbf{z}
-= \int N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \mathbf{\phi}], \boldsymbol{\sigma}^2\mathbf{I}] \cdot N_\mathbf{z} [0, \mathbf{I} d\mathbf{z}]
+= \int N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}], \boldsymbol{\sigma}^2\mathbf{I}] \cdot N_\mathbf{z} [0, \mathbf{I}] d\mathbf{z}  
 $$
 
-- Generation  
+![17.2](../images/VAE17.2.png)
 
-Ancestral sampling으로
+**Generation**  
 
-Figure 17.3  
+Ancestral sampling으로 샘플 $\mathbf{x}^{\ast}$을 생성해낼 수 있다. Prior로부터 $\mathbf{z}^{\ast}$ 추출하고 $\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}]$에 통과시켜 $Pr(\mathbf{x} \vert \mathbf{z^{\ast}}, \boldsymbol{\phi})$의 mean을 구한다. 그리고 이것으로부터 $\mathbf{x}^{\ast}$를 추출한다.  
+
+![17.3](../images/VAE17.3.png)  
 
 ---
 

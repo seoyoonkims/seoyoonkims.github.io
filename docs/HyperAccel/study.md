@@ -63,14 +63,9 @@ Master: ADDR를 내보내고 VALID를 High로 만들면 Handshake
 Master: Response를 받을 준비가 되면 READY를 High로 만듦  
 Slave: Response를 보내고 VALID를 High로 만들어서 Handshake  
 
-**2. Write (burst)**  
-![Burst](../images/write-transaction-multiple-data-items.png)
+Burst 모드는 하나의 ADDR로 여러개의 데이터를 보낼 수 있다. 몇 개의 데이터를 보낼지 AW에서 알려주고(AWLEN, AWSIZE, AWBURST), Slave가 마지막 데이터를 받으면 WLAST가 High가 되고 Response로 Okay를 보낸다.  
 
-하나의 ADDR로 여러개의 데이터를 보낼 수 있다. 몇 개의 데이터를 보낼지 AW에서 알려주고(AWLEN, AWSIZE, AWBURST), Slave가 마지막 데이터를 받으면 WLAST가 High가 되고 Response로 Okay를 보낸다.  
-
-AWLEN은 Burst Length, AWSIZE는 W 채널에서 전송되는 데이터의 Bitwidth이다. AWBURST는 FIXED, INCR 등 여러 방법 중 어떤 burst 방식을 이용할지 알려준다. FIXED는 고정된 주소에 Write을 하고 INCR은 주소를 데이터의 byte 만큼 증가시키면서 Write을 한다. WRAP은 INCR와 비슷한데 주소가 끝에 도달하면 다시 처음으로 돌아간다.  
-
-**3. Read**  
+**2. Read**  
 ![AXI-Read-Transaction](../images/read-transaction.png)  
 
 1. AR Channel
@@ -81,12 +76,8 @@ Slave: READY를 High로 만들어서 Handshake
 Master: Data를 받을 준비가 되면 READY를 High로 만듦  
 Slave: Data를 내보내고 VALID를 High로 만들어서 Handshake, 이때 Last가 High가 되면 Response도 같이 보냄  
 
-**4. Read (burst)**  
-![Burst](../images/read-transaction-multiple-data-items.png)
+Burst 모드는 하나의 ADDR로 여러개의 데이터를 받을 수 있다. 몇 개의 데이터를 보낼지 AR에서 알려주고(ARLEN, ARSIZE, ARBURST), Slave가 마지막 데이터를 보내면 데이터 Read가 완료된 것이다.   
 
-하나의 ADDR로 여러개의 데이터를 받을 수 있다. 몇 개의 데이터를 보낼지 AR에서 알려주고(ARLEN, ARSIZE, ARBURST), Slave가 마지막 데이터를 보내면 데이터 Read가 완료된 것이다.   
-
-ARLEN은 Burst Length, ARSIZE는 R 채널에서 전송되는 데이터의 Bitwidth이다. ARBURST는 FIXED, INCR, WRAP 등 여러 방법 중 어떤 burst 방식을 이용할지 알려준다. FIXED는 고정된 주소에서 Read를 하고 INCR은 주소를 데이터의 byte 만큼 증가시키면서 Read를 한다. WRAP은 INCR와 비슷한데 주소가 끝에 도달하면 다시 처음으로 돌아간다.  
 
 **주소 채널과 데이터 채널이 분리되어 있기 때문에 Transaction이 끝나기 전에 새로운 Request를 날리는 것이 가능하다**  
 
@@ -171,8 +162,8 @@ print("Sorted array is:", arr)
  Ascending / Ascending 이면 원소 교환해도 Sorting이 안됨
 
 
-
 ## 4. Systolic Array  
+
 
 ---
 

@@ -79,7 +79,7 @@ $$
 
 Ancestral sampling으로 샘플 $\mathbf{x}^{\ast}$을 생성해낼 수 있다. Prior $Pr(z)$로부터 $\mathbf{z}^{\ast}$ 추출하고 $\mathbf{f}[z^{\ast}, \boldsymbol{\phi}]$에 통과시켜 $Pr(\mathbf{x} \vert z^{\ast}, \boldsymbol{\phi})$의 mean을 구한다. Variance는 $\sigma^2 \mathbf{I}$로 고정된 값이다. 이것으로부터 $\mathbf{x}^{\ast}$를 추출한다. 이 과정을 반복하면 $Pr(\mathbf{x} \vert \boldsymbol{\phi})$를 얻을 수 있다.  
 
-17.3 : ![17.3](../images/VAE17.3.png)  
+     ![17.3](../images/VAE17.3.png)  
 
 ---
 
@@ -105,7 +105,10 @@ ELBO는 주어진 log-likelihood 보다 항상 같거나 작은 함수이다. EL
 
 Concave Function에 대해 데이터의 기댓값이 항상 데이터의 함숫값의 기댓값보다 같거나 크다는 것이다.  
 
+1) discrete case  
 ![17.4](../images/VAE17.4.png)
+
+2) continuous case  
 ![17.5](../images/VAE17.5.png)
 
 Concave Function이면 어떤 점들을 이어도 함수보다 밑에 위치하게 된다. 로그 함수는 concave function이므로 다음 식이 항상 성립할 것을 알 수 있다.  

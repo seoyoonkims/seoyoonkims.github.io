@@ -84,10 +84,18 @@ Ancestral sampling으로 샘플 $\mathbf{x}^{\ast}$을 생성해낼 수 있다. 
 
 **3. Training**  
 
+모델을 학습시키려면 log-likelihood를 maximize 하는 $\boldsymbol{\phi}$을 찾아야 하지만, 이것은 intractable 하기 때문에 ELBO를 이용한다.  
 
+$$
+z = \argmax_\phi [\sum\limits_{i=1}^I log[Pr(\mathbf{x}_i \vert \boldsymbol{\phi})]]
+$$
 
+where:  
+$$
+Pr(\mathbf{x}_i \vert \boldsymbol{\phi}) = \int N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}], \sigma^2\mathbf{I}] \cdot N_\mathbf{z} [\mathbf{0}, \mathbf{I}] d\mathbf{z}  
+$$
 
-
+**Evidence Lower Bound (ELBO)**  
 
 
 

@@ -7,7 +7,7 @@ nav_order: 3
 
 **Variational Autoencoders**  
 
-1. Latent Variable Models  
+**1. Latent Variable Models**  
 
 Latent variable models는 $Pr(x)$ 대신에 latent variable z를 이용하여 $Pr(x,z)$ 를 표현함으로써 $Pr(x)$ 를 간접적으로 나타낸다.
 
@@ -36,7 +36,7 @@ Pr(x) = \sum\limits_{i=1}^N Pr(x, z=n) = \sum\limits_{i=1}^N Pr(x \vert z=n) \do
 $$
 
 
-2. Nonlinear Latent Variable Model  
+**2. Nonlinear Latent Variable Model**  
 
 데이터 $\mathbf{x}$ 와 잠재 변수 $\mathbf{z}$ 모두 multivariate가 되어 벡터로 표현된다.
 $Pr(\mathbf{z})$ 는 표준 정규분포를 따른다.  
@@ -64,7 +64,7 @@ $$
 
 - Generation  
 
-Ancestral sampling으로 $\mathbf{x}^{*}$ 를 그릴 수 있다. $Pr(\mathbf{z})$ 로부터 $\mathbf{z}^{*}$ 를 그리고 $Pr(\mathbf{x} \vert \mathbf{z}^{*}, \mathbf{\phi})$ 를 구한 후 $ Pr(\mathbf{x} \vert \mathbf{\phi})$ 를 구하면 된다.  
+Ancestral sampling으로
 
 Figure 17.3  
 

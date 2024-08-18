@@ -49,18 +49,14 @@ $$
 
 **2. Nonlinear Latent Variable Model**  
 
-데이터 $\mathbf{x}$ 와 잠재 변수 $\mathbf{z}$ 모두 multivariate가 되어 벡터로 표현된다.
-$Pr(\mathbf{z})$ 는 표준 정규분포를 따른다.  
+데이터 $\mathbf{x}$ 와 latent variable $\mathbf{z}$ 모두 continuous 하고 multivariate이다. 
 
 $$
-Pr(\mathbf{z}) = N_\mathbf{z}[\mathbf{0}, \mathbf{I}]
+Pr(\mathbf{z}) = N_\mathbf{z}[\mathbf{0}, \mathbf{I}]  
 $$
 
-$Pr(\mathbf{x} \vert \mathbf{z}, \mathbf{\phi})$ 는 평균이 $f[\mathbf{z}, \mathbf{\phi}]$ 이고, 공분산이 $\mathbf{\sigma ^2}\mathbf{I}$ 인 정규분포를 따른다. 
-
-
 $$
-Pr(\mathbf{x} \vert \mathbf{z}, \mathbf{\phi}) = N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \mathbf{\phi}], \mathbf{\sigma ^2}\mathbf{I}]
+Pr(\mathbf{x} \vert \mathbf{z}, \mathbf{\phi}) = N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \mathbf{\phi}], \mathbf{\sigma ^2}\mathbf{I}]  
 $$
 
 $\mathbf{f}[\mathbf{z}, \mathbf{\phi}]$ 은 deep network parameter $\mathbf{\phi}$ 로 표현되고, 데이터의 중요한 특징을 설명한다. 나머지 설명되지 않는 부분들은 노이즈에 포함된다.  

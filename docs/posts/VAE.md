@@ -5,12 +5,8 @@ parent: Posts
 nav_order: 3
 ---
 
-#### Understanding Deep Learning (Simon J.D. Prince, The MIT Press, 2023) 책의 17장을 정리한 것이다.  
-
-  
-
-
 ## **Variational Autoencoders**  
+
 
 **1. Latent Variable Models**  
 
@@ -310,6 +306,10 @@ ELBO를 계산할 때 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 를 모두 �
 $$
 \mathbf{z}^{\ast} = \boldsymbol{\mu} + \boldsymbol{\Sigma}^{1/2}\boldsymbol{\epsilon}^{\ast}  
 $$
+
+---
+**Reference**  
+Understanding Deep Learning (Simon J.D. Prince, The MIT Press, 2023)
 
 ---
 2024/08/18

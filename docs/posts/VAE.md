@@ -192,6 +192,27 @@ Posterior 분포인 $Pr(z \vert \mathbf{x}^{\ast}, \boldsymbol{\phi})$ 은 다�
 $$
 Pr(z \vert \mathbf{x}^{\ast}, \boldsymbol{\phi}) \propto Pr(\mathbf{x}^{\ast} \vert z, \boldsymbol{\phi})Pr(z)  
 $$
+  
 
 
 **ELBO as reconstruction loss minus KL distance to prior**  
+
+ELBO 표현하는 또 다른 방법이다.  
+
+$$
+ELBO[\boldsymbol{\theta}, \boldsymbol{\phi}] = \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]d\mathbf{z}  
+$$
+
+$$
+= \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[\frac{Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi})Pr(\mathbf{z})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]d\mathbf{z}  
+$$
+
+$$
+= \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi})] d\mathbf{z} + \int q(\mathbf{z} \vert \boldsymbol{\theta})log[\frac{Pr(\mathbf{z})}{q(\mathbf{z} \vert \boldsymbol{\theta})}] d\mathbf{z}   
+$$
+
+$$
+= \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi})] d\mathbf{z} - D_{KL} q(\mathbf{z} \vert \boldsymbol{\theta}) \vert\vert Pr(\mathbf{z})  
+$$
+
+

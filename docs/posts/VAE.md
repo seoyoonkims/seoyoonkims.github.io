@@ -8,7 +8,7 @@ nav_order: 3
 #### Understanding Deep Learning (Simon J.D. Prince, The MIT Press, 2023) 책의 17장을 정리한 것이다.  
 
   
-  
+
 
 ## **Variational Autoencoders**  
 

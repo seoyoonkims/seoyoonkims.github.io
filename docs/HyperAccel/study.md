@@ -63,7 +63,8 @@ Master: ADDR를 내보내고 VALID를 High로 만들면 Handshake
 Master: Response를 받을 준비가 되면 READY를 High로 만듦  
 Slave: Response를 보내고 VALID를 High로 만들어서 Handshake  
 
-Burst 모드는 하나의 ADDR로 여러개의 데이터를 보낼 수 있다. 몇 개의 데이터를 보낼지 AW에서 알려주고(AWLEN, AWSIZE, AWBURST), Slave가 마지막 데이터를 받으면 WLAST가 High가 되고 Response로 Okay를 보낸다.  
+Write Burst 모드는 하나의 ADDR로 여러개의 데이터를 보낼 수 있다. 몇 개의 데이터를 보낼지 AW에서 알려주고(AWLEN, AWSIZE, AWBURST), Slave가 마지막 데이터를 받으면 WLAST가 High가 되고 Response로 Okay를 보낸다.  
+
 
 **2. Read**  
 ![AXI-Read-Transaction](../images/read-transaction.png)  
@@ -76,7 +77,7 @@ Slave: READY를 High로 만들어서 Handshake
 Master: Data를 받을 준비가 되면 READY를 High로 만듦  
 Slave: Data를 내보내고 VALID를 High로 만들어서 Handshake, 이때 Last가 High가 되면 Response도 같이 보냄  
 
-Burst 모드는 하나의 ADDR로 여러개의 데이터를 받을 수 있다. 몇 개의 데이터를 보낼지 AR에서 알려주고(ARLEN, ARSIZE, ARBURST), Slave가 마지막 데이터를 보내면 데이터 Read가 완료된 것이다.   
+Read Burst 모드는 하나의 ADDR로 여러개의 데이터를 받을 수 있다. 몇 개의 데이터를 보낼지 AR에서 알려주고(ARLEN, ARSIZE, ARBURST), Slave가 마지막 데이터를 보내면 데이터 Read가 완료된 것이다.   
 
 
 **주소 채널과 데이터 채널이 분리되어 있기 때문에 Transaction이 끝나기 전에 새로운 Request를 날리는 것이 가능하다**  
@@ -92,14 +93,13 @@ CPU의 개입 없이 메모리들 간에 데이터를 주고 받을 수 있다. 
 
 CPU와 DMA는 Master Interfaces를 갖고 있다. DMA Controller가 DMA의 동작을 수행하는 Functional Unit인데, CPU가 인식할 수 있는 register를 포함하고 있어서 src addr, dest addr, num byte 등을 요청할 수 있다.  
 
-각 DMA Controller를 FIFO Buffer를 가지고 있어서 데이터를 일시적으로 저장하고 전송 속도를 조절한다.  
+각 DMA Controller는 FIFO Buffer를 가지고 있어서 데이터를 일시적으로 저장하고 전송 속도를 조절한다.  
 
 ![DMA_FIFO](../images/DMA_two_part_transfer-600x171.jpg)
 
 1. Read access – data is transferred from the source address to the DMA FIFO
 2. Write access – data is transferred from the DMA FIFO to the destination address
 
-+ 메인 컨트롤러에 Register File이 있어서 여기에 Set / Check 하는 방식으로 통신하는 것 같다.  
 
 
 ---

@@ -40,12 +40,10 @@ Pr(x) = \sum\limits_{i=1}^N Pr(x, z=n)
 $$
 
 $$
-= \sum\limits_{i=1}^N Pr(x \vert z=n) \cdot Pr(z=n)  
+= \sum\limits_{i=1}^N Pr(x \vert z=n) \cdot Pr(z=n) = \sum\limits_{i=1}^N \lambda_n \cdot N_x [\mu _n, {\sigma _n}^2]  
 $$
 
-$$
-= \sum\limits_{i=1}^N \lambda_n \cdot N_x [\mu _n, {\sigma _n}^2]  
-$$
+이를 통해 복잡한 multi-modal 확률 분포를 간단한 likelihood와 prior로 나타낼 수 있다.  
 
 ---
 

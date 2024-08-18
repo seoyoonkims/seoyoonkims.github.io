@@ -230,10 +230,10 @@ $$
 
 그러나 실제로는 $Pr(\mathbf{x} \vert \boldsymbol{\phi})$ 를 계산할 수 없으므로 $Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})$ 는 intractable하다.  
 
-따라서 Variational Approximation 이라는 근사법을 이용한다.
+따라서 $q(\mathbf{z} \vert \boldsymbol{\theta})$ 가 $Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})$ 에 가장 가까워지도록 근사를 하게 된다.  
 
 $$
-Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi}) \approx q(\mathbf{z} \vert \boldsymbol{\theta})
+q(\mathbf{z} \vert \boldsymbol{\theta}) \approx Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})  
 $$
 
 $Pr(\mathbf{z} \vert \mathbf{x})$ 와 가장 가까운 multivariate normal gaussian을 찾는 것이다. 두번째 ELBO 식에서 $D_{KL}$을 줄이는 것과 같다. 

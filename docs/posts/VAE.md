@@ -175,10 +175,13 @@ $$
 = \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] d\mathbf{z} + \int q(\mathbf{z} \vert \boldsymbol{\theta}) log [frac{Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]  
 $$
 
+$\int q(\mathbf{z} \vert \boldsymbol{\theta}) d\mathbf{z} = 1$ 이고, $log[Pr(\mathbf{x} \vert \boldsymbol{\phi})]$ 는 z와 independent 하므로 아래와 같다.  
+
 $$
-= log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] + \int q(\mathbf{z} \vert \boldsymbol{\theta}) log [frac{Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi}}{q(\mathbf{z} \vert \boldsymbol{\theta})}] 
+= log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] + \int q(\mathbf{z} \vert \boldsymbol{\theta}) log [frac{Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}] 
 $$
 
 $$
-= log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] - D_{KL}[q(\mathbf{z} \vert \boldsymbol{\theta}) \vert \vert Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi}]
+= log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] - D_{KL}[q(\mathbf{z} \vert \boldsymbol{\theta}) \vert \vert Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})]
 $$
+

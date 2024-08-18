@@ -103,14 +103,24 @@ ELBO는 주어진 log-likelihood 보다 항상 같거나 작은 함수이다. EL
 
 **Jensen's Inequality**  
 
-![17.4](../images/VAE17.4.png)
+Concave Function에 대해 데이터의 기댓값이 항상 데이터의 함숫값의 기댓값보다 같거나 크다는 것이다.  
 
-Concave Function이면 어떤 점들을 이어도 함수보다 밑에 위치하게 된다. 따라서 항상 다음 식이 성립할 것을 알 수 있다.  
+![17.4](../images/VAE17.4.png)
+![17.5](../images/VAE17.5.png)
+
+Concave Function이면 어떤 점들을 이어도 함수보다 밑에 위치하게 된다. 로그 함수는 concave function이므로 다음 식이 항상 성립할 것을 알 수 있다.  
 
 $$
 log[E[y]] > E[log[y]]  
 $$
 
+$$
+log[\int Pr(y)ydy] \geq \int Pr(y)log[y]dy  
+$$
+
+$$
+log[\int Pr(y)h[y]dy] \geq \int Pr(y)log[h[y]]dy  
+$$
 
 
 

@@ -55,6 +55,9 @@ $$
 Pr(\mathbf{z}) = N_\mathbf{z}[\mathbf{0}, \mathbf{I}]  
 $$
 
+![17.1](../images/VAE17.1.png)
+여러 가우시안의 Weighted Sum으로 복잡한 분포를 설명할 수 있으므로, discrete latent variable $\mathbf{z}$ 를 도입하여 하나의 가우시안 분포인 Joint Probability $Pr(x, z)$ 를 Marginalize 함으로써 Pr(x)를 구하는 것이다.  
+
 $$
 Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi}) = N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}], \sigma^2 \mathbf{I}]  
 $$
@@ -66,7 +69,7 @@ $\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}]$ 은 deep network parameter $\boldsym
 
 $$
 Pr(\mathbf{x} \vert \boldsymbol{\phi}) = \int Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi}) \cdot Pr(\mathbf{z}) d\mathbf{z}
-= \int N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}], \boldsymbol{\sigma}^2\mathbf{I}] \cdot N_\mathbf{z} [0, \mathbf{I}] d\mathbf{z}  
+= \int N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}], \sigma^2\mathbf{I}] \cdot N_\mathbf{z} [\mathbf{0}, \mathbf{I}] d\mathbf{z}  
 $$
 
 ![17.2](../images/VAE17.2.png)
@@ -79,7 +82,8 @@ Ancestral sampling으로 샘플 $\mathbf{x}^{\ast}$을 생성해낼 수 있다. 
 
 ---
 
-3. Training  
+**3. Training**  
+
 
 
 

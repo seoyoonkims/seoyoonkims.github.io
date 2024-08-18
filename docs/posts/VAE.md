@@ -161,7 +161,7 @@ $$
 
 **Tightness of bound**  
 
-고정된 $\phi$ 에 대해서 ELBO와 likelihood function이 닿으면 ELBO가 tight 하다고 표현한다. ELBO를 tight 하게 하는 $q(\mathbf{z} \vert \mathbf{\theta})$ 를 찾기 위해 조건부 확률을 이용한다.  
+고정된 $\phi$ 에 대해서 ELBO와 likelihood function이 닿으면 ELBO가 tight 하다고 표현한다. ELBO를 tight 하게 하는 $q(\mathbf{z} \vert \mathbf{\theta})$ 를 찾기 위해 조건부 확률을 이용한다. 4번째 줄에서는 $\int q(\mathbf{z} \vert \boldsymbol{\theta}) d\mathbf{z} = 1$ 이고, $log[Pr(\mathbf{x} \vert \boldsymbol{\phi})]$ 는 z와 independent 하다는 점이 사용되었다.  
 
 $$
 ELBO[\boldsymbol{\theta}, \boldsymbol{\phi}] = \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]d\mathbf{z}  
@@ -175,8 +175,6 @@ $$
 = \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] d\mathbf{z} + \int q(\mathbf{z} \vert \boldsymbol{\theta}) log [frac{Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]  
 $$
 
-$\int q(\mathbf{z} \vert \boldsymbol{\theta}) d\mathbf{z} = 1$ 이고, $log[Pr(\mathbf{x} \vert \boldsymbol{\phi})]$ 는 z와 independent 하므로 아래와 같다.  
-
 $$
 = log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] + \int q(\mathbf{z} \vert \boldsymbol{\theta}) log [frac{Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}] 
 $$
@@ -186,3 +184,4 @@ $$
 $$
 
 KL Divergence는 두 분포 간의 "distance"를 측정하며 non-negative 한 값을 갖는다. $q(\mathbf{z} \vert \boldsymbol{\theta}) = Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})$ 일 때 KL distance가 0이 되고 ELBO가 tight 해진다.  
+

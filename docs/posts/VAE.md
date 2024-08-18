@@ -49,24 +49,24 @@ $$
 
 **2. Nonlinear Latent Variable Model**  
 
-데이터 $\mathbf{x}$ 와 latent variable $\mathbf{z}$ 모두 continuous 하고 multivariate이다. 
+Nonlinear latent variable model에서는 data $\mathbf{x}$ 와 latent variable $\mathbf{z}$ 모두 continuous 이고 multivariate이다. 
 
 $$
 Pr(\mathbf{z}) = N_\mathbf{z}[\mathbf{0}, \mathbf{I}]  
 $$
 
 $$
-Pr(\mathbf{x} \vert \mathbf{z}, \mathbf{\phi}) = N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \mathbf{\phi}], \mathbf{\sigma ^2}\mathbf{I}]  
+Pr(\mathbf{x} \vert \mathbf{z}, \mathbf{\phi}) = N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \mathbf{\phi}], \boldsymbol{\sigma}^2 \mathbf{I}]  
 $$
 
-$\mathbf{f}[\mathbf{z}, \mathbf{\phi}]$ 은 deep network parameter $\mathbf{\phi}$ 로 표현되고, 데이터의 중요한 특징을 설명한다. 나머지 설명되지 않는 부분들은 노이즈에 포함된다.  
+$\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}]$ 은 deep network parameter $\boldsymbol{\phi}$ 로 표현되고, 데이터의 중요한 특징을 설명한다. 나머지 설명되지 않는 부분들은 노이즈에 포함된다.  
 
 
-잠재 변수 $\mathbf{z}$ 에 대해 marginalizing 하면 $Pr(\mathbf{x} \vert \mathbf{\phi})$ 를 얻을 수 있다.
+잠재 변수 $\mathbf{z}$ 에 대해 marginalizing 하면 $Pr(\mathbf{x} \vert \boldsymbol{\phi})$ 를 얻을 수 있다.
 
 $$
-Pr(\mathbf{x} \vert \mathbf{\phi}) = \int Pr(\mathbf{x} \vert \mathbf{z}, \mathbf{\phi}) \dot Pr(\mathbf{z}) d\mathbf{z}
-= \int N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \mathbf{\phi}], \mathbf{\sigma ^2}\mathbf{I}] \dot N_\mathbf{z} [0, \mathbf{I} d\mathbf{z}]
+Pr(\mathbf{x} \vert \boldsymbol{\phi}) = \int Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi}) \cdot Pr(\mathbf{z}) d\mathbf{z}
+= \int N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \mathbf{\phi}], \boldsymbol{\sigma}^2\mathbf{I}] \cdot N_\mathbf{z} [0, \mathbf{I} d\mathbf{z}]
 $$
 
 - Generation  

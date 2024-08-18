@@ -28,8 +28,9 @@ $Pr(\mathbf{x})$가 복잡하면 $Pr(\mathbf{x} \vert \mathbf{z})$ 와 $Pr(\math
 $$
 Pr(z = n) = \lambda _n  
 $$
+
 $$
-Pr(x \vert z = n) = N_x [\mu _n, {\sigma _n}^2]
+Pr(x \vert z = n) = N_x [\mu _n, {\sigma _n}^2]  
 $$
 
 잠재변수 $\mathbf{z}$는 discrete 하게 주어지는 값이므로 가능한 값들을 모두 더해서 marginalize 할 수 있다. 주어진 $\mathbf{z}$ 값에 따라 $\mathbf{x}$의 분포는 평균이 $\mu _n$이고 분산이 $(\sigma _n)^2$인 정규분포를 따른다. 
@@ -37,9 +38,11 @@ $$
 $$
 Pr(x) = \sum\limits_{i=1}^N Pr(x, z=n)  
 $$
+
 $$
 = \sum\limits_{i=1}^N Pr(x \vert z=n) \cdot Pr(z=n)  
 $$
+
 $$
 = \sum\limits_{i=1}^N \lambda_n \cdot N_x [\mu _n, {\sigma _n}^2]  
 $$

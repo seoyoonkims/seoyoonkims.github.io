@@ -124,7 +124,7 @@ $$
 log[\int Pr(y)ydy] \geq \int Pr(y)log[y]dy  
 $$
 
-Pr(y)에 대한 제한이 없으므로, y에 대한 새로운 확률 분포를 나타내는 random variable h[y]에 대해서도 성립한다.  
+Pr(y)에 대한 제한이 없으므로, y에 대한 새로운 확률 분포를 나타내는 random variable $h[y]$에 대해서도 성립한다.  
 
 $$
 log[\int Pr(y)h[y]dy] \geq \int Pr(y)log[h[y]]dy  
@@ -213,7 +213,7 @@ $$
 $$
 
 $$
-= \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi})] d\mathbf{z} - D_{KL} q(\mathbf{z} \vert \boldsymbol{\theta}) \vert\vert Pr(\mathbf{z})  
+= \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi})] d\mathbf{z} - D_{KL} [q(\mathbf{z} \vert \boldsymbol{\theta}) \vert\vert Pr(\mathbf{z})]  
 $$
 
 첫번째 항은 잠재 변수와 데이터 간의 average agreement를 측정한다. 잠재변수 $\mathbf{z}$ 를 통해 원래 분포를 여러 개의 단일 가우시안의 합으로 표현하는데, 이때 얼마나 잘 들어맞는지를 나타내는 항으로 보면 된다. 이 항은 reconstruction loss라고 불린다. 두번째 항은 $Pr(\mathbf{z})$ 와 $q(\mathbf{z} \vert \boldsymbol{\theta})$ 가 얼마나 비슷한지를 나타내며 VAE에 이용되는 공식 중에 하나이다.  
@@ -246,7 +246,7 @@ $$
 q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) = N_{\mathbf{z}} [\boldsymbol{g_{\mu}}[\mathbf{x}, \boldsymbol{\theta}], \boldsymbol{g_{\Sigma}}[\mathbf{x}, \boldsymbol{\theta}]]  
 $$
 
-$\boldsymbol{g}[\mathbf{x}, \boldsymbol{\theta}]$ 는 parameter $\theta$를 가지며, mean $\mu$와 variance $\Sigma$ 를 예측하는 second neural network이다. 
+$\boldsymbol{g}[\mathbf{x}, \boldsymbol{\theta}]$ 는 parameter $\boldsymbol{\theta}$를 가지며, mean $\boldsymbol{\mu}$와 variance $\boldsymbol{\Sigma}$ 를 예측하는 second neural network이다. 
 
 ---
 

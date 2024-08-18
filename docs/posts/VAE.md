@@ -246,5 +246,37 @@ $$
 q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) = N_{\mathbf{z}} [\boldsymbol{g_{\mu}}[\mathbf{x}, \boldsymbol{\theta}], \boldsymbol{g_{\Sigma}}[\mathbf{x}, \boldsymbol{\theta}]]  
 $$
 
-$\boldsymbol{g}[\mathbf{x}, \boldsymbol{\theta}]$ 는 parameter $\theta$를 가지며, mean $\mu$와 variance $\Sigma$ 를 예측하는 second neural network이다.  
+$\boldsymbol{g}[\mathbf{x}, \boldsymbol{\theta}]$ 는 parameter $\theta$를 가지며, mean $\mu$와 variance $\Sigma$ 를 예측하는 second neural network이다. 
+
+---
+
+**6. The Variational Autoencoder**  
+
+드디어 VAE를 표현할 수 있게 되었다.  
+
+$$
+ELBO[\boldsymbol{\theta}, \boldsymbol{\phi}] = \int q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) log[Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi})] d\mathbf{z} - D_{KL} q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) \vert\vert Pr(\mathbf{z})  
+$$
+
+첫번째 항은 여전히 intractable 하지만, 기댓값을 구하는 것이기 때문에 Monte Carlo Estimate으로 근사하여 구할 수 있다. 
+
+$$
+E_{\mathbf{z}}[a[\mathbf{z}]] = \int a[\mathbf{z}]q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) d\mathbf{z} \approx \frac{1}{N} \sum \limit_{n=1}^{N} a[\mathbf{z}_n^{\ast}]  
+$$
+
+n개의 sample의 기댓값을 구해서 전체의 기댓값으로 근사하는 것이다.  
+
+근사를 많이 하게 되면, 하나의 $\mathbf{z}^{\ast}$ 만 이용할 수도 있다. (n=1인 경우)  
+
+$$
+ELBO[\boldsymbol{\theta}, \boldsymbol{\phi}] \approx \int q(\mathbf{z}^{\ast} \vert \mathbf{x}, \boldsymbol{\theta}) log[Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi})] d\mathbf{z} - D_{KL} q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) \vert\vert Pr(\mathbf{z})  
+$$
+
+두번째 항은 $q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) = N_{\mathbf{z}}[\boldsymbol{\mu}, \boldsymbol{\Sigma}]$ 와 $Pr(\mathbf{z})=N_{\mu}[\mathbf{0}, \mathbf{I}]$ 간의 KL divergence이다. 두 정규분포의 KL divergence는 다음과 같이 계산될 수 있다.  
+
+$$
+D_{KL} q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) \vert\vert Pr(\mathbf{z}) = \frac{1}{2} (Tr[\Sigma] + \boldsymbol{\mu}^{T}\boldsymbol{\mu} - D_{\mathbf{z}} - log[det[\boldsymbol{\Sigma}]])   
+$$
+
+$D_{\mathbf{z}}$ 는 latent space의 dimensionality이다.  
 

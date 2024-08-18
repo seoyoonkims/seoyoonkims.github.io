@@ -57,7 +57,7 @@ $$
 
 ![17.1](../images/VAE17.1.png)
 
-여러 가우시안의 Weighted Sum으로 복잡한 분포를 설명할 수 있으므로, discrete latent variable $\mathbf{z}$ 를 도입하여 하나의 가우시안 분포인 Joint Probability $Pr(x, z)$ 를 Marginalize 함으로써 Pr(x)를 구하는 것이다.  
+복잡한 분포를 여러 가우시안의 Weighted Sum으로 설명할 수 있으므로, discrete latent variable $\mathbf{z}$ 를 도입하여 하나의 가우시안 분포인 Joint Probability $Pr(x, z)$ 를 Marginalize 함으로써 Pr(x)를 구하는 것이다.  
 
 $$
 Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi}) = N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}], \sigma^2 \mathbf{I}]  
@@ -125,8 +125,9 @@ $$
 log[\int Pr(y)h[y]dy] \geq \int Pr(y)log[h[y]]dy  
 $$
 
+![17.6](../images/VAE17.6.png)
 
+ $log[Pr(\mathbf{x} \vert \boldsymbol{\phi})]$ 는 $\boldsymbol{\phi}$ 의 함수이므로 위 그림처럼 x축에 해당하는 $\boldsymbol{\phi}$ 에 따라 값이 변한다. 반면 ELBO는 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 의 함수이므로, 두 파라미터를 조정하면서 최적의 ELBO 값을 찾아야 한다. 
 
----
+**Deriving the bound**  
 
-모든 분포는 가우시안의 합으로 나타낼 수 있어서 z 값에 따른 여러가지 단일 가우시안 분포로 나타내서 simplify 하는 듯.

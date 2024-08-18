@@ -56,6 +56,7 @@ Pr(\mathbf{z}) = N_\mathbf{z}[\mathbf{0}, \mathbf{I}]
 $$
 
 ![17.1](../images/VAE17.1.png)
+
 여러 가우시안의 Weighted Sum으로 복잡한 분포를 설명할 수 있으므로, discrete latent variable $\mathbf{z}$ 를 도입하여 하나의 가우시안 분포인 Joint Probability $Pr(x, z)$ 를 Marginalize 함으로써 Pr(x)를 구하는 것이다.  
 
 $$
@@ -97,6 +98,9 @@ $$
 
 **Evidence Lower Bound (ELBO)**  
 
+ELBO는 주어진 log-likelihood 보다 항상 같거나 작은 함수이다. ELBO를 최대화 하여 원래 log-likelihood를 간접적으로 최대화 하는 $\boldsymbol{\phi}$를 찾는 것이다. ELBO는 다른 파라미터 $boldsymbol{\theta}$ 에 의존할 수 있다. ELBO를 정의할 때 Jensen's inequality가 필요하다.  
+
+**Jensen's Inequality**  
 
 
 

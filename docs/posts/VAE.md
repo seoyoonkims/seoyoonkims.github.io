@@ -261,7 +261,7 @@ $$
 첫번째 항은 여전히 intractable 하지만, 기댓값을 구하는 것이기 때문에 Monte Carlo Estimate으로 근사하여 구할 수 있다. 
 
 $$
-E_{\mathbf{z}}[a[\mathbf{z}]] = \int a[\mathbf{z}]q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) d\mathbf{z} \approx \frac{1}{N} \sum \limit_{n=1}^{N} a[\mathbf{z}_n^{\ast}]  
+E_{\mathbf{z}}[a[\mathbf{z}]] = \int a[\mathbf{z}]q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) d\mathbf{z} \approx \frac{1}{N} \sum \limits_{n=1}^{N} a[\mathbf{z}_n^{\ast}]  
 $$
 
 n개의 sample의 기댓값을 구해서 전체의 기댓값으로 근사하는 것이다.  

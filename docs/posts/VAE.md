@@ -215,4 +215,12 @@ $$
 = \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi})] d\mathbf{z} - D_{KL} q(\mathbf{z} \vert \boldsymbol{\theta}) \vert\vert Pr(\mathbf{z})  
 $$
 
+첫번째 항은 잠재 변수와 데이터 간의 average agreement를 측정한다. 잠재변수 $\mathbf{z}$ 를 통해 원래 분포를 여러 개의 단일 가우시안의 합으로 표현하는데, 이때 얼마나 잘 들어맞는지를 나타내는 항으로 보면 된다. 이 항은 reconstruction loss라고 불린다. 두번째 항은 $Pr(\mathbf{z})$ 와 $q(\mathbf{z} \vert \boldsymbol{\theta})$ 가 얼마나 비슷한지를 나타내며 VAE에 이용되는 공식 중에 하나이다.  
+
+---
+
+**5. Variational Approximation**  
+
+
+
 

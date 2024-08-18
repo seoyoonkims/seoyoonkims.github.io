@@ -12,7 +12,7 @@ nav_order: 3
 Latent variable models는 $Pr(\mathbf{x})$ 대신에 latent variable $\mathbf{z}$를 이용하여 $Pr(\mathbf{x}, \mathbf{z})$ 를 표현함으로써 $Pr(\mathbf{x})$ 를 간접적으로 나타낸다.
 
 $$
-Pr(\mathbf{x}) = \int Pr(\mathbf{x} ,\mathbf{z})dz
+Pr(\mathbf{x}) = \int Pr(\mathbf{x} ,\mathbf{z})d\mathbf{z}
 $$
 
 Conditional probability로 풀어서 작성하면 아래 식처럼 된다.
@@ -23,10 +23,11 @@ $$
 
 $Pr(\mathbf{x})$가 복잡하면 $Pr(\mathbf{x} \vert \mathbf{z})$ 와 $Pr(\mathbf{z})$ 로 간접적으로 나타내는 것이 상대적으로 간단할 수 있다.  
 
-- Mixture of Gaussians  
+**Mixture of Gaussians**  
 
 $$
-Pr(\mathbf{x} \vert \mathbf{z} = n) = N_x [\mu _n, (\sigma _n)^2]
+Pr(z = n) = \lambda _n
+Pr(x \vert z = n) = N_x [\mu _n, {\sigma _n}^2]
 $$
 
 잠재변수 $\mathbf{z}$는 discrete 하게 주어지는 값이고, 주어진 $\mathbf{z}$ 값에 따라 $\mathbf{x}$의 분포는 평균이 $\mu _n$이고 분산이 $(\sigma _n)^2$인 정규분포를 따른다. 

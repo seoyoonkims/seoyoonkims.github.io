@@ -176,7 +176,7 @@ $$
 $$
 
 $$
-= log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] + \int q(\mathbf{z} \vert \boldsymbol{\theta}) log [frac{Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]d\mathbf{z}   
+= log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] + \int q(\mathbf{z} \vert \boldsymbol{\theta}) log [\frac{Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]d\mathbf{z}   
 $$
 
 $$

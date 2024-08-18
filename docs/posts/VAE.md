@@ -5,7 +5,7 @@ parent: Posts
 nav_order: 3
 ---
 
-### Understanding Deep Learning 책의 17장을 정리한 것이다.  
+### Understanding Deep Learning (Simon J.D. Prince, The MIT Press, 2023) 책의 17장을 정리한 것이다.  
 
 
 **Variational Autoencoders**  
@@ -296,4 +296,16 @@ ELBO를 계산할 때 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 를 모두 �
 
     
 **The reparameterization trick**  
+
+앞의 네트워크는 sampling step을 포함하므로 미분하기가 아주 어렵다. 하지만 $\boldsymbol{\theta}$ 를 업데이트 하기 위해서는 미분 과정이 필수적이다.  
+
+간단한 솔루션은 이러한 stochastic part는 네트워크의 branch로 빼내는 것이다. 이렇게 되면 backpropagation 시에 sampling step을 거칠 필요가 없다.  
+
+![17.11](../images/VAE17.11.png)
+
+표준 정규 분포에서 $\boldsymbol{\epsilon}^{\ast}$ 을 sampling 한 뒤 이것을 통해서 $\mathbf{z}^{\ast}$ 를 구한다. 
+
+$$
+\mathbf{z}^{\ast} = \boldsymbol{\mu} + \boldsymbol{\Sigma}^{1/2}\boldsymbol{\epsilon}^{\ast}  
+$$
 

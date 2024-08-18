@@ -5,6 +5,9 @@ parent: Posts
 nav_order: 3
 ---
 
+Understanding Deep Learning 책의 17장을 정리한 것이다.  
+
+
 **Variational Autoencoders**  
 
 **1. Latent Variable Models**  
@@ -121,24 +124,29 @@ $$
 log[\int Pr(y)ydy] \geq \int Pr(y)log[y]dy  
 $$
 
+Pr(y)에 대한 제한이 없으므로, y에 대한 새로운 확률 분포를 나타내는 random variable h[y]에 대해서도 성립할 것을 알 수 있다.  
 $$
 log[\int Pr(y)h[y]dy] \geq \int Pr(y)log[h[y]]dy  
 $$
 
+ $log[Pr(\mathbf{x} \vert \boldsymbol{\phi})]$ 는 $\boldsymbol{\phi}$ 의 함수이므로 아래 그림처럼 x축에 해당하는 $\boldsymbol{\phi}$ 에 따라 값이 변한다. 반면 ELBO는 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 의 함수이므로, 두 파라미터를 조정하면서 최적의 ELBO 값을 찾아야 한다. 
+
 ![17.6](../images/VAE17.6.png)
 
- $log[Pr(\mathbf{x} \vert \boldsymbol{\phi})]$ 는 $\boldsymbol{\phi}$ 의 함수이므로 위 그림처럼 x축에 해당하는 $\boldsymbol{\phi}$ 에 따라 값이 변한다. 반면 ELBO는 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 의 함수이므로, 두 파라미터를 조정하면서 최적의 ELBO 값을 찾아야 한다. 
+
 
 **Deriving the bound**  
 
-이제 Log-likelihood의 lower bound를 유도하기 위해 Jensen's inequality를 이용한다. 먼저 잠재변수 z에 대한 임의의 확률 분포인 $q(\mathbf{z})$를 도입한다.  
+이제 Log-likelihood의 lower bound를 유도하기 위해 Jensen's inequality를 이용한다. 먼저 잠재변수 $\mathbf{z}$에 대한 임의의 확률 분포인 $q(\mathbf{z})$를 도입한다.  
 
 $$
-log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] = log[\int Pr(\mathbf{x, z} \vert \boldsymbol{\phi})d\mathbf{z}] = log[\int q(\mathbf(z))\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z})}d\mathbf{z}]  
+log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] = log[\int Pr(\mathbf{x, z} \vert \boldsymbol{\phi})d\mathbf{z}] = log[\int q(\mathbf(z))\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z})}]d\mathbf{z}  
 $$
 
+위의 Jensen's inequality 식에서 Pr(y)가 q(\mathbf{z})에 해당하고 나머지가 h[y] 라고 보면 이해가 쉽다.  
+
 $$
-log[\int q(\mathbf(z))\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z})}d\mathbf{z}] \geq \int q(\mathbf{z}) log[\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z})}d\mathbf{z}]  
+log[\int q(\mathbf{z})\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z})}d\mathbf{z}] \geq \int q(\mathbf{z}) log[\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z})}]d\mathbf{z}  
 $$
 
 

@@ -187,10 +187,10 @@ KL Divergence는 두 분포 간의 "distance"를 측정하며 non-negative 한 �
 
 ![17.7](../images/VAE17.7.png)
 
-Posterior 분포인 $Pr(\mathbf{z} \vert \mathbf{x}^{\ast}, \boldsymbol{\phi})$ 은 다음의 Bayes' rule을 통해 계산된다.  
+Posterior 분포인 $Pr(z \vert \mathbf{x}^{\ast}, \boldsymbol{\phi})$ 은 다음의 Bayes' rule을 통해 계산된다.  
 
 $$
-Pr(\mathbf{z} \vert \mathbf{x}^{\ast}, \boldsymbol{\phi}) \propto Pr(\mathbf{x}^{\ast} \vert z, \boldsymbol{\phi})Pr(z)  
+Pr(z \vert \mathbf{x}^{\ast}, \boldsymbol{\phi}) \propto Pr(\mathbf{x}^{\ast} \vert z, \boldsymbol{\phi})Pr(z)  
 $$
 
 

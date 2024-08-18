@@ -288,3 +288,12 @@ $D_{\mathbf{z}}$ 는 latent space의 dimensionality이다.
 
 ![17.8](../images/VAE17.9.png)
 
+인코더 $\mathbf{g}[\mathbf{x}, \boldsymbol{\theta}]$ 는 training example인 $\mathbf{x}$를 인풋으로 받은 후 Variational distribution $q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta})$ 의 parameter인 $\boldsymbol{\mu}$ 와 $\boldsymbol{\Sigma}$ 를 찾는다. 이 분포로부터 $\mathbf{z}^{\ast}$ 를 샘플링 하고 이것을 디코더 $\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}]$ 에 넣어서 데이터 $\mathbf{x}$ 를 예측한다. Loss function은 negative ELBO이다.  
+
+ELBO를 계산할 때 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 를 모두 변화시킨다. 또한 SGD나 Adam과 같은 optimizer를 이용한다.  
+
+![17.10](../images/VAE17.10.png)
+
+    
+**The reparameterization trick**  
+

@@ -25,7 +25,8 @@ $$
 
 $Pr(\mathbf{x})$가 복잡하면 $Pr(\mathbf{x} \vert \mathbf{z})$ 와 $Pr(\mathbf{z})$ 로 간접적으로 나타내는 것이 상대적으로 간단할 수 있다.  
 
----
+  
+    
 
 **Mixture of Gaussians**  
 
@@ -79,7 +80,8 @@ $$
 
 ![17.2](../images/VAE17.2.png)
   
----
+  
+    
 
 **Generation**  
 Prior $Pr(z)$로부터 $\mathbf{z}^{\ast}$ 추출하고 $\mathbf{f}[z^{\ast}, \boldsymbol{\phi}]$에 통과시켜 $Pr(\mathbf{x} \vert z^{\ast}, \boldsymbol{\phi})$의 mean을 구한다. Variance는 $\sigma^2 \mathbf{I}$로 고정된 값이다. 이것으로부터 $\mathbf{x}^{\ast}$를 추출한다. 이 과정을 반복하면 $Pr(\mathbf{x} \vert \boldsymbol{\phi})$를 얻을 수 있다. 이처럼 Ancestral sampling으로 sample $\mathbf{x}^{\ast}$을 생성한다.  
@@ -102,13 +104,15 @@ $$
 Pr(\mathbf{x}_i \vert \boldsymbol{\phi}) = \int N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}], \sigma^2\mathbf{I}] \cdot N_\mathbf{z} [\mathbf{0}, \mathbf{I}] d\mathbf{z}  
 $$
 
----
+  
+    
 
 **Evidence Lower Bound (ELBO)**  
 
 ELBO는 주어진 log-likelihood 보다 항상 같거나 작은 함수이다. ELBO를 최대화 하여 원래 log-likelihood를 간접적으로 최대화 하는 $\boldsymbol{\phi}$를 찾는 것이다. ELBO는 다른 파라미터 $\boldsymbol{\theta}$ 에 의존할 수 있다. ELBO를 정의할 때 Jensen's inequality가 필요하다.  
 
----
+  
+    
 
 **Jensen's Inequality**  
 
@@ -136,7 +140,8 @@ $$
 log[\int Pr(y)h[y]dy] \geq \int Pr(y)log[h[y]]dy  
 $$
 
----
+  
+    
 
 **Deriving the bound**  
 
@@ -166,7 +171,8 @@ $$
 
 ![17.6](../images/VAE17.6.png)
   
----
+  
+    
 
 **Tightness of bound**  
 
@@ -202,7 +208,8 @@ $$
 Pr(z \vert \mathbf{x}^{\ast}, \boldsymbol{\phi}) \propto Pr(\mathbf{x}^{\ast} \vert z, \boldsymbol{\phi})Pr(z)  
 $$
   
----
+  
+    
 
 **ELBO as reconstruction loss minus KL distance to prior**  
 
@@ -288,7 +295,8 @@ $$
 
 $D_{\mathbf{z}}$ 는 latent space의 dimensionality이다.  
 
----
+  
+    
 
 **VAE algorithm**  
 
@@ -300,7 +308,8 @@ ELBO를 계산할 때 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 를 모두 �
 
 ![17.10](../images/VAE17.10.png)
 
----
+  
+    
     
 **The reparameterization trick**  
 

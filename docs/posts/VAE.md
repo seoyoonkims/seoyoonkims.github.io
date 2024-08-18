@@ -25,7 +25,8 @@ Pr(\mathbf{x}) = \int Pr(\mathbf{x} \vert \mathbf{z})Pr(\mathbf{z})d\mathbf{z}
 $$
 
 $Pr(\mathbf{x})$가 복잡하면 $Pr(\mathbf{x} \vert \mathbf{z})$ 와 $Pr(\mathbf{z})$ 로 간접적으로 나타내는 것이 상대적으로 간단할 수 있다.  
-
+  
+  
 **Mixture of Gaussians**  
 
 $$
@@ -77,6 +78,7 @@ Pr(\mathbf{x} \vert \boldsymbol{\phi}) = \int Pr(\mathbf{x} \vert \mathbf{z}, \b
 $$
 
 ![17.2](../images/VAE17.2.png)
+  
 
 **Generation**  
 
@@ -104,6 +106,7 @@ $$
 
 ELBO는 주어진 log-likelihood 보다 항상 같거나 작은 함수이다. ELBO를 최대화 하여 원래 log-likelihood를 간접적으로 최대화 하는 $\boldsymbol{\phi}$를 찾는 것이다. ELBO는 다른 파라미터 $boldsymbol{\theta}$ 에 의존할 수 있다. ELBO를 정의할 때 Jensen's inequality가 필요하다.  
 
+  
 **Jensen's Inequality**  
 
 Concave Function에 대해 데이터의 기댓값이 항상 데이터의 함숫값의 기댓값보다 같거나 크다는 것이다.  
@@ -129,7 +132,7 @@ $$
 log[\int Pr(y)h[y]dy] \geq \int Pr(y)log[h[y]]dy  
 $$
 
-
+  
 **Deriving the bound**  
 
 이제 Log-likelihood의 lower bound를 유도하기 위해 Jensen's inequality를 이용한다. 먼저 잠재변수 $\mathbf{z}$에 대한 임의의 확률 분포인 $q(\mathbf{z})$를 도입한다.  
@@ -157,7 +160,7 @@ $$
  $log[Pr(\mathbf{x} \vert \boldsymbol{\phi})]$ 는 $\boldsymbol{\phi}$ 의 함수이므로 x축에 해당하는 $\boldsymbol{\phi}$ 에 대해서만 값이 변한다. 반면 ELBO는 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 의 함수이므로, 두 파라미터를 조정하면서 최적의 ELBO 값을 찾아야 한다. $\boldsymbol{\theta}$ 를 조정하면 ELBO 함수 자체가 바뀌게 되고, $\boldsymbol{\phi}$ 를 조정하면 ELBO 함수는 그대로인 상태에서 그 함수를 따라 움직이게 된다.  
 
 ![17.6](../images/VAE17.6.png)
-
+  
 
 **Tightness of bound**  
 
@@ -193,7 +196,7 @@ $$
 Pr(z \vert \mathbf{x}^{\ast}, \boldsymbol{\phi}) \propto Pr(\mathbf{x}^{\ast} \vert z, \boldsymbol{\phi})Pr(z)  
 $$
   
-
+  
 
 **ELBO as reconstruction loss minus KL distance to prior**  
 

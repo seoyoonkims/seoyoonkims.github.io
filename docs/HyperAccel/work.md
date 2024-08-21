@@ -27,7 +27,9 @@ Docker Image는 리눅스 커널을 공유하고 Base Image로 Ubuntu, CentOS, R
  8월에 할 LPU Monitoring 업무를 위해 필요한 사전 지식들을 공부했다. 주로 LPU의 Control Flow와 Control Unit, Computation Unit, On-Chip Memory Unit, Off-Chip Memory Unit에 관한 내용이었다. 실제 LPU 코드를 열어주셔서 모듈별로 뜯어보면서 Top View를 이해하려고 노력했고, LPU가 어떻게 RTL 레벨에서 설계되고 구현되는지 연산기 뿐만 아니라 메모리와 통신 부분까지도 자세하게 공부할 수 있었다.  
 
 2. LPU 모니터링 시스템 설계 (8월 1주 ~ 8월 4주)  
- Computation Unit 마다 Cycle Monitor를 연결해서 실제 연산에 사용된 사이클 수를 측정한다. 이를 Monitor Top 모듈의 LOG FIFO에 저장했다가 AXI DMA를 통해서 적절한 타이밍에 Host로 전송한다. 
+
+ - Main IDEA:  
+ Computation Unit 마다 begin & end signal을 Cycle Monitor에 연결해서 실제 연산에 사용된 사이클 수를 측정한다. 이를 Monitor Top 모듈의 LOG FIFO에 저장했다가 AXI DMA를 통해서 적절한 타이밍에 Host로 전송한다. 
 
  - 설계 시 어려웠던 점:  
  실제로 합성을 하게 되면 테스트 벤치는 사라지기 때문에 Host에게 전송하기 위해 어떤 루트를 통해 내보내야 할지 감을 잡는게 어려웠다. AXI DMA를 통해서 적절하게 Port를 뚫어줘야 합성 시에 실제 메모리로 데이터를 전송할 수 있다. 또한, 커널 간의 통신도 일반적인 로직으로는 구현이 불가하기 때문에 AXI-Stream이라는 것을 활용해야 했다. 양쪽에 FIFO가 있어서 통신 프로토콜에 따라 Master에서 Slave로의 데이터 전송이 이루어진다.  

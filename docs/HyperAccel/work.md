@@ -29,7 +29,7 @@ Docker Image는 리눅스 커널을 공유하고 Base Image로 Ubuntu, CentOS, R
 2. LPU 모니터링 시스템 설계 (8월 1주 ~ 8월 4주)  
 
  - Main IDEA:  
- Computation Unit 마다 begin & end signal을 Cycle Monitor에 연결해서 실제 연산에 사용된 사이클 수를 측정한다. Monitor Top 모듈은 우선순위에 따라 Data를 취합하여 LOG FIFO에 저장했다가 AXI DMA를 통해서 적절한 타이밍에 Host로 전송한다. 온칩 메모리를 줄이기 위해 16개 마다 Transfer 모드가 되며, Transfer 모드에도 Monitor는 작동한다. 따라서 데이터가 모이는 속도보다 Transfer 속도가 빨라야 한다.  
+ Computation Unit 마다 begin & end signal을 Cycle Monitor에 연결해서 실제 연산에 사용된 사이클 수를 측정한다. Monitor Top 모듈은 우선순위에 따라 사이클 데이터를 취합하여 LOG FIFO에 저장했다가 AXI DMA를 통해서 적절한 타이밍에 Host로 전송한다. 온칩 메모리를 줄이기 위해 16개 마다 Transfer 되며, Transfer 모드에도 Monitor는 작동한다. 따라서 데이터가 모이는 속도보다 Transfer 속도가 빨라야 한다.  
 
  - 설계 시 어려웠던 점:  
  실제로 합성을 하게 되면 테스트 벤치는 사라지기 때문에 Host에게 전송하기 위해 어떤 루트를 통해 내보내야 할지 감을 잡는게 어려웠다. AXI DMA를 통해서 적절하게 Port를 뚫어줘야 합성 시에 실제 메모리로 데이터를 전송할 수 있다. 또한, 커널 간의 통신도 일반적인 로직으로는 구현이 불가하기 때문에 AXI-Stream이라는 것을 활용해야 했다. 양쪽에 FIFO가 있어서 통신 프로토콜에 따라 Master에서 Slave로의 데이터 전송이 이루어진다.  

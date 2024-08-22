@@ -1,9 +1,3 @@
----
-title: DDPM
-layout: default
-parent: Paper Review
-nav_order: 3
----
 
 ### 논문 리뷰
 

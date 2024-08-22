@@ -1,9 +1,3 @@
----
-title: etc
-layout: default
-parent: HyperAccel
-nav_order: 10
----
 
 ## 비밀번호 없이 서버 및 깃허브 SSH로 접속하는 법
 

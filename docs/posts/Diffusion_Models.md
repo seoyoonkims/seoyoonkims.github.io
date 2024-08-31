@@ -26,11 +26,20 @@ Decoder(Backward, Reverse Process)는 학습 가능한 네트워크로 Encoder�
 
 $$
 \mathbf{z}_1 = \sqrt{1-\beta_1 \cdot \mathbf{x}} + \sqrt{\beta_1} \cdot \epsilon_1  
+$$
+$$
 \mathbf{z}_t = \sqrt{1-\beta_t \cdot \mathbf{z}_{t-1}} + \sqrt{\beta_t} \cdot \epsilon_t  
 $$
 
 $\epsilon_t$는 Standard Normal Distribution에서 나온 Noise이다. $\beta_t \in [0, 1]$는 noise schdule을 위한 hyperparameter로, 노이즈가 섞이는 속도를 결정한다.  
 
+![18.2](../images/Diffusion/18.2.png)
 
+결국은 위 그림처럼 $x$는 0에 수렴하고, $q(z_t \vert x)$는 mean이 0인 정규분포에 가까워진다. 
 
-
+$$
+q(\mathbf{z}_1 \vert \mathbf{x}) = Norm_{\mathbf{z}_1} \left[ \sqrt{1-\beta_1}\mathbf{x}, \beta_1 \mathbf{I} \right]
+$$
+$$
+q(\mathbf{z}_t \vert \mathbf{z}_{t-1}) = Norm_{\mathbf{z}_1} \left[ \sqrt{1-\beta_t}\mathbf{z}_{t-1}, \beta_t \mathbf{I} \right]
+$$

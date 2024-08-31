@@ -292,7 +292,7 @@ $$
 두번째 항은 $q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) = N_{\mathbf{z}}[\boldsymbol{\mu}, \boldsymbol{\Sigma}]$ 와 $Pr(\mathbf{z})=N_{\mu}[\mathbf{0}, \mathbf{I}]$ 간의 KL divergence이다. 두 정규분포의 KL divergence는 다음과 같이 계산될 수 있다.  
 
 $$
-D_{KL}[q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) \vert\vert Pr(\mathbf{z})] = \frac{1}{2} (Tr[\Sigma] + \boldsymbol{\mu}^{T}\boldsymbol{\mu} - D_{\mathbf{z}} - log[det[\boldsymbol{\Sigma}]])   
+D_{KL}[q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) \vert\vert Pr(\mathbf{z})] = \frac{1}{2} (Tr[\boldsymbol{\Sigma}] + \boldsymbol{\mu}^{T}\boldsymbol{\mu} - D_{\mathbf{z}} - log[det[\boldsymbol{\Sigma}]])   
 $$
 
 $D_{\mathbf{z}}$ 는 latent space의 dimensionality이다.  

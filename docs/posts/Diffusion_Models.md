@@ -43,7 +43,7 @@ q(\mathbf{z}_t \vert \mathbf{z}_{t-1}) = N_{\mathbf{z}_1} \left[ \sqrt{1-\beta_t
 $$
 
 
-$\mathbf{z}_t$의 확률이 직전 변수인 $\mathbf{z}_{t-1}$에만 영향을 받기 때문에 Markov Chain이라고 볼 수 있다. 충분한 단계 T가 지나면, 원본 데이터의 특성은 사라지고 $q(\mathbf{z}_T \vert \mathbf{x}) = q(\mathbf{z}_T)$는 표준 정규 분포가 된다.  
+엥 $\mathbf{z}_t$ 의 확률이 직전 변수인 $\mathbf{z}_{t-1}$에만 영향을 받기 때문에 Markov Chain이라고 볼 수 있다. 충분한 단계 T가 지나면, 원본 데이터의 특성은 사라지고 $q(\mathbf{z}_T \vert \mathbf{x}) = q(\mathbf{z}_T)$는 표준 정규 분포가 된다.  
   
 Joint Distribution은 다음과 같다. 
 

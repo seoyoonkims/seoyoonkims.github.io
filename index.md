@@ -37,7 +37,7 @@ Thank you for visiting my page!
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
  - AI Accelerator  
 
-> HyperAccel (Internship, 2024.06 ~ Present)  
+> HyperAccel (Internship, 2024.06 ~ 2024.08)  
  - LPU Monitoring System  
  - HyperDex Packaging  
 

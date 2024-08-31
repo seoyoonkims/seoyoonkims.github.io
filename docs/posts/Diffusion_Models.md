@@ -9,7 +9,7 @@ nav_order: 4
 
 ---
 
-**Overview**  
+**1. Overview**  
 
 Diffusion Model은 Encoder와 Decoder로 구성된다. Encoder는 Prespecified인 과정이고, Decoder가 Learnable한 과정이다. 
 
@@ -22,7 +22,7 @@ Decoder(Backward, Reverse Process)는 학습 가능한 네트워크로 Encoder�
 
 ---
 
-**Encoder (Forward Process)**  
+**2. Encoder (Forward Process)**  
 
 $$
 \mathbf{z}_1 = \sqrt{1-\beta_1 \cdot \mathbf{x}} + \sqrt{\beta_1} \cdot \epsilon_1  
@@ -44,7 +44,7 @@ $$
 
 ---
 
-이처럼 $\mathbf{z}_t$의 확률이 직전 변수인 $\mathbf{z}_{t-1}$에만 영향을 받기 때문에 Markov Chain이라고 볼 수 있다.  
+이처럼 $\mathbf{z}_t$ 의 확률이 직전 변수인 $\mathbf{z}_{t-1}$ 에만 영향을 받기 때문에 Markov Chain이라고 볼 수 있다.  
 
 충분한 단계 T가 지나면, 원본 데이터의 특성은 사라지고 $q(\mathbf{z}_T \vert \mathbf{x}) = q(\mathbf{z}_T)$ 는 표준 정규 분포가 된다.  
   
@@ -58,4 +58,6 @@ $$
 
 결국은 위 그림처럼 $x$는 0에 수렴하고, $q(z_t \vert x)$는 mean이 0인 정규분포에 가까워진다. 
 
+
+**2.1 Diffusion Kernel**  
 

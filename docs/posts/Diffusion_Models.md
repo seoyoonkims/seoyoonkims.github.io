@@ -42,8 +42,6 @@ $$
 q(\mathbf{z}_t \vert \mathbf{z}_{t-1}) = N_{\mathbf{z}_1} \left[ \sqrt{1-\beta_t}\mathbf{z}_{t-1}, \beta_t \mathbf{I} \right]  
 $$
 
----
-
 이처럼 $\mathbf{z}_t$ 의 확률이 직전 변수인 $\mathbf{z}_{t-1}$ 에만 영향을 받기 때문에 Markov Chain이라고 볼 수 있다.  
 
 충분한 단계 T가 지나면, 원본 데이터의 특성은 사라지고 $q(\mathbf{z}_T \vert \mathbf{x}) = q(\mathbf{z}_T)$ 는 표준 정규 분포가 된다.  
@@ -60,4 +58,15 @@ $$
 
 
 **2.1 Diffusion Kernel**  
+
+$\mathbf{z}_t$ 를 계산하는 것은 t가 클 때 time-consuming 일 수 있다. 다행히도 $q(\mathbf{z}_t \vert \mathbf{x})$ 의 closed-form이 존재하고 initial data $\mathbf{x}$ 에서 바로 $\mathbf{z}_t$ 를 구하는 것이 가능하다. 이것을 diffusion kernel이라고 한다.
+
+
+$$
+\mathbf{z}_1 = \sqrt{1-\beta_1 \cdot \mathbf{x}} + \sqrt{\beta_1} \cdot \epsilon_1  
+$$
+
+$$
+\mathbf{z}_2 = \sqrt{1-\beta_2 \cdot \mathbf{z}_{1}} + \sqrt{\beta_2} \cdot \epsilon_2  
+$$
 

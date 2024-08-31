@@ -60,7 +60,7 @@ $$
 Pr(\mathbf{z}) = N_\mathbf{z}\left[\mathbf{0}, \mathbf{I}\right]  
 $$
 
-!\left[17.1\right](../images/VAE17.1.png)
+![17.1](../images/VAE17.1.png)
 
 복잡한 분포를 여러 가우시안의 Weighted Sum으로 설명할 수 있으므로, discrete latent variable $z$ 를 도입하여 하나의 가우시안 분포인 Joint Probability $Pr(\mathbf{x}, \mathbf{z})$를 Marginalize 함으로써 $Pr(x)$를 구하는 것이다.  
 
@@ -78,7 +78,7 @@ Pr(\mathbf{x} \vert \boldsymbol{\phi}) = \int Pr(\mathbf{x} \vert \mathbf{z}, \b
 = \int N_\mathbf{x} \left[\mathbf{f}\left[\mathbf{z}, \boldsymbol{\phi}\right], \sigma^2\mathbf{I}\right] \cdot N_\mathbf{z} \left[\mathbf{0}, \mathbf{I}\right] d\mathbf{z}  
 $$
 
-!\left[17.2\right](../images/VAE17.2.png)
+![17.2](../images/VAE17.2.png)
   
   
     
@@ -86,7 +86,7 @@ $$
 **Generation**  
 $Pr(z)$로부터 $z^{\ast}$ 추출하고 $\mathbf{f}\left[z^{\ast}, \boldsymbol{\phi}\right]$에 통과시켜 $Pr(\mathbf{x} \vert z^{\ast}, \boldsymbol{\phi})$의 mean을 구한다. Variance는 $\sigma^2 \mathbf{I}$로 고정된 값이다. 이것으로부터 $\mathbf{x}^{\ast}$를 추출한다. 이 과정을 반복하면 $Pr(\mathbf{x} \vert \boldsymbol{\phi})$를 얻을 수 있다. 이처럼 Ancestral sampling으로 sample $\mathbf{x}^{\ast}$을 생성한다.  
 
-!\left[17.3\right](../images/VAE17.3.png)  
+![17.3](../images/VAE17.3.png)  
 
 ---
 
@@ -119,10 +119,10 @@ ELBO는 주어진 log-likelihood 보다 항상 같거나 작은 함수이다. EL
 Concave Function에 대해 데이터의 기댓값이 항상 데이터의 함숫값의 기댓값보다 같거나 크다는 것이다.  
 
 1) discrete case  
-!\left[17.4\right](../images/VAE17.4.png)
+![17.4](../images/VAE17.4.png)
 
 2) continuous case  
-!\left[17.5\right](../images/VAE17.5.png)
+![17.5](../images/VAE17.5.png)
 
 Concave Function이면 어떤 점들을 이어도 함수보다 밑에 위치하게 된다. 로그 함수는 concave function이므로 다음 식이 항상 성립할 것을 알 수 있다.  
 
@@ -169,7 +169,7 @@ $$
 
  $log\left[Pr(\mathbf{x} \vert \boldsymbol{\phi})\right]$ 는 $\boldsymbol{\phi}$ 의 함수이므로 x축에 해당하는 $\boldsymbol{\phi}$ 에 대해서만 값이 변한다. 반면 ELBO는 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 의 함수이므로, 두 파라미터를 조정하면서 최적의 ELBO 값을 찾아야 한다. $\boldsymbol{\theta}$ 를 조정하면 ELBO 함수 자체가 바뀌게 되고, $\boldsymbol{\phi}$ 를 조정하면 ELBO 함수는 그대로인 상태에서 그 함수를 따라 움직이게 된다.  
 
-!\left[17.6\right](../images/VAE17.6.png)
+![17.6](../images/VAE17.6.png)
   
   
     
@@ -200,7 +200,7 @@ $$
 
 KL Divergence는 두 분포 간의 "distance"를 측정하며 non-negative 한 값을 갖는다. $q(\mathbf{z} \vert \boldsymbol{\theta}) = Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})$ 일 때 KL distance가 0이 되고 ELBO가 tight 해진다.
 
-!\left[17.7\right](../images/VAE17.7.png)
+![17.7](../images/VAE17.7.png)
 
 $Pr(z \vert \mathbf{x}^{\ast}, \boldsymbol{\phi})$ 은 관측된 데이터 $\mathbf{x}^{\ast}$ 를 만드는데 기여한 잠재 변수 $z$의 분포이다.  
 
@@ -255,7 +255,7 @@ $$
 
 $Pr(\mathbf{z} \vert \mathbf{x})$ 와 가장 가까운 multivariate normal gaussian을 찾는 것이다. 두번째 ELBO 식에서 $D_{KL}$을 줄이는 것과 같다. 
 
-!\left[17.8\right](../images/VAE17.8.png)
+![17.8](../images/VAE17.8.png)
 
 $q(\mathbf{z} \vert \boldsymbol{\theta})$ 의 optimal choice가 posterior $Pr(\mathbf{z} \vert \mathbf{x})$ 인데, posterior이 $\mathbf{x}$ 에 의존하므로 q를 다음과 같이 선택할 수 있다.  
 
@@ -302,13 +302,13 @@ $D_{\mathbf{z}}$ 는 latent space의 dimensionality이다.
 
 **VAE algorithm**  
 
-!\left[17.8\right](../images/VAE17.9.png)
+![17.9](../images/VAE17.9.png)
 
 인코더 $\mathbf{g}\left[\mathbf{x}, \boldsymbol{\theta}\right]$ 는 training example인 $\mathbf{x}$를 인풋으로 받은 후 Variational distribution $q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta})$ 의 parameter인 $\boldsymbol{\mu}$ 와 $\boldsymbol{\Sigma}$ 를 찾는다. 이 분포로부터 $\mathbf{z}^{\ast}$ 를 샘플링 하고 이것을 디코더 $\mathbf{f}\left[\mathbf{z}, \boldsymbol{\phi}\right]$ 에 넣어서 데이터 $\mathbf{x}$ 를 예측한다. Loss function은 negative ELBO이다.  
 
 ELBO를 계산할 때 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 를 모두 변화시킨다. 또한 SGD나 Adam과 같은 optimizer를 이용한다.  
 
-!\left[17.10\right](../images/VAE17.10.png)
+![17.10](../images/VAE17.10.png)
 
   
     
@@ -319,7 +319,7 @@ ELBO를 계산할 때 $\boldsymbol{\phi}$ 와 $\boldsymbol{\theta}$ 를 모두 �
 
 간단한 솔루션은 이러한 stochastic part는 네트워크의 branch로 빼내는 것이다. 이렇게 되면 backpropagation 시에 sampling step을 거칠 필요가 없다.  
 
-!\left[17.11\right](../images/VAE17.11.png)
+![17.11](../images/VAE17.11.png)
 
 표준 정규 분포에서 $\boldsymbol{\epsilon}^{\ast}$ 을 sampling 한 뒤 이것을 통해서 $\mathbf{z}^{\ast}$ 를 구한다. 
 

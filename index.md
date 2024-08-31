@@ -14,6 +14,10 @@ South Korea
 
 ![ex_screenshot](./assets/images/me2.jpg)  
 
+<div class="img-wrapper">
+  <img src="./assets/images/me2.jpg" alt="me">
+</div>
+
 Thank you for visiting my page!  
 
 [GitHub][GitHub]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 }

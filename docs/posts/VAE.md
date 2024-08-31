@@ -148,7 +148,7 @@ $$
 이제 Log-likelihood의 lower bound를 유도하기 위해 Jensen's inequality를 이용한다. 먼저 잠재변수 $\mathbf{z}$에 대한 임의의 확률 분포인 $q(\mathbf{z})$를 도입한다.  
 
 $$
-log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] = log[\int Pr(\mathbf{x, z} \vert \boldsymbol{\phi})d\mathbf{z}] = log[\int q(\mathbf(z))\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z})}]d\mathbf{z}  
+log[Pr(\mathbf{x} \vert \boldsymbol{\phi})] = log[\int Pr(\mathbf{x, z} \vert \boldsymbol{\phi})d\mathbf{z}] = log[\int q(\mathbf{z})\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z})}]d\mathbf{z}  
 $$
 
 위의 Jensen's inequality 식에서 $Pr(y)$가 $q(\mathbf{z})$에 해당하고 나머지가 $h[y]$ 라고 보면 이해가 쉽다.  
@@ -176,7 +176,7 @@ $$
 
 **Tightness of bound**  
 
-고정된 $\phi$ 에 대해서 ELBO와 likelihood function이 닿으면 ELBO가 tight 하다고 표현한다. ELBO를 tight 하게 하는 $q(\mathbf{z} \vert \mathbf{\theta})$ 를 찾기 위해 조건부 확률을 이용한다. 4번째 줄에서는 $\int q(\mathbf{z} \vert \boldsymbol{\theta}) d\mathbf{z} = 1$ 이고, $log[Pr(\mathbf{x} \vert \boldsymbol{\phi})]$ 는 z와 independent 하다는 점이 사용되었다.  
+고정된 $\phi$ 에 대해서 ELBO와 likelihood function이 닿으면 ELBO가 tight 하다고 표현한다. ELBO를 tight 하게 하는 $q(\mathbf{z} \vert \boldsymbol{\theta})$ 를 찾기 위해 조건부 확률을 이용한다. 4번째 줄에서는 $\int q(\mathbf{z} \vert \boldsymbol{\theta}) d\mathbf{z} = 1$ 이고, $log[Pr(\mathbf{x} \vert \boldsymbol{\phi})]$ 는 z와 independent 하다는 점이 사용되었다.  
 
 $$
 ELBO[\boldsymbol{\theta}, \boldsymbol{\phi}] = \int q(\mathbf{z} \vert \boldsymbol{\theta}) log[\frac{Pr(\mathbf{x, z} \vert \boldsymbol{\phi})}{q(\mathbf{z} \vert \boldsymbol{\theta})}]d\mathbf{z}  
@@ -290,7 +290,7 @@ $$
 두번째 항은 $q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) = N_{\mathbf{z}}[\boldsymbol{\mu}, \boldsymbol{\Sigma}]$ 와 $Pr(\mathbf{z})=N_{\mu}[\mathbf{0}, \mathbf{I}]$ 간의 KL divergence이다. 두 정규분포의 KL divergence는 다음과 같이 계산될 수 있다.  
 
 $$
-D_{KL}[q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta})] \vert\vert Pr(\mathbf{z}) = \frac{1}{2} (Tr[\Sigma] + \boldsymbol{\mu}^{T}\boldsymbol{\mu} - D_{\mathbf{z}} - log[det[\boldsymbol{\Sigma}]])   
+D_{KL}[q(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\theta}) \vert\vert Pr(\mathbf{z})] = \frac{1}{2} (Tr[\Sigma] + \boldsymbol{\mu}^{T}\boldsymbol{\mu} - D_{\mathbf{z}} - log[det[\boldsymbol{\Sigma}]])   
 $$
 
 $D_{\mathbf{z}}$ 는 latent space의 dimensionality이다.  

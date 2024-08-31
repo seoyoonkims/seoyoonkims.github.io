@@ -7,6 +7,8 @@ nav_order: 3
 
 ## HyperAccel 업무  
 
+Research Intern (2024.06.23 ~ 2024.08.30)  
+
 ---
 
 **<DFX Paper Review (1주차)>**  
@@ -18,7 +20,7 @@ CI/CD의 일환으로 Linux Packaging을 통해 회사의 라이브러리를 손
 **<LPU Code Review (5주차)>**  
 LPU 코드 리뷰를 통해 실제 LPU의 구조와 구현 방법에 대해 배우고, LLM 특화 반도체가 요구하는 하드웨어의 특성과 설계 과정을 이해할 수 있었다. Control Flow, Control Unit, Computation Unit, On-chip Memory Unit, Off-chip Memory Access Unit 등을 차례로 공부하면서 Top View 측면에서 많은 깨달음을 얻었다. 
 
-**<LPU Monitoring System (6-9주차)>**  
+**<LPU Monitoring System (6-10주차)>**  
 FPGA 하드웨어에서 Compute Unit 별 Utilization을 측정하는 Monitoring System을 설계 및 구현하고, VCS 시뮬레이션과 VITIS 합성을 통해 결과를 분석하였다. Instruction이 호스트 PC에서부터  Compute Unit까지 도달하는 과정과 연산 후에 Compute Unit에서 다시 Memory로 되돌아가는 전체 과정을 이해해야 Monitoring 모듈을 어디에 배치해야 효율적이고 Legacy 코드들을 가장 적게 건드릴 수 있는지 감을 잡을 수 있기 때문에 큰 그림을 이해하려고 노력했다. 실제 설계에서는 Kernel 간 통신이나  Host와의 통신도 고려해야 하기 때문에 AXI 프로토콜 관련 개념과 모듈을 이해하는 데에도 많은 노력을 기울였다. 결론적으로 Kernel 간 통신은 AXI-Stream, Host와의 통신은 AXI DMA로 구현하였다. 시뮬레이션 뿐만 아니라 실제 합성을 통해 Bitstream으로 FPGA에서 작동시킬 수 있는 수준까지 만들어야 했기 때문에 System Verilog로 RTL을 설계할 때부터 모듈별로 최대한 간결하게 하드웨어 친화적으로 짜는 법도 배울 수 있었다. 
 
 **<Paper Seminar(1-9주차)>**  

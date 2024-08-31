@@ -9,36 +9,21 @@ nav_order: 3
 
 ---
 
-### **Debian Package & Docker** (7월 1주 ~ 7월 3주)
+**<DFX Paper Review (1주차)>**  
+DFX 논문 리뷰를 통해 향후 회사 업무를 진행하는데 필요한 사전 지식을 습득하였다. 이 논문은 트랜스포머 기반의 텍스트 생성 모델을 가속하기 위한 Low-latency Multi-FPGA에 관한 내용으로, 실제로 회사에서 개발한 LPU 칩의 핵심 내용을 담고 있다. 
 
-Debian 계열의 리눅스에서 Software를 배포하고 설치하는데 사용되는 패키지로, HyperDex Runtime Library와 HyperDex Compiler의 Debian Package를 만들어서 성공적으로 설치되는 것까지 확인하였다. Ubuntu 22.04-LTS 환경에서 작업하였다. GitHub로 협업하는 법도 배울 수 있었다.   
+**<Linux Packaging (2-4주차)>**   
+CI/CD의 일환으로 Linux Packaging을 통해 회사의 라이브러리를 손 쉽게 배포할 수 있도록 Debian Package 및 Docker Image를 만들었다. LPU로 LLM 모델들을 가동시키기 위해서는 하드웨어뿐만 아니라 소프트웨어 스택들도 필요하다. 이들은 환경의 영향을 많이 받기 때문에 여러 Dependency와 File Structure, Environment Variables 등을 종합적으로 고려한 설치 패키지를 OS별로 만들고 배포해야 User가 간편하게 사용할 수 있다. 패키징과 이미지 빌드를 완료하면 모든 것이 셋팅 되어 있는 Docker Image가 생성되고 LPU를 사용할 수 있다. Ubuntu 22.04-LTS 환경에서 작업하였으며 cmake, dpkg, git 등 다양한 소프트웨어 tool과도 친해질 수 있었다. 
 
-![Docker](../images/dockerfile.png)  
+**<LPU Code Review (5주차)>**  
+LPU 코드 리뷰를 통해 실제 LPU의 구조와 구현 방법에 대해 배우고, LLM 특화 반도체가 요구하는 하드웨어의 특성과 설계 과정을 이해할 수 있었다. Control Flow, Control Unit, Computation Unit, On-chip Memory Unit, Off-chip Memory Access Unit 등을 차례로 공부하면서 Top View 측면에서 많은 깨달음을 얻었다. 
 
-Docker Image는 Software가 필요로 하는 모든 dependency, configuration, library, code 등을 포함하는 패키지이다. Dockerfile로 작성 후 이를 build 하면 Image가 생성되고, 이 Image는 Container에서 run 할 수 있다. Docker Image를 사용하면 Software가 어디서든 동일하게 실행되므로 환경 차이로 인한 문제를 줄일 수 있고, Container가 보통 VM보다 가볍기 때문에 빠르게 실행된다.  
+**<LPU Monitoring System (6-9주차)>**  
+FPGA 하드웨어에서 Compute Unit 별 Utilization을 측정하는 Monitoring System을 설계 및 구현하고, VCS 시뮬레이션과 VITIS 합성을 통해 결과를 분석하였다. Instruction이 호스트 PC에서부터  Compute Unit까지 도달하는 과정과 연산 후에 Compute Unit에서 다시 Memory로 되돌아가는 전체 과정을 이해해야 Monitoring 모듈을 어디에 배치해야 효율적이고 Legacy 코드들을 가장 적게 건드릴 수 있는지 감을 잡을 수 있기 때문에 큰 그림을 이해하려고 노력했다. 실제 설계에서는 Kernel 간 통신이나  Host와의 통신도 고려해야 하기 때문에 AXI 프로토콜 관련 개념과 모듈을 이해하는 데에도 많은 노력을 기울였다. 결론적으로 Kernel 간 통신은 AXI-Stream, Host와의 통신은 AXI DMA로 구현하였다. 시뮬레이션 뿐만 아니라 실제 합성을 통해 Bitstream으로 FPGA에서 작동시킬 수 있는 수준까지 만들어야 했기 때문에 System Verilog로 RTL을 설계할 때부터 모듈별로 최대한 간결하게 하드웨어 친화적으로 짜는 법도 배울 수 있었다. 
 
-Docker Image는 리눅스 커널을 공유하고 Base Image로 Ubuntu, CentOS, Rocky 등을 선택할 수 있다. 따라서 같은 아키텍쳐를 사용하기만 하면 도커 이미지를 OS와 상관없이 run 할 수 있다. 어떤 환경에서도 HyperDex Runtime Library와 HyperDex Compiler를 사용할 수 있도록 Dockerfile을 작성하고 생성된 Docker Container에서 실제로 LPU를 사용해서 TinyLlama를 돌려보았다.  
+**<Paper Seminar(1-9주차)>**  
+LLM 및 하드웨어 가속기에 관한 최신 논문들로 매주 진행되는 논문 세미나에 참여하였다. 나는 LLM Quantization을 효과적으로 구현하기 위한 Software-Hardware Co-design 관련 논문인 Tender를 읽고 세미나에서 발표하였다. 이외 진행된 논문으로는 QLLM, NeuPIMs, TCP, Posit, Flash-attention2,  MECLA 등이 있다. 
 
----
-
-### **LPU Monitoring System** (7월 4주 ~ 8월 4주)  
-
-1. LPU Code Review (7월 4주)  
- 8월에 할 LPU Monitoring 업무를 위해 필요한 사전 지식들을 공부했다. 주로 LPU의 Control Flow와 Control Unit, Computation Unit, On-Chip Memory Unit, Off-Chip Memory Unit에 관한 내용이었다. 실제 LPU 코드를 열어주셔서 모듈별로 뜯어보면서 Top View를 이해하려고 노력했고, LPU가 어떻게 RTL 레벨에서 설계되고 구현되는지 연산기 뿐만 아니라 메모리와 통신 부분까지도 자세하게 공부할 수 있었다.  
-
-2. LPU 모니터링 시스템 설계 (8월 1주 ~ 8월 4주)  
-
- - Main IDEA:  
- Computation Unit 마다 begin & end signal을 Cycle Monitor에 연결해서 실제 연산에 사용된 사이클 수를 측정한다. Monitor Top 모듈은 우선순위에 따라 사이클 데이터를 취합하여 LOG FIFO에 저장했다가 AXI DMA를 통해서 적절한 타이밍에 Host로 전송한다. 온칩 메모리를 줄이기 위해 16개 마다 Transfer 되며, Transfer 모드에도 Monitor는 작동한다. 따라서 데이터가 모이는 속도보다 Transfer 속도가 빨라야 한다.  
-
- - 설계 시 어려웠던 점:  
- 실제로 합성을 하게 되면 테스트 벤치는 사라지기 때문에 Host에게 전송하기 위해 어떤 루트를 통해 내보내야 할지 감을 잡는게 어려웠다. AXI DMA를 통해서 적절하게 Port를 뚫어줘야 합성 시에 실제 메모리로 데이터를 전송할 수 있다. 또한, 커널 간의 통신도 일반적인 로직으로는 구현이 불가하기 때문에 AXI-Stream이라는 것을 활용해야 했다. 양쪽에 FIFO가 있어서 통신 프로토콜에 따라 Master에서 Slave로의 데이터 전송이 이루어진다.  
-
- - 구현 시 어려웠던 점:  
- RTL을 구현하기 전에 미리 Computation Unit이 정확하게 어떤 방식으로 Instruction을 받고 연산을 한다음에 Writeback 단계로 넘어가게 되는지 숙지를 하고 코드를 짰어야 하는데, 당연하게 Instruction 당 적어도 한 번의 Writeback은 수행하게 될 것으로 믿고 코드를 짰던 것 같다. LLM에서는 워낙 큰 행렬이나 벡터 연산이 많기 때문에 쪼개진 Input이 여러 번에 걸쳐서 연산된 후 연산기 내부에서 합쳐져서 Writeback 된다는 점을 숙지하지 못했다. Mini-Instruction이 들어와서 Mini-Writeback을 여러번에 걸쳐서 하는 것으로 이해를 했었다. 그래서 나는 INST_VALID인 시점부터 WB_VALID 가 되는 시점까지의 시간을 측정했는데, WB을 안하고 다음 결과를 기다렸다가 WB을 하는 Instruction도 많기 때문에 시간이 계속 밀리는 현상이 발생했다. 당시에는 결과가 전혀 이해가 가지 않아서 오랬동안 원인을 못찾고 있다가 VCS로 LPU 전체 시뮬레이션을 돌리고 웨이브 폼을 보자마자 완전히 잘못된 방향으로 코드를 짜고 있었음을 발견했다. VCS로 커널 안쪽의 모든 DUT를 들여다 볼 수 있다는 걸 더 일찍 깨달았으면 시간을 많이 절약할 수 있었을 것 같다. 또한, 내가 예상했던 것 보다도 훨씬 더 촘촘하게 파이프라인이 되어있어서 INST_BEGIN 부터 INST_END까지의 시간이 아니라 거의 INST_BEGIN 만 가지고 측정해도 무방할 정도였다. 
-
-- 시간이 더 있었으면:  
-16개씩 묶어서 전송을 시키는 것으로 구현을 했는데 이렇게 하니까 마지막에 16개가 모이지 않은 채로 종료가 되면 0~15개의 Instruction의 정보는 알 수가 없게 되었다. DEBUG START 전에 LOG FIFO를 비우는 FSM을 추가해야 할 것 같다. 그리고 사이클 수 뿐만 아니라 Bandwidth도 측정해보고 싶다. Key, Value의 경우에는 CK0에서 가져오기 때문에 커널 간 AXI-Stream이 2배가 필요하여 인터페이스에서 수정할 부분이 매우 많고 귀찮다.  
 
  
 ---

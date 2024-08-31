@@ -48,7 +48,7 @@ $$
 Joint Distribution은 다음과 같다. 
 
 $$
-q(\mathbf{z}_{1...T} \vert \mathbf{x}) = q(\mathbf{z}_1 \vert \mathbf{x} \displaystyle \Pi\limits_{t=2}^{T} q(\mathbf{z}_t \mid \mathbf{z}_{t-1}) )
+q(\mathbf{z}_{1...T} \vert \mathbf{x}) = q(\mathbf{z}_1 \vert \mathbf{x} \Pi\limits_{t=2}^{T} q(\mathbf{z}_t \mid \mathbf{z}_{t-1}) )
 $$
 
 ![18.2](../images/Diffusion/18.2.png)

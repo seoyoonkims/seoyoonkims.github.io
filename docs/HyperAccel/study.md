@@ -13,31 +13,13 @@ nav_order: 2
 
 AMBA **AXI(Advanced eXtensible Interface)** protocol  
 
-
-SoC (System on Chip) 설계에서 데이터를 주고받는 표준 통신 프로토콜이다.
-
-### **Feature**  
-- High bandwidth  
-- Pipelined Operation: AW, W, B 같은 stage가 pipeline으로 시행된다.    
-- **Burst transfer**: 하나의 주소를 던지면 여러개의 데이터를 주고 받을 수 있다.  
-- **Multiple Outstanding Address**: Transfer가 끝나기 이전에 주소를 미리 여러개 던져놓아도 된다.  
-- **Out-of-order transaction completion**: 던진 순서대로 처리하지 않고 순서를 바꿔서 더 빠르게 처리한다.  
-
-
-### **Handshake** 
-
-Source: 보낼 데이터가 유효함 (VALID)  
-Destination: 데이터를 받을 준비가 됨 (READY)
-
-VALID && READY 일 때를 Handshake 라고 부르며 데이터가 transfer 된다.  
-
+SoC 설계에서 데이터를 주고 받을 때 많이 이용되는 표준 통신 Protocol이며, 핵심 아이디어는 Slave의 Ready 신호와 Master의 Valid 신호가 Handshake가 될 때 전송이 이루어진다는 것이다. 주소 채널과 데이터 채널이 분리되어 있기 때문에 Transaction이 끝나기 전에 새로운 Request를 날리는 것이 가능하다.  
 
 
 ### **Overview**  
 ![AXI-Channels](../images/axi-channels.png)  
 
-
-Write을 위한 채널 3개와 Read를 위한 채널 2개로 이루어져 있다.
+Write을 위한 채널 3개와 Read를 위한 채널 2개로 이루어져 있다.  
 ```
 Write: AW -> W -> B  
 Read: AR -> R
@@ -51,36 +33,13 @@ Write Response(B)는 Slave가 Master한테 데이터를 제대로 받았는지 �
 
 ![AXI-Write-Transaction](../images/write-transaction.png)
 
-1. AW Channel
-Master: ADDR를 내보내고 VALID를 High로 만듦  
-Slave: READY를 High로 만들어서 Handshake  
-
-2. W Channel
-Slave: Data를 받을 준비가 되면 READY를 High로 만듦  
-Master: ADDR를 내보내고 VALID를 High로 만들면 Handshake  
-
-3. B Channel
-Master: Response를 받을 준비가 되면 READY를 High로 만듦  
-Slave: Response를 보내고 VALID를 High로 만들어서 Handshake  
-
-Write Burst 모드는 하나의 ADDR로 여러개의 데이터를 보낼 수 있다. 몇 개의 데이터를 보낼지 AW에서 알려주고(AWLEN, AWSIZE, AWBURST), Slave가 마지막 데이터를 받으면 WLAST가 High가 되고 Response로 Okay를 보낸다.  
+AW Channel에서 Master는 ADDR를 내보내고 VALID를 High로 만든다. Slave가 ADDR를 받을 준비가 되면 READY를 High로 만들어서 Handshake가 된다. W Channel에서 Slave가 Data를 받을 준비가 되면 READY를 High로 만든다. Master가 DATA를 내보내고 VALID를 High로 만들면 Handshake가 된다. B Channel에서 Master는 Response를 받을 준비가 되면 READY를 High로 만든다. Slave가 Response를 보내고 VALID를 High로 만들어서 Handshake가 된다. Write Burst 모드는 하나의 ADDR로 여러 개의 데이터를 보낼 수 있다. 몇 개의 데이터를 보낼 지 AW에서 알려주고(AWLEN, AWSIZE, AWBURST), 마지막 데이터를 보낼 때 WLAST가 High가 된다. Slave는 마지막 데이터를 받으면 Response를 보낸다.  
 
 
 **2. Read**  
 ![AXI-Read-Transaction](../images/read-transaction.png)  
 
-1. AR Channel
-Master: ADDR를 내보내고 VALID를 High로 만듦  
-Slave: READY를 High로 만들어서 Handshake  
-
-2. R Channel  
-Master: Data를 받을 준비가 되면 READY를 High로 만듦  
-Slave: Data를 내보내고 VALID를 High로 만들어서 Handshake, 이때 Last가 High가 되면 Response도 같이 보냄  
-
-Read Burst 모드는 하나의 ADDR로 여러개의 데이터를 받을 수 있다. 몇 개의 데이터를 보낼지 AR에서 알려주고(ARLEN, ARSIZE, ARBURST), Slave가 마지막 데이터를 보내면 데이터 Read가 완료된 것이다.   
-
-
-**주소 채널과 데이터 채널이 분리되어 있기 때문에 Transaction이 끝나기 전에 새로운 Request를 날리는 것이 가능하다**  
+AR Channel에서 Master는 ADDR를 내보내고 VALID를 High로 만든다. Slave가 ADDR를 받을 준비가 되면 READY를 High로 만들어서 Handshake가 된다. R Channel에서 Master가 Data를 받을 준비가 되면 READY를 High로 만든다. Slave가 Data를 내보내고 VALID를 High로 만들어서 Handshake가 된다. Slave가 마지막 데이터를 보낼 때 RLAST가 High가 되면 Master는 Response를 보낸다. Read Burst 모드는 하나의 ADDR로 여러 개의 데이터를 받을 수 있다. 몇 개의 데이터를 보낼 지 AR에서 알려주고(ARLEN, ARSIZE, ARBURST), Slave가 마지막 데이터를 보내면 데이터 Read가 완료된 것이다.  
 
 
 ---
@@ -99,8 +58,6 @@ CPU와 DMA는 Master Interfaces를 갖고 있다. DMA Controller가 DMA의 동�
 
 1. Read access – data is transferred from the source address to the DMA FIFO
 2. Write access – data is transferred from the DMA FIFO to the destination address
-
-
 
 ---
 
@@ -161,16 +118,12 @@ print("Sorted array is:", arr)
  ![Why Ascend/Descend](../images/ascend.jpg)  
  Ascending / Ascending 이면 원소 교환해도 Sorting이 안됨
 
+---
 
 ## 4. Systolic Array  
 
 
----
 
-## 5. HBM  
-
-
----
 
 
 

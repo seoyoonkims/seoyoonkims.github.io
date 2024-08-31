@@ -201,7 +201,8 @@ $$
 KL Divergence는 두 분포 간의 "distance"를 측정하며 non-negative 한 값을 갖는다. $q(\mathbf{z} \vert \boldsymbol{\theta}) = Pr(\mathbf{z} \vert \mathbf{x}, \boldsymbol{\phi})$ 일 때 KL distance가 0이 되고 ELBO가 tight 해진다.
 
 ![17.7](../images/VAE17.7.png)
-$Pr(z \vert \mathbf{x}^{\ast}, \boldsymbol{\phi})$ 은 관측된 데이터 $\mathbf{x}^{\ast}$ 를 만드는데 기여한 잠재 변수 $z$의 분포이다.
+
+$Pr(z \vert \mathbf{x}^{\ast}, \boldsymbol{\phi})$ 은 관측된 데이터 $\mathbf{x}^{\ast}$ 를 만드는데 기여한 잠재 변수 $z$의 분포이다.  
 
 Posterior 분포인 $Pr(z \vert \mathbf{x}^{\ast}, \boldsymbol{\phi})$ 은 다음의 Bayes' rule을 통해 계산된다.  
 

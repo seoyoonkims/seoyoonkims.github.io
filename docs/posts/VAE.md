@@ -62,7 +62,7 @@ $$
 
 ![17.1](../images/VAE17.1.png)
 
-복잡한 분포를 여러 가우시안의 Weighted Sum으로 설명할 수 있으므로, discrete latent variable $\mathbf{z}$ 를 도입하여 하나의 가우시안 분포인 Joint Probability $Pr(x, z)$ 를 Marginalize 함으로써 Pr(x)를 구하는 것이다.  
+복잡한 분포를 여러 가우시안의 Weighted Sum으로 설명할 수 있으므로, discrete latent variable $z$ 를 도입하여 하나의 가우시안 분포인 Joint Probability $Pr(\mathbf{x}, \mathbf{z})$를 Marginalize 함으로써 $Pr(x)$를 구하는 것이다.  
 
 $$
 Pr(\mathbf{x} \vert \mathbf{z}, \boldsymbol{\phi}) = N_\mathbf{x} [\mathbf{f}[\mathbf{z}, \boldsymbol{\phi}], \sigma^2 \mathbf{I}]  

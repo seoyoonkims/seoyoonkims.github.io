@@ -202,16 +202,24 @@ Pr(\mathbf{z}_T) = N_{\mathbf{z}_T} \left [\mathbf{0, I} \right]
 $$
 
 $$
-Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t , \mathbf{\phi}_t) = N_{\mathbf{z}_{t-1}} \left [ \mathbf{f}_t[\mathbf{z}_t, \mathbf{\phi}_t], \sigma_t^2 \mathbf{I}  \right ]  
+Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t , \boldsymbol{\phi}_t) = N_{\mathbf{z}_{t-1}} \left [ \mathbf{f}_t[\mathbf{z}_t, \boldsymbol{\phi}_t], \sigma_t^2 \mathbf{I}  \right ]  
 $$
 
 $$
-Pr(\mathbf{x} \vert \mathbf{\phi}_1) = N_{\mathbf{x}} \left [ \mathbf{f}_1[\mathbf{z}_1, \mathbf{\phi}_1], \sigma_1^2 \mathbf{I}  \right ]  
+Pr(\mathbf{x} \vert \boldsymbol{\phi}_1) = N_{\mathbf{x}} \left [ \mathbf{f}_1[\mathbf{z}_1, \boldsymbol{\phi}_1], \sigma_1^2 \mathbf{I}  \right ]  
 $$
 
-$\mathbf{f}_t[\mathbf{z}_t, \mathbf{\phi}_t]$ 는 Neural Network로 $\mathbf{z}_t$$ 에서 $\mathbf{z}_{t-1}$로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. 
+$\mathbf{f}_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$ 는 Neural Network로 $\mathbf{z}_t$$ 에서 $\mathbf{z}_{t-1}$로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. 
 
 ---
 
 **4. Training**
+
+Joint Distribution은 다음과 같다.  
+
+$$
+Pr(\mathbf{x}, \mathbf{z}_{1...T} \vert \boldsymbol{\phi}_{1...T}) = Pr(\mathbf{x} \vert \mathbf{z}_1, \boldsymbol{\phi}_1) \prod \limits_{t=2}^T Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \boldsymbol{\phi}_t) \cdot Pr(\mathbf{z}_T)  
+$$
+
+관찰된 데이터의 Likelihood는 Latent Variables에 대해 Marginalizing 함으로써 구할 수 있다.  
 

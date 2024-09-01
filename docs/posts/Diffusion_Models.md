@@ -209,7 +209,7 @@ $$
 Pr(\mathbf{x} \vert \boldsymbol{\phi}_1) = N_{\mathbf{x}} \left [ \mathbf{f}_1[\mathbf{z}_1, \boldsymbol{\phi}_1], \sigma_1^2 \mathbf{I}  \right ]  
 $$
 
-$\mathbf{f}_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$ 는 Neural Network로 $\mathbf{z}_t$$ 에서 $\mathbf{z}_{t-1}$로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. 
+$$\mathbf{f}_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$$ 는 Neural Network로 $\mathbf{z}_t$$ 에서 $\mathbf{z}_{t-1}$로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. 
 
 ---
 
@@ -222,4 +222,13 @@ Pr(\mathbf{x}, \mathbf{z}_{1...T} \vert \boldsymbol{\phi}_{1...T}) = Pr(\mathbf{
 $$
 
 관찰된 데이터의 Likelihood는 Latent Variables에 대해 Marginalizing 함으로써 구할 수 있다.  
+
+$$
+Pr(\mathbf{x} \vert \boldsymbol{\phi}_{1...T}) = \int Pr(\mathbf{x}, \mathbf{z}_{1...T} \vert \boldsymbol{\phi}_{1...T})d\mathbf{z}_{1...T}  
+$$
+
+이 모델을 훈련시키기 위해 주어진 데이터 $\{\mathbf{x}_i\}$log-likelihood를 최대화하는 파라미터 $\phi$ 를 찾는다. 
+
+
+
 

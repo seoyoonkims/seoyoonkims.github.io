@@ -147,14 +147,22 @@ $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_{t}^{\ast})$$는 Bayes' Rule을 통해 $$q
 
 **2.4 Conditional Diffusion Distribution**  
 
-$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$는 알 수 없지만, $q(\mathbf{z}_{t-1} \vert \mathbf{x})$ 는 알 수 있다는 점을 이용하여, $q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x})$ 를 Closed Form으로 나타낼 수 있다. 이 분포가 Decoder를 훈련시키는데 사용된다.
+$$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$는 알 수 없지만, $$q(\mathbf{z}_{t-1} \vert \mathbf{x})$$ 는 알 수 있다는 점을 이용하여, $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x})$$ 를 Closed Form으로 나타낼 수 있다. 이 분포가 Decoder를 훈련시키는데 사용된다.
 
 $$
 q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x}) = \frac{q(\mathbf{z}_{t} \vert \mathbf{z}_{t-1}, \mathbf{x})q(\mathbf{z}_{t-1} \vert \mathbf{x})}{q(\mathbf{z}_{t} \vert \mathbf{x})}  
 $$
 
 $$
-\prop q(\mathbf{z}_{t} \vert \mathbf{z}_{t-1}) q(\mathbf{z}_{t-1} \vert \mathbf{x})
+\propto q(\mathbf{z}_{t} \vert \mathbf{z}_{t-1}) q(\mathbf{z}_{t-1} \vert \mathbf{x})
+$$
+
+Diffusion Process는 Markov Chain이므로 $q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x}) = q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$ 라는 점이 사용되었다.  
+
+다음 식을 유도하려면 Gaussian Change of Variables Identity를 사용해야 한다.
+
+$$
+N_{\mathbf{v}}[\mathbf{Aw}, \mathbf{B}] \propto N_{\mathbf{w}} \left[(\mathbf{A^T B^{-1} A})^{-1} \mathbf{A^T B^{-1} v}, (\mathbf{A^T B^{-1} A})^{-1} \right]
 $$
 
 $$
@@ -162,10 +170,18 @@ N_{\mathbf{z}_t} \left[ \sqrt(1-\beta_t) \cdot \mathbf{z}_{t-1}, \beta_t \mathbf
 $$
 
 $$
-\prop N_{\mathbf{z}_t} \left[ \frac{1}{\sqrt(1-\beta_t)} \cdot \mathbf{z}_{t}, \frac{\beta_t}{1-\beta_t} \mathbf{I} \right] N_{\mathbf{z}_{t-1}} \left[ \sqrt(\alpha_{t-1}) \cdot \mathbf{x}, (1-\alpha_{t-1}) \mathbf{I} \right]  
+\propto N_{\mathbf{z}_t} \left[ \frac{1}{\sqrt(1-\beta_t)} \cdot \mathbf{z}_{t}, \frac{\beta_t}{1-\beta_t} \mathbf{I} \right] N_{\mathbf{z}_{t-1}} \left[ \sqrt(\alpha_{t-1}) \cdot \mathbf{x}, (1-\alpha_{t-1}) \mathbf{I} \right]  
 $$
 
+Second Gaussian Identity를 적용하면, 다음과 같다.
 
+$$
+N_{\mathbf{w}}[\mathbf{a}, \mathbf{A}] \cdot N_{\mathbf{w}}[\mathbf{b}, \mathbf{B}] \propto N_{\mathbf{w}} \left[(\mathbf{A^{-1} + B^{-1}})^{-1} \mathbf{A^{-1}a + B^{-1}b}, (\mathbf{A^{-1} + B^{-1}})^{-1} \right]
+$$
+
+$$
+q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x}) = N_{\mathbf{z}_{t-1}} \left[ \frac{1-\alpha_{t-1}}{1-\alpha_t} \sqrt{1-\beta_t}\mathbf{z}_t + \frac{\sqrt{\alpha_t}\beta_t}{1-\alpha_t}\mathbf{x}, \frac{\beta_t(1-\alpha_{t-1})}{1-\alpha_t}\mathbf{I} \right]  
+$$
 
 ---
 

@@ -209,7 +209,7 @@ $$
 Pr(\mathbf{x} \vert \boldsymbol{\phi}_1) = N_{\mathbf{x}} \left [ \mathbf{f}_1[\mathbf{z}_1, \boldsymbol{\phi}_1], \sigma_1^2 \mathbf{I}  \right ]  
 $$
 
-$$\mathbf{f}_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$$ 는 Neural Network로 $\mathbf{z}_t$ 에서 $\mathbf{z}_{t-1}$로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. 
+$\mathbf{f}_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$ 는 Neural Network로 $\mathbf{z}_t$ 에서 $\mathbf{z}_{t-1}$ 로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. 
 
 ---
 
@@ -230,7 +230,7 @@ $$
 이 모델을 훈련시키기 위해 주어진 데이터 $\{\mathbf{x}_i\}$에 대해 log-likelihood를 최대화하는 파라미터 $\phi$ 를 찾는다. 
 
 $$
-\hat{\boldsymbol{\phi}}_{1...T} = \argmax_{\phi_{1...T}} \left[\sum\limits_{i=1}^I log\left[Pr(\mathbf{x}_i \vert \boldsymbol{\phi_{1...T}})\right]\right]  
+\hat{\boldsymbol{\phi}}_{1...T} = \argmax_{\phi_{1...T}} \left[\sum\limits_{i=1}^I log\left[Pr(\mathbf{x}_i \vert \boldsymbol{\phi}_{1...T})\right]\right]  
 $$
 
 위의 Marginalization는 intractable하므로 Jensen's inequality를 이용해서 ELBO를 정의하고, $\boldsymbol{\phi}_{1...T}$를 최적화한다.  

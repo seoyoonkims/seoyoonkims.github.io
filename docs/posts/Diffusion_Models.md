@@ -142,7 +142,7 @@ Marginal Distribution인 $q(\mathbf{z}_{t-1})$가 intractable 하므로 위 식 
 ![18.5](../images/Diffusion/18.5.png)  
 
 
-$q(\mathbf{z}_{t-1} \vert \mathbf{z}_{t}^{\ast})$ 는 Bayes' Rule을 통해 $q(\mathbf{z}_{t}^{\ast} \vert \mathbf{z}_{t-1})q(\mathbf{z}_{t-1})$ 에 Proportional 하다는 점을 이용해 계산한다. 회색 선은 Marginal Density 이다. 
+$$q(\mathbf{z}_{t-1} \vert \mathbf{z}_{t}^{\ast})$$ 는 Bayes' Rule을 통해 $q(\mathbf{z}_{t}^{\ast} \vert \mathbf{z}_{t-1})q(\mathbf{z}_{t-1})$ 에 Proportional 하다는 점을 이용해 계산한다. 회색 선은 Marginal Density 이다. 
 
 
 **2.4 Conditional Diffusion Distribution**  

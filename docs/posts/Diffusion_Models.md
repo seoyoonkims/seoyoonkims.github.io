@@ -209,5 +209,9 @@ $$
 Pr(\mathbf{x} \vert \mathbf{\Phi}_1) = N_{\mathbf{x}} \left [ \mathbf{f}_1[\mathbf{z}_1, \mathbf{\Phi}_1], \sigma_1^2 \mathbf{I}  \right ]  
 $$
 
+$\mathbf{f}_t[\mathbf{z}_t, \mathbf{\Phi}_t]$ 는 Neural Network로 $\mathbf{z}_t$ 에서 $\mathbf{z}_{t-1}$ 로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. 
 
+---
+
+**4. Training**
 

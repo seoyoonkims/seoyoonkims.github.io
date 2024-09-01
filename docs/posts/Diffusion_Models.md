@@ -97,3 +97,12 @@ $$
 $$
 \alpha_t = \prod \limits_{s=1}^t 1-\beta_s  
 $$
+
+따라서 다음과 같이 확률 분포를 표현할 수 있다.
+
+$$
+q(\mathbf{z}_t \vert \mathbf{x}) = N_{\mathbf{z}_t} \left[ \sqrt{\alpha_t} \cdot \mathbf{x}, (1-\alpha_t) \mathbf{I} \right]  
+$$
+
+어떤 시작점인 $\mathbf{x}$에 대해서, $\mathbf{z}_t$는 Normally Distributed이며, 평균과 분산을 알 수 있다. 중간 과정을 생각하지 않아도 $q(\mathbf{z}_t \vert \mathbf{x})$로부터 샘플을 쉽게 생성할 수 있다.
+

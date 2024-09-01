@@ -128,8 +128,20 @@ $$
 
 따라서 $Pr(\mathbf{x})$로부터 반복적으로 추출한 샘플을 Diffusion Kernel에 통과시키면, 결과는 Marginal Distribution인 $q(\mathbf{z}_t)$가 된다. $Pr(\mathbf{x})$를 모르기 때문에 Closed Form으로 나타낼 수는 없다.  
 
+
 **2.3 Conditional Distribution**  
 
+Bayes' rule을 적용하면 Conditional Probability를 다음과 같이 나타낼 수 있다.  
+
+$$
+q(\mathbf{z}_{t-1} \vert \mathbf{z}_t) = \frac{\mathbf{z}_{t} \vert \mathbf{z}_{t-1} q(\mathbf{z}_{t-1})}{q(\mathbf{z}_t)}  
+$$
+
+Marginal Distribution인 $q(\mathbf{z}_{t-1})$가 intractable 하므로 위 식 또한 intractable 하다. 하지만 Numerically 하게 근사하여 구할 수는 있다.  
+
+![18.5](../images/Diffusion/18.5.png)
+
+$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t^{\ast})$는 Bayes' Rule을 통해 $q(\mathbf{z}_t^{\ast} \vert \mathbf{z}_{t-1})q(\mathbf{z}_{t-1})$ 에 Proportional 하다는 점을 이용해 계산한다. 회색 선은 Marginal Density 이다. 
 
 
 ---

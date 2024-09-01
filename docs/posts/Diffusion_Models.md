@@ -147,6 +147,23 @@ $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_{t}^{\ast})$$는 Bayes' Rule을 통해 $$q
 
 **2.4 Conditional Diffusion Distribution**  
 
+$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$는 알 수 없지만, $q(\mathbf{z}_{t-1} \vert \mathbf{x})$ 는 알 수 있다는 점을 이용하여, $q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x})$ 를 Closed Form으로 나타낼 수 있다. 이 분포가 Decoder를 훈련시키는데 사용된다.
+
+$$
+q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x}) = \frac{q(\mathbf{z}_{t} \vert \mathbf{z}_{t-1}, \mathbf{x})q(\mathbf{z}_{t-1} \vert \mathbf{x})}{q(\mathbf{z}_{t} \vert \mathbf{x})}  
+$$
+
+$$
+\prop q(\mathbf{z}_{t} \vert \mathbf{z}_{t-1}) q(\mathbf{z}_{t-1} \vert \mathbf{x})
+$$
+
+$$
+N_{\mathbf{z}_t} \left[ \sqrt(1-\beta_t) \cdot \mathbf{z}_{t-1}, \beta_t \mathbf{I} \right] N_{\mathbf{z}_{t-1}} \left[ \sqrt(\alpha_{t-1}) \cdot \mathbf{x}, (1-\alpha_{t-1}) \mathbf{I} \right]  
+$$
+
+$$
+\prop N_{\mathbf{z}_t} \left[ \frac{1}{\sqrt(1-\beta_t)} \cdot \mathbf{z}_{t}, \frac{\beta_t}{1-\beta_t} \mathbf{I} \right] N_{\mathbf{z}_{t-1}} \left[ \sqrt(\alpha_{t-1}) \cdot \mathbf{x}, (1-\alpha_{t-1}) \mathbf{I} \right]  
+$$
 
 
 

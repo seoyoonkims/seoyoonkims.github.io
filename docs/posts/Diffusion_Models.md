@@ -229,6 +229,12 @@ $$
 
 이 모델을 훈련시키기 위해 주어진 데이터 $\{\mathbf{x}_i\}$log-likelihood를 최대화하는 파라미터 $\phi$ 를 찾는다. 
 
+$$
+\hat{\boldsymbol{\phi}}_{1...T} = \argmax_{\phi_{1...T}} \left[\sum\limits_{i=1}^I log\left[Pr(\mathbf{x}_i \vert \boldsymbol{\phi_{1...T}})\right]\right]  
+$$
+
+위의 Marginalization는 intractable하므로 Jensen's inequality를 이용해서 ELBO를 구한다.  
 
 
+**4.1 Evidence Lower Bound (ELBO)**  
 

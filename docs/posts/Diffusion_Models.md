@@ -233,7 +233,8 @@ $$
 \hat{\boldsymbol{\phi}}_{1...T} = \argmax_{\phi_{1...T}} \left[\sum\limits_{i=1}^I log\left[Pr(\mathbf{x}_i \vert \boldsymbol{\phi_{1...T}})\right]\right]  
 $$
 
-위의 Marginalization는 intractable하므로 Jensen's inequality를 이용해서 ELBO를 구한다.  
+위의 Marginalization는 intractable하므로 Jensen's inequality를 이용해서 ELBO를 정의하고, $\boldsymbol{\phi}_{1...T}$를 최적화한다.  
+
 
 
 **4.1 Evidence Lower Bound (ELBO)**  

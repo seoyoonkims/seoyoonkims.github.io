@@ -195,5 +195,19 @@ $$
 
 **3. Decoder (Reverse Process)**
 
+$\mathbf{z}_T$ 에서부터 $\mathbf{z}_{T-1} $ , ... , $\mathbf{z}_1$, $\mathbf{x}$ 방향으로 되돌아가면서 학습을 진행한다. 실제 $q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$ 는 복잡하기 때문에 Normal Distribution 이라고 근사한다.  
 
-`ooo`
+$$
+Pr(\mathbf{z}_T) = N_{\mathbf{z}_T} \left [\mathbf{0, T} \right]  
+$$
+
+$$
+Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t , \mathbf{\Phi}_t) = N_{\mathbf{z}_{t-1}} \left [ \mathbf{f}_t[\mathbf{z}_t, \mathbf{\Phi}_t], \sigma_t^2 \mathbf{I}  \right ]  
+$$
+
+$$
+Pr(\mathbf{x} \vert \mathbf{\Phi}_1) = N_{\mathbf{x}} \left [ \mathbf{f}_1[\mathbf{z}_1, \mathbf{\Phi}_1], \sigma_1^2 \mathbf{I}  \right ]  
+$$
+
+
+

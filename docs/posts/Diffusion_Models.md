@@ -157,7 +157,11 @@ $$
 \propto q(\mathbf{z}_{t} \vert \mathbf{z}_{t-1}) q(\mathbf{z}_{t-1} \vert \mathbf{x})
 $$
 
-Diffusion Process는 Markov Chain이므로 $q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x}) = q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$ 라는 점이 사용되었다.  
+Diffusion Process는 Markov Chain이므로 
+$$
+q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x}) = q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)  
+$$ 
+라는 점이 사용되었다.  
 
 다음 식을 유도하려면 Gaussian Change of Variables Identity를 사용해야 한다.
 

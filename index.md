@@ -17,7 +17,7 @@ South Korea
 
 ## Research Interests  
 
-> AI Accelerator & Hardware Design
+> AI Accelerator & Unmanned System
 
 
 ## Education  
@@ -30,14 +30,10 @@ South Korea
 
 ## Expericence  
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
- - AI Accelerator  
 
 > HyperAccel (Internship, 2024.06 ~ 2024.08)  
- - LPU Monitoring System  
- - HyperDex Packaging  
 
-> USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)  
- - Unmanned System    
+> USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)   
 
 
 ## Programming  

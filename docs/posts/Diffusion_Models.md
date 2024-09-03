@@ -239,3 +239,14 @@ $$
 
 **4.1 Evidence Lower Bound (ELBO)**  
 
+
+
+
+---
+
+**6.1 Application to Images**  
+
+노이즈 이미지를 받은 후, 이 이미지에 어떤 노이즈가 단계 별로 첨가되었을지 예측하는 모델을 만드는 것이 핵심 아이디어이다. 전형적인 U-Net 구조로 이미지 매핑을 진행하지만, 타임 스텝 별로 조건부 확률 $q(\mathbf{z}_t \vert \mathbf{z})$를 사용한다는 점이 T가 커졌을 때 Sampling 속도를 느리게 한다.  
+
+
+

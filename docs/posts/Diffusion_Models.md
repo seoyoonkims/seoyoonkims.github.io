@@ -343,6 +343,8 @@ $$
 
 **Diffusion Loss Function**  
 
+ELBO에 마이너스를 취하면 Loss Function이 된다. 
+
 $$
 L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \left( -\log \left[ \text{Norm}_{\mathbf{x}_i} \left( f_1[\mathbf{z}_{i1}, \phi_1], \sigma_1^2 \mathbf{I} \right) \right] \right)
 $$
@@ -351,7 +353,18 @@ $$
 + \sum_{t=2}^{T} \frac{1}{2\sigma_t^2} \left\| \frac{1-\alpha_{t-1}}{1-\alpha_t} \sqrt{1-\beta_t} \mathbf{z}_{it} + \frac{\sqrt{\alpha_{t-1} \beta_t}}{1-\alpha_t} \mathbf{x}_i - f_t[\mathbf{z}_{it}, \phi_t] \right\|^2
 $$
 
+$$
+\usepackage{xcolor}
 
+L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \left( -\log \left[ \text{Norm}_{\mathbf{x}_i} \left( f_1[\mathbf{z}_{i1}, \phi_1], \sigma_1^2 \mathbf{I} \right) \right] \right)
+$$
+$$
++ \sum_{t=2}^{T} \frac{1}{2\sigma_t^2} \left\| \frac{1-\alpha_{t-1}}{1-\alpha_t} \sqrt{1-\beta_t} \mathbf{z}_{it} + \frac{\sqrt{\alpha_{t-1} \beta_t}}{1-\alpha_t} \mathbf{x}_i - f_t[\mathbf{z}_{it}, \phi_t] \right\|^2
+$$
+
+$$
+\textcolor{blue}{\text{reconstruction term}} \quad \textcolor{blue}{\text{target, mean of } q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x})} \quad \textcolor{blue}{\text{predicted } \mathbf{z}_{t-1}}
+$$
 
 
 

@@ -245,7 +245,7 @@ $$
 
 **4.1 Evidence Lower Bound (ELBO)**  
 
-ELBO를 유도하기 위해 다음과 같이 log-likelihood를 encoder distribution인 $q(\mathbf{z}_{1...T}|\mathbf{x})$로 나누고 Jensen's inequality를 적용한다. 이에 대한 설명은 VAE 포스트에 더 자세히 나와있다. 
+ELBO를 유도하기 위해 다음과 같이 log-likelihood를 encoder distribution인 $q(\mathbf{z}_{1...T} \vert \mathbf{x})$ 로 나누고 Jensen's inequality를 적용한다. 이에 대한 설명은 VAE 포스트에 더 자세히 나와있다. 
 
 $$
 \log \left[ Pr(\mathbf{x}|\phi_{1 \dots T}) \right] = \log \left[ \int Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T}) d\mathbf{z}_{1 \dots T} \right]

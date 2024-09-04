@@ -210,7 +210,7 @@ Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t , \boldsymbol{\phi}_t) = N_{\mathbf{z}_{t
 $$
 
 $$
-Pr(\mathbf{x} \vert \boldsymbol{\phi}_1) = N_{\mathbf{x}} \left [ \mathbf{f}_1[\mathbf{z}_1, \boldsymbol{\phi}_1], \sigma_1^2 \mathbf{I}  \right ]  
+Pr(\mathbf{x} \vert \mathbf{z}_1, \boldsymbol{\phi}_1) = N_{\mathbf{x}} \left [ \mathbf{f}_1[\mathbf{z}_1, \boldsymbol{\phi}_1], \sigma_1^2 \mathbf{I}  \right ]  
 $$
 
 $$\mathbf{f}_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$$ 는 Neural Network로 $$\mathbf{z}_t$$ 에서 $$\mathbf{z}_{t-1}$$ 로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. $\beta_t$는 hyperparameter이며, 0에 충분히 가까우면(그리고 time step T가 충분히 크면) 위의 근사가 합리적이라고 볼 수 있다. 
@@ -256,13 +256,13 @@ $$
 $$
 
 $$
-\geq \int q(\mathbf{z}_{1 \dots T}|\mathbf{x}) \log \left[ \frac{Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T})}{q(\mathbf{z}_{1 \dots T}|\mathbf{x})} \right] d\mathbf{z}_{1 \dots T}.
+\geq \int q(\mathbf{z}_{1 \dots T}|\mathbf{x}) \log \left[ \frac{Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T})}{q(\mathbf{z}_{1 \dots T}|\mathbf{x})} \right] d\mathbf{z}_{1 \dots T}
 $$
 
 따라서 ELBO는 다음과 같다.
 
 $$
-ELBO[\mathbf{\phi}_{1...T}] = \int q(\mathbf{z}_{1 \dots T}|\mathbf{x}) \log \left[ \frac{Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T})}{q(\mathbf{z}_{1 \dots T}|\mathbf{x})} \right] d\mathbf{z}_{1 \dots T}.
+ELBO[\mathbf{\phi}_{1...T}] = \int q(\mathbf{z}_{1 \dots T}|\mathbf{x}) \log \left[ \frac{Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T})}{q(\mathbf{z}_{1 \dots T}|\mathbf{x})} \right] d\mathbf{z}_{1 \dots T}
 $$
 
 **Simplifying the ELBO**  
@@ -272,13 +272,13 @@ $$
 $$
 
 $$
-= \log \left[ \frac{Pr(\mathbf{x}|\mathbf{z}_1, \phi_1)}{q(\mathbf{z}_1|\mathbf{x})} \right] + \log \left[ \frac{\prod_{t=2}^{T} Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t)}{\prod_{t=2}^{T} q(\mathbf{z}_t|\mathbf{z}_{t-1})} \right] + \log \left[ Pr(\mathbf{z}_T) \right].
+= \log \left[ \frac{Pr(\mathbf{x}|\mathbf{z}_1, \phi_1)}{q(\mathbf{z}_1|\mathbf{x})} \right] + \log \left[ \frac{\prod_{t=2}^{T} Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t)}{\prod_{t=2}^{T} q(\mathbf{z}_t|\mathbf{z}_{t-1})} \right] + \log \left[ Pr(\mathbf{z}_T) \right]
 $$
 
 두번째 항의 분모에 다음 식을 대입한다.
 
 $$
-q(\mathbf{z}_t|\mathbf{z}_{t-1}) = q(\mathbf{z}_t|\mathbf{z}_{t-1}, \mathbf{x}) = \frac{q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x}) q(\mathbf{z}_t|\mathbf{x})}{q(\mathbf{z}_{t-1}|\mathbf{x})},
+q(\mathbf{z}_t|\mathbf{z}_{t-1}) = q(\mathbf{z}_t|\mathbf{z}_{t-1}, \mathbf{x}) = \frac{q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x}) q(\mathbf{z}_t|\mathbf{x})}{q(\mathbf{z}_{t-1}|\mathbf{x})}
 $$
 
 이는 $\mathbf{z}_t$에 대한 모든 정보가  $$\mathbf{z}_{t-1}$$ 안에 함축되어 있기 때문에 $\mathbf{x}$가 필요하지 않다는 것을 나타낸다. 
@@ -293,8 +293,66 @@ $$
 $$
 
 $$
-\approx \log \left[ Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \right] + \sum_{t=2}^{T} \log \left[ \frac{Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t)}{q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x})} \right],
+\approx \log \left[ Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \right] + \sum_{t=2}^{T} \log \left[ \frac{Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t)}{q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x})} \right]
 $$
+
+마지막 항은 $q(\mathbf{z}_t \vert \mathbf{x}) \approx Pr(\mathbf{z}_T) \approx N(0, I)$ 라는 점에서 $log[1] = 0$로 근사할 수 있다.  
+
+최종적으로 간단해진 ELBO는 다음과 같다.
+
+$$
+\text{ELBO}[\phi_{1 \dots T}] 
+= \int q(\mathbf{z}_{1 \dots T}|\mathbf{x}) \log \left[ \frac{Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T})}{q(\mathbf{z}_{1 \dots T}|\mathbf{x})} \right] d\mathbf{z}_{1 \dots T}
+$$
+
+$$
+\approx \int q(\mathbf{z}_{1 \dots T}|\mathbf{x}) \left( \log \left[ Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \right] + \sum_{t=2}^{T} \log \left[ \frac{Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t)}{q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x})} \right] \right) d\mathbf{z}_{1 \dots T}
+$$
+
+$$
+= \mathbb{E}_{q(\mathbf{z}_1|\mathbf{x})} \left[ \log \left[ Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \right] \right] - \sum_{t=2}^{T} \mathbb{E}_{q(\mathbf{z}_t|\mathbf{x})} \left[ D_{KL} \left[ q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x}) || Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t) \right] \right]
+$$
+  
+
+**4.3 Analyzing the ELBO**  
+
+ELBO 식의 첫번째 항은 다음과 같이 정의된다. (3절 참고)
+
+$$
+Pr(\mathbf{x} \vert \mathbf{z}_1, \boldsymbol{\phi}_1) = N_{\mathbf{x}} \left [ \mathbf{f}_1[\mathbf{z}_1, \boldsymbol{\phi}_1], \sigma_1^2 \mathbf{I}  \right ]  
+$$
+
+모델 예측이 관측된 데이터를 잘 설명한다면 ELBO가 커질 것이다. VAE의 reconstruction 항과 같은 식임을 볼 수 있다.  
+
+ELBO의 두번째 항에서 KL divergence는 $Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t)$와 $q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x})$ 간의 거리를 측정한다. 
+
+$$
+Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t) = \text{Norm}_{\mathbf{z}_{t-1}} \left[ f_t[\mathbf{z}_t, \phi_t], \sigma_t^2 \mathbf{I} \right] 
+$$
+
+$$
+q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x}) = \text{Norm}_{\mathbf{z}_{t-1}} \left[ \left( \frac{(1-\alpha_{t-1})}{1-\alpha_t} \sqrt{1-\beta_t}\mathbf{z}_t + \frac{\sqrt{\alpha_{t-1}\beta_t}}{1-\alpha_t}\mathbf{x}, \frac{\beta_t(1-\alpha_{t-1})}{1-\alpha_t} \mathbf{I} \right) \right]
+$$
+
+두 정규분포의 KL divergence는 closed-form expression이 존재한다.  
+
+$$
+D_{KL} \left[ q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x}) || Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t) \right] = \frac{1}{2\sigma_t^2} \left\| \frac{(1-\alpha_{t-1})}{1-\alpha_t} \sqrt{1-\beta_t}\mathbf{z}_t + \frac{\sqrt{\alpha_{t-1}\beta_t}}{1-\alpha_t}\mathbf{x} - f_t[\mathbf{z}_t, \phi_t] \right\|^2 + C
+$$
+
+
+**Diffusion Loss Function**  
+
+$$
+L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \left( -\log \left[ \text{Norm}_{\mathbf{x}_i} \left( f_1[\mathbf{z}_{i1}, \phi_1], \sigma_1^2 \mathbf{I} \right) \right] \right)
+$$
+
+$$
++ \sum_{t=2}^{T} \frac{1}{2\sigma_t^2} \left\| \frac{1-\alpha_{t-1}}{1-\alpha_t} \sqrt{1-\beta_t} \mathbf{z}_{it} + \frac{\sqrt{\alpha_{t-1} \beta_t}}{1-\alpha_t} \mathbf{x}_i - f_t[\mathbf{z}_{it}, \phi_t] \right\|^2
+$$
+
+
+
 
 
 ---

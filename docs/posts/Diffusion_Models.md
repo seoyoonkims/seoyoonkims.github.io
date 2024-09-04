@@ -213,7 +213,9 @@ $$
 Pr(\mathbf{x} \vert \boldsymbol{\phi}_1) = N_{\mathbf{x}} \left [ \mathbf{f}_1[\mathbf{z}_1, \boldsymbol{\phi}_1], \sigma_1^2 \mathbf{I}  \right ]  
 $$
 
-$$\mathbf{f}_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$$ 는 Neural Network로 $$\mathbf{z}_t$$ 에서 $$\mathbf{z}_{t-1}$$ 로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. 
+$$\mathbf{f}_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$$ 는 Neural Network로 $$\mathbf{z}_t$$ 에서 $$\mathbf{z}_{t-1}$$ 로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. $\beta_t$는 hyperparameter이며, 0에 충분히 가까우면(그리고 time step T가 충분히 크면) 위의 근사가 합리적이라고 볼 수 있다. 
+
+$$Pr(\mathbf{z}_T)$$ 에서 $$\mathbf{z}_T$$를 추출하고, $$Pr(\mathbf{z}_{T-1} \vert \mathbf{z}_T, \mathbf{\phi}_T)$로 부터 $Pr(\mathbf{z}_{T-1})$를 추출하는 방법을 반복해서 Ancestral sampling으로 $Pr(\mathbf{x})$를 구하게 된다. 
 
 ---
 

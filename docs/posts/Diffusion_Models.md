@@ -186,7 +186,7 @@ $$
 Second Gaussian Identity를 적용해서 위 식은 $\mathbf{z}_{t-1}$에 대해 표현할 수 있다.  
 
 $$
-N_{\mathbf{w}}[\mathbf{a}, \mathbf{A}] \cdot N_{\mathbf{w}}[\mathbf{b}, \mathbf{B}] \propto N_{\mathbf{w}} \left[(\mathbf{A}^{-1} + \mathbf{B}^{-1})^{-1} \mathbf{A}^{-1}a + \mathbf{B}^{-1}b}, (\mathbf{A^{-1} + B^{-1}})^{-1} \right]
+N_{\mathbf{w}}[\mathbf{a}, \mathbf{A}] \cdot N_{\mathbf{w}}[\mathbf{b}, \mathbf{B}] \propto N_{\mathbf{w}} \left[(\mathbf{A}^{-1} + \mathbf{B}^{-1})^{-1} \mathbf{A}^{-1}a + \mathbf{B}^{-1}b, (\mathbf{A^{-1} + B^{-1}})^{-1} \right]
 $$
 
 그 결과는 다음과 같다.  

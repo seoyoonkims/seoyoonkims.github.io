@@ -245,7 +245,17 @@ $$
 
 **4.1 Evidence Lower Bound (ELBO)**  
 
+$$
+\log \left[ Pr(\mathbf{x}|\phi_{1 \dots T}) \right] = \log \left[ \int Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T}) d\mathbf{z}_{1 \dots T} \right]
+$$
 
+$$
+= \log \left[ \int q(\mathbf{z}_{1 \dots T}|\mathbf{x}) \frac{Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T})}{q(\mathbf{z}_{1 \dots T}|\mathbf{x})} d\mathbf{z}_{1 \dots T} \right]
+$$
+
+$$
+\geq \int q(\mathbf{z}_{1 \dots T}|\mathbf{x}) \log \left[ \frac{Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T})}{q(\mathbf{z}_{1 \dots T}|\mathbf{x})} \right] d\mathbf{z}_{1 \dots T}.
+$$
 
 
 ---

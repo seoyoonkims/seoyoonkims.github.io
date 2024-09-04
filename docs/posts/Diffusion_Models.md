@@ -353,10 +353,12 @@ $$
 + \sum_{t=2}^{T} \frac{1}{2\sigma_t^2} \left\| \frac{1-\alpha_{t-1}}{1-\alpha_t} \sqrt{1-\beta_t} \mathbf{z}_{it} + \frac{\sqrt{\alpha_{t-1} \beta_t}}{1-\alpha_t} \mathbf{x}_i - f_t[\mathbf{z}_{it}, \phi_t] \right\|^2
 $$
 
+첫번째 항은 reconstruction term, 두번째 항은 target, mean of $q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x})$과 predicted $\mathbf{z}_{t-1}$ 사이의 거리이다.  
+
 
 **4.5 Training Procedure**  
 
-
+Loss Function은 각 Diffusion Time Step에 대해 네트워크를 훈련시키는데 사용된다. 예측한 $f_t[\mathbf{z}_{it}, \phi_t]$ 값과 데이터 $\mathbf{x}$가 주어졌을 때 가장 나올 확률이 큰 값과의 차이를 최소화한다. 
 
 
 

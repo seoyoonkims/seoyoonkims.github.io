@@ -128,7 +128,46 @@ $로 roughly하게 결정하고, N이 결정되면 실제로 Cache 할 블록의
 
 ### **5. Experiment**  
 
+DiT 기반의 세 가지 변형 아키텍처인 DiT-XL, PIXART-α, PIXART-α-LCM에 대해 실험을 진행했다. 평가 지표로는 MACs, latency, 그리고 이미지 품질 관련 지표들인 FID, IS, CLIP-Score 등이 사용되었다.  
+
+**Comparison with the Baseline Model**  
+![Table 2](../images/Delta-DiT/table2.png)
+
+
+∆-DiT는 PIXART-α와 DiT-XL에서 Faster Diffusion, TGATE보다 1.6배 빠르고, 이미지 품질도 우수하다. PIXART-α에서 FID 점수는 39.002에서 35.882로 향상되었고, CLIP-Score 또한 개선되었다. DiT-XL에서도 유사한 성과를 거두었으며, 특히 FID와 IS 점수에서 기존 가속화 방법보다 더 나은 성과를 보였다.  
+
+![Table 4](../images/Delta-DiT/table4.png)
+
+**Performance under the Consistent Model**  
+
+![Table 3](../images/Delta-DiT/table3.png)
+
+4단계 일관성 모델을 기반으로 한 극한의 가속 시나리오에서도 ∆-DiT는 Faster Diffusion 및 TGATE와 같은 기존 방법을 크게 능가했다. FID 점수에서 40.433에서 39.967로 성능 향상을 보였으며, 더 극단적인 1.12배 가속 조건에서도 탁월한 성과를 기록했다.
+
+
+**Ablation Study**  
+
+DEIS, EulerD에서도 ∆-DiT는 일관된 성능을 보이기 때문에 다양한 샘플링 기법과도 호환 가능하다.  
+
+![Table 5](../images/Delta-DiT/table5.png)
+
+Hyperparameter인 $b$와 $N_c$의 변화에 따른 성능 변화를 분석했으며, 적절한 값을 선택했을 때 가장 좋은 성능을 보였다.  
+
+![5](../images/Delta-DiT/5.png)
+
+
+### **6. Conclusion**  
+
+1. 결과 요약  
+- Diffusion Transformer(DiT)의 독특한 구조를 고려하여 학습 없이 사용 가능한 ∆-Cache라는 새로운 캐시 메커니즘을 제안했다.
+- DiT 블록의 앞부분은 아웃라인을, 뒷부분은 디테일을 생성하는 데 중요한 역할을 한다.
+- 이러한 발견을 바탕으로 ∆-DiT라는 단계 적응형 가속 방법을 개발하여 효율적인 가속을 달성한다.
+
+
+2. 한계와 향후 연구 방향  
+- DiT 블록이 최종 생성 이미지에 미치는 영향에 대한 탐구는 아직 초기 단계이다. 따라서 더 세밀한 탐구가 필요하다.  
 
 
 ---
 
+2024/09/06

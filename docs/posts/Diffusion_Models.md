@@ -435,7 +435,7 @@ $$
 $\mathbf{x} \text{ and } f_1[\mathbf{z}_1, \phi_1]$를 대입하면,  
 
 $$
-\frac{1}{2\sigma_1^2} \left\| \mathbf{x}_i - f_1[\mathbf{z}_1, \phi_1] \right\|^2 = \frac{1}{2\sigma_1^2} \left\| \frac{\beta_1}{\sqrt{1-\alpha_1} \sqrt{1-\beta_1}} g_1[\mathbf{z}_{i1}, \phi_1] - \frac{\beta_1}{\sqrt{1-\alpha_1} \sqrt{1-\beta_1}} \epsilon_{i1} \right\
+\frac{1}{2\sigma_1^2} \left\| \mathbf{x}_i - f_1[\mathbf{z}_1, \phi_1] \right\|^2 = \frac{1}{2\sigma_1^2} \left\| \frac{\beta_1}{\sqrt{1-\alpha_1} \sqrt{1-\beta_1}} g_1[\mathbf{z}_{i1}, \phi_1] - \frac{\beta_1}{\sqrt{1-\alpha_1} \sqrt{1-\beta_1}} \epsilon_{i1} \right
 $$
 
 $$

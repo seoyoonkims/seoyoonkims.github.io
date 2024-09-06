@@ -435,7 +435,7 @@ $$
 $\mathbf{x} \text{ and } f_1[\mathbf{z}_1, \phi_1]$를 대입하면,  
 
 $$
-\frac{1}{2\sigma_1^2} \left\| \mathbf{x}_i - f_1[\mathbf{z}_1, \phi_1] \right\|^2 = \frac{1}{2\sigma_1^2} \left\| \frac{\beta_1}{\sqrt{1-\alpha_1} \sqrt{1-\beta_1}} g_1[\mathbf{z}_{i1}, \phi_1] - \frac{\beta_1}{\sqrt{1-\alpha_1} \sqrt{1-\beta_1}} \epsilon_{i1} \right
+\frac{1}{2\sigma_1^2} \left\| \mathbf{x}_i - f_1[\mathbf{z}_1, \phi_1] \right\|^2 = \frac{1}{2\sigma_1^2} \left\| \frac{\beta_1}{\sqrt{1-\alpha_1} \sqrt{1-\beta_1}} g_1[\mathbf{z}_{i1}, \phi_1] - \frac{\beta_1}{\sqrt{1-\alpha_1} \sqrt{1-\beta_1}} \epsilon_{i1} \right\|
 $$
 
 $$
@@ -472,11 +472,11 @@ Training 알고리즘은 구현하기도 쉽고 노이즈만 다르게 하면 �
 
 Label 처럼 데이터와 관련된 정보들을 추가적으로 넣어주는 것이다. 
 
-1. Classifier Guidance  
+**1. Classifier Guidance**  
 
 $$\mathbf{z}_t$$에서 $$\mathbf{z}_{t-1}$$로의 매핑에 c에 대한 정보를 추가하여 $$Pr(c \vert \mathbf{z}_t)$$를 통해 c에 가까워지도록 하는 것이다.  
 
-2. Clssifier-free Guidance  
+**2. Clssifier-free Guidance**  
 
 $Pr(c \vert \mathbf{z}_t)$를 학습하는 대신 메인 모델인 $$g_t[\mathbf{z}_{t}, \phi_t, c]$$에 포함되도록 하는 것이다. 주로 임베딩의 형태로 U-Net의 레이어로 들어가게 되는데, 모델은 Conditional & Unconditional Objectives으로 랜덤하게 학습되기 때문에 GAN과 같은 효과를 얻어서 성능이 매우 좋아진다.  
 

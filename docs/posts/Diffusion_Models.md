@@ -362,15 +362,33 @@ Loss Function은 각 Diffusion Time Step에 대해 네트워크를 훈련시키�
 
 ![18.7](../images/Diffusion/18.7.png)
 
-위에서 말했듯이 Ancestral Sampling으로 샘플을 생성할 수 있다. 왼쪽의 Estimated Marginal Densities 히트맵이 실제 Marginal Densities랑 비슷한 것을 확인할 수 있다. 그리고 점점 $$Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$와 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$ 가 비슷해져가는 것도 확인할 수 있다. 또한, $$Pr(\mathbf{z}_t)$와 $$q(\mathbf{z}_t)$ 도 비슷하다.  
+위에서 말했듯이 Ancestral Sampling으로 샘플을 생성할 수 있다. 왼쪽의 Estimated Marginal Densities 히트맵이 실제 Marginal Densities랑 비슷한 것을 확인할 수 있다. 그리고 점점 $$Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$와 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$ 가 비슷해져가는 것도 확인할 수 있다. 또한, $Pr(\mathbf{z}_t)$와 $$q(\mathbf{z}_t)$ 도 비슷하다.  
 
 ![18.8](../images/Diffusion/18.8.png)
 
 각 수직 바들이 생성된 하나의 샘플이라고 보면 된다. 추정값과 실제 값이 비슷한 것을 볼 수 있다.  
 
+  
+**5. Reparameterization of Loss Function**  
 
-**Reparameterization of Loss Function**  
+바로 위의 Loss Function으로도 Diffusion Model을 훈련시킬 수 있지만, 다른 방식으로 Parameterize 하면 더 좋은 성능을 보인다. Loss Function은 오리지널 데이터에 어떤 노이즈가 첨가되었는지 예측하도록 변형된다. 
 
+원래 디퓨전의 업데이트는 다음과 같았지만,  
+$$
+\mathbf{z}_t = \sqrt{\alpha_t} \cdot \mathbf{x} + \sqrt{1 - \alpha_t} \cdot \epsilon
+$$
+
+살짝 변형하면 Diffused 이미지에서 노이즈를 첨가한 형태로 표현된다.  
+$$
+\mathbf{x} = \frac{1}{\sqrt{\alpha_t}} \cdot \mathbf{z}_t - \frac{\sqrt{1 - \alpha_t}}{\sqrt{\alpha_t}} \cdot \epsilon
+$$
+
+
+$f_t[\mathbf{z}_t, \phi_t]$를 새로운 모델 $\hat{\epsilon} = g_t[\mathbf{z}_t, \phi_t]$ 으로 대체할 수 있다. 이 모델은 $\mathbf{z}_t$를 만들기 위해 $\mathbf{x}$에 첨가된 노이즈 $\epsilon$을 예측한다. 
+
+$$
+f_t[\mathbf{z}_t, \phi_t] = \frac{1}{\sqrt{1 - \beta_t}} \mathbf{z}_t - \frac{\beta_t}{\sqrt{1 - \alpha_t} \sqrt{1 - \beta_t}} g_t[\mathbf{z}_t, \phi_t]
+$$
 
 
 

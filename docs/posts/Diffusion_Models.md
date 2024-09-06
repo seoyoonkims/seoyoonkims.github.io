@@ -362,7 +362,7 @@ Loss Function은 각 Diffusion Time Step에 대해 네트워크를 훈련시키�
 
 ![18.7](../images/Diffusion/18.7.png)
 
-위에서 말했듯이 Ancestral Sampling으로 샘플을 생성할 수 있다. 왼쪽의 Estimated Marginal Densities 히트맵이 실제 Marginal Densities랑 비슷한 것을 확인할 수 있다. 그리고 점점 $$Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$와 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$가 비슷해져가는 것도 확인할 수 있다. 또한, $Pr(\mathbf{z}_t)$와 $$q(\mathbf{z}_t)$ 도 비슷하다.  
+위에서 말했듯이 Ancestral Sampling으로 샘플을 생성할 수 있다. 왼쪽의 Estimated Marginal Densities 히트맵이 실제 Marginal Densities랑 비슷한 것을 확인할 수 있다. 그리고 점점 $$Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$와 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$가 비슷해져가는 것도 확인할 수 있다. 또한, $Pr(\mathbf{z}_t)$와 $$q(\mathbf{z}_t)$$도 비슷하다.  
 
 ![18.8](../images/Diffusion/18.8.png)
 

@@ -268,11 +268,11 @@ $$
 **Simplifying the ELBO**  
 
 $$
-\log \left[ \frac{Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T})}{q(\mathbf{z}_{1 \dots T}|\mathbf{x})} \right] = \log \left[ \frac{Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \prod_{t=2}^{T} Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t) \cdot Pr(\mathbf{z}_T)}{q(\mathbf{z}_1|\mathbf{x}) \prod_{t=2}^{T} q(\mathbf{z}_t|\mathbf{z}_{t-1})} \right]
+\log \left[ \frac{Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T})}{q(\mathbf{z}_{1 \dots T}|\mathbf{x})} \right] = \log \left[ \frac{Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \prod_{t=2}^{T} Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \boldsymbol{\phi}_t) \cdot Pr(\mathbf{z}_T)}{q(\mathbf{z}_1|\mathbf{x}) \prod_{t=2}^{T} q(\mathbf{z}_t|\mathbf{z}_{t-1})} \right]
 $$
 
 $$
-= \log \left[ \frac{Pr(\mathbf{x}|\mathbf{z}_1, \phi_1)}{q(\mathbf{z}_1|\mathbf{x})} \right] + \log \left[ \frac{\prod_{t=2}^{T} Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t)}{\prod_{t=2}^{T} q(\mathbf{z}_t|\mathbf{z}_{t-1})} \right] + \log \left[ Pr(\mathbf{z}_T) \right]
+= \log \left[ \frac{Pr(\mathbf{x}|\mathbf{z}_1, \phi_1)}{q(\mathbf{z}_1|\mathbf{x})} \right] + \log \left[ \frac{\prod_{t=2}^{T} Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \boldsymbol{\phi}_t)}{\prod_{t=2}^{T} q(\mathbf{z}_t|\mathbf{z}_{t-1})} \right] + \log \left[ Pr(\mathbf{z}_T) \right]
 $$
 
 두번째 항의 분모에 다음 식을 대입한다.
@@ -285,15 +285,15 @@ $$
 
 $$
 \log \left[ \frac{Pr(\mathbf{x}, \mathbf{z}_{1 \dots T}|\phi_{1 \dots T})}{q(\mathbf{z}_{1 \dots T}|\mathbf{x})} \right] 
-= \log \left[ \frac{Pr(\mathbf{x}|\mathbf{z}_1, \phi_1)}{q(\mathbf{z}_1|\mathbf{x})} \right] + \log \left[ \frac{\prod_{t=2}^{T} Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t) \cdot q(\mathbf{z}_{t-1}|\mathbf{x})}{\prod_{t=2}^{T} q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x}) \cdot q(\mathbf{z}_t|\mathbf{x})} \right] + \log \left[ Pr(\mathbf{z}_T) \right]
+= \log \left[ \frac{Pr(\mathbf{x}|\mathbf{z}_1, \phi_1)}{q(\mathbf{z}_1|\mathbf{x})} \right] + \log \left[ \frac{\prod_{t=2}^{T} Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \boldsymbol{\phi}_t) \cdot q(\mathbf{z}_{t-1}|\mathbf{x})}{\prod_{t=2}^{T} q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x}) \cdot q(\mathbf{z}_t|\mathbf{x})} \right] + \log \left[ Pr(\mathbf{z}_T) \right]
 $$
 
 $$
-= \log \left[ \frac{Pr(\mathbf{x}|\mathbf{z}_1, \phi_1)}{q(\mathbf{z}_1|\mathbf{x})} \right] + \log \left[ \frac{\prod_{t=2}^{T} Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t)}{\prod_{t=2}^{T} q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x})} \right] + \log \left[ \frac{Pr(\mathbf{z}_T)}{q(\mathbf{z}_T|\mathbf{x})} \right]
+= \log \left[ \frac{Pr(\mathbf{x}|\mathbf{z}_1, \phi_1)}{q(\mathbf{z}_1|\mathbf{x})} \right] + \log \left[ \frac{\prod_{t=2}^{T} Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \boldsymbol{\phi}_t)}{\prod_{t=2}^{T} q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x})} \right] + \log \left[ \frac{Pr(\mathbf{z}_T)}{q(\mathbf{z}_T|\mathbf{x})} \right]
 $$
 
 $$
-\approx \log \left[ Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \right] + \sum_{t=2}^{T} \log \left[ \frac{Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t)}{q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x})} \right]
+\approx \log \left[ Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \right] + \sum_{t=2}^{T} \log \left[ \frac{Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \boldsymbol{\phi}_t)}{q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x})} \right]
 $$
 
 마지막 항은 $q(\mathbf{z}_t \vert \mathbf{x}) \approx Pr(\mathbf{z}_T) \approx N(0, I)$ 라는 점에서 $log[1] = 0$로 근사할 수 있다.  
@@ -306,11 +306,11 @@ $$
 $$
 
 $$
-\approx \int q(\mathbf{z}_{1 \dots T}|\mathbf{x}) \left( \log \left[ Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \right] + \sum_{t=2}^{T} \log \left[ \frac{Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t)}{q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x})} \right] \right) d\mathbf{z}_{1 \dots T}
+\approx \int q(\mathbf{z}_{1 \dots T}|\mathbf{x}) \left( \log \left[ Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \right] + \sum_{t=2}^{T} \log \left[ \frac{Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \boldsymbol{\phi}_t)}{q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x})} \right] \right) d\mathbf{z}_{1 \dots T}
 $$
 
 $$
-= \mathbb{E}_{q(\mathbf{z}_1|\mathbf{x})} \left[ \log \left[ Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \right] \right] - \sum_{t=2}^{T} \mathbb{E}_{q(\mathbf{z}_t|\mathbf{x})} \left[ D_{KL} \left[ q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x}) || Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t) \right] \right]
+= \mathbb{E}_{q(\mathbf{z}_1|\mathbf{x})} \left[ \log \left[ Pr(\mathbf{x}|\mathbf{z}_1, \phi_1) \right] \right] - \sum_{t=2}^{T} \mathbb{E}_{q(\mathbf{z}_t|\mathbf{x})} \left[ D_{KL} \left[ q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x}) || Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \boldsymbol{\phi}_t) \right] \right]
 $$
   
 
@@ -324,10 +324,10 @@ $$
 
 모델 예측이 관측된 데이터를 잘 설명한다면 ELBO가 커질 것이다. VAE의 reconstruction 항과 같은 식임을 볼 수 있다.  
 
-ELBO의 두번째 항에서 KL divergence는 $$Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \phi_t)$$와 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x})$$ 간의 거리를 측정한다. 
+ELBO의 두번째 항에서 KL divergence는 $$Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \boldsymbol{\phi}_t)$$와 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x})$$ 간의 거리를 측정한다. 
 
 $$
-Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t) = \text{Norm}_{\mathbf{z}_{t-1}} \left[ f_t[\mathbf{z}_t, \phi_t], \sigma_t^2 \mathbf{I} \right] 
+Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \boldsymbol{\phi}_t) = \text{Norm}_{\mathbf{z}_{t-1}} \left[ f_t[\mathbf{z}_t, \boldsymbol{\phi}_t], \sigma_t^2 \mathbf{I} \right] 
 $$
 
 $$
@@ -337,7 +337,7 @@ $$
 두 정규분포의 KL divergence는 closed-form expression이 존재한다.  
 
 $$
-D_{KL} \left[ q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x}) || Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \phi_t) \right] = \frac{1}{2\sigma_t^2} \left\| \frac{(1-\alpha_{t-1})}{1-\alpha_t} \sqrt{1-\beta_t}\mathbf{z}_t + \frac{\sqrt{\alpha_{t-1}\beta_t}}{1-\alpha_t}\mathbf{x} - f_t[\mathbf{z}_t, \phi_t] \right\|^2 + C
+D_{KL} \left[ q(\mathbf{z}_{t-1}|\mathbf{z}_t, \mathbf{x}) || Pr(\mathbf{z}_{t-1}|\mathbf{z}_t, \boldsymbol{\phi}_t) \right] = \frac{1}{2\sigma_t^2} \left\| \frac{(1-\alpha_{t-1})}{1-\alpha_t} \sqrt{1-\beta_t}\mathbf{z}_t + \frac{\sqrt{\alpha_{t-1}\beta_t}}{1-\alpha_t}\mathbf{x} - f_t[\mathbf{z}_t, \boldsymbol{\phi}_t] \right\|^2 + C
 $$
 
 
@@ -350,7 +350,7 @@ L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \left( -\log \left[ \text{Norm}_{\mathbf{x}
 $$
 
 $$
-+ \sum_{t=2}^{T} \frac{1}{2\sigma_t^2} \left\| \frac{1-\alpha_{t-1}}{1-\alpha_t} \sqrt{1-\beta_t} \mathbf{z}_{it} + \frac{\sqrt{\alpha_{t-1} \beta_t}}{1-\alpha_t} \mathbf{x}_i - f_t[\mathbf{z}_{it}, \phi_t] \right\|^2
++ \sum_{t=2}^{T} \frac{1}{2\sigma_t^2} \left\| \frac{1-\alpha_{t-1}}{1-\alpha_t} \sqrt{1-\beta_t} \mathbf{z}_{it} + \frac{\sqrt{\alpha_{t-1} \beta_t}}{1-\alpha_t} \mathbf{x}_i - f_t[\mathbf{z}_{it}, \boldsymbol{\phi}_t] \right\|^2
 $$
 
 첫번째 항은 reconstruction term, 두번째 항은 target, mean of $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x})$$과 predicted $$\mathbf{z}_{t-1}$$ 사이의 거리이다.  
@@ -358,7 +358,7 @@ $$
 
 **4.5 Training Procedure**  
 
-Loss Function은 각 Diffusion Time Step에 대해 네트워크를 훈련시키는데 사용된다. 예측한 $f_t[\mathbf{z}_{it}, \phi_t]$ 값과 데이터 $\mathbf{x}$가 주어졌을 때 가장 나올 확률이 큰 값과의 차이를 최소화한다. 
+Loss Function은 각 Diffusion Time Step에 대해 네트워크를 훈련시키는데 사용된다. 예측한 $f_t[\mathbf{z}_{it}, \boldsymbol{\phi}_t]$ 값과 데이터 $\mathbf{x}$가 주어졌을 때 가장 나올 확률이 큰 값과의 차이를 최소화한다. 
 
 ![18.7](../images/Diffusion/18.7.png)
 
@@ -414,24 +414,24 @@ L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \left( -\log \left[ \text{Norm}_{\mathbf{x}
 $$
 
 $$
-+ \sum_{t=2}^{T} \frac{1}{2 \sigma_t^2} \left\| \left( \frac{1}{\sqrt{1 - \beta_t}} \mathbf{z}_{it} - \frac{\beta_t}{\sqrt{1 - \alpha_t} \sqrt{1 - \beta_t}} \epsilon_{it} \right) - f_t[\mathbf{z}_{it}, \phi_t] \right\|^2.
++ \sum_{t=2}^{T} \frac{1}{2 \sigma_t^2} \left\| \left( \frac{1}{\sqrt{1 - \beta_t}} \mathbf{z}_{it} - \frac{\beta_t}{\sqrt{1 - \alpha_t} \sqrt{1 - \beta_t}} \epsilon_{it} \right) - f_t[\mathbf{z}_{it}, \boldsymbol{\phi}_t] \right\|^2
 $$
 
 
 **5.2 Reparameterization of Network**  
 
-$f_t[\mathbf{z}_t, \phi_t]$를 새로운 모델 $\hat{\epsilon} = g_t[\mathbf{z}_t, \phi_t]$ 으로 대체할 수 있다. 이 모델은 $\mathbf{z}_t$를 만들기 위해 $\mathbf{x}$에 첨가된 노이즈 $\epsilon$을 예측한다. 
+$f_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$를 새로운 모델 $\hat{\epsilon} = g_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$ 으로 대체할 수 있다. 이 모델은 $\mathbf{z}_t$를 만들기 위해 $\mathbf{x}$에 첨가된 노이즈 $\epsilon$을 예측한다. 
 
 $$
-f_t[\mathbf{z}_t, \phi_t] = \frac{1}{\sqrt{1 - \beta_t}} \mathbf{z}_t - \frac{\beta_t}{\sqrt{1 - \alpha_t} \sqrt{1 - \beta_t}} g_t[\mathbf{z}_t, \phi_t]
-$$
-
-$$
-L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \left( -\log \left[ \text{Norm}_{\mathbf{x}_i} \left( f_1[\mathbf{z}_{i1}, \phi_1], \sigma_1^2 \mathbf{I} \right) \right] \right) + \sum_{t=2}^{T} \frac{\beta_t^2}{(1 - \alpha_t)(1 - \beta_t) 2 \sigma_t^2} \left\| g_t[\mathbf{z}_{it}, \phi_t] - \epsilon_{it} \right\|^2
+f_t[\mathbf{z}_t, \boldsymbol{\phi}_t] = \frac{1}{\sqrt{1 - \beta_t}} \mathbf{z}_t - \frac{\beta_t}{\sqrt{1 - \alpha_t} \sqrt{1 - \beta_t}} g_t[\mathbf{z}_t, \boldsymbol{\phi}_t]
 $$
 
 $$
-L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \frac{1}{2\sigma_1^2} \left\| \mathbf{x}_i - f_1[\mathbf{z}_{i1}, \phi_1] \right\|^2 + \sum_{t=2}^{T} \frac{\beta_t^2}{(1 - \alpha_t)(1 - \beta_t) 2 \sigma_t^2} \left\| g_t[\mathbf{z}_{it}, \phi_t] - \epsilon_{it} \right\|^2 + C_i
+L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \left( -\log \left[ \text{Norm}_{\mathbf{x}_i} \left( f_1[\mathbf{z}_{i1}, \phi_1], \sigma_1^2 \mathbf{I} \right) \right] \right) + \sum_{t=2}^{T} \frac{\beta_t^2}{(1 - \alpha_t)(1 - \beta_t) 2 \sigma_t^2} \left\| g_t[\mathbf{z}_{it}, \boldsymbol{\phi}_t] - \epsilon_{it} \right\|^2
+$$
+
+$$
+L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \frac{1}{2\sigma_1^2} \left\| \mathbf{x}_i - f_1[\mathbf{z}_{i1}, \phi_1] \right\|^2 + \sum_{t=2}^{T} \frac{\beta_t^2}{(1 - \alpha_t)(1 - \beta_t) 2 \sigma_t^2} \left\| g_t[\mathbf{z}_{it}, \boldsymbol{\phi}_t] - \epsilon_{it} \right\|^2 + C_i
 $$
 
 $\mathbf{x} \text{ and } f_1[\mathbf{z}_1, \phi_1]$를 대입하면,  
@@ -441,11 +441,11 @@ $$
 $$
 
 $$
-L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \sum_{t=1}^{T} \frac{\beta_t^2}{(1 - \alpha_t)(1 - \beta_t) 2\sigma_t^2} \left\| g_t[\mathbf{z}_{it}, \phi_t] - \epsilon_{it} \right\|
+L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \sum_{t=1}^{T} \frac{\beta_t^2}{(1 - \alpha_t)(1 - \beta_t) 2\sigma_t^2} \left\| g_t[\mathbf{z}_{it}, \boldsymbol{\phi}_t] - \epsilon_{it} \right\|
 $$
 
 $$
-L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \sum_{t=1}^{T} \left\| g_t[\mathbf{z}_{it}, \phi_t] - \epsilon_{it} \right\|
+L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \sum_{t=1}^{T} \left\| g_t[\mathbf{z}_{it}, \boldsymbol{\phi}_t] - \epsilon_{it} \right\|
 $$
 
 $$
@@ -484,7 +484,7 @@ $$\mathbf{z}_t$$에서 $$\mathbf{z}_{t-1}$$로의 매핑에 c에 대한 정보�
 
 **2. Clssifier-free Guidance**  
 
-$Pr(c \vert \mathbf{z}_t)$를 학습하는 대신 메인 모델인 $$g_t[\mathbf{z}_{t}, \phi_t, c]$$에 포함되도록 하는 것이다. 주로 임베딩의 형태로 U-Net의 레이어로 들어가게 되는데, 모델은 Conditional & Unconditional Objectives으로 랜덤하게 학습되기 때문에 GAN과 같은 효과를 얻어서 성능이 매우 좋아진다.  
+$Pr(c \vert \mathbf{z}_t)$를 학습하는 대신 메인 모델인 $$g_t[\mathbf{z}_{t}, \boldsymbol{\phi}_t, c]$$에 포함되도록 하는 것이다. 주로 임베딩의 형태로 U-Net의 레이어로 들어가게 되는데, 모델은 Conditional & Unconditional Objectives으로 랜덤하게 학습되기 때문에 GAN과 같은 효과를 얻어서 성능이 매우 좋아진다.  
 
 ![18.11](../images/Diffusion/18.11.png)
 

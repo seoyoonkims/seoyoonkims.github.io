@@ -9,7 +9,7 @@ nav_order: 4
 
 ---
 
-**1. Overview**  
+### **1. Overview**  
 
 Diffusion Model은 Encoder와 Decoder로 구성된다. Encoder는 Pre-specified 되는 과정이고, Decoder가 Learnable 한 과정이다. 
 
@@ -22,7 +22,7 @@ Decoder(Backward, Reverse Process)는 학습 가능한 네트워크로 Encoder�
 
 ---
 
-**2. Encoder (Forward Process)**  
+### **2. Encoder (Forward Process)**  
 
 $$
 \mathbf{z}_1 = \sqrt{1-\beta_1} \cdot \mathbf{x} + \sqrt{\beta_1} \cdot \epsilon_1  
@@ -197,7 +197,7 @@ $$
 
 ---
 
-**3. Decoder (Reverse Process)**  
+### **3. Decoder (Reverse Process)**  
 
 $$\mathbf{z}_T$$ 에서부터 $$\mathbf{z}_{T-1}$$ , ... , $$\mathbf{z}_1$$, $$\mathbf{x}$$ 방향으로 되돌아가면서 학습을 진행한다. 실제 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$ 는 복잡하기 때문에 Normal Distribution으로 근사한다.  
 
@@ -219,7 +219,7 @@ $$Pr(\mathbf{z}_T)$$ 에서 $$\mathbf{z}_T$$를 추출하고, $$Pr(\mathbf{z}_{T
 
 ---
 
-**4. Training**
+### **4. Training**
 
 Joint Distribution은 다음과 같다.  
 
@@ -369,7 +369,7 @@ Loss Function은 각 Diffusion Time Step에 대해 네트워크를 훈련시키�
 각 수직 바들이 생성된 하나의 샘플이라고 보면 된다. 추정값과 실제 값이 비슷한 것을 볼 수 있다.  
 
   
-**5. Reparameterization of Loss Function**  
+### **5. Reparameterization of Loss Function**  
 
 바로 위의 Loss Function으로도 Diffusion Model을 훈련시킬 수 있지만, 다른 방식으로 Parameterize 하면 더 좋은 성능을 보인다. Loss Function은 오리지널 데이터에 어떤 노이즈가 첨가되었는지 예측하도록 변형된다. 
 
@@ -450,7 +450,13 @@ $$
 = \sum_{i=1}^{I} \sum_{t=1}^{T} \left\| g_t \left[ \sqrt{\alpha_t} \cdot \mathbf{x}_i + \sqrt{1 - \alpha_t} \cdot \epsilon_{it} \right] - \epsilon_{it} \right
 $$
 
+### **6. Implementation**  
 
+위의 복잡했던 식들을 종합해보면 결국 다음의 직관적인 알고리즘을 얻을 수 있다.  
+
+Training 알고리즘은 구현하기도 쉽고 노이즈만 다르게 하면 원하는 만큼 인풋 이미지를 재사용할 수 있다. 하지만, Sampling 알고리즘은 여러 Neural Network의 연속이기 때문에 시간이 많이 걸린다.  
+
+![algorithm](../images/Diffusion/algorithm.png)
 
 ---
 
@@ -461,5 +467,6 @@ $$
 ![18.9](../images/Diffusion/18.9.png)
 
 
-
+---
+2024/09/06
 

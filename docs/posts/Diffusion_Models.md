@@ -474,6 +474,10 @@ Label 처럼 데이터와 관련된 정보들을 추가적으로 넣어주는 �
 
 **1. Classifier Guidance**  
 
+$$
+\mathbf{z}_{t-1} = \hat{\mathbf{z}}_{t-1} + \sigma_t^2 \frac{\partial \log \left[ \Pr(c|\mathbf{z}_t) \right]}{\partial \mathbf{z}_t} + \sigma_t \epsilon
+$$
+
 $$\mathbf{z}_t$$에서 $$\mathbf{z}_{t-1}$$로의 매핑에 c에 대한 정보를 추가하여 $$Pr(c \vert \mathbf{z}_t)$$를 통해 c에 가까워지도록 하는 것이다.  
 
 **2. Clssifier-free Guidance**  

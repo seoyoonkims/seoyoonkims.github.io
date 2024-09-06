@@ -5,7 +5,9 @@ parent: Paper Review
 nav_order: 4
 ---
 
-## **Diffusion Models**  
+### 논문 리뷰  
+
+## **∆-DiT: A Training-Free Acceleration Method Tailored for Diffusion Transformers**  
 
 ---
 

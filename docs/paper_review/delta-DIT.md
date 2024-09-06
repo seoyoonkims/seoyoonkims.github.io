@@ -42,7 +42,7 @@ DiT의 블록 중에서 앞 부분은 이미지의 아웃라인을 잡는 데 �
 
 ### **3. Preliminary**  
 
-자세한 설명은 Diffusion Models(https://seoyoonkims.github.io/docs/posts/Diffusion_Models/) 포스트를 참고하면 될 것 같다.  
+자세한 설명은 [Diffusion Models](https://seoyoonkims.github.io/docs/posts/Diffusion_Models/) 포스트를 참고하면 될 것 같다.  
 
 
 **Noise Diffusion State**  

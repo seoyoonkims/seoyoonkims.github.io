@@ -1,5 +1,5 @@
 ---
-title: delta-DiT
+title: ∆-DiT
 layout: default
 parent: Paper Review
 nav_order: 4
@@ -81,9 +81,7 @@ Feature을 재사용 하는 것은 training-free inference acceleration에서 �
 ![2](../images/Delta-DiT/2.png)
 
 **Faster Diffusion**는 U-Net 아키텍쳐의 D1-D3 모듈의 **Output**을 캐싱하여 재사용한다. 다음 단계에서 D1-D3 모듈의 재계산을 생략할 수 있지만 $x_{t-1}$에 해당하는 정보를 잃어버리기 때문에 샘플링 단계 간의 연속적인 정보 흐름이 끊기고 결과적으로 성능이 떨어질 수 있다.
-
 **DeepCache**는 5 위치에서 Output Feature Map을 캐싱하여 D2, D3, M, U3, U2의 계산을 생략한다. D1에서 U1으로 이어지는 경로를 통해 $x_{t-1}$의 정보가 유지되므로 Faster Diffusion보다 많은 정보를 보존한다.
-
 **TGATE**는 D1-D3 및 U1-U3 내 Cross-Attention 모듈의 Output Feature Map를 세밀하게 캐싱하여 가속화가 제한적이다.  
   
 
@@ -126,6 +124,9 @@ Hyperparameter인 b는 outline generation stage와 detail generation stage의 �
 $N$은 Cache Interval이고, $M_b$는 하나의 블록의 Computational Cost, $M_g$는 전체 Computational Cost이다. $N_b$는 DiT 블록의 개수이다. 일단, $N = \left\lceil \frac{T \times N_b \times M_b}{M_g} \right\rceil
 $로 roughly하게 결정하고, N이 결정되면 실제로 Cache 할 블록의 수인 $N_c$를 결정한다.
 
-
-
 ![Nc](../images/Delta-DiT/Nc.png)
+
+## **5. Experiment**  
+
+
+

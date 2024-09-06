@@ -7,7 +7,7 @@ nav_order: 4
 
 ### 논문 리뷰  
 
-## **∆-DiT: A Training-Free Acceleration Method Tailored for Diffusion Transformers**  
+## ∆-DiT: A Training-Free Acceleration Method Tailored for Diffusion Transformers  
 
 ---
 

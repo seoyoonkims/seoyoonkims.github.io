@@ -145,13 +145,13 @@ Marginal Distribution인 $q(\mathbf{z}_{t-1})$가 intractable 하므로 위 식 
 ![18.5](../images/Diffusion/18.5.png)  
 
 
-$$q(\mathbf{z}_{t-1} \vert \mathbf{z}_{t}^{\ast})$$는 Bayes' Rule을 통해 $$q(\mathbf{z}_{t}^{\ast} \vert \mathbf{z}_{t-1})q(\mathbf{z}_{t-1})$$에 Proportional 하다는 점을 이용해 계산한다. Marginal Density(회색선)과 $$q(\mathbf{z}_t^{\ast} \vert \mathbf{z}_{t-1})$$ (갈색선)의 곱으로 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_{t}^{\ast})$$ (하늘색)를 구한 것이다. 
+$$q(\mathbf{z}_{t-1} \vert \mathbf{z}_{t}^{\ast})$$는 Bayes' Rule을 통해 $$q(\mathbf{z}_{t}^{\ast} \vert \mathbf{z}_{t-1})q(\mathbf{z}_{t-1})$$에 Proportional 하다는 점을 이용해 계산한다. Marginal Density(회색선)과 $$q(\mathbf{z}_t^{\ast} \vert \mathbf{z}_{t-1})$$(갈색선)의 곱으로 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_{t}^{\ast})$$(하늘색)를 구한 것이다. 
 
   
 
 **2.4 Conditional Diffusion Distribution**  
 
-$$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$는 알 수 없지만, $$q(\mathbf{z}_{t-1} \vert \mathbf{x})$$ 는 알 수 있다는 점을 이용하여, $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x})$$ 를 Closed Form으로 나타낼 수 있다. 이 분포가 Decoder를 훈련시키는데 사용된다.
+$$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$는 알 수 없지만, $$q(\mathbf{z}_{t-1} \vert \mathbf{x})$$는 알 수 있다는 점을 이용하여, $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x})$$를 Closed Form으로 나타낼 수 있다. 이 분포가 Decoder를 훈련시키는데 사용된다.
 
 $$
 q(\mathbf{z}_{t-1} \vert \mathbf{z}_t, \mathbf{x}) = \frac{q(\mathbf{z}_{t} \vert \mathbf{z}_{t-1}, \mathbf{x})q(\mathbf{z}_{t-1} \vert \mathbf{x})}{q(\mathbf{z}_{t} \vert \mathbf{x})}  
@@ -199,7 +199,7 @@ $$
 
 ### **3. Decoder (Reverse Process)**  
 
-$$\mathbf{z}_T$$ 에서부터 $$\mathbf{z}_{T-1}$$ , ... , $$\mathbf{z}_1$$, $$\mathbf{x}$$ 방향으로 되돌아가면서 학습을 진행한다. 실제 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$ 는 복잡하기 때문에 Normal Distribution으로 근사한다.  
+$$\mathbf{z}_T$$ 에서부터 $$\mathbf{z}_{T-1}$$, ... , $$\mathbf{z}_1$$, $$\mathbf{x}$$방향으로 되돌아가면서 학습을 진행한다. 실제 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$는 복잡하기 때문에 Normal Distribution으로 근사한다.  
 
 $$
 Pr(\mathbf{z}_T) = N_{\mathbf{z}_T} \left [\mathbf{0, I} \right]  
@@ -213,7 +213,7 @@ $$
 Pr(\mathbf{x} \vert \mathbf{z}_1, \boldsymbol{\phi}_1) = N_{\mathbf{x}} \left [ \mathbf{f}_1[\mathbf{z}_1, \boldsymbol{\phi}_1], \sigma_1^2 \mathbf{I}  \right ]  
 $$
 
-$$\mathbf{f}_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$$ 는 Neural Network로 $$\mathbf{z}_t$$ 에서 $$\mathbf{z}_{t-1}$$ 로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. $\beta_t$는 hyperparameter이며, 0에 충분히 가까우면(그리고 time step T가 충분히 크면) 위의 근사가 합리적이라고 볼 수 있다. 
+$$\mathbf{f}_t[\mathbf{z}_t, \boldsymbol{\phi}_t]$$ 는 Neural Network로 $$\mathbf{z}_t$$에서 $$\mathbf{z}_{t-1}$$로의 Mapping을 담당하는 정규 분포의 평균을 예측한다. $\sigma_t^2$ 항은 미리 결정되는 값이다. $\beta_t$는 hyperparameter이며, 0에 충분히 가까우면(그리고 time step T가 충분히 크면) 위의 근사가 합리적이라고 볼 수 있다. 
 
 $$Pr(\mathbf{z}_T)$$ 에서 $$\mathbf{z}_T$$를 추출하고, $$Pr(\mathbf{z}_{T-1} \vert \mathbf{z}_T, \mathbf{\phi}_T)$$로 부터 $Pr(\mathbf{z}_{T-1})$를 추출하는 방법을 반복해서 Ancestral sampling으로 $Pr(\mathbf{x})$를 구하게 된다. 
 
@@ -362,7 +362,7 @@ Loss Function은 각 Diffusion Time Step에 대해 네트워크를 훈련시키�
 
 ![18.7](../images/Diffusion/18.7.png)
 
-위에서 말했듯이 Ancestral Sampling으로 샘플을 생성할 수 있다. 왼쪽의 Estimated Marginal Densities 히트맵이 실제 Marginal Densities랑 비슷한 것을 확인할 수 있다. 그리고 점점 $$Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$와 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$ 가 비슷해져가는 것도 확인할 수 있다. 또한, $Pr(\mathbf{z}_t)$와 $$q(\mathbf{z}_t)$ 도 비슷하다.  
+위에서 말했듯이 Ancestral Sampling으로 샘플을 생성할 수 있다. 왼쪽의 Estimated Marginal Densities 히트맵이 실제 Marginal Densities랑 비슷한 것을 확인할 수 있다. 그리고 점점 $$Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$와 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$가 비슷해져가는 것도 확인할 수 있다. 또한, $Pr(\mathbf{z}_t)$와 $$q(\mathbf{z}_t)$ 도 비슷하다.  
 
 ![18.8](../images/Diffusion/18.8.png)
 
@@ -474,7 +474,7 @@ Label 처럼 데이터와 관련된 정보들을 추가적으로 넣어주는 �
 
 1. Classifier Guidance  
 
-$\mathbf{z}_t$에서 $\mathbf{z}_{t-1}$로의 매핑에 c에 대한 정보를 추가하여 $Pr(c \vert \mathbf{z}_t)$를 통해 c에 가까워지도록 하는 것이다.  
+$$\mathbf{z}_t$$에서 $$\mathbf{z}_{t-1}$$로의 매핑에 c에 대한 정보를 추가하여 $$Pr(c \vert \mathbf{z}_t)$$를 통해 c에 가까워지도록 하는 것이다.  
 
 2. Clssifier-free Guidance  
 

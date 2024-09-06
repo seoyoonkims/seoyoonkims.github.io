@@ -38,7 +38,7 @@ South Korea
 
 ## Programming  
 
-> C/C++, System Verilog, Python, ROS  
+> C/C++, System Verilog, CUDA, Python, Pytorch  
 
 
 ## Contact  

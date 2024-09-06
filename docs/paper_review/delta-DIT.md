@@ -95,9 +95,23 @@ $\Delta$-Cache는 Output Feature Map 간의 차이를 캐싱한다. 오른쪽 �
 
 **4.2 Effect of DiT Blocks on Generation**  
 
-DiT 블록의 Front, Middle, Back 부분을 Caching 한 결과를 비교한 것이다. (DiT는 MSA, MCA, FF로 나뉘는데 이것을 말하는 것 같다.)  
+**Qualitative**  
+DiT 블록의 Front, Middle, Back 부분을 Caching 한 결과를 비교한 것이다. I는 28개의 블록 중에서 몇 번째 블록을 기준으로 Caching 할지를 결정한다. 이 실험에서는 $I = 1, 4, 7$이고 $N_c = 21$이므로 1을 Caching 해서 2-22를 계산하고, 4를 Caching 해서 5-25를 계산하고, 7을 Caching 해서 8-28을 계산한다.   
 
 ![3](../images/Delta-DiT/3.png)
 
+Front Blocks를 Caching하면 아웃라인의 정확도가 떨어진다. 반대로 Back Blocks를 Caching하면 디테일이 떨어진다. (a)와 비교했을 때 (b)는 파란색 차와 지붕의 아웃라인이 명확하지 않고 전체적으로 Smoother하다. (d)에서 아웃라인은 보존되었지만 (a)보다 pixel-level 디테일이 떨어진다.
 
+**Quantatative**  
+
+위 연구 결과를 검증하기 위해 MS-COCO2017 데이터셋에 대해서도 정량적인 검증을 수행했다. Outline 생성 능력은 Sobel Operator 기반으로 이미지의 Average Gradient를 측정하였고, DFT를 이용해 High Frequency 손실을 평가하였다. 디테일 표현 능력은 블라인드 이미지 품질 평가 지표인 PIQE를 사용하였다.
+
+![Table 1](../images/Delta-DiT/table1.png)
+
+이 결과는 DiT 모델에서 앞 블록이 주로 아웃라인 생성과 관련이 있고, 후반부 블록이 디테일 표현과 밀접하다는 것을 추가적으로 확인시켜준다.  
+  
+
+**4.3 State-adaptive Acceleration Method for DiT**  
+
+![4](../images/Delta-DiT/4.png)
 

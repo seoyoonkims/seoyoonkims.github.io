@@ -376,11 +376,13 @@ Loss Function은 각 Diffusion Time Step에 대해 네트워크를 훈련시키�
 **5.1 Reparameterization of Target**  
 
 원래 디퓨전의 업데이트는 다음과 같았지만,  
+
 $$
 \mathbf{z}_t = \sqrt{\alpha_t} \cdot \mathbf{x} + \sqrt{1 - \alpha_t} \cdot \epsilon
 $$
 
 살짝 변형하면 Diffused 이미지에서 노이즈를 첨가한 형태로 표현된다.  
+
 $$
 \mathbf{x} = \frac{1}{\sqrt{\alpha_t}} \cdot \mathbf{z}_t - \frac{\sqrt{1 - \alpha_t}}{\sqrt{\alpha_t}} \cdot \epsilon
 $$

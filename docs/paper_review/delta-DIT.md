@@ -25,20 +25,16 @@ DiT의 블록 중에서 앞 부분은 이미지의 아웃라인을 잡는 데 �
 
 디퓨전 모델의 real-time performance를 개선하기 위한 노력은 크게 3가지로 구분이 된다.  
 
-- Lightweight a noist estimation network: pruning, quantization, distillation  
-
-- Optimizing the sampling time steps: Efficient ODE solver  
-
-- Jointly optimizing noise estimation networks and time steps: OMS-DPM, LCM (네트워크 Step을 줄임)  
+1. 네트워크 최적화: pruning, quantization, distillation  
+2. 샘플링 타임 최적화: Efficient ODE solver  
+3. 네트워크 & 샘플링 타임 최적화: OMS-DPM, LCM
 
 그러나 이전 방법들은 주로 U-Net 기반의 연구였기 때문에 DiT 모델에 초점을 맞춘 솔루션을 제공하는 것이 이 논문의 주제다.  
 
 
 **Cache Mechanism**  
 
-다시 사용될 데이터를 일시적으로 저장해서 프로세싱 속도를 높이는 기술이다. LLM에서는 KV Cache 기법이 널리 쓰이고 있다.  
-
-디퓨전에서도 Cache에 기반한 추론 가속화 기법들이 존재한다. DeepCache는 U-Net에서 Upsampling을 할 때 Feature Map을 만들어서 비슷한 인접 단계의 계산은 Cache로 대신하여 계산 속도를 높이는 방법을 사용한다. Faster Diffusion은 U-Net의 인코더와 Skip Connection 사이의 Feature Map을 캐싱하여 인접 단계에서 속도를 높인다. TGATE는 Cross-Attention의 Feature Map을 캐싱하여 Sampling 후반 단계를 가속화한다.  
+다시 사용될 데이터를 일시적으로 저장해서 프로세싱 속도를 높이는 기술이다. LLM에서는 KV Cache 기법이 널리 쓰이고 있다. 디퓨전에서도 Cache에 기반한 추론 가속화 기법들이 존재한다. DeepCache는 U-Net에서 Upsampling을 할 때 Feature Map을 만들어서 비슷한 인접 단계의 계산은 Cache로 대신하여 계산 속도를 높이는 방법을 사용한다. Faster Diffusion은 U-Net의 인코더와 Skip Connection 사이의 Feature Map을 캐싱하여 인접 단계에서 속도를 높인다. TGATE는 Cross-Attention의 Feature Map을 캐싱하여 Sampling 후반 단계를 가속화한다.  
 
 그러나 DiT는 방향성이 없기 때문에 위의 방법들을 적용하면 정보를 잃어버릴 수 있고, 세밀한 모듈만을 캐싱하는 TGATE의 경우 가속화가 제한적이다. 따라서 Feature Offset을 Caching 하는 $\Delta$-Cache를 제안한다.  
 
@@ -47,6 +43,8 @@ DiT의 블록 중에서 앞 부분은 이미지의 아웃라인을 잡는 데 �
 ### **3. Preliminary**  
 
 자세한 설명은 Diffusion Models 포스트를 참고하면 될 것 같다.  
+
+[Diffusion Models](https://seoyoonkims.github.io/docs/posts/Diffusion_Models/)
 
 
 **Noise Diffusion State**  

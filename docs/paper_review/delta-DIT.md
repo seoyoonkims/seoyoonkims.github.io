@@ -131,10 +131,14 @@ $로 roughly하게 결정하고, N이 결정되면 실제로 Cache 할 블록의
 DiT 기반의 세 가지 변형 아키텍처인 DiT-XL, PIXART-α, PIXART-α-LCM에 대해 실험을 진행했다. 평가 지표로는 MACs, latency, 그리고 이미지 품질 관련 지표들인 FID, IS, CLIP-Score 등이 사용되었다.  
 
 **Comparison with the Baseline Model**  
+
 ![Table 2](../images/Delta-DiT/table2.png)
+
+∆-DiT는 PIXART-α와 DiT-XL에서 Faster Diffusion, TGATE보다 1.6배 빠르고, 이미지 품질도 우수하다. PIXART-α에서 FID 점수는 39.002에서 35.882로 향상되었고, CLIP-Score 또한 개선되었다.
+
 ![Table 4](../images/Delta-DiT/table4.png)
 
-∆-DiT는 PIXART-α와 DiT-XL에서 Faster Diffusion, TGATE보다 1.6배 빠르고, 이미지 품질도 우수하다. PIXART-α에서 FID 점수는 39.002에서 35.882로 향상되었고, CLIP-Score 또한 개선되었다. DiT-XL에서도 유사한 성과를 거두었으며, 특히 FID와 IS 점수에서 기존 가속화 방법보다 더 나은 성과를 보였다.  
+ DiT-XL에서도 유사한 성과를 거두었으며, 특히 FID와 IS 점수에서 기존 가속화 방법보다 더 나은 성과를 보였다.  
 
 
 

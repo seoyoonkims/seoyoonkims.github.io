@@ -373,6 +373,8 @@ Loss Function은 각 Diffusion Time Step에 대해 네트워크를 훈련시키�
 
 바로 위의 Loss Function으로도 Diffusion Model을 훈련시킬 수 있지만, 다른 방식으로 Parameterize 하면 더 좋은 성능을 보인다. Loss Function은 오리지널 데이터에 어떤 노이즈가 첨가되었는지 예측하도록 변형된다. 
 
+**5.1 Reparameterization of Target**  
+
 원래 디퓨전의 업데이트는 다음과 같았지만,  
 $$
 \mathbf{z}_t = \sqrt{\alpha_t} \cdot \mathbf{x} + \sqrt{1 - \alpha_t} \cdot \epsilon
@@ -383,6 +385,38 @@ $$
 \mathbf{x} = \frac{1}{\sqrt{\alpha_t}} \cdot \mathbf{z}_t - \frac{\sqrt{1 - \alpha_t}}{\sqrt{\alpha_t}} \cdot \epsilon
 $$
 
+이것을 기존 Loss Function에 대입하고 정리하면 다음과 같다.  
+
+$$
+\frac{(1 - \alpha_{t-1})}{1 - \alpha_t} \sqrt{1 - \beta_t} \mathbf{z}_t + \frac{\sqrt{\alpha_{t-1} \beta_t}}{1 - \alpha_t} \mathbf{x}
+$$
+
+$$
+= \frac{(1 - \alpha_{t-1})}{1 - \alpha_t} \sqrt{1 - \beta_t} \mathbf{z}_t + \frac{\sqrt{\alpha_{t-1} \beta_t}}{1 - \alpha_t} \left( \frac{1}{\sqrt{\alpha_t}} \mathbf{z}_t - \frac{\sqrt{1 - \alpha_t}}{\sqrt{\alpha_t}} \epsilon \right)
+$$
+
+$\frac{\sqrt{\alpha_{t-1}}}{\sqrt{\alpha_t}} = \sqrt{1 - \beta_t}$ 라는 점을 이용하였다.  
+
+$$
+= \frac{(1 - \alpha_{t-1})}{1 - \alpha_t} \sqrt{1 - \beta_t} \mathbf{z}_t + \frac{\beta_t}{1 - \alpha_t} \left( \frac{1}{\sqrt{1 - \beta_t}} \mathbf{z}_t - \frac{\sqrt{1 - \alpha_t}}{\sqrt{1 - \beta_t}} \epsilon \right)
+$$
+
+$$
+= \frac{1}{\sqrt{1 - \beta_t}} \mathbf{z}_t - \frac{\beta_t}{\sqrt{1 - \alpha_t} \sqrt{1 - \beta_t}} \epsilon
+$$
+
+최종 Loss Function은 다음과 같다.
+
+$$
+L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \left( -\log \left[ \text{Norm}_{\mathbf{x}_i} \left( f_1[\mathbf{z}_{i1}, \phi_1], \sigma_1^2 \mathbf{I} \right) \right] \right)
+$$
+
+$$
++ \sum_{t=2}^{T} \frac{1}{2 \sigma_t^2} \left\| \left( \frac{1}{\sqrt{1 - \beta_t}} \mathbf{z}_{it} - \frac{\beta_t}{\sqrt{1 - \alpha_t} \sqrt{1 - \beta_t}} \epsilon_{it} \right) - f_t[\mathbf{z}_{it}, \phi_t] \right\|^2.
+$$
+
+
+**5.2 Reparameterization of Network**  
 
 $f_t[\mathbf{z}_t, \phi_t]$를 새로운 모델 $\hat{\epsilon} = g_t[\mathbf{z}_t, \phi_t]$ 으로 대체할 수 있다. 이 모델은 $\mathbf{z}_t$를 만들기 위해 $\mathbf{x}$에 첨가된 노이즈 $\epsilon$을 예측한다. 
 
@@ -390,6 +424,31 @@ $$
 f_t[\mathbf{z}_t, \phi_t] = \frac{1}{\sqrt{1 - \beta_t}} \mathbf{z}_t - \frac{\beta_t}{\sqrt{1 - \alpha_t} \sqrt{1 - \beta_t}} g_t[\mathbf{z}_t, \phi_t]
 $$
 
+$$
+L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \left( -\log \left[ \text{Norm}_{\mathbf{x}_i} \left( f_1[\mathbf{z}_{i1}, \phi_1], \sigma_1^2 \mathbf{I} \right) \right] \right) + \sum_{t=2}^{T} \frac{\beta_t^2}{(1 - \alpha_t)(1 - \beta_t) 2 \sigma_t^2} \left\| g_t[\mathbf{z}_{it}, \phi_t] - \epsilon_{it} \right\|^2
+$$
+
+$$
+L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \frac{1}{2\sigma_1^2} \left\| \mathbf{x}_i - f_1[\mathbf{z}_{i1}, \phi_1] \right\|^2 + \sum_{t=2}^{T} \frac{\beta_t^2}{(1 - \alpha_t)(1 - \beta_t) 2 \sigma_t^2} \left\| g_t[\mathbf{z}_{it}, \phi_t] - \epsilon_{it} \right\|^2 + C_i
+$$
+
+$\mathbf{x} \text{ and } f_1[\mathbf{z}_1, \phi_1]$를 대입하면,  
+
+$$
+\frac{1}{2\sigma_1^2} \left\| \mathbf{x}_i - f_1[\mathbf{z}_1, \phi_1] \right\|^2 = \frac{1}{2\sigma_1^2} \left\| \frac{\beta_1}{\sqrt{1-\alpha_1} \sqrt{1-\beta_1}} g_1[\mathbf{z}_{i1}, \phi_1] - \frac{\beta_1}{\sqrt{1-\alpha_1} \sqrt{1-\beta_1}} \epsilon_{i1} \right\
+$$
+
+$$
+L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \sum_{t=1}^{T} \frac{\beta_t^2}{(1 - \alpha_t)(1 - \beta_t) 2\sigma_t^2} \left\| g_t[\mathbf{z}_{it}, \phi_t] - \epsilon_{it} \right
+$$
+
+$$
+L[\phi_{1 \dots T}] = \sum_{i=1}^{I} \sum_{t=1}^{T} \left\| g_t[\mathbf{z}_{it}, \phi_t] - \epsilon_{it} \right
+$$
+
+$$
+= \sum_{i=1}^{I} \sum_{t=1}^{T} \left\| g_t \left[ \sqrt{\alpha_t} \cdot \mathbf{x}_i + \sqrt{1 - \alpha_t} \cdot \epsilon_{it} \right] - \epsilon_{it} \right
+$$
 
 
 

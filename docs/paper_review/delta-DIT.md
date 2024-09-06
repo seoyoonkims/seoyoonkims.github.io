@@ -142,7 +142,7 @@ DiT 기반의 세 가지 변형 아키텍처인 DiT-XL, PIXART-α, PIXART-α-LCM
 
 ![Table 3](../images/Delta-DiT/table3.png)
 
-4단계 일관성 모델을 기반으로 한 극한의 가속 시나리오에서도 ∆-DiT는 Faster Diffusion 및 TGATE와 같은 기존 방법을 크게 능가했다. FID 점수에서 40.433에서 39.967로 성능 향상을 보였으며, 더 극단적인 1.12배 가속 조건에서도 탁월한 성과를 기록했다.
+$T=4$로 타임 스텝이 몇 단계 밖에 없는 LCM 모델은 가속하기 어려움에도 불구하고 ∆-DiT는 Faster Diffusion 및 TGATE와 같은 기존 방법을 크게 능가했다. FID 점수에서 40.433에서 39.967로 성능 향상을 보였으며, 더 극단적인 1.12배 가속 조건에서도 탁월한 성과를 기록했다.
 
 
 **Ablation Study**  

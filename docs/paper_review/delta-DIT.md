@@ -92,7 +92,7 @@ $\Delta$-Cache는 Output Feature Map 간의 차이를 캐싱한다. 오른쪽 �
 **4.2 Effect of DiT Blocks on Generation**  
 
 **Qualitative**  
-DiT 블록의 Front, Middle, Back 부분을 Caching 한 결과를 비교한 것이다. I는 28개의 블록 중에서 몇 번째 블록을 기준으로 Caching 할지를 결정한다. 이 실험에서는 $I = 1, 4, 7$이고 $N_c = 21$이므로 1을 Caching 해서 2-22를 계산하고, 4를 Caching 해서 5-25를 계산하고, 7을 Caching 해서 8-28을 계산한다.   
+DiT 블록의 Front, Middle, Back 부분을 Caching 한 결과를 비교한 것이다. I는 28개의 블록 중에서 몇 번째 블록을 기준으로 Caching 할지를 결정한다. 이 실험에서는 $I = 1, 4, 7$이고 $N_c = 21$이므로 1을 Caching 해서 2~22를 계산하고, 4를 Caching 해서 5~25를 계산하고, 7을 Caching 해서 8~28을 계산한다.   
 
 ![3](../images/Delta-DiT/3.png)
 
@@ -124,7 +124,11 @@ $로 roughly하게 결정하고, N이 결정되면 실제로 Cache 할 블록의
 
 ![Nc](../images/Delta-DiT/Nc.png)
 
-## **5. Experiment**  
+---
+
+### **5. Experiment**  
 
 
+
+---
 

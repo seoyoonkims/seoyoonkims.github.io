@@ -50,7 +50,7 @@ Feature caching은 이미 연산된 정보들을 저장하고 재사용해서 �
 FORA는 static caching 매커니즘을 이용한다. Hyperparameter인 N은 Cache Interval를 뜻하며 모델이 몇 타임 스텝마다 한 번씩 연산을 할지 결정한다. 해당 타임 스텝이 아니면 이전 단계에서 나온 값들을 재사용하게 된다. T가 총 타임 스텝이라고 하면, N은 1부터 T-1의 값을 가질 수 있다.  
 
 - Initialization: 샘플링 과정이 시작될 때 (t=T) 모든 레이어에서 연산을 수행하고 그 결과를 캐싱한다. 
-- Caching Condition: $t mod N = 0$ 일 때 조건이 성립한다.
+- Caching Condition: $t \% N = 0$ 일 때 조건이 성립한다.
 - Recomputation and Caching: 조건이 충족되면 모든 레이어의 포워드 패스를 연산하고 Attn과 MLP의 결과가 Cache Dictionary에 저장된다. 예를 들어, k번째 레이어의 경우, ```cache[Attn][k]```와 ```cache[MLP][k]```에 저장된다.  
 - Feature Reuse: $N-1$ 타임 스텝 동안 (다음 캐싱 이벤트가 생기기 전까지) 모델은 Cached Features를 이용한다. 
 - Cycle Repetition: $t=0$이 될 때까지 위의 과정을 반복한다.  
@@ -60,6 +60,13 @@ FORA는 static caching 매커니즘을 이용한다. Hyperparameter인 N은 Cach
 
 N에 따라서 속도와 퀄리티 간의 Trade-off가 생기게 된다. 실험 결과 N이 7을 넘어가면 성능 저하가 상당해졌다.  
 
+---
+
+### **Experiments**  
+
+![Table 3](../images/FORA/Table3.png)
+
+타임 스텝과 Cache Interval에 따른 성능을 나타낸 것이다. 
 
 ---
 

@@ -78,11 +78,21 @@ adaLN은 직접적으로 $\gamma$와 $\beta$를 학습하는 대신, t와 c의 �
 
 ![adaLN](../images/DiT/adaLN.png)
 
-위 그림처럼 MLP에서 conditioning과 관련된 정보를 학습해서 t와 c를 넣어주면 적절한 scale과 shift 값을 알려주는 것이라고 볼 수 있다.  
+위 그림처럼 MLP에서 conditioning과 관련된 정보를 학습해서 t와 c를 넣어주면 적절한 scale과 shift 값을 알려주는 것이라고 볼 수 있다. MLP는 SiLU와 linear layers로 이루어져 있다. 
+
 
 **adaLN-Zero**  
 
 ResNet에서 알 수 있듯이 각 Residual 블록을 Identity Function으로 초기화해주는 것은 많은 장점이 있다. 예를 들어, Goyal et al은 최종 batch norm의 scale factor를 zero-initializing 하는 것이 학습을 가속화한다는 것을 발견했다. Diffusion U-Net도 비슷한 전략을 사용하여, Final Convolutional Layer에서 각 블록을 Residual Connection으로 초기화한다. 이것을 DiT에도 적용하여 $\gamma$, $\beta$와 함께 Scaling Factor인 $\alpha$도 함께 regress 하여서 Residual Connection으로 연결하는데 사용한다. $\alpha$의 초깃값을 0으로 설정하기 때문에 첫 DiT 블록에서는 결국 Input Token만 살아남어 Identity Function이라고 볼 수 있다.  
+
+---
+
+위의 네 가지 방법을 비교했을 때, adaLN-Zero가 가장 성능이 좋았다고 한다.  
+
+![5](../images/DiT/5.png)
+
+
+
 
 ---
 

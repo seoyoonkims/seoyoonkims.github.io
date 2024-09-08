@@ -34,7 +34,7 @@ nav_order: 5
 
 ---
 
-### **Fast-Forward Caching for Accelerated Sampling**  
+### **3. Fast-Forward Caching for Accelerated Sampling**  
 
 Feature caching은 이미 연산된 정보들을 저장하고 재사용해서 속도와 효율을 높이는 강력한 기법이다. 이러한 접근이 연산의 오버헤드를 줄이고 Latency를 최소화할 수 있다.  
 
@@ -62,7 +62,7 @@ N에 따라서 속도와 퀄리티 간의 Trade-off가 생기게 된다. 실험 
 
 ---
 
-### **Experiments**  
+### **4. Experiments**  
 
 ![Table 3](../images/FORA/Table3.png)
 

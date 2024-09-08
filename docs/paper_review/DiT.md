@@ -23,7 +23,7 @@ DDPM을 이해했다면, 사실상 다음 그림만 이해하면 된다. DDPM에
 
 Conditional diffusion models는 class label c 같은 정보들을 추가로 입력받는다. 이 경우 reverse process는 $p_{\theta}(x_{t-1} \vert x_t ,c)$가 되고 $\epsilon_\theta$와 $\Sigma_\theta$는 c에 conditioned 된다. 이러한 설정에서 CFG는 샘플링 과정이 $log p(x \vert c)$를 높이는 방향으로 일어나도록 한다.  
 
-Bayes Rule에 따르면 $log p(c|x) \propto \log p(x|c) - \log p(x)$이므로 다음과 같다.  
+Bayes Rule에 따르면 $log p(c \vert x) \propto \log p(x \vert c) - \log p(x)$이므로 다음과 같다.  
 
 $$
 \nabla_x \log p(c|x) \propto \nabla_x \log p(x|c) - \nabla_x \log p(x)

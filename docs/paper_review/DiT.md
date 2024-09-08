@@ -33,3 +33,9 @@ $$
 \hat \epsilon_\theta (x_t, c) = \epsilon_\theta(x_t, \varnothing) + s \cdot \nabla_x \log p(x|c) \propto \epsilon_\theta(x_t, \varnothing) + s \cdot (\epsilon_\theta(x_t, c) - \epsilon_\theta(x_t, \varnothing))  
 $$
 
+$s>1$ 이고 guidance의 정도를 나타낸다. ($s=1$이면 standard sampling 이다.)  
+
+![CFG](../images/cfg.png)
+
+이 그림은 CG와 CFG를 비교한 것이다. CG의 경우 노이즈 이미지를 학습한 후 Classifier로부터 Gradient를 받아서 Class Guidance를 해준다. 반면 CFG는 Positional Encoding과 비슷한 방법으로 t와 c를 모델에 입력해준다. 디퓨전 모델은 Condition을 받았을 때와 받지 않았을 때 두 가지의 노이즈를 예측하고 최종적으로는 이 두 값의 Interpolation을 통해서 노이즈를 계산한다.
+

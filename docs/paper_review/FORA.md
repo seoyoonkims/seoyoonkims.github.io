@@ -66,7 +66,7 @@ N에 따라서 속도와 퀄리티 간의 Trade-off가 생기게 된다. 실험 
 
 ![Table 3](../images/FORA/Table3.png)
 
-타임 스텝과 Cache Interval에 따른 성능을 나타낸 것이다. 
+타임 스텝과 Cache Interval에 따른 성능을 나타낸 것이다. Cache Interval을 높여도 성능 저하가 크지는 않다.  
 
 ---
 

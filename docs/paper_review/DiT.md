@@ -84,4 +84,6 @@ adaLN은 직접적으로 $\gamma$와 $\beta$를 학습하는 대신, t와 c의 �
 
 ResNet에서 알 수 있듯이 각 Residual 블록을 Identity Function으로 초기화해주는 것은 많은 장점이 있다. 예를 들어, Goyal et al은 최종 batch norm의 scale factor를 zero-initializing 하는 것이 학습을 가속화한다는 것을 발견했다. Diffusion U-Net도 비슷한 전략을 사용하여, Final Convolutional Layer에서 각 블록을 Residual Connection으로 초기화한다. 이것을 DiT에도 적용하여 $\gamma$, $\beta$와 함께 Scaling Factor인 $\alpha$도 함께 regress 하여서 Residual Connection으로 연결하는데 사용한다. $\alpha$의 초깃값을 0으로 설정하기 때문에 첫 DiT 블록에서는 결국 Input Token만 살아남어 Identity Function이라고 볼 수 있다.  
 
+---
 
+2024/09/08

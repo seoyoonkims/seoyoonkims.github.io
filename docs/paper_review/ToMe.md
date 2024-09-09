@@ -127,3 +127,7 @@ throughput이 낮을 때는 점점 Merging을 많이 하는 방식이 효과적�
 
 따라서 처음에는 2r로 시작했다가 점점 0으로 줄여서 Total은 rL로 유지하는 Linear interpolation을 사용하기도 한다.  
 
+---
+
+2024/09/09
+

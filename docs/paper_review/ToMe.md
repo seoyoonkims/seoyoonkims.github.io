@@ -85,6 +85,35 @@ $$
 
 **Token Similarity**  
 
+Token Merging 시 최적의 방법을 찾기 위해 다음과 같이 실험을 진행하였다.  
+
 ![Table 1](../images/ToMe/table1.png)
 
+(a) Key로 유사도를 비교할 때 정확도가 가장 높았다. Key가 토큰의 정보를 잘 요약한다고 볼 수 있다.  
+
+(b) Cosine Similarity로 유사도를 측정했을 때 정확도와 스피드가 가장 높았다.  
+
+(c) 어텐션 헤드마다 Averaging을 하는 것이 정확도는 살짝 떨어지지만 속도가 더 빨랐다.  
+  
+
+**Algorithmic Choices**  
+
+(d) Merging 할 때 토큰의 크기 (병합된 패치 수)를 고려한 가중 평균을 사용하는 것이 가장 성능이 좋았다. 처음에는 크기가 동일하지만 계속 ToMe 같은 방법을 사용하다보면 어떤 토큰은 많은 패치를 표현하고 있기 때문이다. 
+
+(e) A, B로 나눌 때 토큰을 번갈아가면서 배치하는 것이 가장 성능이 좋았다.  
+
+**Proportional Attention**  
+
+(f) MAE(Masked Autoencoder) 모델에서는 Prop Attn이 필요가 없지만, AugRed 같은 Supervised 모델에서는 필요하다.  
+  
+
+**Comparing Matching Algorithms**  
+
+![table 2](../images/ToMe/table2.png)
+
+다양한 토큰 병합 알고리즘을 비교한 결과, Bipartite Matching 알고리즘이 성능과 속도 면에서 가장 뛰어나다. K-means 클러스터링은 속도가 느리고, Pruning은 정보 손실이 많다.  
+
+**Selecting a Merging Schedule**  
+
+r을 조정하는 방법도 실험했는데, 일정하게 병합하는 방식Constant Schedule이 대체로 좋은 성능을 보였으며, 일부 경우에는 Decreasing Schedule이 더 좋은 결과를 보였다.  
 

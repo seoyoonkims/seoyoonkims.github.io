@@ -115,5 +115,15 @@ Token Merging 시 최적의 방법을 찾기 위해 다음과 같이 실험을 �
 
 **Selecting a Merging Schedule**  
 
-r을 조정하는 방법도 실험했는데, 일정하게 병합하는 방식Constant Schedule이 대체로 좋은 성능을 보였으며, 일부 경우에는 Decreasing Schedule이 더 좋은 결과를 보였다.  
+![2](../images/ToMe/2.png)
+
+r을 조정하는 방법도 실험했는데, Constant Schedule이 대체로 최적에 가까운 좋은 성능을 보였다. 각 점들은 15K개의 랜덤 Merging Schedule을 나타낸다.  
+
+![7](../images/ToMe/7.png)
+
+Appendix C의 Figure 7은 Figure 2의 랜덤 샘플 중 가장 성능이 좋았던 100개의 샘플의 평균 Merge 개수를 레이어 별로 구한 것이다. 
+
+throughput이 낮을 때는 점점 Merging을 많이 하는 방식이 효과적이고, throughput이 높을 때는 일정한 r을 사용하는 것이 최적이다. Throughput이 더 높아지면 decreasing schedule이 잘 작동한다. 
+
+따라서 처음에는 2r로 시작했다가 점점 0으로 줄여서 Total은 rL로 유지하는 Linear interpolation을 사용하기도 한다.  
 

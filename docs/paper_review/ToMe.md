@@ -70,3 +70,10 @@ r은 Speed-accuracy trade-off를 제공한다. 토큰을 많이 병합할수록 
 
 **Tracking Token Size**  
 
+여러 개의 토큰이 합쳐져서 하나의 Key가 되면 Softmax에서 갖는 영향력이 작아진다. 그래서 Proportional Attention 이라는 다음의 식을 통해서 토큰 개수를 반영하도록 한다.  
+
+$$
+\mathbf{A} = softmax \left( \frac{\mathbf{QK}^T}{\sqrt{d} + log \mathbf{s}} \right)  
+$$
+
+

@@ -76,4 +76,11 @@ $$
 \mathbf{A} = softmax \left( \frac{\mathbf{QK}^T}{\sqrt{d} + log \mathbf{s}} \right)  
 $$
 
+**Training with Merging**  
+
+기존 ViT 모델에 바로 넣을 수 있기 때문에 학습이 필요하지 않지만, ToMe를 넣어서 학습하면 정확도 하락을 방지하거나 학습 속도를 빠르게 할 수 있다. 학습시킬 때는 Pooling 처럼 취급하면 된다. Backpropagation도 Average Pooling과 같은 방법으로 진행된다.  
+
+
+### **4. Image Experiments**  
+
 

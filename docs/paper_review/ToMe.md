@@ -48,7 +48,7 @@ r은 Speed-accuracy trade-off를 제공한다. 토큰을 많이 병합할수록 
 
 토큰의 유사도를 측정할 때 그들의 feature 간의 거리가 작을수록 유사하다고 판별할 수 있지만, 트랜스포머에서 그들은 overparameterized 되어 있어서 중요하지 않은 노이즈를 포함할 가능성이 있다.  
 
-운이 좋게도 트랜스포머는 셀프 어텐션 레이어를 포함하고 있다. 구체적으로, Key는 이미 각 토큰 간의 유사도를 나타내고 있으므로 여기서 계산된 Cosine Similarity를 이용하면 된다.  
+운이 좋게도 트랜스포머는 QKV 셀프 어텐션 레이어를 포함하고 있다. 구체적으로, Key는 이미 각 토큰의 정보를 잘 요약하기 때문에 토큰의 Key 값들을 Dot-product 해서 Cosine Similarity를 측정한다. 이는 4장에서 더 자세하게 나온다.  
   
 
 **Bipartite Soft Matching**  
@@ -82,5 +82,9 @@ $$
 
 
 ### **4. Image Experiments**  
+
+**Token Similarity**  
+
+![Table 1](../images/ToMe/table1.png)
 
 

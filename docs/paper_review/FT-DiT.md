@@ -81,15 +81,13 @@ $$
 
 **3.3 Complexity Analysis**  
 
-- **Self-attention의 Complexity:** 
+- **Self-attention의 Complexity:** $QK$가 $N^2 D$, Softmax(QK)V가 $N^2 D$를 차지한다. 
 
 $$
 complexity = N^2 D + N^2 D + o(N^2)  
 $$
 
-$QK$가 $N^2 D$, Softmax(QK)V가 $N^2 D$를 차지한다. 
-
-- **GIIM과 TCM의 Complexity:**  
+- **GIIM과 TCM의 Complexity:** $P_a \in \mathbb{R}^{D \times \frac{f}{p_t} \times \frac{h}{p_h} \times \frac{w}{p_w}}$ 에서 $f \times h \times w = N$ 인 점을 이용하면 아래 식을 금방 이해할 수 있다. 첫번째 항은 GIIM의 SA에 해당하고, 두번째 항은 GIIM의 CS에 해당한다. 마지막 항은 TCM의 WSA와 SWSA에 해당한다.    
 
 $$
 complexity = 2 \frac{N^2}{(p_f p_h p_w)^2} D + 2 \frac{N^2}{p_f p_h p_w} D + 4 \frac{N}{p_f p_h p_w}(p_f p_h p_w)^2 D  
@@ -99,9 +97,9 @@ $$
 = 2(\frac{1}{(p_f p_h p_w)^2} + \frac{1}{p_f p_h p_w} + \frac{2 p_f p_h p_w}{N}) N^2 D
 $$
 
-$P_a \in \mathbb{R}^{D \times \frac{f}{p_t} \times \frac{h}{p_h} \times \frac{w}{p_w}}$ 에서 $f \times h \times w = N$ 인 점을 이용하면 위 식을 금방 이해할 수 있다.   
 
-첫번째 항은 GIIM의 SA에 해당하고, 두번째 항은 GIIM의 CS에 해당한다. 마지막 항은 TCM의 WSA와 SWSA에 해당한다.  
+
+
 
 Compression ratio $(p_f, p_h, p_w)$가 커질수록 Complexity에 이득이 많아지는 것을 확인할 수 있다. $(p_f, p_h, p_w) = (1, 2, 2), (1, 4, 4), (1, 8, 8), (1, 16, 16)$ 이면 총 Self-attention의 34.3%,
 9.7%, 4.7%, 2.3% 만 차지하게 된다.  

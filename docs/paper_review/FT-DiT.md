@@ -110,6 +110,13 @@ Compression ratio $(p_f, p_h, p_w)$가 커질수록 Complexity에 이득이 많�
 
 ![5](../images/PT-DiT/5.png)
 
+Figure 4는 이미지에서의 Complexity를 비교한 것이다. 왼쪽 그래프에서 파라미터 수가 1.8B 일 때 80% 이상 계산량이 감소하였고, 오른쪽 그래프처럼 소규모 파라미터에서도 48% 정도 계산량이 감소한 것을 볼 수 있다.  
+
+Figure 5는 비디오 생성에서 Complexity와 GPU 사용량을 비교한 것이다. 계산량도 적고 메모리 효율도 좋은 것을 볼 수 있다. 특히 EasyAnimate가 1D 어텐션만 사용하는 것과 달리 PT-DiT는 3D 어텐션을 사용함에도 계산량이 오히려 적다.  
+
+
+### **5. Conclusion**  
+
 
 
 ---
@@ -119,5 +126,5 @@ Compression ratio $(p_f, p_h, p_w)$가 커질수록 Complexity에 이득이 많�
 
 ---
 
-
+2024/09/10
 

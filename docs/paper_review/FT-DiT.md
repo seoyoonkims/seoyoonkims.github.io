@@ -51,6 +51,18 @@ $$
 
 **TCM Module**  
 
+Sparse Proxy Token으로 인해 디테일을 표현하는 능력이 떨어지기 때문에 Localized Window Attention을 진행한다. 구체적으로 윈도우 내에서 Self-Attention을 진행하고, Grid의 영향을 줄이기 위해 Shift-Window Attention을 진행한다.  
+
+$$
+\hat z_s = WSA(z_s) + z_s  
+$$
+
+$$
+z_w = SWSA(z_s) + \hat z_s
+$$
+
+
+**Compression Ratios**  
 
 
 

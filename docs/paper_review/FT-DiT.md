@@ -42,7 +42,13 @@ Latent code $z \in \mathbb{R}^{C \times F \times H \times W}$가 들어오면 pa
 
 Latent code sequence $z_s \in \mathbb{R}^{N \times D}를 $z_s \in \mathbb{R}^{f \times h \times w \times D}로 reshape 한다. f는 프레임, h는 height, w는 width가 된다. 이미지의 경우 $f=1$ 이다.  
 
-프록시 토큰 $P_a \in \mathbb{R}^{D \times \frac{f}{p_t} \times \frac{h}{p_h} \times \frac{w}{p_w}}$은 각 윈도우에서 랜덤하게 샘플된다. 따라서 각 토큰은  $p_t \times p_h \times p_w$개의 토큰을 대표하게 된다. 이 프록시 토큰들로 Self-attention을 진행한다. 이후, cross-attention을 통해 글로벌한 비주얼 정보들을 모든 latent token들로 전달하게 된다. 모든 토큰 $z_s$가 Query가 되고, 프록시 토큰 $P_a$가 Key와 Value가 된다. 이를 식으로 나타내면 다음과 같다.  
+프록시 토큰은 각 윈도우에서 랜덤하게 샘플된다.  
+
+$$
+P_a \in \mathbb{R}^{D \times \frac{f}{p_t} \times \frac{h}{p_h} \times \frac{w}{p_w}}
+$$ 
+
+따라서 각 토큰은  $p_t \times p_h \times p_w$개의 토큰을 대표하게 된다. 이 프록시 토큰들로 Self-attention을 진행한다. 이후, cross-attention을 통해 글로벌한 비주얼 정보들을 모든 latent token들로 전달하게 된다. 모든 토큰 $z_s$가 Query가 되고, 프록시 토큰 $P_a$가 Key와 Value가 된다. 이를 식으로 나타내면 다음과 같다.  
 
 $$
 z_s = CS(z_s, SA(RandomSample(z_s)))  

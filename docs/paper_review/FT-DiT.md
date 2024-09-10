@@ -102,7 +102,7 @@ Compression ratio $(p_f, p_h, p_w)$가 커질수록 Complexity에 이득이 많�
 
 ---
 
-### **Algorithmic Efficiency Comparison**  
+### **4. Algorithmic Efficiency Comparison**  
 
 ![5](../images/PT-DiT/5.png)
 

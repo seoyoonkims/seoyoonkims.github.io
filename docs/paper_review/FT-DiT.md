@@ -40,7 +40,7 @@ Latent code $z \in \mathbb{R}^{C \times F \times H \times W}$가 들어오면 pa
   
 **GIIM Module**  
 
-Latent code sequence $z_s \in \mathbb{R}^{N \times D}를 $$z_s \in \mathbb{R}^{f \times h \times w \times D}$$로 reshape 한다. f는 프레임, h는 height, w는 width가 된다. 이미지의 경우 $f=1$ 이다.  
+Latent code sequence $z_s \in \mathbb{R}^{N \times D}$를 $$z_s \in \mathbb{R}^{f \times h \times w \times D}$$로 reshape 한다. f는 프레임, h는 height, w는 width가 된다. 이미지의 경우 $f=1$ 이다.  
 
 프록시 토큰은 각 윈도우에서 랜덤하게 샘플된다.  
 

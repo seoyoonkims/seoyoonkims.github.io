@@ -81,19 +81,19 @@ $$
 
 **3.3 Complexity Analysis**  
 
-- Self-attention의 Complexity: 
+- **Self-attention의 Complexity:** 
 
 $$
 complexity = N^2 D + N^2 D + o(N^2)  
 $$
 
-- GIIM과 TCM의 Complexity:  
+- **GIIM과 TCM의 Complexity:**  
 
 $$
 complexity = 2 \frac{N^2}{(p_f p_h p_w)^2} D + 2 \frac{N^2}{p_f p_h p_w} D + 4 \frac{N}{p_f p_h p_w}(p_f p_h p_w)^2 D  
 $$
 
-QK가 $N^2 D$, Softmax(QK)V가 $N^2 D$를 차지한다. 
+$QK$가 $N^2 D$, Softmax(QK)V가 $N^2 D$를 차지한다. 
 
 $$
 = 2(\frac{1}{(p_f p_h p_w)^2} + \frac{1}{p_f p_h p_w} + \frac{2 p_f p_h p_w}{N}) N^2 D

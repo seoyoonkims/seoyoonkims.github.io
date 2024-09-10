@@ -9,10 +9,6 @@ nav_order: 8
 
 ## QIHOO-T2X: AN EFFICIENCY-FOCUSED DIFFUSION TRANSFORMER VIA PROXY TOKENS FOR TEXT-TO-ANY-TASK  
 
-이 논문 좀 오타가 많은듯;  
-3.2.1 p_f -> p_t  
-3.2.3 $(p_f, p_w, p_h)$ 
-
 ---
 
 ### **1. Introduction**  
@@ -109,6 +105,15 @@ Compression ratio $(p_f, p_h, p_w)$가 커질수록 Complexity에 이득이 많�
 ### **Algorithmic Efficiency Comparison**  
 
 ![5](../images/PT-DiT/5.png)
+
+
+
+---
+이 논문 좀 오타가 많은듯;  
+3.2.1 p_f -> p_t  
+3.2.3 $(p_f, p_w, p_h)$ 
+
+---
 
 
 

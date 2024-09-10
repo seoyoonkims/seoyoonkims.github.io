@@ -9,6 +9,10 @@ nav_order: 8
 
 ## QIHOO-T2X: AN EFFICIENCY-FOCUSED DIFFUSION TRANSFORMER VIA PROXY TOKENS FOR TEXT-TO-ANY-TASK  
 
+이 논문 좀 오타가 많은듯;  
+3.2.1 p_f -> p_t  
+3.2.3 $(p_f, p_w, p_h)$ 
+
 ---
 
 ### **1. Introduction**  
@@ -64,6 +68,12 @@ $$
 
 **Compression Ratios**  
 
+다른 해상도에 대해 윈도우 개수를 일정하게 유지해야 저해상도에서 고해상도로 훈련시킬 때 일관성을 보장할 수 있다. 동시에 윈도우의 개수를 적절하게 설정해줘야 한다.  
+
+그래서 이미지에 대해서는 해상도 256, 512, 1024, 2048에 대해 각각 Compression Ratio인 $(p_f, p_w, p_h)$를 (1, 2, 2), (1, 4, 4), (1, 8, 8), (1, 16, 16)으로 세팅한다. 비디오의 경우 $p_f = 4$ 이다.  
+  
+  
+**Complexity Analysis**  
 
 
 

@@ -73,9 +73,26 @@ $$
 그래서 이미지에 대해서는 해상도 256, 512, 1024, 2048에 대해 각각 Compression Ratio인 $(p_f, p_w, p_h)$를 (1, 2, 2), (1, 4, 4), (1, 8, 8), (1, 16, 16)으로 세팅한다. 비디오의 경우 $p_f = 4$ 이다.  
   
   
-**Complexity Analysis**  
+**3.3 Complexity Analysis**  
 
+- Self-attention의 Complexity: 
 
+$$
+complexity = N^2 D + N^2 D + o(N^2)  
+$$
+
+- GIIM과 TCM의 Complexity:  
+
+$$
+complexity = 2 \frac{N^2}{(p_f p_h p_w)^2} D + 2 \frac{N^2}{p_f p_h p_w} D + 4 \frac{N}{p_f p_h p_w}(p_f p_h p_w)^2 D  
+$$
+
+$$
+= 2(\frac{1}{(p_f p_h p_w)^2} + \frac{1}{p_f p_h p_w} + \frac{2 p_f p_h p_w}{N}) N^2 D
+$$
+
+Compression ratio $(p_f, p_h, p_w)$가 커질수록 Complexity에 이득이 많아지는 것을 확인할 수 있다. $(p_f, p_h, p_w) = (1, 2, 2), (1, 4, 4), (1, 8, 8), (1, 16, 16)$ 이면 총 Self-attention의 34.3%,
+9.7%, 4.7%, 2.3% 만 차지하게 된다.  
 
 ---
 

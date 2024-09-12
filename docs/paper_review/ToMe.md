@@ -55,7 +55,7 @@ r은 Speed-accuracy trade-off를 제공한다. 토큰을 많이 병합할수록 
 
 토큰을 r개 만큼 줄이는 작업을 L번 (블록 개수만큼) 반복해야 하기 때문에 런타임이 아주 짧아야 한다. 기존의 kmeans clustering이나 graph cuts 같은 방법은 그렇지 않다.  
 
-이 논문의 솔루션은 다음과 같다. 일단 병렬 처리가 불가능한 방법을 피하면서 Merging을 점진적으로 할 수 있는 방법을 찾았다.  
+이 논문의 솔루션은 다음과 같다. 일단 병렬 처리가 불가능한 방법을 피하면서 Merging을 점진적으로 할 수 있는 방법을 찾았다. 블록을 지남에 따라 토큰들이 점점 Merging 되고 있는 것을 볼 수 있다.   
 
 ![Figure 1](../images/ToMe/1.png)
 
@@ -65,7 +65,18 @@ r은 Speed-accuracy trade-off를 제공한다. 토큰을 많이 병합할수록 
 4. 연결된 토큰들을 하나로 합친다. (By Averaging Features)
 5. 두 집합을 Concatenate 한다.  
 
-이 방법은 토큰을 랜덤하게 없애는 것과 거의 속도 차이가 없고 코드 몇 줄로 구현할 수 있다.  
+이 방법은 토큰을 랜덤하게 없애는 것과 거의 속도 차이가 없고 코드 몇 줄로 구현할 수 있다. 
+
+```
+    import timm, tome
+
+    # Load a pretrained model, can be any vit / deit model.
+    model = timm.create_model("vit_base_patch16_224", pretrained=True)
+    # Patch the model with ToMe.
+    tome.patch.timm(model)
+    # Set the number of tokens reduced per layer. See paper for details.
+    model.r = 16
+```
   
 
 **Tracking Token Size**  

@@ -81,6 +81,11 @@ $$
 
 **3.3 Complexity Analysis**  
 
+![draw1](../images/PT-DiT/d1.png)
+
+![draw2](../images/PT-DiT/d2.png)
+
+
 - **Self-attention의 Complexity:** $QK$가 $N^2 D$, Softmax(QK)V가 $N^2 D$를 차지한다. 
 
 $$
@@ -96,9 +101,6 @@ $$
 $$
 = 2(\frac{1}{(p_f p_h p_w)^2} + \frac{1}{p_f p_h p_w} + \frac{2 p_f p_h p_w}{N}) N^2 D
 $$
-
-
-
 
 
 Compression ratio $(p_f, p_h, p_w)$가 커질수록 Complexity에 이득이 많아지는 것을 확인할 수 있다. $(p_f, p_h, p_w) = (1, 2, 2), (1, 4, 4), (1, 8, 8), (1, 16, 16)$ 이면 총 Self-attention의 34.3%,
@@ -117,7 +119,7 @@ Figure 5는 비디오 생성에서 Complexity와 GPU 사용량을 비교한 것�
 
 ### **5. Conclusion**  
 
-
+PT-DiT와 Qihoo-T2X 시리즈는 디퓨전 트랜스포머의 성능을 크게 개선하면서도 효율성을 유지할 수 있는 가능성을 보여주었다.  
 
 ---
 이 논문 좀 오타가 많은듯;  

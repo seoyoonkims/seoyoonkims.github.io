@@ -75,4 +75,25 @@ src가 dst로 merge 된다고 보면 되는데, src와 dst를 partitioning 하�
   
 **4.2 Design Experiments**  
 
+**What**  
+원래는 ToMe를 Self Attention, Cross Attention, MLP 같은 모든 모듈에 적용했다. 아래 표에서는 다른 조합으로 적용한 결과이다. Self Attention에만 적용한 것이 가장 성능이 좋다. 주목할 점은 FID는 프롬프트를 고려하지 않는다는 것이다. 그래서 Cross Attention에 Merging을 적용했을 때 오히려 FID가 줄어든 것을 볼 수 있다. (성능 좋아진 것)
+
+![Table3-a](../images/ToMeforSD/Table3-a.png)
+
+**Where**  
+ToMe를 네트워크의 모든 블록에 적용하는 것은 이상적이지 않다. U-Net에서 깊은 곳에 있으면 토큰 수가 적어지기 때문이다. 아래 표는 Minimum 토큰 개수 이상인 블록에 대해서만 ToMe를 적용한 것인데, Minimum 값이 커질수록 FID가 좋아지고 있다. 그리고 토큰이 가장 많은 블록들이 속도에 미치는 영향이 큰 것을 볼 수 있다. 
+
+![Table3-b](../images/ToMeforSD/Table3-b.png)
+
+
+**When**  
+
+Early Step에서 r%을 크게 하고 Later Step에서는 r%을 작게 하는 것이 약간 더 성능이 좋았다. 처음에는 coarser하기 때문에 error에 덜 민감하기 때문이라고 설명한다.  
+
+![Table3-c](../images/ToMeforSD/Table3-c.png)
+
+
+### **Putting It All Together**  
+
+
 

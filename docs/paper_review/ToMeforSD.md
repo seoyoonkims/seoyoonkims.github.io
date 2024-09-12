@@ -93,7 +93,19 @@ Early Step에서 r%을 크게 하고 Later Step에서는 r%을 작게 하는 것
 ![Table3-c](../images/ToMeforSD/Table3-c.png)
 
 
-### **Putting It All Together**  
+### **5. Putting It All Together**  
 
+4장에서 말한 것들을 하나로 합치면 된다.
 
+![Table 4](../images/ToMeforSD/Table4.png)
+
+결과적으로 비슷한 퀄리티를 보여주면서 2배 이상 빠르고, 5.6배 정도 메모리 사용량이 줄어들었다. 
+
+![Figure 6](../images/ToMeforSD/Figure6.png)
+
+![Figure 7](../images/ToMeforSD/Figure7.png)
+
+---
+
+2024/09/12
 

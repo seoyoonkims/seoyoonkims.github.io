@@ -70,12 +70,9 @@ r은 Speed-accuracy trade-off를 제공한다. 토큰을 많이 병합할수록 
 ```
     import timm, tome
 
-    # Load a pretrained model, can be any vit / deit model.
-    model = timm.create_model("vit_base_patch16_224", pretrained=True)
-    # Patch the model with ToMe.
-    tome.patch.timm(model)
-    # Set the number of tokens reduced per layer. See paper for details.
-    model.r = 16
+    model = timm.create_model("vit_base_patch16_224", pretrained=True) # Load a pretrained model, can be any vit / deit model
+    tome.patch.timm(model) # Patch the model with ToMe
+    model.r = 16 # Set the number of tokens reduced per layer
 ```
   
 

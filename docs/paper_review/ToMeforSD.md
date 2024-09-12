@@ -20,7 +20,7 @@ ToMe는 Classification에서는 잘 작동하지만, Diffusion 같은 경우는 
 
 Dense한 Prediction Task에서는 Merge 했던 토큰들을 다시 Unmerge 해주는 과정이 중요하다. 
 
-아래 그림처럼 Token Merging이나 Pruning이 Naive하게 진행될 수록 그림의 퀄리티가 낮아지는 것을 볼 수 있다. 
+아래 그림처럼 Token Merging이나 Pruning이 Naive하게 진행될 수록 그림의 내용이 조금씩 바뀌는 것을 알 수 있다. 
 
 ![3](../images/ToMeforSD/Figure3.png)
 
@@ -54,5 +54,9 @@ $$
 ---
 
 ### **4. Further Exploration**  
+
+**Experimental Details**  
+
+Stable diffusion v1.5를 이용해서 ImageNet-1k 클래스에서 2000장의 $512 \times 512$ 이미지를 생성하였다. 50 PLMS와 7.5 cfg를 이용했다. 50 PLMS 확산 단계는 노이즈 제거를 50번의 단계에 걸쳐 수행하는 것이고, cfg는 주어진 프롬프트에 얼마나 강하게 반응할지를 결정하는 Hyperparameter이다. 이후 FID 스코어를 측정하였다. 속도는 단일 GPU에서 2,000개의 샘플을 생성하는 속도를 이용하였다.  
 
 

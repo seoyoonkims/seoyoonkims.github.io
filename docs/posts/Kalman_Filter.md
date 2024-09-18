@@ -109,12 +109,16 @@ p(x) = \frac{1}{(2\pi)^{n/2} \sqrt{\det(\Sigma)}}
 \text{where } \mu \in \mathbb{R}^n \text{ and } \Sigma \in \mathbb{R}^{n \times n}  
 $$
 
-**Sum of Independent Gaussians**  
+**Fact 1: Jointly Normal Random Vectors**  
+
+$x$가 multivariate gaussian random variable이면 $x = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}$ 에서 $x_1, x_2$도 모두 gaussian random variable 이다. $x_1, x_2$를 jointly gaussian 이라고 한다.  
+
+**Fact 2: Sum of Independent Gaussians**  
 
 $x, y$가 독립 가우시안 분포이면 $z=x+y$ 역시 가우시안 분포이며 $\mu_z = \mu_x+\mu_y$이고 $\Sigma_z=\Sigma_x+\Sigma_y$이다.  
   
 
-**Affine Transformations**  
+**Fact 3: Affine Transformations**  
 
 $x~N(\mu_x, \Sigma_x)$, $y=Ax+b$ 이면 $y~N(\mu_y, \Sigma_y)$이고, $\mu_y = A \mu_x + b$, $\Sigma_y = A \Sigma_x A^T$
 
@@ -135,17 +139,28 @@ $$
 \quad = A \Sigma_x A^T
 $$
 
+**Fact 4: Conditional Distributions**  
 
+$$
+\text{mean } \mu_{x_1 \vert x_2} = \mu_1 + \Sigma_{12} \Sigma_{22}^{-1} (x_2 - \mu_2)  
+$$
+
+$$
+\text{covariance } \Sigma_{x_1 \vert x_2} = \Sigma_{11} - \Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}  
+$$ 
 
 ---
 
 ### **III. Kalman Filter**  
 
 **Assumptions**  
-- Prior follows a Gaussian distribution  
-$p(x_0) \sim N(\mu _0, \sigma _0)$
+Prior follows a Gaussian distribution  
 
-- Process model $p(x_t \vert x_{t-1}, u_t)$ is linear with additive Gaussian white noise
+$$
+p(x_0) \sim N(\mu _0, \sigma _0)
+$$
+
+Process model $p(x_t \vert x_{t-1}, u_t)$ is linear with additive Gaussian white noise
 
 $$
 x_t = A_t x_{t-1} + B_t u_t + n_t  
@@ -155,7 +170,7 @@ $$
 n_t \sim N(0, Q_t)  
 $$
 
-- Measurement model $p(z_t \vert x_t)$ is linear with additive Gaussian white noise
+Measurement model $p(z_t \vert x_t)$ is linear with additive Gaussian white noise
 
 $$
 z_t = C_t x_t + v_t  

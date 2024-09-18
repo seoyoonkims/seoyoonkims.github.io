@@ -21,11 +21,9 @@ South Korea
 
 
 ## Education  
-> Korea Advanced Institute of Science & Technology (**B.S.**, 2021.02 ~ Present)
- - Major: Electrical Engineering  
+> **B.S.** at KAIST, Korea (**Electrical Engineering**, 2021.02 ~ Present)
 
-> New York Univserity (Minor Program, 2023.08 ~ 2023.12) 
- - Minor: Mechanical Engineering  
+> Minor at NYU, USA (Mechanical Engineering, 2023.08 ~ 2023.12)
 
 
 ## Expericence  

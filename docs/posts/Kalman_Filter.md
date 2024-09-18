@@ -18,11 +18,9 @@ nav_order: 5
 
 ---
 
-### **1. Bayes' Filter**  
-
+### **I. Bayes' Filter**  
+  
 **Markov Property**  
-
-Definition: 
 
 $$
 p(x_{t+1} \vert x_{0:t}) = p(x_{t+1} \vert x_t)  
@@ -30,8 +28,6 @@ $$
 
 즉, 해당 시점에서 미래를 예측하는데 필요한 정보들만 갖고 있으면 완전한 상태가 된다. 과거의 정보나 독립적인 정보들은 필요하지 않다. 
 
-
-**Bayes' Filter**  
 
 ![Control](../images/KalmanFilter/control.png)
 
@@ -41,22 +37,42 @@ $$
 
 위 그림에서 Markov Assumtion을 적용하면 모델을 간단하게 나타낼 수 있다. $x_t$는 현재 상태, $u_t$는 제어 입력, $z_t$는 관측 값을 나타낸다.  
 
-1. Prior: $p(x_0)$  
+**Prior**  
+
+$$
+p(x_0)  
+$$  
 
 초기 상태에 대한 사전 확률 분포를 나타낸다. 즉, 로봇이 처음 시작한 위치를 특정 범위 내 위치에 존재할 확률로 나타낸다. 
 
-2. Process model: $p(x_t \vert x_{t-1}, u_t)$   
+**Process model**  
+
+$$
+p(x_t \vert x_{t-1}, u_t)  
+$$
 
 시간 t에서의 상태 $x_t$가 이전 상태 $x_{t-1}$과 제어 입력 $u_t$에 의해 결정된다는 것을 나타낸다. 로봇이 이전 위치에서 얼마나 움직였는지에 따라 새로운 위치를 추정하는 것이다. 하지만 그 움직임에는 불확실성이 포함될 수 있기 때문에 확률로 표현한다. 
 
-3. Measurement model: $(z_t \vert x_t)$  
+**Measurement model**  
+
+$$
+p(z_t \vert x_t)  
+$$  
 
 시간 t에서의 측정값 $z_t$는 현재 상태 $x_t$에 의해 결정된다. 센서에 노이즈가 포함되기 때문에 확률로 표현한다. 로봇이 카메라를 이용해 자신의 위치를 측정하면, 현재 상태에서 측정된 데이터와 실제 상태의 관계를 설명하는 것이다.  
 
 
-Prediction Step: $p(x_t \vert z_{1:t-1}, u_{1:t}) = \int p(x_t \vert x_{t-1}, u_t) p(x_{t-1} \vert z_{1:t-1}, u_{1:t}) dx_{t-1}$  
+**Prediction Step**   
 
-Update Step: $p(x_t \vert z_{1:t}, u_{1:t}) = \eta p(z_t \vert x_t) p(x_t \vert z_{1:t-1}, u_{1:t})$
+$$
+p(x_t \vert z_{1:t-1}, u_{1:t}) = \int p(x_t \vert x_{t-1}, u_t) p(x_{t-1} \vert z_{1:t-1}, u_{1:t}) dx_{t-1}  
+$$  
+
+**Update Step**  
+ 
+$$
+p(x_t \vert z_{1:t}, u_{1:t}) = \eta p(z_t \vert x_t) p(x_t \vert z_{1:t-1}, u_{1:t})  
+$$
 
 $\eta$ 는 marginal distribution 이다.  
 

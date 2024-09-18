@@ -66,11 +66,7 @@ $$
 
 **Prediction Step**   
 
-$$
-p(x_t \vert z_{1:t-1}, u_{1:t}) = \int p(x_t \vert x_{t-1}, u_t) p(x_{t-1} \vert z_{1:t-1}, u_{1:t}) dx_{t-1}  
-$$  
-
-유도:
+Process Model과 이전 상태 Prior의 곱을 이전 상태에 대해 Marginalize 한 것이다.  
 
 $$
 p(x_t \vert z_{1:t-1}, u_{1:t}) = \int p(x_t, x_{t-1} \vert z_{1:t-1}, u_{1:t}) \, dx_{t-1}
@@ -80,19 +76,23 @@ $$
 = \int p(x_t \vert x_{t-1}, z_{1:t-1}, u_{1:t}) p(x_{t-1} \vert z_{1:t-1}, u_{1:t}) \, dx_{t-1}
 $$
 
+$$
+= \int p(x_t \vert x_{t-1}, u_t) p(x_{t-1} \vert z_{1:t-1}, u_{1:t}) dx_{t-1}  
+$$
+
 **Update Step**  
 
-$$
-p(x_t \vert z_{1:t}, u_{1:t}) = \eta p(z_t \vert x_t) p(x_t \vert z_{1:t-1}, u_{1:t})  
-$$
-
-$\eta$ 는 marginal distribution 이다.  
-
-유도:
+현재 상태의 Prior에 Measurement Model을 곱하고 Marginal Distribution으로 나눈 것이다. 
 
 $$
 p(x_t \vert z_{1:t}, u_{1:t}) = \frac{p(z_t \vert x_t, z_{1:t-1}, u_{1:t}) p(x_t \vert z_{1:t-1}, u_{1:t})}{p(z_t \vert z_{1:t-1}, u_{1:t})}  
 $$
+
+$$
+= \eta p(z_t \vert x_t) p(x_t \vert z_{1:t-1}, u_{1:t})  
+$$
+
+$\eta$ 는 Marginal Distribution 이다.  
 
 $$
 p(x \vert w, v) = \frac{p(w \vert x, v) p(x \vert v)}{p(w \vert v)}
@@ -215,7 +215,7 @@ $$
 \Sigma = \begin{bmatrix} I & 0 \\ C & I \end{bmatrix} \begin{bmatrix} \hat{\Sigma}_t & 0 \\ 0 & R \end{bmatrix} \begin{bmatrix} I & C^T \\ 0 & I \end{bmatrix} = \begin{bmatrix} \hat{\Sigma}_t & \hat{\Sigma}_t C^T \\ C \hat{\Sigma}_t & C \hat{\Sigma}_t C^T + R \end{bmatrix}
 $$
 
-$z_t$가 관측되고 나면 $\mu_{x_t}$는 $\mu_{x_t \vert z_t}$로 업데이트 되어야 한다. $\Sigma_{x_t}$의 경우도 마찬가지이다.  
+$z_t$가 관측되고 나면 $\mu_{t}$는 $\mu_{x_t \vert z_t}$로 업데이트 되어야 한다. $\Sigma_{t}$의 경우도 마찬가지이다.  
 
 $$
 \mu_{x_t \vert z_t} = \hat{\mu}_t + \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1} (z_t - C \hat{\mu}_t) 

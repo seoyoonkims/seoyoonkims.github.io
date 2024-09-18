@@ -30,9 +30,7 @@ South Korea
 
 ## Expericence  
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
-
 > HyperAccel (Internship, 2024.06 ~ 2024.08)  
-
 > USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)   
 
 

@@ -125,18 +125,12 @@ $x~N(\mu_x, \Sigma_x)$, $y=Ax+b$ 이면 $y~N(\mu_y, \Sigma_y)$이고, $\mu_y = A
 유도:
 
 $$
-\mu_y = E[y] \\
-\quad = E[Ax + b] \\
-\quad = A E[x] + b \\
-\quad = A \mu_x + b
+\mu_y = E[y] \quad = E[Ax + b] \quad = A E[x] + b \quad = A \mu_x + b
 $$
 
 $$
-\Sigma_y = E \left[ (y - \mu_y)(y - \mu_y)^T \right] \\
-\quad = E \left[ (Ax + b - A\mu_x - b)(Ax + b - A\mu_x - b)^T \right] \\
-\quad = E \left[ (A(x - \mu_x))(A(x - \mu_x))^T \right] \\
-\quad = A E \left[ (x - \mu_x)(x - \mu_x)^T \right] A^T \\
-\quad = A \Sigma_x A^T
+\Sigma_y = E \left[ (y - \mu_y)(y - \mu_y)^T \right] \quad = E \left[ (Ax + b - A\mu_x - b)(Ax + b - A\mu_x - b)^T \right] \\
+\quad = E \left[ (A(x - \mu_x))(A(x - \mu_x))^T \right] \quad = A E \left[ (x - \mu_x)(x - \mu_x)^T \right] A^T \quad = A Sigma_x A^T
 $$
 
 **Fact 4: Conditional Distributions**  
@@ -185,9 +179,10 @@ $$
 
 $$
 x_t = A_t x_{t-1} + B_t u_t + n_t \\
-n_t \sim N(0, Q_t)
+n_t \sim N(0, Q_t) \\
+$$
 
-\text{Prediction:} \\
+$$
 \hat{\mu}_t = A \mu_{t-1} + B u_t \\
 \hat{\Sigma}_t = A \Sigma_{t-1} A^T + Q
 $$
@@ -195,13 +190,13 @@ $$
 **Update**  
 
 $$
-\text{Observation model: } \\
 z_t = C_t \bar{x}_t + v_t, \quad v_t \sim N(0, R_t)
 $$
 
 $$
-\text{The best update without a measurement is to set } x_t = \bar{x}_t
-
+x_t = \bar{x}_t
+$$
+$$
 \begin{bmatrix} x_t \\ z_t \end{bmatrix}
 = \begin{bmatrix} I & 0 \\ C & I \end{bmatrix} \begin{bmatrix} \bar{x}_t \\ v_t \end{bmatrix}
 $$
@@ -221,14 +216,14 @@ $$
 
 $$
 \Sigma_{x_t \vert z_t} = \hat{\Sigma}_t - \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1} C \hat{\Sigma}_t
+$$
 
-\text{Define the Kalman gain } K_t
+$$
+K_t = \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1} \\
 
-K_t = \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1}
+\mu_t = \hat{\mu}_t + K_t (z_t - C \hat{\mu}_t) \\
 
-\mu_t = \hat{\mu}_t + K_t (z_t - C \hat{\mu}_t)
-
-\Sigma_t = \hat{\Sigma}_t - K_t C \hat{\Sigma}_t
+\Sigma_t = \hat{\Sigma}_t - K_t C \hat{\Sigma}_t \\
 $$
 
 

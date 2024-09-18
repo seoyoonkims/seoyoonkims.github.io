@@ -6,9 +6,7 @@ nav_order: 5
 ---
 
 
-## Kalman Filter (칼만 필터 원리 & 구현)
-
-#### 뉴욕대학교 Giuseppe Loianno 교수님의 ROB-UY3303 Robot Motion and Planning 강의 자료를 기반으로 작성되었음  
+## Kalman Filter
 
 ---
 
@@ -41,27 +39,27 @@ $$
 
 **Prior**  
 
+초기 상태에 대한 사전 확률 분포를 나타낸다. 즉, 로봇이 처음 시작한 위치를 특정 범위 내 위치에 존재할 확률로 나타낸다. 
+
 $$
 p(x_0)  
 $$  
 
-초기 상태에 대한 사전 확률 분포를 나타낸다. 즉, 로봇이 처음 시작한 위치를 특정 범위 내 위치에 존재할 확률로 나타낸다. 
-
 **Process model**  
+
+시간 t에서의 상태 $x_t$가 이전 상태 $x_{t-1}$과 제어 입력 $u_t$에 의해 결정된다는 것을 나타낸다. 로봇이 이전 위치에서 얼마나 움직였는지에 따라 새로운 위치를 추정하는 것이다. 하지만 그 움직임에는 불확실성이 포함될 수 있기 때문에 확률로 표현한다. 
 
 $$
 p(x_t \vert x_{t-1}, u_t)  
 $$
 
-시간 t에서의 상태 $x_t$가 이전 상태 $x_{t-1}$과 제어 입력 $u_t$에 의해 결정된다는 것을 나타낸다. 로봇이 이전 위치에서 얼마나 움직였는지에 따라 새로운 위치를 추정하는 것이다. 하지만 그 움직임에는 불확실성이 포함될 수 있기 때문에 확률로 표현한다. 
-
 **Measurement model**  
+
+시간 t에서의 측정값 $z_t$는 현재 상태 $x_t$에 의해 결정된다. 센서에 노이즈가 포함되기 때문에 확률로 표현한다. 로봇이 카메라를 이용해 자신의 위치를 측정하면, 현재 상태에서 측정된 데이터와 실제 상태의 관계를 설명하는 것이다.  
 
 $$
 p(z_t \vert x_t)  
 $$  
-
-시간 t에서의 측정값 $z_t$는 현재 상태 $x_t$에 의해 결정된다. 센서에 노이즈가 포함되기 때문에 확률로 표현한다. 로봇이 카메라를 이용해 자신의 위치를 측정하면, 현재 상태에서 측정된 데이터와 실제 상태의 관계를 설명하는 것이다.  
 
 
 **Prediction Step**   
@@ -73,7 +71,10 @@ $$
 유도:
 
 $$
-p(x_t \vert z_{1:t-1}, u_{1:t}) = \int p(x_t, x_{t-1} \vert z_{1:t-1}, u_{1:t}) \, dx_{t-1} 
+p(x_t \vert z_{1:t-1}, u_{1:t}) = \int p(x_t, x_{t-1} \vert z_{1:t-1}, u_{1:t}) \, dx_{t-1}
+$$
+
+$$
 = \int p(x_t \vert x_{t-1}, z_{1:t-1}, u_{1:t}) p(x_{t-1} \vert z_{1:t-1}, u_{1:t}) \, dx_{t-1}
 $$
 
@@ -91,7 +92,13 @@ $$
 p(x_t \vert z_{1:t}, u_{1:t}) = \frac{p(z_t \vert x_t, z_{1:t-1}, u_{1:t}) p(x_t \vert z_{1:t-1}, u_{1:t})}{p(z_t \vert z_{1:t-1}, u_{1:t})}  
 $$
 
-$$p(x \vert w, v) = \frac{p(w \vert x, v) p(x \vert v)}{p(w \vert v)}$$ 라는 점이 사용되었다. 
+$$
+p(x \vert w, v) = \frac{p(w \vert x, v) p(x \vert v)}{p(w \vert v)}
+$$ 
+
+라는 점이 사용되었다. 
+
+**정리**  
 
 ![BayesFilter](../images/KalmanFilter/BayesFilter.png)
 
@@ -106,6 +113,9 @@ $$p(x \vert w, v) = \frac{p(w \vert x, v) p(x \vert v)}{p(w \vert v)}$$ 라는 �
 $$
 p(x) = \frac{1}{(2\pi)^{n/2} \sqrt{\det(\Sigma)}} 
 \exp\left( -\frac{1}{2} (x - \mu)^T \Sigma^{-1} (x - \mu) \right)
+$$
+
+$$
 \text{where } \mu \in \mathbb{R}^n \text{ and } \Sigma \in \mathbb{R}^{n \times n}  
 $$
 
@@ -120,27 +130,17 @@ $x, y$가 독립 가우시안 분포이면 $z=x+y$ 역시 가우시안 분포이
 
 **Fact 3: Affine Transformations**  
 
-$x~N(\mu_x, \Sigma_x)$, $y=Ax+b$ 이면 $y~N(\mu_y, \Sigma_y)$이고, $\mu_y = A \mu_x + b$, $\Sigma_y = A \Sigma_x A^T$
+$x ~ N(\mu_x, \Sigma_x)$, $y=Ax+b$ 이면 $y ~ N(\mu_y, \Sigma_y)$이고, $\mu_y = A \mu_x + b$, $\Sigma_y = A \Sigma_x A^T$ 이다.  
 
-유도:
-
-$$
-\mu_y = E[y] \quad = E[Ax + b] \quad = A E[x] + b \quad = A \mu_x + b
-$$
-
-$$
-\Sigma_y = E \left[ (y - \mu_y)(y - \mu_y)^T \right] \quad = E \left[ (Ax + b - A\mu_x - b)(Ax + b - A\mu_x - b)^T \right] \\
-\quad = E \left[ (A(x - \mu_x))(A(x - \mu_x))^T \right] \quad = A E \left[ (x - \mu_x)(x - \mu_x)^T \right] A^T \quad = A Sigma_x A^T
-$$
 
 **Fact 4: Conditional Distributions**  
 
 $$
-\text{mean } \mu_{x_1 \vert x_2} = \mu_1 + \Sigma_{12} \Sigma_{22}^{-1} (x_2 - \mu_2)  
+\mu_{x_1 \vert x_2} = \mu_1 + \Sigma_{12} \Sigma_{22}^{-1} (x_2 - \mu_2)  
 $$
 
 $$
-\text{covariance } \Sigma_{x_1 \vert x_2} = \Sigma_{11} - \Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}  
+\Sigma_{x_1 \vert x_2} = \Sigma_{11} - \Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}  
 $$ 
 
 ---
@@ -149,13 +149,13 @@ $$
 
 **Assumptions**  
 
-\1. Prior는 가우시안 분포를 따른다.  
+- Prior는 가우시안 분포를 따른다.  
 
 $$
 p(x_0) \sim N(\mu _0, \sigma _0)
 $$
 
-\2. Process model $p(x_t \vert x_{t-1}, u_t)$는 노이즈가 첨가된 선형 가우시안 분포를 따른다.  
+- Process model $p(x_t \vert x_{t-1}, u_t)$는 노이즈가 첨가된 선형 가우시안 분포를 따른다.  
 
 $$
 x_t = A_t x_{t-1} + B_t u_t + n_t  
@@ -165,7 +165,7 @@ $$
 n_t \sim N(0, Q_t)  
 $$
 
-Measurement model $p(z_t \vert x_t)$은 노이즈가 첨가된 선형 가우시안 분포를 따른다.
+- Measurement model $p(z_t \vert x_t)$은 노이즈가 첨가된 선형 가우시안 분포를 따른다.
 
 $$
 z_t = C_t x_t + v_t  
@@ -194,19 +194,24 @@ z_t = C_t \bar{x}_t + v_t, \quad v_t \sim N(0, R_t)
 $$
 
 $$
-x_t = \bar{x}_t
+x_t = \bar{x}_t \begin{bmatrix} x_t \\ z_t \end{bmatrix}
 $$
+
 $$
-\begin{bmatrix} x_t \\ z_t \end{bmatrix}
 = \begin{bmatrix} I & 0 \\ C & I \end{bmatrix} \begin{bmatrix} \bar{x}_t \\ v_t \end{bmatrix}
 $$
 
 이는 Jointly Gaussian Distribution 이므로,  
 
 $$
-\mu = \begin{bmatrix} \hat{\mu}_t \\ C \hat{\mu}_t \end{bmatrix}
+\mu = \begin{bmatrix} \hat{\mu}_t \\ C \hat{\mu}_t \end{bmatrix}  
+$$
 
+$$
 \Sigma = \begin{bmatrix} I & 0 \\ C & I \end{bmatrix} \begin{bmatrix} \hat{\Sigma}_t & 0 \\ 0 & R \end{bmatrix} \begin{bmatrix} I & C^T \\ 0 & I \end{bmatrix}
+$$
+
+$$
 = \begin{bmatrix} \hat{\Sigma}_t & \hat{\Sigma}_t C^T \\ C \hat{\Sigma}_t & C \hat{\Sigma}_t C^T + R \end{bmatrix}
 $$
 
@@ -219,11 +224,21 @@ $$
 $$
 
 $$
-K_t = \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1} \\
-
-\mu_t = \hat{\mu}_t + K_t (z_t - C \hat{\mu}_t) \\
-
-\Sigma_t = \hat{\Sigma}_t - K_t C \hat{\Sigma}_t \\
+K_t = \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1}
 $$
 
+$$
+\mu_t = \hat{\mu}_t + K_t (z_t - C \hat{\mu}_t)
+$$
 
+$$
+\Sigma_t = \hat{\Sigma}_t - K_t C \hat{\Sigma}_t
+$$
+
+---
+
+뉴욕대학교 Giuseppe Loianno 교수님의 ROB-UY3303 Robot Motion and Planning 강의 자료를 기반으로 작성되었음  
+
+---
+
+2024/09/18

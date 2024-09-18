@@ -6,7 +6,7 @@ nav_order: 5
 ---
 
 
-## 칼만 필터
+## Kalman Filter (칼만 필터)
 
 #### 뉴욕대학교 Giuseppe Loianno 교수님의 ROB-UY3303 Robot Motion and Planning 강의 자료를 기반으로 작성되었음  
 
@@ -36,6 +36,8 @@ $$
 ![Markov](../images/KalmanFilter/markov.png)
 
 위 그림에서 Markov Assumtion을 적용하면 모델을 간단하게 나타낼 수 있다. $x_t$는 현재 상태, $u_t$는 제어 입력, $z_t$는 관측 값을 나타낸다.  
+
+---
 
 **Prior**  
 
@@ -68,16 +70,42 @@ $$
 p(x_t \vert z_{1:t-1}, u_{1:t}) = \int p(x_t \vert x_{t-1}, u_t) p(x_{t-1} \vert z_{1:t-1}, u_{1:t}) dx_{t-1}  
 $$  
 
+유도:
+
+$$
+p(x_t \vert z_{1:t-1}, u_{1:t}) = \int p(x_t, x_{t-1} \vert z_{1:t-1}, u_{1:t}) \, dx_{t-1} 
+= \int p(x_t \vert x_{t-1}, z_{1:t-1}, u_{1:t}) p(x_{t-1} \vert z_{1:t-1}, u_{1:t}) \, dx_{t-1}
+$$
+
 **Update Step**  
- 
+
 $$
 p(x_t \vert z_{1:t}, u_{1:t}) = \eta p(z_t \vert x_t) p(x_t \vert z_{1:t-1}, u_{1:t})  
 $$
 
 $\eta$ 는 marginal distribution 이다.  
 
+유도:
 
-**3. Assumptions**  
+$$
+p(x_t \vert z_{1:t}, u_{1:t}) = \frac{p(z_t \vert x_t, z_{1:t-1}, u_{1:t}) p(x_t \vert z_{1:t-1}, u_{1:t})}{p(z_t \vert z_{1:t-1}, u_{1:t})}  
+$$
+
+$$p(x \vert w, v) = \frac{p(w \vert x, v) p(x \vert v)}{p(w \vert v)}$$ 라는 점이 사용되었다. 
+
+![BayesFilter](../images/KalmanFilter/BayesFilter.png)
+
+---
+
+### **II. Gaussian Random Variables**  
+
+
+
+---
+
+### **III. Kalman Filter**  
+
+**Assumptions**  
 - Prior follows a Gaussian distribution  
 $p(x_0) \sim N(\mu _0, \sigma _0)$
 
@@ -86,8 +114,9 @@ $p(x_0) \sim N(\mu _0, \sigma _0)$
 $$
 x_t = A_t x_{t-1} + B_t u_t + n_t  
 $$
+
 $$
-n_t \sim N(0, Q_t)
+n_t \sim N(0, Q_t)  
 $$
 
 - Measurement model $p(z_t \vert x_t)$ is linear with additive Gaussian white noise
@@ -95,7 +124,8 @@ $$
 $$
 z_t = C_t x_t + v_t  
 $$
+
 $$
-v_t \sim N(0, R_t)
+v_t \sim N(0, R_t)  
 $$
 

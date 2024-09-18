@@ -346,7 +346,7 @@ plotData(savedStates, sampledTime, Sampled_gt, 1, datasetNum);
 
 ![Result](../images/KalmanFilter/result.png)
 
-
+관측 값을 이용해서 예측한 경로와 실제 경로가 거의 일치하는 것을 볼 수 있다. 
 
 
 ---

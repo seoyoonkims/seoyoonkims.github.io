@@ -130,7 +130,7 @@ $x, y$가 독립 가우시안 분포이면 $z=x+y$ 역시 가우시안 분포이
 
 **Fact 3: Affine Transformations**  
 
-$x \~ N(\mu_x, \Sigma_x)$, $y=Ax+b$ 이면 $y \~ N(\mu_y, \Sigma_y)$이고, $\mu_y = A \mu_x + b$, $\Sigma_y = A \Sigma_x A^T$ 이다.  
+$x \sim N(\mu_x, \Sigma_x)$, $y=Ax+b$ 이면 $y \sim N(\mu_y, \Sigma_y)$이고, $\mu_y = A \mu_x + b$, $\Sigma_y = A \Sigma_x A^T$ 이다.  
 
 
 **Fact 4: Conditional Distributions**  

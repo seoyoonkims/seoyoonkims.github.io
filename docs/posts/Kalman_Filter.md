@@ -99,6 +99,42 @@ $$p(x \vert w, v) = \frac{p(w \vert x, v) p(x \vert v)}{p(w \vert v)}$$ 라는 �
 
 ### **II. Gaussian Random Variables**  
 
+**Multivariate Normal Distribution**  
+
+![Gaussian Distribution](../images/KalmanFilter/gaussian.png)
+
+$$
+p(x) = \frac{1}{(2\pi)^{n/2} \sqrt{\det(\Sigma)}} 
+\exp\left( -\frac{1}{2} (x - \mu)^T \Sigma^{-1} (x - \mu) \right)
+\text{where } \mu \in \mathbb{R}^n \text{ and } \Sigma \in \mathbb{R}^{n \times n}  
+$$
+
+**Sum of Independent Gaussians**  
+
+$x, y$가 독립 가우시안 분포이면 $z=x+y$ 역시 가우시안 분포이며 $\mu_z = \mu_x+\mu_y$이고 $\Sigma_z=\Sigma_x+\Sigma_y$이다.  
+  
+
+**Affine Transformations**  
+
+$x~N(\mu_x, \Sigma_x)$, $y=Ax+b$ 이면 $y~N(\mu_y, \Sigma_y)$이고, $\mu_y = A \mu_x + b$, $\Sigma_y = A \Sigma_x A^T$
+
+유도:
+
+$$
+\mu_y = E[y] \\
+\quad = E[Ax + b] \\
+\quad = A E[x] + b \\
+\quad = A \mu_x + b
+$$
+
+$$
+\Sigma_y = E \left[ (y - \mu_y)(y - \mu_y)^T \right] \\
+\quad = E \left[ (Ax + b - A\mu_x - b)(Ax + b - A\mu_x - b)^T \right] \\
+\quad = E \left[ (A(x - \mu_x))(A(x - \mu_x))^T \right] \\
+\quad = A E \left[ (x - \mu_x)(x - \mu_x)^T \right] A^T \\
+\quad = A \Sigma_x A^T
+$$
+
 
 
 ---

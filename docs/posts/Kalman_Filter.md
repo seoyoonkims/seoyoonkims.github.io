@@ -214,7 +214,8 @@ $$
 $$
 \Sigma = \begin{bmatrix} I & 0 \\ C & I \end{bmatrix} \begin{bmatrix} \hat{\Sigma}_t & 0 \\ 0 & R \end{bmatrix} \begin{bmatrix} I & C^T \\ 0 & I \end{bmatrix} = \begin{bmatrix} \hat{\Sigma}_t & \hat{\Sigma}_t C^T \\ C \hat{\Sigma}_t & C \hat{\Sigma}_t C^T + R \end{bmatrix}
 $$
-
+  
+  
 $z_t$가 관측되고 나면 $\mu_{t}$는 $\mu_{x_t \vert z_t}$로 업데이트 되어야 한다. $\Sigma_{t}$의 경우도 마찬가지이다.  
 
 $$
@@ -231,7 +232,9 @@ $$
 K_t = \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1}
 $$
 
-Perfect Sensor ($R=0$)의 경우 $K_t = C^{-1}$, $\mu_t = C^{-1}z_t$, $\Sigma_t = 0$이 되고, Horroble Sensor ($R \to \infty$)의 경우 다음과 같아지는 것을 볼 수 있다.  
+Perfect Sensor ($R=0$)의 경우 $K_t = C^{-1}$, $\mu_t = C^{-1}z_t$, $\Sigma_t = 0$이 되고, 
+
+Horrible Sensor ($R \to \infty$)의 경우 다음과 같아지는 것을 볼 수 있다.  
 
 $$
 K_t = \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1} \to 0

@@ -178,12 +178,14 @@ $$
 **Prediction**  
 
 $$
-x_t = A_t x_{t-1} + B_t u_t + n_t \\
-n_t \sim N(0, Q_t) \\
+x_t = A_t x_{t-1} + B_t u_t + n_t, n_t \sim N(0, Q_t)
 $$
 
 $$
-\hat{\mu}_t = A \mu_{t-1} + B u_t \\
+\hat{\mu}_t = A \mu_{t-1} + B u_t
+$$
+
+$$
 \hat{\Sigma}_t = A \Sigma_{t-1} A^T + Q
 $$
 
@@ -194,11 +196,11 @@ z_t = C_t \bar{x}_t + v_t, \quad v_t \sim N(0, R_t)
 $$
 
 $$
-x_t = \bar{x}_t \begin{bmatrix} x_t \\ z_t \end{bmatrix}
+x_t = \bar{x}_t 
 $$
 
 $$
-= \begin{bmatrix} I & 0 \\ C & I \end{bmatrix} \begin{bmatrix} \bar{x}_t \\ v_t \end{bmatrix}
+\begin{bmatrix} x_t \\ z_t \end{bmatrix} = \begin{bmatrix} I & 0 \\ C & I \end{bmatrix} \begin{bmatrix} \bar{x}_t \\ v_t \end{bmatrix}
 $$
 
 이는 Jointly Gaussian Distribution 이므로,  
@@ -208,11 +210,7 @@ $$
 $$
 
 $$
-\Sigma = \begin{bmatrix} I & 0 \\ C & I \end{bmatrix} \begin{bmatrix} \hat{\Sigma}_t & 0 \\ 0 & R \end{bmatrix} \begin{bmatrix} I & C^T \\ 0 & I \end{bmatrix}
-$$
-
-$$
-= \begin{bmatrix} \hat{\Sigma}_t & \hat{\Sigma}_t C^T \\ C \hat{\Sigma}_t & C \hat{\Sigma}_t C^T + R \end{bmatrix}
+\Sigma = \begin{bmatrix} I & 0 \\ C & I \end{bmatrix} \begin{bmatrix} \hat{\Sigma}_t & 0 \\ 0 & R \end{bmatrix} \begin{bmatrix} I & C^T \\ 0 & I \end{bmatrix} = \begin{bmatrix} \hat{\Sigma}_t & \hat{\Sigma}_t C^T \\ C \hat{\Sigma}_t & C \hat{\Sigma}_t C^T + R \end{bmatrix}
 $$
 
 $z_t$가 관측되고 나면 $\mu_{x_t}$는 $\mu_{x_t \vert z_t}$로 업데이트 되어야 한다. $\Sigma_{x_t}$의 경우도 마찬가지이다.  

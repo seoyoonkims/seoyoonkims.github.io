@@ -123,7 +123,7 @@ $$
 
 **Fact 1: Jointly Normal Random Vectors**  
 
-$x$가 multivariate gaussian random variable이면 $x = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}$ 에서 $x_1, x_2$도 모두 gaussian random variable 이다. $x_1, x_2$를 jointly gaussian 이라고 한다.  
+$x$가 multivariate gaussian random variable이면 $$x = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}$$ 에서 $x_1, x_2$도 모두 gaussian random variable 이다. $x_1, x_2$를 jointly gaussian 이라고 한다.  
 
 **Fact 2: Sum of Independent Gaussians**  
 
@@ -258,6 +258,93 @@ $$
 ---
 
 ### **IV. MATLAB 구현**  
+
+Prediction Step:
+
+```
+function [covarEst,uEst] = pred_step(uPrev,covarPrev,ut,dt)
+
+m = 0.5; k = 3.5; b = 2;
+
+A = [0 1; -k/m -b/m];
+B = [0; 1/m];
+Q = [1; 1];
+I = eye(2);
+Ad = I + A*dt;
+Bd = B*dt;
+
+uEst = Ad*uPrev + Bd*ut;
+covarEst = Ad*covarPrev*transpose(Ad) + Q*dt;
+
+end
+```
+
+Update Step:
+
+```
+function [uCurr,covarCurr] = upd_step(z_t,covarEst,uEst)
+
+C = [1 0];
+Rp = 1;
+K = covarEst*transpose(C)*inv(C*covarEst*transpose(C)+Rp);
+uCurr = uEst + K*(z_t - C*uEst);
+covarCurr = covarEst - K*C*covarEst;
+
+end
+```
+
+Kalman Filter:
+
+```
+clear all; % Clear variables
+close all;
+clc;
+
+datasetNum = 1; % 1 or 2
+
+[Sampled_gt, MeasuredData, Impulse, sampledTime] = init(datasetNum);
+
+% Measuring position
+Z = MeasuredData(1,:); %all the measurements that you need for the update
+
+% Set initial condition
+uPrev = vertcat(Sampled_gt(:,1)); % Copy the true Initial state
+covarPrev = eye(2); % Covariance constant
+savedStates = zeros(2, length(sampledTime)); 
+prevTime = 0; %previous time step in real time
+
+for i = 1:length(sampledTime)
+    %Getting acceleration and input force for prediction step
+    ut = Impulse(i);
+    
+    dt= sampledTime(i)-prevTime;
+    prevTime = sampledTime(i);
+    z_t=Z(i);
+    
+    %Getting Prediction Step
+    [covarEst,uEst] = pred_step(uPrev,covarPrev,ut,dt);
+     
+    %Getting Updated Step
+    [uCurr,covar_curr] = upd_step(z_t,covarEst,uEst);
+    
+    %Saving the new State
+    savedStates(:,i) = uCurr;
+    
+    %updating for next iteration
+    uPrev = uCurr;
+    covarPrev = covar_curr;  
+    
+end
+
+plotData(savedStates, sampledTime, Sampled_gt, 1, datasetNum);
+```
+
+이런 식으로 짜고 DataSet만 적절히 넣어주면 된다.  
+  
+
+**Results**  
+
+![Result](../images/KalmanFilter/result.png)
 
 
 

@@ -6,7 +6,7 @@ nav_order: 5
 ---
 
 
-## Kalman Filter (칼만 필터)
+## Kalman Filter (칼만 필터 원리 & 구현)
 
 #### 뉴욕대학교 Giuseppe Loianno 교수님의 ROB-UY3303 Robot Motion and Planning 강의 자료를 기반으로 작성되었음  
 
@@ -154,13 +154,14 @@ $$
 ### **III. Kalman Filter**  
 
 **Assumptions**  
-Prior follows a Gaussian distribution  
+
+\1. Prior는 가우시안 분포를 따른다.  
 
 $$
 p(x_0) \sim N(\mu _0, \sigma _0)
 $$
 
-Process model $p(x_t \vert x_{t-1}, u_t)$ is linear with additive Gaussian white noise
+\2. Process model $p(x_t \vert x_{t-1}, u_t)$는 노이즈가 첨가된 선형 가우시안 분포를 따른다.  
 
 $$
 x_t = A_t x_{t-1} + B_t u_t + n_t  
@@ -170,7 +171,7 @@ $$
 n_t \sim N(0, Q_t)  
 $$
 
-Measurement model $p(z_t \vert x_t)$ is linear with additive Gaussian white noise
+Measurement model $p(z_t \vert x_t)$은 노이즈가 첨가된 선형 가우시안 분포를 따른다.
 
 $$
 z_t = C_t x_t + v_t  
@@ -179,4 +180,55 @@ $$
 $$
 v_t \sim N(0, R_t)  
 $$
+
+**Prediction**  
+
+$$
+x_t = A_t x_{t-1} + B_t u_t + n_t \\
+n_t \sim N(0, Q_t)
+
+\text{Prediction:} \\
+\hat{\mu}_t = A \mu_{t-1} + B u_t \\
+\hat{\Sigma}_t = A \Sigma_{t-1} A^T + Q
+$$
+
+**Update**  
+
+$$
+\text{Observation model: } \\
+z_t = C_t \bar{x}_t + v_t, \quad v_t \sim N(0, R_t)
+$$
+
+$$
+\text{The best update without a measurement is to set } x_t = \bar{x}_t
+
+\begin{bmatrix} x_t \\ z_t \end{bmatrix}
+= \begin{bmatrix} I & 0 \\ C & I \end{bmatrix} \begin{bmatrix} \bar{x}_t \\ v_t \end{bmatrix}
+$$
+
+이는 Jointly Gaussian Distribution 이므로,  
+
+$$
+\mu = \begin{bmatrix} \hat{\mu}_t \\ C \hat{\mu}_t \end{bmatrix}
+
+\Sigma = \begin{bmatrix} I & 0 \\ C & I \end{bmatrix} \begin{bmatrix} \hat{\Sigma}_t & 0 \\ 0 & R \end{bmatrix} \begin{bmatrix} I & C^T \\ 0 & I \end{bmatrix}
+= \begin{bmatrix} \hat{\Sigma}_t & \hat{\Sigma}_t C^T \\ C \hat{\Sigma}_t & C \hat{\Sigma}_t C^T + R \end{bmatrix}
+$$
+
+$$
+\mu_{x_t \vert z_t} = \hat{\mu}_t + \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1} (z_t - C \hat{\mu}_t) 
+$$
+
+$$
+\Sigma_{x_t \vert z_t} = \hat{\Sigma}_t - \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1} C \hat{\Sigma}_t
+
+\text{Define the Kalman gain } K_t
+
+K_t = \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1}
+
+\mu_t = \hat{\mu}_t + K_t (z_t - C \hat{\mu}_t)
+
+\Sigma_t = \hat{\Sigma}_t - K_t C \hat{\Sigma}_t
+$$
+
 

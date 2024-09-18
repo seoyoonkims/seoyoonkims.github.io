@@ -21,8 +21,8 @@ South Korea
 
 
 ## Education  
-> Electrical Engineering at KAIST, Korea (**B.S.**, 2021.02 ~ Present)
-> Mechanical Engineering at NYU, USA (Minor, 2023.08 ~ 2023.12)
+> Major in Electrical Engineering at KAIST, Korea (2021.02 ~ Present)  
+> Minor in Mechanical Engineering at NYU, USA (2023.08 ~ 2023.12)
 
 
 ## Expericence  

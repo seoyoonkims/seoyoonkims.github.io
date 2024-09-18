@@ -223,9 +223,13 @@ $$
 \Sigma_{x_t \vert z_t} = \hat{\Sigma}_t - \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1} C \hat{\Sigma}_t
 $$
 
+Kalman Gain $K_t$는 다음과 같이 정의한다. 
+
 $$
 K_t = \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1}
 $$
+
+따라서 다음의 최종 결과를 얻는다.  
 
 $$
 \mu_t = \hat{\mu}_t + K_t (z_t - C \hat{\mu}_t)

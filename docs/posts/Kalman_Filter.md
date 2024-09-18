@@ -215,6 +215,8 @@ $$
 = \begin{bmatrix} \hat{\Sigma}_t & \hat{\Sigma}_t C^T \\ C \hat{\Sigma}_t & C \hat{\Sigma}_t C^T + R \end{bmatrix}
 $$
 
+$z_t$가 관측되고 나면 $\mu_{x_t}$는 $\mu_{x_t \vert z_t}$로 업데이트 되어야 한다. $\Sigma_{x_t}$의 경우도 마찬가지이다.  
+
 $$
 \mu_{x_t \vert z_t} = \hat{\mu}_t + \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1} (z_t - C \hat{\mu}_t) 
 $$
@@ -223,13 +225,27 @@ $$
 \Sigma_{x_t \vert z_t} = \hat{\Sigma}_t - \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1} C \hat{\Sigma}_t
 $$
 
-Kalman Gain $K_t$는 다음과 같이 정의한다. 
+위 식에서 Kalman Gain $K_t$를 다음과 같이 정의할 수 있다.  
 
 $$
 K_t = \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1}
 $$
 
-따라서 다음의 최종 결과를 얻는다.  
+Perfect Sensor ($R=0$)의 경우 $K_t = C^{-1}$, $\mu_t = C^{-1}z_t$, $\Sigma_t = 0$이 되고, Horroble Sensor ($R \to \infty$)의 경우 다음과 같아지는 것을 볼 수 있다.  
+
+$$
+K_t = \hat{\Sigma}_t C^T (C \hat{\Sigma}_t C^T + R)^{-1} \to 0
+$$
+
+$$
+\mu_t = \hat{\mu}_t + K_t (z_t - C \hat{\mu}_t) \to \hat{\mu}_t
+$$
+
+$$
+\Sigma_t = \hat{\Sigma}_t - K_t C \hat{\Sigma}_t \to \hat{\Sigma}_t
+$$
+
+$K_t$로 간단히 나타내면 다음의 최종 결과를 얻는다.  
 
 $$
 \mu_t = \hat{\mu}_t + K_t (z_t - C \hat{\mu}_t)

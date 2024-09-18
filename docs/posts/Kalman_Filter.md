@@ -8,13 +8,13 @@ nav_order: 5
 
 ## 칼만 필터
 
-### 뉴욕대학교 Giuseppe Loianno 교수님의 ROB-UY3303 Robot Motion and Planning 강의 자료를 기반으로 작성되었음  
+#### 뉴욕대학교 Giuseppe Loianno 교수님의 ROB-UY3303 Robot Motion and Planning 강의 자료를 기반으로 작성되었음  
 
 ---
 
 **칼만 필터**는 루돌프 칼만이 개발한 제어 알고리즘으로, 노이즈가 포함된 관측값을 바탕으로 선형 시스템의 상태를 추정하는 재귀 필터이다.  
 
-칼만 필터를 완전히 이해하기 위해서는 베이지안 필터와 가우시안 랜덤 변수에 대해 먼저 공부할 필요가 있다.  
+칼만 필터를 완전히 이해하기 위해서는 Bayes' Filter와 Gaussian Random Variable에 대해 먼저 공부할 필요가 있기 때문에 이를 포함하여 3장으로 구성하였다.  
 
 ---
 
@@ -25,7 +25,7 @@ nav_order: 5
 Definition: 
 
 $$
-p(x_{t+1} \vert x_{0:t} = p(x_{t+1} \vert x_t))  
+p(x_{t+1} \vert x_{0:t}) = p(x_{t+1} \vert x_t)  
 $$
 
 즉, 해당 시점에서 미래를 예측하는데 필요한 정보들만 갖고 있으면 완전한 상태가 된다. 과거의 정보나 독립적인 정보들은 필요하지 않다. 

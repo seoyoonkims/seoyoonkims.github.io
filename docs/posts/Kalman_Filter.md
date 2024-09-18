@@ -35,13 +35,24 @@ $$
 
 ![Control](../images/KalmanFilter/control.png)
 
-제어 시스템은 Move, Predict, Sense, Update의 반복이라고 볼 수 있다. 물체가 움직이면 불확실성이 커지고, 현재 상태와 이전 관측값을 토대로 다음 상태를 예측한다. 센서를 이용해서 관측값을 얻으면 불확실성을 없애는 방향으로 업데이트를 진행한다.  
+제어 시스템은 Move, Predict, Sense, Update의 반복이라고 볼 수 있다. 물체가 움직이면 불확실성이 커지고, 현재 상태와 이전 관측값을 토대로 다음 상태를 예측한다. 센서를 이용해서 관측값을 얻으면 불확실성을 없애는 방향으로 업데이트를 진행한다.
 
 ![Markov](../images/KalmanFilter/markov.png)
 
-Prior: $p(x_0)$  
-Process model: $p(x_t \vert x_{t-1}, u_t)$  
-Measurement model: $(z_t \vert x_t)$  
+위 그림에서 Markov Assumtion을 적용하면 모델을 간단하게 나타낼 수 있다. $x_t$는 현재 상태, $u_t$는 제어 입력, $z_t$는 관측 값을 나타낸다.  
+
+1. Prior: $p(x_0)$  
+
+초기 상태에 대한 사전 확률 분포를 나타낸다. 즉, 로봇이 처음 시작한 위치를 특정 범위 내 위치에 존재할 확률로 나타낸다. 
+
+2. Process model: $p(x_t \vert x_{t-1}, u_t)$   
+
+시간 t에서의 상태 $x_t$가 이전 상태 $x_{t-1}$과 제어 입력 $u_t$에 의해 결정된다는 것을 나타낸다. 로봇이 이전 위치에서 얼마나 움직였는지에 따라 새로운 위치를 추정하는 것이다. 하지만 그 움직임에는 불확실성이 포함될 수 있기 때문에 확률로 표현한다. 
+
+3. Measurement model: $(z_t \vert x_t)$  
+
+시간 t에서의 측정값 $z_t$는 현재 상태 $x_t$에 의해 결정된다. 센서에 노이즈가 포함되기 때문에 확률로 표현한다. 로봇이 카메라를 이용해 자신의 위치를 측정하면, 현재 상태에서 측정된 데이터와 실제 상태의 관계를 설명하는 것이다.  
+
 
 Prediction Step: $p(x_t \vert z_{1:t-1}, u_{1:t}) = \int p(x_t \vert x_{t-1}, u_t) p(x_{t-1} \vert z_{1:t-1}, u_{1:t}) dx_{t-1}$  
 

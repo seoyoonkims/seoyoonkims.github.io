@@ -96,4 +96,41 @@ DiT에서 파라미터의 상당 부분인 27%를 차지하는 AdaLN 모듈을 �
 
 ### **3. Experiment**  
 
+**Training Details**  
+T5 large 언어 모델(Flan-T5-XXL)을 텍스트 인코더로 사용하며, DiT-XL/2 (Diffusion Transformer)를 기본 네트워크로 활용했다. VAE로 사용하여 이미지를 잠재 공간에서 인코딩했다.  
+
+훈련 시간: 모델은 64개의 V100 GPU로 약 26일간 훈련되었으며, AdamW 옵티마이저와 일정한 learning rate (2e-5)을 사용했다.  
+
+
+**Evaluation Metrics**  
+
+FID (Frechet Inception Distance): 생성된 이미지와 실제 이미지의 분포 차이를 평가하는 지표로, 이미지의 품질을 측정한다.  
+T2I-CompBench: 텍스트-이미지 생성 모델의 구성 능력을 평가하는 벤치마크로, 속성 연결, 객체 관계, 복잡한 구성을 평가한다.  
+User Study: 실제 사용자들이 생성된 이미지의 품질을 평가한 결과이다.
+
+**Fidelity Assessment**  
+
+PIXART-α는 MSCOCO 데이터셋에서 FID 점수가 7.32로 측정되었다. 훈련 시간과 데이터 사용량이 매우 적음에도 불구하고, 기존 모델들과 비교해 높은 성능을 기록한 것이다. RAPHAEL과 같은 모델은 더 많은 자원을 사용했지만, PIXART-α는 전체 자원의 2% 미만을 사용하면서도 거의 비슷한 수준의 FID 성능을 달성했다.  
+
+![table2](../images/Pixart/table2.png)
+
+
+**Alignment Assessment**  
+T2I-CompBench 벤치마크에서 PIXART-α는 속성 바인딩, 객체 관계, 복잡한 구성과 같은 다양한 평가 지표에서 우수한 성능을 보였다. 특히 텍스트-이미지 정렬 학습을 통해 텍스트와 이미지 간의 일관성을 잘 유지하였다.  
+
+![table3](../images/Pixart/table3.png)
+
+**User Study**  
+사용자 선호도 조사에서는 PIXART-α가 Stable Diffusion, DALL·E 2, DeepFloyd와 같은 최신 모델들을 능가하는 이미지 품질과 텍스트-이미지 일치율을 보여주었다. 7.2% 높은 이미지 품질 개선과 42.4% 더 높은 텍스트-이미지 정렬 정확도를 기록했다.  
+
+![5](../images/Pixart/5.png)
+
+
+**Ablation Study**  
+Ablation Study를 통해 각 구성 요소가 모델 성능에 미치는 영향을 분석했다. 특히 adaLN-single 기법을 통해 GPU 메모리 사용량을 약 21% 절감하면서도 FID 성능에 미치는 영향은 미미하다는 점이 확인되었다.  
+
+re-parameterization을 사용하지 않은 모델은 FID 성능이 떨어지고 이미지 왜곡이 발생했지만, re-parameterization 기법을 적용한 모델은 성능이 크게 개선되었다.
+
+![6](../images/Pixart/6.png)
+
 

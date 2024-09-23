@@ -133,4 +133,6 @@ re-parameterization을 사용하지 않은 모델은 FID 성능이 떨어지고 
 
 ![6](../images/Pixart/6.png)
 
+---
 
+2024/9/22

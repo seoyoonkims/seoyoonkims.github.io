@@ -1,7 +1,7 @@
 ---
 title: Server Connecting
 layout: default
-parent: Posts
+parent: System
 nav_order: 1
 ---
 

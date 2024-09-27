@@ -1,8 +1,8 @@
 ---
-title: PIXART-α
+title: PIXART-Σ
 layout: default
 parent: Paper Review
-nav_order: 9
+nav_order: 10
 ---
 
 ### 논문 리뷰  

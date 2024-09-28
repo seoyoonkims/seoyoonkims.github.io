@@ -30,7 +30,7 @@ vi authorized_keys
 ```
 에 public code를 붙여넣기 하고 저장.  
  
- 
+---
  
 ### 2. server -> GitHub    
  

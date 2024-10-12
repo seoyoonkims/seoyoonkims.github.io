@@ -7,6 +7,7 @@ nav_order: 6
 
 ## Cache Architecture  
 
+(작성 중)
 ---
 
 **Why Caches?**  
@@ -21,7 +22,7 @@ nav_order: 6
 
 **Principles**  
 
-Temporal Locality와 Spatial Locality에 기반해서 가장 최근에 이용된 데이터들, 즉 가까운 미래에 사용될 가능성이 높은 데이터들을 DRAM 보다 접근 속도가 빠른 캐시 메모리에 저장해서 속도를 높이는 것이다.   
+Temporal Locality와 Spatial Locality에 기반해서 가장 최근에 이용된 데이터들, 즉 가까운 미래에 사용될 가능성이 높은 데이터들을 DRAM 보다 접근 속도가 빠른 캐시 메모리에 저장해서 속도를 높인다.   
 
 - Temporal Locality: 프로그램은 같은 장소를 짧은 시간 내에 여러번 반복하는 경향이 있다. ex) loops  
 - Spatial Locality: 프로그램은 근처에 있는 비슷한 메모리 주소를 참조하는 경향이 있다. ex) array
@@ -44,8 +45,19 @@ Temporal Locality와 Spatial Locality에 기반해서 가장 최근에 이용된
 
 ![2](../images/cache/2.png)
 
+Hit이면 바로 사용하면 되지만, Miss인 경우 더 하위 계층에서 데이터를 Fetch 해와야 한다. 
 
+다음 파라미터들로 캐시가 디자인되는데, M은 메모리 사이즈, G는 접근 사이즈, C는 캐시의 사이즈를 뜻한다.  
 
+$$
+M = 2^m, G=2^g, C
+$$
+
+---
+
+**Direct-Mapped Cache**  
+
+![3](../images/cache/3.png)
 
 
 

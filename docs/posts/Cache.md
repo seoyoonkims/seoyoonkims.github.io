@@ -1,3 +1,9 @@
+---
+title: Cache Architecture
+layout: default
+parent: Posts
+nav_order: 6
+---
 
 ## Cache Architecture  
 

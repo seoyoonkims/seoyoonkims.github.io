@@ -91,9 +91,11 @@ $a=C/B$인 Set Associative Cache라고 보면 된다. 인덱스 비트가 없어
 
 Cache 구조가 $C/(C/B)/B \times B \times C/B = 1 \times B \times C/B$가 된다. Tag가 주어지면 모든 엔트리를 찾아서 데이터가 있으면 리턴한다. 모든 캐시 블록마다 Comparator가 필요하고 거대한 Multiplexer와 Wire가 필요하다.  
 
-다행히도 a=4 정도만 되어도 성능에 문제가 없다고 한다 
+다행히도 a=4 정도인 Set-Associated Cache를 사용해도 성능에 문제가 없어서 Fully Associative Cache는 잘 사용하지 않는다.  
 
 ---
+
+**Cache Misses**  
 
 
 

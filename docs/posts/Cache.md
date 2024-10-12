@@ -7,7 +7,6 @@ nav_order: 6
 
 ## Cache Architecture  
 
-(작성 중)
 ---
 
 **Why Caches?**  
@@ -55,7 +54,7 @@ $$
 
 ---
 
-**Direct-Mapped Cache**  
+### **Direct-Mapped Cache**  
 
 ![3](../images/cache/3.png)
 
@@ -67,7 +66,7 @@ Direct-Mapped Cache의 경우 같은 인덱스 자리에 여러 데이터가 매
 
 ---
 
-**Set-Associative Cache**  
+### **Set-Associative Cache**  
 
 Direct-Mapped Cache의 각 메모리 블록은 캐시의 특정 인덱스 딱 한 곳에만 저장될 수 있었다. 구현은 간단하지만, 동일한 인덱스에 여러 메모리 블록이 매핑되면 충돌이 발생한다.  
 
@@ -83,7 +82,7 @@ Direct-Mapped Cache는 $C/B \times B$ 였다면 Set-Associative Cache는 $C/a/B 
 
 ---
 
-**Fully Associative Cache**  
+### **Fully Associative Cache**  
 
 $a=C/B$인 Set Associative Cache라고 보면 된다. 인덱스 비트가 없어서 모든 메모리 블록이 아무 라인에나 저장될 수 있다. 매우 유연하지만 검색 비용도 매우 크고 느리다.  
 

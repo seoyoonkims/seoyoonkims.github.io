@@ -65,6 +65,36 @@ Direct-Mapped Cache의 경우 같은 인덱스 자리에 여러 데이터가 매
 
 블록 사이즈 B가 커지면 한 번에 많은 데이터를 로드하므로, Spatial Locality가 강한 상황에서 Prefetching의 효과가 좋을 수 있지만, 블록 수가 줄어들어서 충돌 가능성이 높아진다. 또한, 블록 사이즈가 크면 로드하는 데 Latency가 커지므로 필요한 Word를 먼저 로드해서 파이프라인에 공급하고 나머지를 로드하거나, 서브 블록들에 Valid Bit를 추가해서 Request가 날라온 서브 블록만 교체하는 방법 등이 있다.  
 
+---
+
+**Set-Associative Cache**  
+
+Direct-Mapped Cache의 각 메모리 블록은 캐시의 특정 인덱스 딱 한 곳에만 저장될 수 있었다. 구현은 간단하지만, 동일한 인덱스에 여러 메모리 블록이 매핑되면 충돌이 발생한다.  
+
+Set-Associative Cache는 Direct-Mapped Cache를 여러 세트로 나눈 것이다. 같은 인덱스에 매핑되는 메모리 블록이 a개의 Bank 중 아무 곳에 저장될 수 있어서 충돌이 줄어든다.  
+
+각 Bank는 C/a byte짜리 Direct-Mapped Cache과 같다. Tag는 이제 a에 대한 정보도 포함해야 하므로, $t=log_2 M - log_2 (C/a)$가 된다. $log_2 a$ 비트 만큼 늘어난 것을 볼 수 있다. 
+
+Direct-Mapped Cache는 $C/B \times B$ 였다면 Set-Associative Cache는 $C/a/B \times B \times a$가 된 것이다.  
+
+![4](../images/cache/4.png)
+
+이제 인덱스가 주어지면 a개의 Bank를 Search 해서 일치하는 Tag를 찾아야 한다. 따라서 a-to-1 Multiplexer가 필요하다. 그리고 그 인덱스에 업데이트 요청이 들어오면 a개의 Bank 중에서 어떤 것을 업데이트 할 지 결정하는 Replacement Policy가 필요하다. 가장 옛날에 사용된 캐시를 날리는 Least Recently Used (LRU) 정책, Random 하게 날리는 정책 등이 있다.  
+
+---
+
+**Fully Associative Cache**  
+
+$a=C/B$인 Set Associative Cache라고 보면 된다. 인덱스 비트가 없어서 모든 메모리 블록이 아무 라인에나 저장될 수 있다. 매우 유연하지만 검색 비용도 매우 크고 느리다.  
+
+![5](../images/cache/5.png)
+
+Cache 구조가 $C/(C/B)/B \times B \times C/B = 1 \times B \times C/B$가 된다. Tag가 주어지면 모든 엔트리를 찾아서 데이터가 있으면 리턴한다. 모든 캐시 블록마다 Comparator가 필요하고 거대한 Multiplexer와 Wire가 필요하다.  
+
+다행히도 a=4 정도만 되어도 성능에 문제가 없다고 한다 
+
+---
+
 
 
 

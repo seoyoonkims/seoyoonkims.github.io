@@ -114,9 +114,30 @@ Cache 구조가 $C/(C/B)/B \times B \times C/B = 1 \times B \times C/B$가 된�
 
 **2. Write-Miss Policy**  
 
-- Write-Allocate Cache: 
+- Write-Allocate Cache: Write-Miss 이면 $L_i$을 교체한다. Write-Back Cache와 잘 맞는다.  
 
-- Write-No-Allocate Cache:
+- Write-No-Allocate Cache: Write-Miss이면 $L_{i+1}$을 교체한다. Write-Through와 잘 맞는다.  
+
+---
+
+**Multi-Level Caches**  
+
+현대 고성능 프로세서에서는 보통 L1 캐시를 Instruction 용과 Data 용으로 분리한다. 메모리 사용 패턴이 대체로 다르기 때문이다. Instruction의 경우가 메모리도 더 작고, 읽기 전용이며, Locality가 높다. L1 캐시를 분리하면 Bandwidth가 두 배가 되고 별도로 최적화할 수 있다. L2, L3는 일반적으로 통합된 형태로 사용된다.  
+
+![6](../images/cache/6.png)  
+
+---
+
+**Inclusive Cache**  
+
+캐시 계층에서 상위 캐시 $L_i$에 포함된 데이터를 하위 캐시 $L_{i+1}$에도 반드시 포함시키는 구조이다. 일관성을 유지하기 편리하지만, $L_i$는 $a>1$ 이고, $L_{i+1}$는 $a=1$인 경우 $L_i$에서의 Miss 하나가 일관성 유지로 인해 여러 개의 블록을 교체하도록 할 수 있다. 원래 멀티 코어에서 데이터 일관성 유지를 위해 이 방법을 많이 썼지만, 이제 많이 안 사용하는 듯하다.  
+
+![7](../images/cache/7.png)
+
+L1에 x, y가 저장되어 있었는데 x를 z로 교체하면 L2에서는 y가 z로 교체됨. 그러면 일관성 때문에 L1에서 y가 있을 수 없어서 y도 날라가는 문제가 있음.  
+
+
+
 
 
 

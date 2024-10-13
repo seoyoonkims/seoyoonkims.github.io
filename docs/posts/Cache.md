@@ -96,7 +96,15 @@ Cache 구조가 $C/(C/B)/B \times B \times C/B = 1 \times B \times C/B$가 된�
 
 **Cache Misses**  
 
+- Compulsory Miss: 데이터에 처음 접근할 때 생기는 미스. Locality가 거의 없을 때 지배적이다.
 
+- Capacity Miss: 캐시 크기가 한정되어 있어서 Fully-Associative Cache에서도 발생하는 미스. $C<W$ 일 때 지배적이다.
+
+- Conflict Miss: 두 개 이상의 데이터 블록이 동일한 캐시 라인에 저장되어서 발생하는 미스. $C~=W$이거나 $C/B$가 작을 때 지배적이다. 
+
+---
+
+**Cache Design Considerations**  
 
 
 

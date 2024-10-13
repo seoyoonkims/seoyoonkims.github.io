@@ -106,7 +106,17 @@ Cache 구조가 $C/(C/B)/B \times B \times C/B = 1 \times B \times C/B$가 된�
 
 **Cache Design Considerations**  
 
+**1. Write-Hit Policy**  
 
+- Write-Through Cache: Write-Hit이면 $L_i$, $L_{i+1}$을 모두 업데이트 한다. 구현이 간단하고 I/O Device 등이 로우 레벨 메모리만 보고 데이터 값을 알 수 있지만, L3가 Off Core면 Write 시간이 오래 걸려서 High Performance를 내기 어렵다.
+
+- Write-Back Cache: Write-Hit이면 $L_i$만 업데이트 하고, $L_i$를 "Dirty"로 마크한다. 그리고 나중에 교체하게 되면 $L_{i+1}$를 업데이트한다.  
+
+**2. Write-Miss Policy**  
+
+- Write-Allocate Cache: 
+
+- Write-No-Allocate Cache:
 
 
 

@@ -8,7 +8,7 @@ nav_order: 6
 ## Cache Architecture  
 
 (작성 중)
-Basic Design, Coherence
+Basic Design, Coherence, Advanced Architectures
 
 ---
 

@@ -140,7 +140,7 @@ $$
 
 GEMM만 Quantization 하는 것이 아니라 Residual, LayerNorm, Activation, Attension Scaling 등에도 적용했더니 Accuracy drop이 상당했다.  
 
-그래서 Operation Fusion을 이용한다. 각 단계마다 Quantization 하는 것이 아니라 Fusion된 Operation까지 FP8로 진행하다가 마지막에 Posit8로 바꾸는? 그런 거 같음..  
+그래서 Operation Fusion을 이용한다. 각 단계마다 Quantization 하는 것이 아니라 Fusion된 Operation까지 FP8로 진행하다가 마지막에 Posit8로 바꾸는? 그런 거 같음. 중간 값을 저장할 때 Posit8로 바꾸면서 정확도에 손실이 생기는 것인데 저장을 안하면 계속 FP8로 연산하고 마지막에만 Posit8로 저장. 
 
 ![Operation Fusion](../images/operation_fusion.png)
 

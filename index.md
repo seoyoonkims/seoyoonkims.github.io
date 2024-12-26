@@ -52,6 +52,9 @@ South Korea
 > [RISC-V Processor Implementation (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE312/)
  - Keywords: Verilog, RISC-V, Pipeline, Cache, BTB  
 
+> [Multi-Node Gesture Recognition for Secure Embedded Messaging](https://seoyoonkims.github.io/docs/projects/ECE4144/)  
+ - Keywords: Embedded System, Arduino Uno  
+
 > [AI-based Autonomous Rover (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE405/)  
  - Keywords: ROS, SLAM, YOLO, Rviz, Gazebo, PID Control  
 

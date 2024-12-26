@@ -43,10 +43,11 @@ South Korea
 
 ## Projects  
 
-> Aeronautical Projects
+> [LTA Modeling and Fabrication (2021 Spring)](https://seoyoonkims.github.io/docs/projects/AE201/)
  - Keywords: LTA, Stability, Control, Solidworks, Matlab  
 
-> AI-based Autonomous Rover  
+> [AI-based Autonomous Rover (2024 Spring)][https://seoyoonkims.github.io/docs/projects/EE405/]  
+ - Keywords: ROS, SLAM, YOLO, Rviz, Gazebo, PID Control  
 
 > Parallel Execution through Hybrid Sorting Algorithms  
 

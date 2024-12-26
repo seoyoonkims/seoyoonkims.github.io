@@ -49,7 +49,9 @@ South Korea
 > [Auto-Control System of Aircraft (2023 Spring)](https://seoyoonkims.github.io/docs/projects/AE201/)
  - Keywords: MATLAB, Stability, Control  
 
-> [AI-based Autonomous Rover (2024 Spring)][https://seoyoonkims.github.io/docs/projects/EE405/]  
+> [RISC-V Processor Implementation (2024 Spring)]()
+
+> [AI-based Autonomous Rover (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE405/)  
  - Keywords: ROS, SLAM, YOLO, Rviz, Gazebo, PID Control  
 
 > Parallel Execution through Hybrid Sorting Algorithms (2024 Fall)  

@@ -58,7 +58,7 @@ South Korea
 > [Face Recognition (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE488/)  
  - Keywords: Pytorch, EER, ResNet-18, SSL, Masking  
 
-> [Hybrid Sorting Algorithms (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE514/)  
+> [Efficient Parallel Execution through Hybrid Sorting Algorithms (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE514/)  
  - Keywords: CUDA, 3D Gaussian Splatting, Radix Sort, Bitonic Sort  
 
 

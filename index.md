@@ -49,11 +49,11 @@ South Korea
 > [Auto-Control System of Aircraft (2023 Spring)](https://seoyoonkims.github.io/docs/projects/AE201/)
  - Keywords: MATLAB, Stability, Control  
 
+> [Multi-Node Gesture Recognition for Embedded System (2023 Fall)](https://seoyoonkims.github.io/docs/projects/ECE4144/)  
+ - Keywords: Embedded System, Arduino Uno  
+
 > [RISC-V Processor Implementation (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE312/)
  - Keywords: Verilog, RISC-V, Pipeline, Cache, BTB  
-
-> [Multi-Node Gesture Recognition for Secure Embedded Messaging](https://seoyoonkims.github.io/docs/projects/ECE4144/)  
- - Keywords: Embedded System, Arduino Uno  
 
 > [AI-based Autonomous Rover (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE405/)  
  - Keywords: ROS, SLAM, YOLO, Rviz, Gazebo, PID Control  

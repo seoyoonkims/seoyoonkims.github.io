@@ -44,7 +44,7 @@ South Korea
 ## Projects  
 
 > Aeronautical Projects
- - LTA Vehicle, 
+ - Keywords: LTA, Stability, Control, Solidworks, Matlab  
 
 > AI-based Autonomous Rover  
 

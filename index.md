@@ -55,9 +55,11 @@ South Korea
 > [AI-based Autonomous Rover (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE405/)  
  - Keywords: ROS, SLAM, YOLO, Rviz, Gazebo, PID Control  
 
-> [Face Recognition (2024 Fall)]  
+> [Face Recognition (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE488/)  
+ - Keywords: Pytorch, EER, ResNet-18, SSL, Masking  
 
-> [Hybrid Sorting Algorithms (2024 Fall)]  
+> [Hybrid Sorting Algorithms (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE514/)  
+ - Keywords: CUDA, 3D Gaussian Splatting, Radix Sort, Bitonic Sort  
 
 
 

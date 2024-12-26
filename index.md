@@ -41,9 +41,15 @@ South Korea
 > C/C++, CUDA, Python, Pytorch, System Verilog  
 
 
-## Projects
-> AI-based autonomous rover
-> Hybrid Sorting Algorithms
+## Projects  
+
+> Aeronautical Projects
+ - LTA Vehicle, 
+
+> AI-based Autonomous Rover  
+
+> Parallel Execution through Hybrid Sorting Algorithms  
+
 > Face Recognition
 
 ## Contact  

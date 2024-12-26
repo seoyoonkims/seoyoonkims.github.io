@@ -27,13 +27,13 @@ South Korea
 
 ## Expericence  
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
-- Accelerating diffusion transformers using token merging and MX quantization techniques.  
+- Accelerating Diffusion Transformers using Token Merging and MX quantization  
 
 > HyperAccel (Internship, 2024.06 ~ 2024.08)  
 - Development of an LPU Monitoring System & Packaging and Deployment of HyperDex  
 
 > USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)   
-- AI-based autonomous drone that recognizes human poses and performs various tasks.
+- AI-based Autonomous Drone that Avoids Obstables and Recognizes Human Poses  
 
 
 ## Programming  
@@ -52,9 +52,9 @@ South Korea
 > [AI-based Autonomous Rover (2024 Spring)][https://seoyoonkims.github.io/docs/projects/EE405/]  
  - Keywords: ROS, SLAM, YOLO, Rviz, Gazebo, PID Control  
 
-> Parallel Execution through Hybrid Sorting Algorithms  
+> Parallel Execution through Hybrid Sorting Algorithms (2024 Fall)  
 
-> Face Recognition
+> Face Recognition (2024 Fall)  
 
 ## Contact  
 

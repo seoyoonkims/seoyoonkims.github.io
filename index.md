@@ -27,8 +27,11 @@ South Korea
 
 ## Expericence  
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
+- Accelerating diffusion transformers using token merging and MX quantization techniques.
 > HyperAccel (Internship, 2024.06 ~ 2024.08)  
+- Development of an LPU Monitoring System & Packaging and Deployment of HyperDex
 > USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)   
+- AI-based autonomous drone that recognizes human poses and performs various tasks.
 
 
 ## Programming  

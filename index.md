@@ -44,9 +44,10 @@ South Korea
 ## Projects  
 
 > [LTA Modeling and Fabrication (2021 Spring)](https://seoyoonkims.github.io/docs/projects/AE201/)
- - Keywords: LTA, Stability, Control, Solidworks, Matlab  
+ - Keywords: LTA, Solidworks, MATLAB, Stability, Control  
 
 > [Auto-Control System of Aircraft]()
+ - Keywords: MATLAB, Stability, Control  
 
 > [AI-based Autonomous Rover (2024 Spring)][https://seoyoonkims.github.io/docs/projects/EE405/]  
  - Keywords: ROS, SLAM, YOLO, Rviz, Gazebo, PID Control  

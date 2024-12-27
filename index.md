@@ -38,26 +38,26 @@ South Korea
 
 ## Projects  
 
-> [LTA Modeling and Fabrication (2022 Spring)](https://seoyoonkims.github.io/docs/projects/AE201/)
- - Keywords: LTA, Solidworks, MATLAB, Stability, Control  
+> [LTA Modeling and Development (2022 Spring)](https://seoyoonkims.github.io/docs/projects/AE201/)
+ - Development of a LTA vehicle focusing on stability and control in roll, yaw, and pitch, utilizing 3D modeling with SolidWorks and computational analysis with MATLAB.  
 
 > [Auto-Control System of Aircraft (2023 Spring)](https://seoyoonkims.github.io/docs/projects/AE280/)
- - Keywords: MATLAB, Stability, Control  
+ - Design of an aircraft's bank angle auto-control system optimizing controller gain to minimize peak time while ensuring stability constraints, employing MATLAB for modeling and analysis.  
 
 > [Multi-Node Gesture Recognition for Embedded System (2023 Fall)](https://seoyoonkims.github.io/docs/projects/ECE4144/)  
- - Keywords: Embedded System, Arduino Uno  
+ - Creation of a secure embedded messenger system using hand gestures detected by an accelerometer, involving multi-node communication and gesture recognition.  
 
 > [RISC-V Processor Implementation (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE312/)
- - Keywords: Verilog, RISC-V, Pipeline, Cache, BTB  
+ - Implementation of a RISC-V processor in Verilog, featuring modules such as pipelining, caching, branch prediction, and hazard handling.  
 
 > [AI-based Autonomous Rover (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE405/)  
- - Keywords: ROS, SLAM, YOLO, Rviz, Gazebo, PID Control  
+ - Development of an AI-based autonomous rover capable of obstacle avoidance and landmine detection, integrating ROS, Gazebo, Jetson Orin Nano, and various algorithms for localization, path planning, and object detection.  
 
 > [Face Recognition (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE488/)  
- - Keywords: Pytorch, EER, ResNet-18, SSL, Masking  
+ - Creation of a face recognition model using ResNet-18 architecture, incorporating techniques like Triplet Loss based Self Supervised Learning, Softmax fine-tuning, dynamic masking, and data augmentation to enhance performance.  
 
 > [Efficient Parallel Execution through Hybrid Sorting Algorithms (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE514/)  
- - Keywords: CUDA, 3D Gaussian Splatting, Radix Sort, Bitonic Sort  
+ - Optimization of 3D Gaussian Splatting rendering through a hybrid sorting algorithm combining Radix Sort and Bitonic Sort, achieving performance improvements and reduced memory usage for real-time applications.   
 
 ## Programming  
 

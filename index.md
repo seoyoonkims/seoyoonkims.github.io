@@ -24,10 +24,14 @@ Previously, I worked at KAIST's USRG Lab, where I researched drones capable of o
 
 > AI Robotics & Diffusion Models
 
-
 ## Education  
+
 > Major in **Electrical Engineering** at KAIST, Korea (**B.S.**, 2021.02 ~ Present)  
-> Minor in Mechanical Engineering at NYU, USA (2023.08 ~ 2023.12)
+> Minor in Mechanical Engineering at NYU, USA (2023.08 ~ 2023.12)  
+
+## Programming  
+
+> C/C++, CUDA, Python, Pytorch, System Verilog, ROS  
 
 
 ## Expericence  
@@ -64,9 +68,6 @@ Previously, I worked at KAIST's USRG Lab, where I researched drones capable of o
 > Efficient Parallel Execution through Hybrid Sorting Algorithms (2024 Fall)
  - Optimization of 3D Gaussian Splatting rendering through a hybrid sorting algorithm combining Radix Sort and Bitonic Sort, achieving performance improvements and reduced memory usage for real-time applications.   
 
-## Programming  
-
-> C/C++, CUDA, Python, Pytorch, System Verilog  
 
 ## Contact  
 

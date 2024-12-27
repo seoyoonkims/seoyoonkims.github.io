@@ -15,9 +15,9 @@ South Korea
 ![ex_screenshot](./assets/images/me2.jpg)  
 
 
-Hi, I am a senior in the Department of Electrical Engineering at KAIST. I also completed a minor in Mechanical Engineering at New York University. I am interested in AI robotics and diffusion models. Currently, I am conducting research on accelerating Diffusion Transformers and exploring ways to apply these diffusion models to object representation and perception in robotics.
+Hi, I am a senior in the Department of Electrical Engineering at KAIST. I also completed a minor in Mechanical Engineering at New York University. I am interested in AI robotics and diffusion models. Currently, I am conducting research on accelerating Diffusion Transformers at Castlab, KAIST. Now, I want to explore ways to apply these diffusion models to object representation and perception in robotics.
 
-Previously, I worked at KAIST's USRG Lab, where I researched drones capable of obstacle avoidance and human pose recognition. Additionally, I worked as a Research Intern at HyperAccel, a company specializing in LLM inference. Through various projects, I have built a strong foundation in robotics and deep learning, with further details outlined in the Experience and Project sections below.
+Previously, I completed individual research at USRG, KAIST, where I researched drones capable of obstacle avoidance and human pose recognition. Additionally, I worked as a Research Intern at HyperAccel, a company specializing in LLM inference. Through various projects, I have built a strong foundation in robotics and deep learning, with further details outlined in the Experience and Project sections below.
 
 
 ## Research Interests  

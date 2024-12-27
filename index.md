@@ -17,7 +17,7 @@ South Korea
 
 ## Research Interests  
 
-> AI Robotics & AI Accelerator
+> AI Robotics & Diffusion Models
 
 
 ## Education  

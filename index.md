@@ -43,16 +43,16 @@ Previously, I worked at KAIST's USRG Lab, where I researched drones capable of o
 
 ## Projects  
 
-> [LTA Modeling and Development (2022 Spring)](https://seoyoonkims.github.io/docs/projects/AE201/)
+> LTA Modeling and Development (2022 Spring)
  - Development of a LTA vehicle focusing on stability and control in roll, yaw, and pitch, utilizing 3D modeling with SolidWorks and computational analysis with MATLAB.  
 
-> [Auto-Control System of Aircraft (2023 Spring)](https://seoyoonkims.github.io/docs/projects/AE280/)
+> Auto-Control System of Aircraft (2023 Spring)
  - Design of an aircraft's bank angle auto-control system optimizing controller gain to minimize peak time while ensuring stability constraints, employing MATLAB for modeling and analysis.  
 
-> [Multi-Node Gesture Recognition for Embedded System (2023 Fall)](https://seoyoonkims.github.io/docs/projects/ECE4144/)  
+> Multi-Node Gesture Recognition for Embedded System (2023 Fall) 
  - Creation of a secure embedded messenger system using hand gestures detected by an accelerometer, involving multi-node communication and gesture recognition.  
 
-> [RISC-V Processor Implementation (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE312/)
+> RISC-V Processor Implementation (2024 Spring)
  - Implementation of a RISC-V processor in Verilog, featuring modules such as pipelining, caching, branch prediction, and hazard handling.  
 
 > [AI-based Autonomous Rover (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE405/)  
@@ -61,7 +61,7 @@ Previously, I worked at KAIST's USRG Lab, where I researched drones capable of o
 > [Face Recognition (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE488/)  
  - Creation of a face recognition model using ResNet-18, incorporating Self-Supervised Learning (Triplet Loss), Softmax fine-tuning, dynamic masking, and data augmentation to enhance performance.  
 
-> [Efficient Parallel Execution through Hybrid Sorting Algorithms (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE514/)  
+> Efficient Parallel Execution through Hybrid Sorting Algorithms (2024 Fall)
  - Optimization of 3D Gaussian Splatting rendering through a hybrid sorting algorithm combining Radix Sort and Bitonic Sort, achieving performance improvements and reduced memory usage for real-time applications.   
 
 ## Programming  

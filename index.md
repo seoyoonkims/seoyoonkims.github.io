@@ -29,10 +29,10 @@ South Korea
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
 - Accelerating Diffusion Transformers using Token Merging and MX quantization  
 
-> HyperAccel (Internship, 2024.06 ~ 2024.08)  
+> [HyperAccel (Internship, 2024.06 ~ 2024.08)](https://seoyoonkims.github.io/docs/HyperAccel/)  
 - Development of an LPU Monitoring System & Packaging and Deployment of HyperDex  
 
-> USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)   
+> [USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)](https://github.com/seoyoonkims/Drone)   
 - AI-based Autonomous Drone that Avoids Obstables and Recognizes Human Poses  
 
 
@@ -63,8 +63,6 @@ South Korea
 
 > [Efficient Parallel Execution through Hybrid Sorting Algorithms (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE514/)  
  - Keywords: CUDA, 3D Gaussian Splatting, Radix Sort, Bitonic Sort  
-
-
 
 
 

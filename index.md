@@ -46,7 +46,7 @@ South Korea
 > [LTA Modeling and Fabrication (2022 Spring)](https://seoyoonkims.github.io/docs/projects/AE201/)
  - Keywords: LTA, Solidworks, MATLAB, Stability, Control  
 
-> [Auto-Control System of Aircraft (2023 Spring)](https://seoyoonkims.github.io/docs/projects/AE201/)
+> [Auto-Control System of Aircraft (2023 Spring)](https://seoyoonkims.github.io/docs/projects/AE280/)
  - Keywords: MATLAB, Stability, Control  
 
 > [Multi-Node Gesture Recognition for Embedded System (2023 Fall)](https://seoyoonkims.github.io/docs/projects/ECE4144/)  

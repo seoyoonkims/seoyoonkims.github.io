@@ -36,11 +36,6 @@ South Korea
 - AI-based Autonomous Drone that Avoids Obstables and Recognizes Human Poses  
 
 
-## Programming  
-
-> C/C++, CUDA, Python, Pytorch, System Verilog  
-
-
 ## Projects  
 
 > [LTA Modeling and Fabrication (2022 Spring)](https://seoyoonkims.github.io/docs/projects/AE201/)
@@ -64,7 +59,9 @@ South Korea
 > [Efficient Parallel Execution through Hybrid Sorting Algorithms (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE514/)  
  - Keywords: CUDA, 3D Gaussian Splatting, Radix Sort, Bitonic Sort  
 
+## Programming  
 
+> C/C++, CUDA, Python, Pytorch, System Verilog  
 
 ## Contact  
 

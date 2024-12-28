@@ -78,7 +78,7 @@ $$
 \sum_{(d, y) \in \mathcal{D}} \text{BCE}\left(f^{CP}\left(f^{SE}(d)\right), y\right) + \alpha \left\|f^{SE}(d)\right\|^2  
 $$
 
-$f^{SE}$는 Shape Encoder, $f^{CP}$는 Collision Predictor이다. Binary Cross Entropy와 $\alpha f^{SE}(d)^2$의 정규화 항이 사용된다.  
+$f^{SE}$는 Shape Encoder, $f^{CP}$는 Collision Predictor이다. Binary Cross Entropy와 정규화 항이 사용된다.  
 
 **Data Augmentation**  
 

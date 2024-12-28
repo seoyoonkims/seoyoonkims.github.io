@@ -70,7 +70,7 @@ YCB나 Google ScanNet 같은 데이터 셋을 이용한다. 형식은 ${(x_1^(i)
 
 ![1](../images/BRAX-LOCC/1.png)
 
-이에 다양한 겹침 정도(Overlapping Volume)을 생성하기 위해 아래 그림처럼 두 물체의 최단 거리 벡터 $\delta$를 계산하고, 이 벡터의 방향으로 물체를 이동시켜 가면서 겹침 정도를 조정한다. $\abs{\delta^{'}}$는 $N(0, 0,020)$에서 Sampling 한다. 
+이에 다양한 겹침 정도(Overlapping Volume)을 생성하기 위해 아래 그림처럼 두 물체의 최단 거리 벡터 $\delta$를 계산하고, 이 벡터의 방향으로 물체를 이동시켜 가면서 겹침 정도를 조정한다. $\vert delta' \vert}$는 $N(0, 0,020)$에서 Sampling 한다. 
 
 **Loss Function**  
 

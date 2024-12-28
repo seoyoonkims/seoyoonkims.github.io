@@ -75,16 +75,14 @@ YCB나 Google ScanNet 같은 데이터 셋을 이용한다. 형식은 ${(x_1^{i}
 **Loss Function**  
 
 $$
-\[
-\sum_{(d, y) \in \mathcal{D}} \text{BCE}\left(f^{CP}\left(f^{SE}(d)\right), y\right) + \alpha \left\|f^{SE}(d)\right\|^2
-\]  
+\sum_{(d, y) \in \mathcal{D}} \text{BCE}\left(f^{CP}\left(f^{SE}(d)\right), y\right) + \alpha \left\|f^{SE}(d)\right\|^2  
 $$
 
 $f^{SE}$는 Shape Encoder, $f^{CP}$는 Collision Predictor이다. Binary Cross Entropy와 $\alpha f^{SE}(d)^2$의 정규화 항이 사용된다.  
 
 **Data Augmentation**  
 
-데이터 포인트$\{x_1^{(i)}, x_2^{(i)}, q_1^{(i)}, q_2^{(i)}, y^{(i)}\}
+데이터 포인트 $\{x_1^{(i)}, x_2^{(i)}, q_1^{(i)}, q_2^{(i)}, y^{(i)}\}
 $에서 회전 행렬 R을 랜덤하게 Sampling 해서 두 물체에 적용한다 (같은 R). 이때 Mesh에는 $R$, Pose에는 $R^{-1}$ 를 적용한다. 이렇게 해야 Mesh가 회전했을 때 Pose로 그것을 상쇄하여 원래의 상대적 위치를 유지하기 때문이다. 새로운 데이터 포인트는 $\{R \cdot x_1^{(i)}, R \cdot x_2^{(i)}, R^{-1} \circ q_1^{(i)}, R^{-1} \circ q_2^{(i)}, y^{(i)}\}$가 된다. 이때 회전 후에도 데이터 레이블 y는 변하지 않는다. 회전 후에도 $\{x, q\}$와 $\{R \cdot x, R^{-1} \circ q\}$가 동일한 3D 공간 부피를 차지하기 때문이다. 
 
 

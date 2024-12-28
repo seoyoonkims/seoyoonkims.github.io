@@ -56,7 +56,7 @@ South Korea
  - Implementation of a RISC-V processor in Verilog, featuring modules such as pipelining, caching, branch prediction, and hazard handling.  
 
 > [AI-based Autonomous Rover (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE405/)  
- - Development of an AI-based autonomous rover capable of obstacle avoidance and landmine detection, integrating ROS, Gazebo, Jetson Orin Nano, localization, path planning, and object detection.  
+ - Development of an AI-based autonomous rover capable of obstacle avoidance and landmine detection, integrating ROS, Gazebo, Jetson Orin Nano, localization, path planning, object detection, and task planning via LLMs.  
 
 > Face Recognition (2024 Fall)
  - Creation of a face recognition model using ResNet-18, incorporating Self-Supervised Learning, Triplet Loss, Dynamic Masking, and Data Augmentation to enhance performance.  

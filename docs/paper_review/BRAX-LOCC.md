@@ -68,10 +68,24 @@ YCB나 Google ScanNet 같은 데이터 셋을 이용한다. 형식은 ${(x_1^(i)
 
 이런 데이터를 생성하는 나이브한 방법은 두 물체를 Object Set에서 무작위로 Sampling 하고, Pre-defined Bound 내에서 Uniform 하게 Pose를 설정한 뒤 Collision 여부를 평가하는 것이다. 그러나 이 방법으로는 객체가 서로 너무 멀거나 완전히 겹치는 경우가 많이 생성되고, 비교적 복잡한 (살짝 겹치는) 사례에 대해 학습이 제대로 이뤄지지 않을 수 있다.  
 
-이에 다양한 겹침 정도(Overlapping Volume)을 생성하기 위해 아래 그림처럼 두 물체의 최단 거리 벡터 $\delta$를 계산하고, 이 벡터의 방향으로 물체를 이동시켜 가면서 겹침 정도를 조정한다. $\abs{\delta^{}'}}$는 $N(0, 0,020)$에서 Sampling 한다. 
-
-
 ![1](../images/BRAX-LOCC/1.png)
+
+이에 다양한 겹침 정도(Overlapping Volume)을 생성하기 위해 아래 그림처럼 두 물체의 최단 거리 벡터 $\delta$를 계산하고, 이 벡터의 방향으로 물체를 이동시켜 가면서 겹침 정도를 조정한다. $\abs{\delta^{'}}$는 $N(0, 0,020)$에서 Sampling 한다. 
+
+**Loss Function**  
+
+$$
+\[
+\sum_{(d, y) \in \mathcal{D}} \text{BCE}\left(f^{CP}\left(f^{SE}(d)\right), y\right) + \alpha \left\|f^{SE}(d)\right\|^2
+\]  
+$$
+
+$f^{SE}$는 Shape Encoder, $f^{CP}$는 Collision Predictor이다. Binary Cross Entropy와 $\alpha f^{SE}(d)^2$의 정규화 항이 사용된다.  
+
+**Data Augmentation**  
+
+데이터 포인트$\{x_1^{(i)}, x_2^{(i)}, q_1^{(i)}, q_2^{(i)}, y^{(i)}\}
+$에서 회전 행렬 R을 랜덤하게 Sampling 해서 두 물체에 적용한다 (같은 R). 이때 Mesh에는 $R$, Pose에는 $R^{-1}$ 를 적용한다. 새로운 데이터 포인트는 $\{R \cdot x_1^{(i)}, R \cdot x_2^{(i)}, R^{-1} \circ q_1^{(i)}, R^{-1} \circ q_2^{(i)}, y^{(i)}\}$가 된다. 이때 회전 후에도 데이터 레이블 y는 변하지 않는다. 회전 후에도 $\{x, q\}$와 $\{R \cdot x, R^{-1} \circ q\}$가 동일한 3D 공간 부피를 차지하기 때문이다. 
 
 
 

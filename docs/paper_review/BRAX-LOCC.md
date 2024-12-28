@@ -19,7 +19,7 @@ GPU 기반 시뮬레이터는 수천 개의 환경을 병렬로 시뮬레이션�
 
 본 논문은 LOCC 라는 새로운 CD 알고리즘을 제안한다. 데이터 기반 접근법을 사용하여, 정확도가 온라인이 아닌 오프라인에서의 데이터 품질에 따라 결정된다. 특히, 객체의 Global Shape이 아닌 충돌 지점의 Local Crop 부분만 학습해서 효율적이다. LOCC는 기존 알고리즘보다 Non-Convex 시뮬레이션에서 정확도를 유지하면서 5-10배 더 빠른 속도를 자랑한다.  
 
-### **Background**  
+### **Related Works**  
 
 **Collision detection using a Neural Network**  
 
@@ -44,6 +44,10 @@ Contact Resolution의 목표는 충돌이 일어났을 때 Penetration이 아니
 
 **LOCC**는 기존의 GJK나 SAT 처럼 Convex Decomposition 없이 NN 기반으로 단순한 Feed Forward 계산을 통해 충돌을 예측한다. Non-Convex Object를 처리할 때 속도와 정확성, 일반성 면에서 뛰어나다.  
 
+
+### LOCAL OBJECT CROP COLLISION NETWORK  
+
+![1](../images/BRAX-LOCC.png)
 
 
 

@@ -64,13 +64,13 @@ LOCC에는 두 가지 모듈이 있다. Shape Encoder와 Collision Predictor이�
 
 A. Dataset preparation and training  
 
-YCB나 Google ScanNet 같은 데이터 셋을 이용한다. 형식은 ${(x_1^(i), x_2^(i), q_1^(i), q_2^(i), y^(i))}$ 이다. $x_1$과 $x_2$는 Mesh를 의미하고, $q_1$과 $q_2$는 Pose, y는 Collision Label이다. 
+YCB나 Google ScanNet 같은 데이터 셋을 이용한다. 형식은 ${(x_1^{i}, x_2^{i}, q_1^{i}, q_2^{i}, y^{i})}$ 이다. $x_1$과 $x_2$는 Mesh를 의미하고, $q_1$과 $q_2$는 Pose, y는 Collision Label이다. 
 
 이런 데이터를 생성하는 나이브한 방법은 두 물체를 Object Set에서 무작위로 Sampling 하고, Pre-defined Bound 내에서 Uniform 하게 Pose를 설정한 뒤 Collision 여부를 평가하는 것이다. 그러나 이 방법으로는 객체가 서로 너무 멀거나 완전히 겹치는 경우가 많이 생성되고, 비교적 복잡한 (살짝 겹치는) 사례에 대해 학습이 제대로 이뤄지지 않을 수 있다.  
 
 ![1](../images/BRAX-LOCC/1.png)
 
-이에 다양한 겹침 정도(Overlapping Volume)을 생성하기 위해 아래 그림처럼 두 물체의 최단 거리 벡터 $\delta$를 계산하고, 이 벡터의 방향으로 물체를 이동시켜 가면서 겹침 정도를 조정한다. $\vert delta' \vert}$는 $N(0, 0,020)$에서 Sampling 한다. 
+이에 다양한 겹침 정도(Overlapping Volume)을 생성하기 위해 아래 그림처럼 두 물체의 최단 거리 벡터 $\delta$를 계산하고, 이 벡터의 방향으로 물체를 이동시켜 가면서 겹침 정도를 조정한다. $\vert delta' \vert}$는 $N(0, 0.020)$에서 Sampling 한다. 
 
 **Loss Function**  
 

@@ -31,8 +31,8 @@ South Korea
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
 - Accelerating Diffusion Transformers using Token Merging and MX quantization  
 
-> HyperAccel (Internship, 2024.06 ~ 2024.08) 
-- Development of an LPU Monitoring System & Packaging and Deployment of HyperDex  
+> HyperAccel (Research Intern, 2024.06 ~ 2024.08) 
+- Development of an Hardware Monitoring System & Packaging and Deployment of HyperDex  
 
 > [USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)](https://github.com/seoyoonkims/Drone)   
 - AI-based Autonomous Drone that Avoids Obstables and Recognizes Human Poses  

@@ -24,10 +24,6 @@ South Korea
 > Major in **Electrical Engineering** at KAIST, Korea (**B.S.**, 2021.02 ~ Present)  
 > Minor in Mechanical Engineering at NYU, USA (2023.08 ~ 2023.12)  
 
-## Programming  
-
-> C/C++, CUDA, Python, Pytorch, System Verilog, ROS  
-
 
 ## Expericence  
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
@@ -61,8 +57,11 @@ South Korea
  - Creation of a face recognition model using ResNet-18, incorporating Self-Supervised Learning, Triplet Loss, Dynamic Masking, and Data Augmentation to enhance performance.  
 
 > Efficient Parallel Execution through Hybrid Sorting Algorithms (2024 Fall)
- - Optimization of 3D Gaussian Splatting rendering through a hybrid sorting algorithm combining Radix Sort and Bitonic Sort, achieving performance improvements and reduced memory usage for real-time applications.   
+ - Optimization of 3D Gaussian Splatting rendering through a hybrid sorting algorithm combining Radix Sort and Bitonic Sort
 
+## Programming  
+
+> C/C++, CUDA, Python, Pytorch, System Verilog, ROS  
 
 ## Contact  
 

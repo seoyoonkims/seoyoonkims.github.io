@@ -22,6 +22,7 @@ South Korea
 ## Education  
 
 > Major in **Electrical Engineering** at KAIST, Korea (**B.S.**, 2021.02 ~ Present)  
+> - KAIST Dean's List (2023 Spring)  
 > Minor in Mechanical Engineering at NYU, USA (2023.08 ~ 2023.12)  
 
 

@@ -15,12 +15,12 @@ South Korea
 ![ex_screenshot](./assets/images/me2.jpg)  
 
 ## Introduction  
-> Hi, I am a senior in the Department of Electrical Engineering at KAIST, and interested in AI robotics and diffusion models. Currently, I am conducting research on accelerating diffusion transformers at Castlab, KAIST. I want to apply diffusion models in robotics, including object representation and perception.  
-> Through various experience and projects, I have built a strong foundation in robotics, deep learning and computer architecture, with further details outlined below.  
+> Hi, I am currently a senior in the Department of Electrical Engineering at KAIST.   
+> I have built a strong foundation in robotics, deep learning and parallel computing, with further details outlined below.  
 
 ## Research Interests  
 
-> AI Robotics & Diffusion Models
+> AI Robotics & AI Accelerator
 
 ## Education  
 

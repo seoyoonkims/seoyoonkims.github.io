@@ -15,9 +15,28 @@ by Dongwon Son (KAIST), Beomjun Kim (KAIST)
 
 ### **Introduction**  
 
-GPU 기반 시뮬레이터는 CPU 기반보다 수천 개의 환경을 병렬로 시뮬레이션할 수 있어, 빅데이터 생성 속도가 매우 빠르다. 현재의 GPU 기반 시뮬레이터인 IssacGym과 Brax는 Non-Convex 객체를 처리할 때 속도나 정확성, 일반성 면에서 한계가 있다. 또한, 기존의 CD 알고리즘 (GJK 등)은 Non-Convex 객체의 충돌을 처리할 때 Computation이 크게 증가한다. Convex Hull 같은 근사는 속도는 유지하지만, 정확도가 크게 떨어진다.  
+GPU 기반 시뮬레이터는 수천 개의 환경을 병렬로 시뮬레이션할 수 있기 때문에 CPU 기반보다 빅데이터 생성 속도가 매우 빠르다. 하지만 현재의 GPU 기반 시뮬레이터인 IssacGym과 Brax는 Non-Convex 객체를 처리할 때 속도나 정확성, 일반성 면에서 한계가 있다. 또한, GJK 같은 기존의 CD 알고리즘은 Non-Convex 객체의 충돌을 처리할 때 Computation이 크게 증가한다. Convex Hull 같은 근사는 속도는 유지하지만, 정확도가 크게 떨어진다.  
 
 본 논문은 LOCC 라는 새로운 CD 알고리즘을 제안한다. 데이터 기반 접근법을 사용하여, 정확도가 온라인이 아닌 오프라인에서의 데이터 품질에 따라 결정된다. 특히, 객체의 Global Shape이 아닌 충돌 지점의 Local Crop 부분만 학습해서 효율적이다. LOCC는 기존 알고리즘보다 Non-Convex 시뮬레이션에서 정확도를 유지하면서 5-10배 더 빠른 속도를 자랑한다.  
+
+### **Background**  
+
+**Collision detection using a Neural Network**  
+
+최근에 NN을 활용해서 Shape을 나타내는 연구가 제안되었다. 주로 Query Point가 두 물체에 모두 속하면 Collision이라고 Detect 하는 방식인데, 이러한 접근은 Query Point 개수에 따라 정확도가 높아지는 것이므로, 아주 많은 Query Point 개수를 요구한다. 그리고 물체의 모양을 Explicit 하게 복원하는 것은 CD에서 불필요하다.  
+
+데이터의 효율성과 속도를 높이기 위해 물체의 Point Cloud와 Pose, 그리고 Scene의 Point Cloud가 주어졌을 때, 물체와 Scene이 충돌하는지를 판단하는 방법을 제안하기도 하였다. 지금까지 방법들은 전체 Scene과 물체의 Representation을 학습해야 해서 비효율적이었다.  
+
+기존 방식과 달리, LOCC는 충돌 부분만 Local Crop 해서 학습함으로써 데이터 효율성을 크게 개선한다. 이는 특히 Motion Planning 보다 Contact Resolution이 필요한 Physics Simulation에 적합하다.  
+
+
+**Collision resolution using an OCN(Object Collision Net)**  
+
+Contact Resolution의 목표는 충돌이 일어났을 때 Penetration이 아니라 Contact를 해결해서 물리 법칙이 적용되는 방향으로 움직이게 하는 것이다. 
+
+이를 위해서는 Contact Points와 Contact Forces가 필요하다. Contact Points는 OCN을 이용해서 찾
+
+
 
 
 ---

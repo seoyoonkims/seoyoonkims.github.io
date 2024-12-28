@@ -47,15 +47,30 @@ Contact Resolution의 목표는 충돌이 일어났을 때 Penetration이 아니
 **LOCC**는 기존의 GJK나 SAT 처럼 Convex Decomposition 없이 NN 기반으로 단순한 Feed Forward 계산을 통해 충돌을 예측한다. Non-Convex Object를 처리할 때 속도와 정확성, 일반성 면에서 뛰어나다.  
 
 
-### III. LOCAL OBJECT CROP COLLISION NETWORK  
+### **III. Local Object Crop Collision Network**  
+
+이 논문에서는 두 물체의 Mesh와 Pose를 이용해 직접적으로 충돌 여부를 결정한다. Computational Flow는 다음과 같다.  
 
 ![1](../images/BRAX-LOCC.png)
 
+LOCC에는 두 가지 모듈이 있다. Shape Encoder와 Collision Predictor이다. 
+
+**Shape Encoder**  
+물체의 Mesh가 주어지면 K개의 점을 Sampling 해서 Point Cloud를 생성한다. Shape Encoder에서는 이 점들을 MLP에 통과시켜서 $K \times H$ 크기의 Features를 얻는다. H가 MLP의 Output Dimension 인 것이다. 각 물체의 Mesh에 대해 AABB(Axis-Aligned Bounding Box)를 계산하고, 이를 $M \times M \times M$ 크기의 Voxel Grid를 정의하고 매핑한다. 그러면 $M \times M \times M \times H$의 Feature가 나오게 된다. 이후 Cell-wise Max-Pooling과 3D CNN을 통과시켜서 $M \times M \times M \times F$ 크기의 Feature를 얻는다. F가 각 셀의 Feature Dimension이 된다. Skip Connection은 Global Feature를 Local Cell에 Broadcast 하는 역할이다. 이를 통해 Global과 Local Feature를 모두 인코딩할 수 있다.  
+
+**Collision Predictor**  
+
+물체의 Pose를 이용해서 Shape Embedding의 OBB(Oriented Bounding Box)를 얻는다. 이후 Colliding Cells의 Feature를 Select한다. 이때, Select 하는 방법은 물체의 OBB의 Cell 중앙이 다른 물체에 속하는지를 보면 된다. 이 방법의 단점은 Cell의 일부가 속할 때 중앙이 속하지 않으면 False Negative가 생길 수 있다는 것이다. 이에 Margin을 더해서 False Negative를 없앤다. False Positive가 생길 수는 있지만, 실험 해봤을 때 Performance에 영향이 없었다고 한다. Selected Cells는 Average Pooling 후에 Collision Predictor MLP를 통과하여 충돌 여부를 예측한다. 
+
+A. Dataset preparation and training  
 
 
 
 
-### IV. Experiments
+
+### **IV. Experiments**  
+
+
 
 ---
 용어 정리:  

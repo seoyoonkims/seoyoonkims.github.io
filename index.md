@@ -38,7 +38,7 @@ Previously, I completed individual research at USRG, KAIST, developing drones ca
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
 - Accelerating Diffusion Transformers using Token Merging and MX quantization  
 
-> [HyperAccel (Internship, 2024.06 ~ 2024.08)](https://seoyoonkims.github.io/docs/HyperAccel/)  
+> HyperAccel (Internship, 2024.06 ~ 2024.08) 
 - Development of an LPU Monitoring System & Packaging and Deployment of HyperDex  
 
 > [USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)](https://github.com/seoyoonkims/Drone)   
@@ -62,7 +62,7 @@ Previously, I completed individual research at USRG, KAIST, developing drones ca
 > [AI-based Autonomous Rover (2024 Spring)](https://seoyoonkims.github.io/docs/projects/EE405/)  
  - Development of an AI-based autonomous rover capable of obstacle avoidance and landmine detection, integrating ROS, Gazebo, Jetson Orin Nano, localization, path planning, and object detection.  
 
-> [Face Recognition (2024 Fall)](https://seoyoonkims.github.io/docs/projects/EE488/)  
+> Face Recognition (2024 Fall)
  - Creation of a face recognition model using ResNet-18, incorporating Self-Supervised Learning, Triplet Loss, Dynamic Masking, and Data Augmentation to enhance performance.  
 
 > Efficient Parallel Execution through Hybrid Sorting Algorithms (2024 Fall)

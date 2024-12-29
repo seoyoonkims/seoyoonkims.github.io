@@ -14,13 +14,10 @@ South Korea
 
 ![ex_screenshot](./assets/images/me2.jpg)  
 
-## Introduction  
-> Hi, I am currently a senior in the Department of Electrical Engineering at KAIST.   
-> I have built a strong foundation in robotics, deep learning and parallel computing, with further details outlined below.  
 
 ## Research Interests  
 
-> AI Robotics & AI Accelerator
+> AI Robotics & Parallel Computing  
 
 ## Education  
 

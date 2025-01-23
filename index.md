@@ -17,7 +17,8 @@ South Korea
 
 ## Research Interests  
 
-> AI Robotics & Parallel Computing  
+> AI Robotics & Accelerator  
+
 
 ## Education  
 
@@ -28,6 +29,9 @@ South Korea
 
 
 ## Experience  
+> HuGe Lab, KAIST (Research Intern, 2025.01 ~ 2025.02)  
+- Developing Humanoid Robot using Deep Reinforcement Learning  
+
 > CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
 - Accelerating Diffusion Transformers using Token Merging and MX quantization  
 

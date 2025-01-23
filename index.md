@@ -23,9 +23,7 @@ South Korea
 ## Education  
 
 > Major in **Electrical Engineering** at KAIST, Korea (**B.S.**, 2021.02 ~ Present)  
-> - Minor in Mechanical Engineering (NYU Minor Program)   
-> - KAIST Dean's List (2023 Spring)  
-> - Honor Student  
+> - Minor in Mechanical Engineering (NYU Minor Program)    
 
 
 ## Experience  
@@ -45,6 +43,7 @@ South Korea
 ## Programming  
 
 > C/C++, CUDA, Python, Pytorch, System Verilog, ROS  
+
 
 ## Contact  
 

@@ -17,7 +17,7 @@ South Korea
 
 ## Research Interests  
 
-> AI Robotics & Accelerator  
+> AI Robotics, Chips  
 
 
 ## Education  
@@ -27,6 +27,9 @@ South Korea
 
 
 ## Experience  
+> iRSL Lab, KAIST (Intern, 2025.03 ~ Present)  
+- TBD
+
 > HuGe Lab, KAIST (Research Intern, 2025.01 ~ 2025.02)  
 - Developing Humanoid Robot using Deep Reinforcement Learning  
 
@@ -34,19 +37,19 @@ South Korea
 - Accelerating Diffusion Transformers using Token Merging and MX quantization  
 
 > HyperAccel (Research Intern, 2024.06 ~ 2024.08) 
-- Development of an Hardware Monitoring System & Packaging and Deployment of HyperDex  
+- Development of an Hardware Monitoring System & Packaging HyperDex  
 
 > USRG, KAIST (Individual Research, 2023.06 ~ 2023.08)  
 - AI-based Autonomous Drone that Avoids Obstables and Recognizes Human Poses  
 
 
-## Programming  
+## Skills    
 
-> C/C++, CUDA, Python, Pytorch, System Verilog, ROS  
+> C/C++, Python, Pytorch, ROS, IsaacLab  
+> CUDA, System Verilog, MATLAB  
 
 
 ## Contact  
-
 > Email: seoyoonkims@kaist.ac.kr  
 
 [GitHub][GitHub]{: .btn .btn-primary .fs-3 .mb-4 .mb-md-0 }

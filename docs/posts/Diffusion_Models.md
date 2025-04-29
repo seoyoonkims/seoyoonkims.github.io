@@ -52,7 +52,7 @@ $$
 
 ![18.2](../images/Diffusion/18.2.png)
 
-결국은 위 그림처럼 $x$는 0에 수렴하고, $q(z_t \vert x)$는 mean이 0인 정규분포에 가까워진다. 
+결국은 위 그림처럼 $x$는 0에 수렴하고, $q(\mathbf{z}_t \vert x)$는 mean이 0인 정규분포에 가까워진다. 
   
 
 
@@ -62,11 +62,11 @@ $\mathbf{z}_t$ 를 계산하는 것은 t가 클 때 time-consuming 일 수 있�
 
 
 $$
-\mathbf{z}_1 = \sqrt{1-\beta_1 \cdot \mathbf{x}} + \sqrt{\beta_1} \cdot \epsilon_1  
+\mathbf{z}_1 = \sqrt{1-\beta_1} \cdot \mathbf{x} + \sqrt{\beta_1} \cdot \epsilon_1  
 $$
 
 $$
-\mathbf{z}_2 = \sqrt{1-\beta_2 \cdot \mathbf{z}_{1}} + \sqrt{\beta_2} \cdot \epsilon_2  
+\mathbf{z}_2 = \sqrt{1-\beta_2} \cdot \mathbf{z}_{1} + \sqrt{\beta_2} \cdot \epsilon_2  
 $$
 
 두번째 식을 첫번째 식에 대입하면, 다음을 얻는다.

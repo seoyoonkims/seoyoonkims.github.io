@@ -7,9 +7,7 @@ nav_order: 4
 
 ## **Diffusion Models**  
   
-간단히 구현해본 Point Diffusion    
-[GitHub](https://github.com/seoyoonkims/point-diffusion)  
-  
+간단한 Point Diffusion 코드는 [GitHub](https://github.com/seoyoonkims/point-diffusion)에서 참고하실 수 있습니다.  
 ---
 
 ### **1. Overview**  

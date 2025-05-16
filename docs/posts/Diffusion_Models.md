@@ -7,6 +7,8 @@ nav_order: 4
 
 ## **Diffusion Models**  
 
+Simple Point Diffusion Code GitHub: https://github.com/seoyoonkims/point-diffusion  
+
 ---
 
 ### **1. Overview**  

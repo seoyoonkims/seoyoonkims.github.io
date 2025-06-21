@@ -17,18 +17,25 @@ South Korea
 
 ## Research Interests  
 
-> AI Robotics, Chips  
+> Robot Manipulation, Perception  
 
 
 ## Education  
 
-> Major in **Electrical Engineering** at KAIST, Korea (**B.S.**, 2021.02 ~ Present)  
-> - Minor in Mechanical Engineering (NYU Minor Program)    
+> 2025.08 - present
+> Korea Advanced Institute of Science and Technology (KAIST)
+> **M.S. Candidate**, Electrical Engineering   
+>  Advisor: Prof. Min Jun Kim (Intelligent Robotic Systems Lab (@KAIST))  
+
+> 2021.03 - 2025.07
+> Korea Advanced Institute of Science and Technology (KAIST)
+> **B.S.**, Electrical Engineering 
+> *Summa Cum Laude*  
+> Dean's List (2023 Spring)  
+> Minor: Mechanical Engineering  
 
 
 ## Experience  
-> iRSL Lab, KAIST (Intern, 2025.03 ~ Present)  
-- TBD
 
 > HuGe Lab, KAIST (Research Intern, 2025.01 ~ 2025.02)  
 - Developing Humanoid Robot using Deep Reinforcement Learning  

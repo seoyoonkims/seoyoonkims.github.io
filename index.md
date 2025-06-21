@@ -23,16 +23,14 @@ South Korea
 ## Education  
 
 > 2025.08 ~ Present  
-> Korea Advanced Institute of Science and Technology (KAIST)  
-> **M.S. Candidate**, Electrical Engineering   
->   Advisor: Prof. Min Jun Kim (Intelligent Robotic Systems Lab (@KAIST))  
+> **M.S. Candidate**, Electrical Engineering at KAIST   
+>   Advisor: Prof. Min Jun Kim (Intelligent Robotic Systems Lab)  
 
 > 2021.03 - 2025.07  
-> Korea Advanced Institute of Science and Technology (KAIST)  
-> **B.S.**, Electrical Engineering  
-> *Summa Cum Laude*  
-> Dean's List (2023 Spring)  
+> **B.S.**, Electrical Engineering at KAIST  
 > Minor: Mechanical Engineering  
+> *Summa Cum Laude*  
+> KAIST Dean's List (2023 Spring)  
 
 
 ## Experience  

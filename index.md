@@ -36,7 +36,7 @@ South Korea
 > HuGe Lab, KAIST (Research Intern, 2025.01 ~ 2025.02)  
 - Developing Humanoid Robot using Deep Reinforcement Learning  
 
-> CastLab, KAIST (Individual Research, 2024.09 ~ Present)  
+> CastLab, KAIST (Individual Research, 2024.09 ~ 2025.12)  
 - Accelerating Diffusion Transformers using Token Merging and MX quantization  
 
 > HyperAccel (Research Intern, 2024.06 ~ 2024.08) 

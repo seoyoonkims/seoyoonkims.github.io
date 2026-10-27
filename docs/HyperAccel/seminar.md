@@ -105,7 +105,7 @@ Edge Accelerator는 리소스가 제한되어 있으므로 compressed model이 �
 
 **Posit**  
 
-![Posit](../images/posit.png)  
+![Posit]({{ '/docs/images/posit.png' | relative_url }})
 
 기존의 수 체계가 아니라 새로운 방식을 채택한다.  
 
@@ -120,7 +120,7 @@ s: sign bit
 k: regime으로 s 이후에 나오는 0과 1에 따라 결정된다. 만약 0000이 나오면 이는 작은 수이므로 $k = -4$ 가 되어 촘촘한 간격으로 표현되고 1111이면 큰 수이므로 $k=3$ 이 되어 넓은 간격으로 표현된다.  
 
 
-![accuracy](../images/posit_accuracy.png)
+![accuracy]({{ '/docs/images/posit_accuracy.png' | relative_url }})
 
 모든 수를 동일한 간격으로 매핑하는 FP8 Quantization에 비해 Posit은 작은 수에 대해서는 더 높은 정확도를 보이고 큰 수에서는 낮은 정확도를 갖게 될 것이다.  
 
@@ -142,14 +142,14 @@ GEMM만 Quantization 하는 것이 아니라 Residual, LayerNorm, Activation, At
 
 그래서 Operation Fusion을 이용한다. 각 단계마다 Quantization 하는 것이 아니라 Fusion된 Operation까지 FP8로 진행하다가 마지막에 Posit8로 바꾸는? 그런 거 같음. 중간 값을 저장할 때 Posit8로 바꾸면서 정확도에 손실이 생기는 것인데 저장을 안하면 계속 FP8로 연산하고 마지막에만 Posit8로 저장. 
 
-![Operation Fusion](../images/operation_fusion.png)
+![Operation Fusion]({{ '/docs/images/operation_fusion.png' | relative_url }})
 
 MobileBERT 모델의 경우 모든 operation을 fusion 해야 정확도 차이가 1% 내로 줄어든다.  
 
 
 **Fine-tuning for Edge device**  
 
-![Tensor Value Distribution](../images/tensor_value_distribution.png)
+![Tensor Value Distribution]({{ '/docs/images/tensor_value_distribution.png' | relative_url }})
 
 Dark gray region은 E4M3으로 표현가능하고, light gray region은 Posit8로 표현 가능한 범위인데 activation과 weight의 경우는 대부분 범위 내에 들어오지만 gradient는 벗어나는 부분이 많아서 scaling을 해줘야 한다. 일반적인 FP8 같은 경우는 Tensor Max 값이랑 그 Format이 나타낼 수 있는 최댓값으로 매핑을 진행하는데, Posit8은 최댓값인 2^12일 때 정확도가 많이 떨어져서 64로 매핑했을 때 결과가 가장 좋았다고 한다.   
 
@@ -181,17 +181,17 @@ SSMP 기반 하드웨어 가속기를 소개하는 논문이다. 아이디어가
 
 Weight Matrix를 여러 개의 작은 Source Matrix(SS)와 Derived Matrix(DS)로 나눈다. DS는 SS에 Scaling Parameter를 곱해서 유도되는 Matrix다. 
 
-![ssmp](../images/ssmp.png)  
+![ssmp]({{ '/docs/images/ssmp.png' | relative_url }})
 
 위 그림을 예시로 들면 기존 Matrix를 $2 \times 3$ 의 submatrix로 나누고 1개를 SS로 지정한다. 나머지 5개의 DS는 SS에 Scaling Parameter를 곱해서 얻는다. 그러면 원래 $4 \times 6 = 24$ 개의 Parameter를 저장해야 했는데, 이제는 $4 + 5 = 9$ 개의 Parameter만 저장하면 되어서 메모리 측면에 큰 이점을 제공한다.  
 
 선행 연구에 따르면 Weight Matrix에서 중요한 정보는 1% 이하여서 이 1%는 따로 저장하고, 나머지 99%에 대해서 이 기법을 적용하면 정확도를 떨어뜨리지 않고 메모리를 절약할 수 있다. 
 
-![fine-tuning](../images/ssmp_finetuning.png)  
+![fine-tuning]({{ '/docs/images/ssmp_finetuning.png' | relative_url }})
 
 Pre-trained Model Weight에서 시작해서, 이 가중치를 가장 잘 설명할 수 있는 새로운 파라미터를 찾는 것이다. LoRA와 비슷해보인다.  
 
-![SSMP Algorithm](../images/ssmp-algorithm.png)
+![SSMP Algorithm]({{ '/docs/images/ssmp-algorithm.png' | relative_url }})
 
 $\sigma$ 는 Forget Factor로 처음에 1부터 시작해서 점점 줄여나가는 방향으로 학습된다. 식을 보면 $\sigma$에 따라서 처음에 $W$에서 시작해서 $W_{new}$로 수렴하게 된다. 
 
@@ -203,7 +203,7 @@ Loss Function이 재밌는데, $L_{LM} (Output)$ 에다가 $\sigma$ 의 L2 Regul
 
 **MECLA Overall Architecture**  
 
-![Architecture](../images/mecla_arch.png)
+![Architecture]({{ '/docs/images/mecla_arch.png' | relative_url }})
 
 RISC-V 코어에 1.25MB의 On chip buffer(Data + Source Matrix + Scaling Param), DDR Controller, 8 PE Clusters, 그리고 Auxiliary Unit으로 구성되어 있다.  
 
@@ -213,21 +213,21 @@ RISC-V 코어에 1.25MB의 On chip buffer(Data + Source Matrix + Scaling Param),
 
  Mecla는 Data Reuse도 크게 늘릴 수 있다. SS와 DS가 상수 배이므로 같은 Input에 대해 곱한 결과도 상수 배이기 때문이다. 따라서 MECLA는 SS Weight을 한번만 로드하면 DS Weight의 Output도 계산할 수 있다. 
 
- ![Outer-Product Partial Sum Reuse](../images/Outer-Product.png)
+ ![Outer-Product Partial Sum Reuse]({{ '/docs/images/Outer-Product.png' | relative_url }})
 
  Weight Stationary 처럼 Systolic Array에 Weight을 고정해놓고 Input 조각을 순서대로 넣어주면 된다. 그리고 부분합이 나오면 거기에 Scaling Paramter만 곱해서 Output을 얻는다.  
 
- ![Array](../images/output_array1.png)
+ ![Array]({{ '/docs/images/output_array1.png' | relative_url }})
 
 2. $n_x < n_y$
 
  Inner Product도 비슷한데 연산 순서만 다르다.  
 
- ![Inner-Product Multiplicand Re-Association](../images/inner-prpduct.png)
+ ![Inner-Product Multiplicand Re-Association]({{ '/docs/images/inner-prpduct.png' | relative_url }})
 
  이번에는 Scaling Paramter를 고정해놓고 Input 조각들을 넣어준 뒤 Weight와 곱하게 된다.  
 
- ![Array](../images/output_array2.png)
+ ![Array]({{ '/docs/images/output_array2.png' | relative_url }})
 
  이렇게 두 가지로 나눠서 연산하는 이유는 조금만 생각해보면 알 수 있다. 당연히 더 길이가 짧은 쪽으로 연산을 하고 그거에 Scaling Parameter를 곱해서 얻는 것이 Compute 면에서 이득이기 때문이다. 
 

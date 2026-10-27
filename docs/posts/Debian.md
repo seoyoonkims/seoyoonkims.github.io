@@ -9,7 +9,7 @@ nav_order: 2
 
 > Ubuntu 22.04 LTS  
 
-![tetris](../images/tetris.png)  
+![tetris]({{ '/docs/images/tetris.png' | relative_url }})
 
 ---
 **1. vitetris 소스 파일 다운로드**  

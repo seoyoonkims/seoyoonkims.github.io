@@ -17,7 +17,7 @@ SoC 설계에서 데이터를 주고 받을 때 많이 이용되는 표준 통�
 
 
 ### **Overview**  
-![AXI-Channels](../images/axi-channels.png)  
+![AXI-Channels]({{ '/docs/images/axi-channels.png' | relative_url }})
 
 Write을 위한 채널 3개와 Read를 위한 채널 2개로 이루어져 있다.  
 ```
@@ -31,13 +31,13 @@ Write Response(B)는 Slave가 Master한테 데이터를 제대로 받았는지 �
 
 **1. Write**  
 
-![AXI-Write-Transaction](../images/write-transaction.png)
+![AXI-Write-Transaction]({{ '/docs/images/write-transaction.png' | relative_url }})
 
 AW Channel에서 Master는 ADDR를 내보내고 VALID를 High로 만든다. Slave가 ADDR를 받을 준비가 되면 READY를 High로 만들어서 Handshake가 된다. W Channel에서 Slave가 Data를 받을 준비가 되면 READY를 High로 만든다. Master가 DATA를 내보내고 VALID를 High로 만들면 Handshake가 된다. B Channel에서 Master는 Response를 받을 준비가 되면 READY를 High로 만든다. Slave가 Response를 보내고 VALID를 High로 만들어서 Handshake가 된다. Write Burst 모드는 하나의 ADDR로 여러 개의 데이터를 보낼 수 있다. 몇 개의 데이터를 보낼 지 AW에서 알려주고(AWLEN, AWSIZE, AWBURST), 마지막 데이터를 보낼 때 WLAST가 High가 된다. Slave는 마지막 데이터를 받으면 Response를 보낸다.  
 
 
 **2. Read**  
-![AXI-Read-Transaction](../images/read-transaction.png)  
+![AXI-Read-Transaction]({{ '/docs/images/read-transaction.png' | relative_url }})
 
 AR Channel에서 Master는 ADDR를 내보내고 VALID를 High로 만든다. Slave가 ADDR를 받을 준비가 되면 READY를 High로 만들어서 Handshake가 된다. R Channel에서 Master가 Data를 받을 준비가 되면 READY를 High로 만든다. Slave가 Data를 내보내고 VALID를 High로 만들어서 Handshake가 된다. Slave가 마지막 데이터를 보낼 때 RLAST가 High가 되면 Master는 Response를 보낸다. Read Burst 모드는 하나의 ADDR로 여러 개의 데이터를 받을 수 있다. 몇 개의 데이터를 보낼 지 AR에서 알려주고(ARLEN, ARSIZE, ARBURST), Slave가 마지막 데이터를 보내면 데이터 Read가 완료된 것이다.  
 
@@ -48,13 +48,13 @@ AR Channel에서 Master는 ADDR를 내보내고 VALID를 High로 만든다. Slav
 
 CPU의 개입 없이 메모리들 간에 데이터를 주고 받을 수 있다. CPU cycle을 소모하지 않고 DMA Engine을 사용하므로 Data를 전송하는 동안 CPU Cycle을 다른 곳에 사용할 수 있다.  
 
-![DMA](../images/DMA_block_diagram-1.jpg)
+![DMA]({{ '/docs/images/DMA_block_diagram-1.jpg' | relative_url }})
 
 CPU와 DMA는 Master Interfaces를 갖고 있다. DMA Controller가 DMA의 동작을 수행하는 Functional Unit인데, CPU가 인식할 수 있는 register를 포함하고 있어서 src addr, dest addr, num byte 등을 요청할 수 있다.  
 
 각 DMA Controller는 FIFO Buffer를 가지고 있어서 데이터를 일시적으로 저장하고 전송 속도를 조절한다.  
 
-![DMA_FIFO](../images/DMA_two_part_transfer-600x171.jpg)
+![DMA_FIFO]({{ '/docs/images/DMA_two_part_transfer-600x171.jpg' | relative_url }})
 
 1. Read access – data is transferred from the source address to the DMA FIFO
 2. Write access – data is transferred from the DMA FIFO to the destination address
@@ -65,7 +65,7 @@ CPU와 DMA는 Master Interfaces를 갖고 있다. DMA Controller가 DMA의 동�
 
 병렬처리 컴퓨터에서 많이 쓰는 Sorting 알고리즘이다.  
 
-![bitonic sort](../images/bitonic_sort_architecture.png)
+![bitonic sort]({{ '/docs/images/bitonic_sort_architecture.png' | relative_url }})
 
 
 1. Bitonic Sequence: 배열을 원소 개수가 2개가 될 때까지 계속 절반으로 쪼개나가서 (재귀적으로) Ascending / Descending 이 반복되도록 각 부분 배열을 Sorting을 한다.  
@@ -111,11 +111,11 @@ print("Sorted array is:", arr)
  분할할 때 부분 배열 간 간섭이 전혀 없고 재귀적으로 이루어지므로 다른 프로세서가 독립적으로 처리할 수 있어서 그런것 같다. 그리고 Merge를 할 때도 k 만큼 떨어진 원소끼리만 비교 및 교환을 하므로 여러 프로세서가 동시에 작업을 수행할 수 있다.  
 
 2. 왜 Sorting이 되는가  
- ![Sorting](../images/sort.jpg)  
+ ![Sorting]({{ '/docs/images/sort.jpg' | relative_url }})
  이게 되네?
 
 3. 왜 Ascending / Descending 을 번갈아 사용하는가
- ![Why Ascend/Descend](../images/ascend.jpg)  
+ ![Why Ascend/Descend]({{ '/docs/images/ascend.jpg' | relative_url }})
  Ascending / Ascending 이면 원소 교환해도 Sorting이 안됨
 
 ---

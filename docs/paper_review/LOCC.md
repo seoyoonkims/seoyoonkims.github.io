@@ -5,8 +5,6 @@ parent: Paper Review
 nav_order: 15
 ---
 
-### 논문 리뷰
-
 ## Local object crop collision network for efficient simulation of non-convex objects in GPU-based simulators  
 
 by Dongwon Son (KAIST), Beomjun Kim (KAIST)  
@@ -17,7 +15,7 @@ by Dongwon Son (KAIST), Beomjun Kim (KAIST)
 
 GPU 기반 시뮬레이터는 수천 개의 환경을 병렬로 시뮬레이션할 수 있기 때문에 CPU 기반보다 빅데이터 생성 속도가 매우 빠르다. 하지만 현재의 GPU 기반 시뮬레이터인 IssacGym과 Brax는 Non-Convex 객체를 처리할 때 속도나 정확성, 일반성 면에서 한계가 있다. 또한, GJK 같은 기존의 CD 알고리즘은 Non-Convex 객체의 충돌을 처리할 때 Computation이 크게 증가한다. Convex Hull 같은 근사는 속도는 유지하지만, 정확도가 크게 떨어진다.  
 
-![0](../images/BRAX-LOCC/BRAX-LOCC0.png)
+![0]({{ '/docs/images/BRAX-LOCC/BRAX-LOCC0.png' | relative_url }})
 
 본 논문은 LOCC 라는 새로운 CD 알고리즘을 제안한다. 데이터 기반 접근법을 사용하여, 정확도가 온라인이 아닌 오프라인에서의 데이터 품질에 따라 결정된다. 특히, 객체의 Global Shape이 아닌 충돌 지점의 Local Crop 부분만 학습해서 효율적이다. LOCC는 기존 알고리즘보다 Non-Convex 시뮬레이션에서 정확도를 유지하면서 5-10배 더 빠른 속도를 자랑한다.  
 
@@ -51,7 +49,7 @@ Contact Resolution의 목표는 충돌이 일어났을 때 Penetration이 아니
 
 이 논문에서는 두 물체의 Mesh와 Pose를 이용해 직접적으로 충돌 여부를 결정한다. Computational Flow는 다음과 같다.  
 
-![1](../images/BRAX-LOCC/BRAX-LOCC.png)
+![1]({{ '/docs/images/BRAX-LOCC/BRAX-LOCC.png' | relative_url }})
 
 LOCC에는 두 가지 모듈이 있다. Shape Encoder와 Collision Predictor이다. 
 
@@ -68,7 +66,7 @@ YCB나 Google ScanNet 같은 데이터 셋을 이용한다. 형식은 ${(x_1^{(i
 
 이런 데이터를 생성하는 나이브한 방법은 두 물체를 Object Set에서 무작위로 Sampling 하고, Pre-defined Bound 내에서 Uniform 하게 Pose를 설정한 뒤 Collision 여부를 평가하는 것이다. 그러나 이 방법으로는 객체가 서로 너무 멀거나 완전히 겹치는 경우가 많이 생성되고, 비교적 복잡한 (살짝 겹치는) 사례에 대해 학습이 제대로 이뤄지지 않을 수 있다.  
 
-![1](../images/BRAX-LOCC/1.png)
+![1]({{ '/docs/images/BRAX-LOCC/1.png' | relative_url }})
 
 이에 다양한 겹침 정도(Overlapping Volume)을 생성하기 위해 아래 그림처럼 두 물체의 최단 거리 벡터 $\delta$를 계산하고, 이 벡터의 방향으로 물체를 이동시켜 가면서 겹침 정도를 조정한다. $\vert \delta' \vert$는 $N(0, 0.020)$에서 Sampling 한다. 
 
@@ -89,7 +87,7 @@ $에서 회전 행렬 R을 랜덤하게 Sampling 해서 두 물체에 적용한�
 
 ### **IV. Experiments**  
 
-![2](../images/BRAX-LOCC/BRAX-LOCC2.png)
+![2]({{ '/docs/images/BRAX-LOCC/BRAX-LOCC2.png' | relative_url }})
 
 ---
 용어 정리:  

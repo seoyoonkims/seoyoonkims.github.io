@@ -5,11 +5,9 @@ nav_order: 2
 has_children: true
 ---
 
-## HyperAccel  
-
 Research Intern (2024.06 ~ 2024.08)  
 
-![Logo](images/hyperaccel.png)  
+![Logo]({{ '/docs/images/hyperaccel.png' | relative_url }})
 
 주요 업무: 
 - LPU 모니터링 시스템 개발  

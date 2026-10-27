@@ -5,9 +5,6 @@ parent: Posts
 nav_order: 5
 ---
 
-
-## Kalman Filter
-
 ### 칼만 필터 원리 및 구현
 
 ---
@@ -29,11 +26,11 @@ $$
 즉, 해당 시점에서 미래를 예측하는데 필요한 정보들만 갖고 있으면 완전한 상태가 된다. 과거의 정보나 독립적인 정보들은 필요하지 않다. 
 
 
-![Control](../images/KalmanFilter/control.png)
+![Control]({{ '/docs/images/KalmanFilter/control.png' | relative_url }})
 
 제어 시스템은 Move, Predict, Sense, Update의 반복이라고 볼 수 있다. 물체가 움직이면 불확실성이 커지고, 현재 상태와 이전 관측값을 토대로 다음 상태를 예측한다. 센서를 이용해서 관측값을 얻으면 불확실성을 없애는 방향으로 업데이트를 진행한다.
 
-![Markov](../images/KalmanFilter/markov.png)
+![Markov]({{ '/docs/images/KalmanFilter/markov.png' | relative_url }})
 
 위 그림에서 Markov Assumtion을 적용하면 모델을 간단하게 나타낼 수 있다. $x_t$는 현재 상태, $u_t$는 제어 입력, $z_t$는 관측 값을 나타낸다.  
 
@@ -102,7 +99,7 @@ $$
 
 **정리**  
 
-![BayesFilter](../images/KalmanFilter/BayesFilter.png)
+![BayesFilter]({{ '/docs/images/KalmanFilter/BayesFilter.png' | relative_url }})
 
 ---
 
@@ -110,7 +107,7 @@ $$
 
 **Multivariate Normal Distribution**  
 
-![Gaussian Distribution](../images/KalmanFilter/gaussian.png)
+![Gaussian Distribution]({{ '/docs/images/KalmanFilter/gaussian.png' | relative_url }})
 
 $$
 p(x) = \frac{1}{(2\pi)^{n/2} \sqrt{\det(\Sigma)}} 
@@ -347,7 +344,7 @@ plotData(savedStates, sampledTime, Sampled_gt, 1, datasetNum);
 
 **Results**  
 
-![Result](../images/KalmanFilter/result.png)
+![Result]({{ '/docs/images/KalmanFilter/result.png' | relative_url }})
 
 관측 값을 이용해서 예측한 경로와 실제 경로가 거의 일치하는 것을 볼 수 있다. 
 

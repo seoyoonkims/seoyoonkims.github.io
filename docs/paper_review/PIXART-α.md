@@ -5,8 +5,6 @@ parent: Paper Review
 nav_order: 9
 ---
 
-### 논문 리뷰  
-
 ## PIXART-α: FAST TRAINING OF DIFFUSION TRANSFORMER FOR PHOTOREALISTIC TEXT-TO-IMAGE SYNTHESIS
 
 ---
@@ -15,7 +13,7 @@ nav_order: 9
 
 Stable Diffusion v1.5를 훈련하는 데에는 6,000 A100 GPU일이 필요하고 약 32만 달러의 비용이 든다. 최근에 나온 더 큰 모델인 RAPHAEL은 훈련에 6만 A100 GPU일과 약 308만 달러가 필요하다. 또한 훈련 과정에서 많은 양의 이산화탄소가 배출되기 때문에 환경에도 부정적인 영향을 미친다. 따라서 이 논문에서는 이러한 자원 소모를 줄이면서도 높은 품질의 이미지 생성기를 개발할 수 있는 방법을 제시한다.  
 
-![2](../images/Pixart/2.png)
+![2]({{ '/docs/images/Pixart/2.png' | relative_url }})
 
 위 그림을 보면 RAPHAEL과 비교했을 때 PIXART-α가 얼마나 효율적인지 직관적으로 알 수 있다. RAPHAEL의 2% 미만의 훈련 시간과 0.5% 미만의 데이터 사용량을 갖고 있으며, 이산화탄소 배출량은 1.2%, 훈련 비용은 0.91% 밖에 되지 않는다.  
 
@@ -54,7 +52,7 @@ T2I 훈련이 느린 이유는 훈련 파이프라인과 데이터 때문이다.
 
 PIXART-α 모델은 Diffusion Transformer(DiT)를 기본으로 사용하며, 이를 텍스트-이미지 생성 작업에 맞게 몇 가지 설계가 추가되었다. 
 
-![4](../images/Pixart/4.png)
+![4]({{ '/docs/images/Pixart/4.png' | relative_url }})
 
 **Cross-Attention Layer**  
 
@@ -88,7 +86,7 @@ DiT에서 파라미터의 상당 부분인 27%를 차지하는 AdaLN 모듈을 �
 
 특히 LAION과 같은 기존 데이터셋의 텍스트 설명이 부정확하고 부분적이며, 다양한 개체들에 대한 정보가 부족한 반면, LLaVA를 활용한 자동 라벨링 기법은 텍스트 설명의 정보 밀도를 높여 모델이 더 적은 반복 학습으로 더 많은 개념을 효과적으로 학습할 수 있게 도와준다.  
 
-![Table 1](../images/Pixart/table1.png)
+![Table 1]({{ '/docs/images/Pixart/table1.png' | relative_url }})
 
 위 표를 보면 LLaVa로 라벨링된 데이터셋은 Valid Noun의 비율과 밀도가 높아지는 것을 볼 수 있다. Internal Dataset은 비공개 데이터셋을 의미한다. Valid Noun은 10번 이상 등장한 Distinct Noun을 의미한다.  
 
@@ -112,18 +110,18 @@ User Study: 실제 사용자들이 생성된 이미지의 품질을 평가한 �
 
 PIXART-α는 MSCOCO 데이터셋에서 FID 점수가 7.32로 측정되었다. 훈련 시간과 데이터 사용량이 매우 적음에도 불구하고, 기존 모델들과 비교해 높은 성능을 기록한 것이다. RAPHAEL과 같은 모델은 더 많은 자원을 사용했지만, PIXART-α는 전체 자원의 2% 미만을 사용하면서도 거의 비슷한 수준의 FID 성능을 달성했다.  
 
-![table2](../images/Pixart/table2.png)
+![table2]({{ '/docs/images/Pixart/table2.png' | relative_url }})
 
 
 **Alignment Assessment**  
 T2I-CompBench 벤치마크에서 PIXART-α는 속성 바인딩, 객체 관계, 복잡한 구성과 같은 다양한 평가 지표에서 우수한 성능을 보였다. 특히 텍스트-이미지 정렬 학습을 통해 텍스트와 이미지 간의 일관성을 잘 유지하였다.  
 
-![table3](../images/Pixart/table3.png)
+![table3]({{ '/docs/images/Pixart/table3.png' | relative_url }})
 
 **User Study**  
 사용자 선호도 조사에서는 PIXART-α가 Stable Diffusion, DALL·E 2, DeepFloyd와 같은 최신 모델들을 능가하는 이미지 품질과 텍스트-이미지 일치율을 보여주었다. 7.2% 높은 이미지 품질 개선과 42.4% 더 높은 텍스트-이미지 정렬 정확도를 기록했다.  
 
-![5](../images/Pixart/5.png)
+![5]({{ '/docs/images/Pixart/5.png' | relative_url }})
 
 
 **Ablation Study**  
@@ -131,7 +129,7 @@ Ablation Study를 통해 각 구성 요소가 모델 성능에 미치는 영향�
 
 re-parameterization을 사용하지 않은 모델은 FID 성능이 떨어지고 이미지 왜곡이 발생했지만, re-parameterization 기법을 적용한 모델은 성능이 크게 개선되었다.
 
-![6](../images/Pixart/6.png)
+![6]({{ '/docs/images/Pixart/6.png' | relative_url }})
 
 ---
 

@@ -5,8 +5,6 @@ parent: Paper Review
 nav_order: 3
 ---
 
-### 논문 리뷰  
-
 ## Scalable Diffusion Models with Transformers
 
 William Peebles, Saining Xie  
@@ -15,7 +13,7 @@ William Peebles, Saining Xie
 
 DDPM을 이해했다면, 사실상 다음 그림만 이해하면 된다. DDPM에서는 Image to Image 매핑에 U-Net을 사용했다면, DiT는 U-Net을 Transformer 구조로 바꾼 것이라고 보면 된다.  
 
-![DiT Architecture](../images/DiT/3.png)
+![DiT Architecture]({{ '/docs/images/DiT/3.png' | relative_url }})
 
 위 구조를 이해하기 위해서 다음의 몇 가지 개념들을 알고 넘어가야 한다.  
 
@@ -39,7 +37,7 @@ $$
 
 $s>1$ 이고 guidance의 정도를 나타낸다. ($s=1$이면 standard sampling 이다.)  
 
-![CFG](../images/cfg.png)
+![CFG]({{ '/docs/images/cfg.png' | relative_url }})
 
 이 그림은 CG와 CFG를 비교한 것이다. CG의 경우 노이즈 이미지를 학습한 후 Classifier로부터 Gradient를 받아서 Class Guidance를 해준다. 반면 CFG는 Positional Encoding과 비슷한 방법으로 t와 c를 모델에 입력해준다. 디퓨전 모델은 Condition을 받았을 때와 받지 않았을 때 두 가지의 노이즈를 예측하고 최종적으로는 이 두 값의 Interpolation을 통해서 노이즈를 계산한다.
 
@@ -47,7 +45,7 @@ $s>1$ 이고 guidance의 정도를 나타낸다. ($s=1$이면 standard sampling 
 
 DiT의 인풋은 spatial representation z($32 \times 32 \times 4$)이다. Patchify는 DiT의 첫번째 레이어로 이러한 spatial 인풋을 T개의 토큰 시퀀스로 바꿔준다. 각각의 디멘션은 d로 동일하다. ViT에서 이용했던 frequency-based positional embedding을 적용한다. 생성되는 토큰의 개수는 아래 그림과 같이 hyperparameter인 p에 의해서 결정된다. p가 작을수록 더 촘촘하게 나누게 되므로 토큰 수가 많아진다.   
 
-![4](../images/DiT/4.png)
+![4]({{ '/docs/images/DiT/4.png' | relative_url }})
 
 
 ---
@@ -64,7 +62,7 @@ t, c의 임베딩에 해당하는 토큰 2개를 추가로 넣어주는 것이�
 
 t, c의 임베딩을 Concatenate 하여 추가적인 Cross-attention layer에서 이미지와 어텐션 연산을 수행한다. Self-attention layer 다음에 나온다. 15% 정도의 오버헤드가 더해진다.   
 
-![cross-attention](../images/cross-attention.png)
+![cross-attention]({{ '/docs/images/cross-attention.png' | relative_url }})
 
 Self Attention과 매커니즘은 동일하나 인풋의 출처가 다르다고 보면 된다. 위의 경우에서는 Q는 이미지에서 나온 값이고 K, V가 임베딩에서 온 것으로 볼 수 있다. 
 
@@ -72,11 +70,11 @@ Self Attention과 매커니즘은 동일하나 인풋의 출처가 다르다고 
 
 Standard layer norm의 경우 Channel 단위로 normalization을 진행하고, 다음과 같이 scale $\gamma$와 shift $\beta$를 학습하는 방식이었다. 
 
-![layer-norm](../images/batch_norm_forward.png)
+![layer-norm]({{ '/docs/images/batch_norm_forward.png' | relative_url }})
 
 adaLN은 직접적으로 $\gamma$와 $\beta$를 학습하는 대신, t와 c의 임베딩 벡터를 입력해서 나온 출력 값으로 대신한다. 
 
-![adaLN](../images/DiT/adaLN.png)
+![adaLN]({{ '/docs/images/DiT/adaLN.png' | relative_url }})
 
 위 그림처럼 MLP에서 conditioning과 관련된 정보를 학습해서 t와 c를 넣어주면 적절한 scale과 shift 값을 알려주는 것이라고 볼 수 있다. MLP는 SiLU와 linear layers로 이루어져 있다. 
 
@@ -89,7 +87,7 @@ ResNet에서 알 수 있듯이 각 Residual 블록을 Identity Function으로 �
 
 위의 네 가지 방법을 비교했을 때, adaLN-Zero가 가장 성능이 좋았다고 한다.  
 
-![5](../images/DiT/5.png)
+![5]({{ '/docs/images/DiT/5.png' | relative_url }})
 
 
 

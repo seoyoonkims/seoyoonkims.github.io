@@ -5,8 +5,6 @@ parent: Paper Review
 nav_order: 8
 ---
 
-### 논문 리뷰  
-
 ## QIHOO-T2X: AN EFFICIENCY-FOCUSED DIFFUSION TRANSFORMER VIA PROXY TOKENS FOR TEXT-TO-ANY-TASK  
 
 ---
@@ -15,7 +13,7 @@ nav_order: 8
 
 **3.1 Redundancy Analysis**  
 
-![Figure 2](../images/PT-DiT/2.png)
+![Figure 2]({{ '/docs/images/PT-DiT/2.png' | relative_url }})
 
 위 그림은 Pixart-$\alpha$ 512 resolution의 어텐션 맵이다. 그 중 같은 $4 \times 4$ 윈도우에 속하는 토큰들은 어텐션 맵이 거의 동일한 것을 볼 수 있다. 또한, 공간적으로 가까운 토큰들끼리는 유사도가 다양하지만, 멀어질수록 유사도가 일정해지는 것을 볼 수 있다. 
 
@@ -23,7 +21,7 @@ nav_order: 8
 
 **3.2 Architecture of PT-DiT**  
 
-![Figure 3](../images/PT-DiT/3.png)
+![Figure 3]({{ '/docs/images/PT-DiT/3.png' | relative_url }})
 
 Latent code $z \in \mathbb{R}^{C \times F \times H \times W}$가 들어오면 path embedding을 거쳐서 latent code sequence $z_s \in \mathbb{R}^{N \times D}$가 된다. 이후 Positional Encoding을 거쳐서 Proxy Token 블록으로 들어가면 Global Information Interaction Module (GIIM)과 Texture Complement Module (TCM) 등을 거치게 된다. GIIM은 sparse하게 글로벌한 Interaction을 조사하고, TCM은 Window Attention이나 Shift-Window Attention을 통해 로컬 디테일을 조사한다.  
 
@@ -44,7 +42,7 @@ $$
 z_s = CS(z_s, SA(RandomSample(z_s)))  
 $$
 
-![DrawIO](../images/PT-DiT/TokenMerging.drawio.png)
+![DrawIO]({{ '/docs/images/PT-DiT/TokenMerging.drawio.png' | relative_url }})
 
 이런 느낌인 것 같다. 결국 $(p_f, p_w, p_h)$ 중 하나의 토큰만 살아남는 것이다. 각 토큰은 $1 \times D$ 벡터이다.  
 
@@ -71,9 +69,9 @@ $$
 
 **3.3 Complexity Analysis**  
 
-![draw1](../images/PT-DiT/d1.png)
+![draw1]({{ '/docs/images/PT-DiT/d1.png' | relative_url }})
 
-![draw2](../images/PT-DiT/d2.png)
+![draw2]({{ '/docs/images/PT-DiT/d2.png' | relative_url }})
 
 
 - **Self-attention의 Complexity:** $QK$가 $N^2 D$, Softmax(QK)V가 $N^2 D$를 차지한다. 
@@ -100,7 +98,7 @@ Compression ratio $(p_f, p_h, p_w)$가 커질수록 Complexity에 이득이 많�
 
 ### **4. Algorithmic Efficiency Comparison**  
 
-![5](../images/PT-DiT/5.png)
+![5]({{ '/docs/images/PT-DiT/5.png' | relative_url }})
 
 Figure 4는 이미지에서의 Complexity를 비교한 것이다. 왼쪽 그래프에서 파라미터 수가 1.8B 일 때 80% 이상 계산량이 감소하였고, 오른쪽 그래프처럼 소규모 파라미터에서도 48% 정도 계산량이 감소한 것을 볼 수 있다.  
 

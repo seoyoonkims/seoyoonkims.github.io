@@ -5,8 +5,6 @@ parent: Paper Review
 nav_order: 7
 ---
 
-### 논문 리뷰  
-
 ## TOKEN MERGING: YOUR VIT BUT FASTER
 
 ---
@@ -57,7 +55,7 @@ r은 Speed-accuracy trade-off를 제공한다. 토큰을 많이 병합할수록 
 
 이 논문의 솔루션은 다음과 같다. 일단 병렬 처리가 불가능한 방법을 피하면서 Merging을 점진적으로 할 수 있는 방법을 찾았다. 블록을 지남에 따라 토큰들이 점점 Merging 되고 있는 것을 볼 수 있다.   
 
-![Figure 1](../images/ToMe/1.png)
+![Figure 1]({{ '/docs/images/ToMe/1.png' | relative_url }})
 
 1. 토큰을 비슷한 개수의 집합 A와 B로 나눈다.  
 2. A에 있는 토큰마다 B에 있는 토큰 중 가장 유사한 토큰을 edge로 연결한다.  
@@ -95,7 +93,7 @@ $$
 
 Token Merging 시 최적의 방법을 찾기 위해 다음과 같이 실험을 진행하였다.  
 
-![Table 1](../images/ToMe/table1.png)
+![Table 1]({{ '/docs/images/ToMe/table1.png' | relative_url }})
 
 (a) Key로 유사도를 비교할 때 정확도가 가장 높았다. Key가 토큰의 정보를 잘 요약한다고 볼 수 있다.  
 
@@ -117,17 +115,17 @@ Token Merging 시 최적의 방법을 찾기 위해 다음과 같이 실험을 �
 
 **Comparing Matching Algorithms**  
 
-![table 2](../images/ToMe/table2.png)
+![table 2]({{ '/docs/images/ToMe/table2.png' | relative_url }})
 
 다양한 토큰 병합 알고리즘을 비교한 결과, Bipartite Matching 알고리즘이 성능과 속도 면에서 가장 뛰어나다. K-means 클러스터링은 속도가 느리고, Pruning은 정보 손실이 많다.  
 
 **Selecting a Merging Schedule**  
 
-![2](../images/ToMe/2.png)
+![2]({{ '/docs/images/ToMe/2.png' | relative_url }})
 
 r을 조정하는 방법도 실험했는데, Constant Schedule이 대체로 최적에 가까운 좋은 성능을 보였다. 각 점들은 15K개의 랜덤 Merging Schedule을 나타낸다.  
 
-![7](../images/ToMe/7.png)
+![7]({{ '/docs/images/ToMe/7.png' | relative_url }})
 
 Appendix C의 Figure 7은 Figure 2의 랜덤 샘플 중 가장 성능이 좋았던 100개의 샘플의 평균 Merge 개수를 레이어 별로 구한 것이다. 
 

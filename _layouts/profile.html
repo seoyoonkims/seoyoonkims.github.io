@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{% if page.lang %}{{ page.lang }}{% elsif page.url contains '/docs/' %}ko{% else %}en{% endif %}">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    {% seo %}
+    <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/profile.css' | relative_url }}">
+    {% if page.layout != 'profile' %}
+    <link rel="stylesheet" href="{{ '/assets/css/document.css' | relative_url }}">
+    {% if page.url contains '/docs/' %}{% include head_custom.html %}{% endif %}
+    {% endif %}
+    <script defer src="{{ '/assets/js/profile.js' | relative_url }}"></script>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="profile-header page-width">
+      <nav class="profile-nav" aria-label="Main navigation">
+        <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a>
+        {% for item in site.data.profile.navigation %}
+        <a href="{{ item.url | relative_url }}"{% if page.url contains '/docs/' %} aria-current="page"{% endif %}>{{ item.title | escape }}</a>
+        {% endfor %}
+      </nav>
+    </header>
+    <main class="page-width" id="main-content">
+      {{ content }}
+    </main>
+    <footer class="profile-footer page-width">
+      <p>© {{ site.time | date: '%Y' }} Seoyoon Kim</p>
+      <a href="#top">Back to top</a>
+    </footer>
+    {% if content contains 'language-mermaid' %}{% include components/mermaid.html %}{% endif %}
+  </body>
+</html>

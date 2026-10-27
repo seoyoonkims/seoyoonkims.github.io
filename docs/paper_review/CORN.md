@@ -5,8 +5,6 @@ parent: Paper Review
 nav_order: 16
 ---
 
-### 논문 리뷰
-
 ## CORN: Contact-based Object Representation for Nonprehensile Manipulation of General Unseen Objects    
 
 ---
@@ -21,7 +19,7 @@ nav_order: 16
 - 2nd Stage: Teacher Policy w/ Privileged Information  
 - 3rd Stage: Student Policy w/ Partial Information  
 
-![overview](../images/CORN/overview.png)
+![overview]({{ '/docs/images/CORN/overview.png' | relative_url }})
 
 1단계에서는 빨간색 부분의 Encoder 모듈을 훈련시킨다. 이 모듈은 관측한 Point Cloud $(512 \times 3)$와 Hand State $9 (3D position + 6D Orientation)$를 바탕으로 오브젝트의 Patch-wise Embedding을 만들어낸다. 이것을 초록색 부분의 Decoder로 넘겨준 후, 각 임베딩된 Patch가 Gripper와 만나는지 분류하면서 학습이 이루어지는 것이다. 따라서 이때는 Point Cloud 인코더와 Collision 디코더가 동시에 학습된다.  
 
@@ -29,7 +27,7 @@ Policy 학습 단계에서는 Collision Decoder를 없애고, 인코더는 Freez
 
 **3.2 Learning CORN**  
 
-![algorithm](../images/CORN/algorithm.png)
+![algorithm]({{ '/docs/images/CORN/algorithm.png' | relative_url }})
 
 1-2: 오브젝트와 그리퍼의 SE(3) Transform을 샘플링한다. 
 3: 오브젝트 표면과 그리퍼 사이의 최단 거리를 찾는다.  

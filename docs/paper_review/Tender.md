@@ -5,9 +5,6 @@ parent: Paper Review
 nav_order: 2
 ---
 
-### 논문 리뷰  
-
-
 2024 ACM/IEEE 51st Annual International Symposium on Computer Architecture (ISCA)  
 
 ## Tender: Accelerating Large Language Models via Tensor Decomposition and Runtime Requantization  
@@ -26,7 +23,7 @@ PPT Slide: [Tender](https://github.com/seoyoonkims/seoyoonkims.github.io/blob/ma
 LLM이 최근에 굉장히 성공을 거두고 있지만 엄청난 양의 연산과 메모리 리소스들을 필요로 하면서 Quantization을 통해 해결하려는 노력이 많이 이뤄지고 있다. Weight과 Activation을 모두 낮은 비트의 정수로 Quantize 하면 행렬 연산을 가속하고 정수 연산 유닛의 높은 throughput을 유지할 수 있다. 또한, 메모리 capacity와 bandwidth 면에서도 이득을 볼 수 있다.
 하지만, CNN이나 작은 트랜스포머 모델과는 달리 모델 사이즈가 6.7B이 넘어가면 Outlier들이 많아져서 Quantization의 범위를 늘리기 때문에 성능이 떨어지게 된다.
 
-![outliers](../images/outliers.png)
+![outliers]({{ '/docs/images/outliers.png' | relative_url }})
 
 그래서 지금까지 이를 해결하기 위한 다양한 노력들이 있었다. 대부분의 소프트웨어 적인 방법들은 복잡한 알고리즘으로 인한 오버헤드 때문에 추론 시간을 눈에 띄게 줄이지 못하거나, 4 bit 같은 Low-bit precision에서 Quantization Loss가 상당해지는 문제점이 있다.
 알고리즘-하드웨어 co-design 같은 경우에는 mixed-precision 및 복잡한 연산 유닛을 필요로 하거나, 커스텀 데이터 타입을 필요로 해서 일반적인 하드웨어에서는 지원이 안되는 문제점이 있다.  
@@ -43,7 +40,7 @@ Activation Tensor를 채널을 따라서 여러 개의 Subtensor들로 나눈다
 
 앞에서 Activation과 Weight이라는 용어가 등장했는데, 트랜스포머의 경우에는 인풋에 해당하는 X가 Activation, 가중치에 해당하는 W가 Weight이라고 보면 된다. 여기서 주목할 점은 Activation들은 행 단위로 계산이 되고, Weight들은 대부분 열 단위로 계산이 된다는 점이다.  
 
-![transformer](../images/transformer_.png)  
+![transformer]({{ '/docs/images/transformer_.png' | relative_url }})
 
 $$
 X_Q = XW_Q; X_K = XW_K; X_V = XW_V  
@@ -65,11 +62,11 @@ $$
 
 논문에서는 Outlier들의 존재로 Quantization이 까다롭다는 점을 반복해서 이야기하고 있다. 선행 연구 결과를 보면 Post-Training Quantization의 방법으로 LLM의 Weights들을 효과적으로 Quantize 할 수 있는 반면에, Activation의 경우에는 Outlier들 때문에 Quantization이 어렵다.  
 
-![Outlier](../images/outliers_.png)  
+![Outlier]({{ '/docs/images/outliers_.png' | relative_url }})
 
 이 그림은 Activation Tensor와 Weight Tensor의 값들을 보여주고 있는데, In Dimension은 인풋 토큰의 차원을 나타내고, Token은 토큰 개수를 나타낸다. Activation Tensor에는 특정 인풋 Dimension, 즉 채널은 따라서 Outlier들이 존재하고 있다. Weight의 경우에는 상대적으로 비슷한 값들이 분포하고 있는 것을 볼 수 있다.  
 
-![Outlier](../images/outlier__.png)  
+![Outlier]({{ '/docs/images/outlier__.png' | relative_url }})
 어텐션 인풋 텐서의 히트맵이다. 여기서도 역시 선들은 수직적으로 나타나고, 몇 개의 고정된 채널에 존재하는 것을 볼 수 있다.  
 
 $$
@@ -82,15 +79,15 @@ Quantizaiton은 위와 같은 식을 통해서 진행이 된다. 여기서 b는 
 
 Tensor를 어떻게 분할해서 Quantization을 하느냐에 따라서 여러가지 Granuarity로 나뉜다. Per-tensor 같은 경우에는 Tensor안의 모든 원소들이 같은 Quantization Parameter들을 공유하게 되고, Per-row나 Per-column의 경우에는 각각 같은 row와 column 안에 속하는 원소들이 동일한 Parameter을 공유한다. 이 논문에서는 Per-row와 Per-token을 같은 뜻으로 사용하고, Per-column과 Per-channel을 같은 의미로 사용하고 있다. 그래서 앞에서 Outlier들이 채널을 따라서 존재한다는 것은 Tensor에서 Column을 따라서 존재한다고 보면 된다.  
 
-![Quantization Granuarity](../images/granuarity.png)  
+![Quantization Granuarity]({{ '/docs/images/granuarity.png' | relative_url }})
 
 **Challenges in Quantizing LLMs**  
 
-![Tender_table1](../images/tender_table1.png)  
+![Tender_table1]({{ '/docs/images/tender_table1.png' | relative_url }})
 
 이 테이블은 서로 다른 Granularity에 따른 Perplexity를 보여준다. Outlier들이 채널을 따라 존재하므로 채널마다 Scale Factor를 다르게 지정해주는 Per-column Quantization이 예상처럼 가장 좋은 성능을 보이고 있다. 하지만 Per-column Quantization은 행렬 계산을 할 때 다음 원소로 넘어갈 때마다 계속 Re-scaling이 필요해서 Floating Point 연산을 필요로 하게 되고, 현대 GPU나 TPU의 정수 파이프라인 구현에 Underutilization 같은 문제점을 일으킨다.  
 
-![matrix](../images/matrix.png)  
+![matrix]({{ '/docs/images/matrix.png' | relative_url }})
 
 그래서 대부분의 선행 연구들은 Activation을 Quantize 할 때는 Row마다 Quantization 하는 방식을 선택하고, Weight에 대해서는 Column마다 Quantization 하는 방식을 적용하고 있다. 하지만 이렇게 하면 Outlier들을 효과적으로 분리하지 못하기 때문에 Tender는 Column을 따라서 Tensor를 분리하는 방법을 제안한다.  
 
@@ -130,7 +127,7 @@ $$
 
 ### **III. Algorithmic Implementation**  
 
-![Tender Algorighm](../images/tender_algorithm.png)  
+![Tender Algorighm]({{ '/docs/images/tender_algorithm.png' | relative_url }})
 
 **1. Bias Subtraction**  
 각 채널에서 Bias를 빼서 영점을 맞춰주는 단계다. 각 채널에서 최댓값과 최솟값을 구하고, 이 둘의 평균을 빼 주면, 채널 내 최대 최소 값의 절댓값이 같아지므로 bit 사용을 최적화할 수 있다. 이때 Bias는 Calibration 때 미리 계산이 되어있는 값이다.  
@@ -163,7 +160,7 @@ $$
 바로 앞에서 각 채널들이 어떤 그룹에 속하는지를 결정했다. 이 단계에서는 그 채널들의 순서를 가장 큰 값을 가진 채널부터 가장 작은 값을 가진 채널로 차례로 배치해서 그룹화를 한다. 이때 실제로 자리를 옮기는 것은 아니고 Indirect Indexing의 방법으로 순서를 바꾸게 되는데, 자세한 설명은 하드웨어 부분에 나온다.  
 
 **4. Runtime Requantization**  
-![runtime](../images/runtime.png)  
+![runtime]({{ '/docs/images/runtime.png' | relative_url }})
 Tensor 분해는 Quantization 에러를 줄일 수 있지만, 분해한 채널들 별로 행렬 계산을 하고, 나중에 합해줄 때 각각의 Scale Factor를 다 곱해서 De-quantize를 해준 후 더해야 하므로 Floating-Point 연산이 많아진다. 
 그래서 Tensor는 이러한 오버헤드를 줄이기 위해서 그때 그때 부분합에 Re-quantize를 해주게 됩니다. 앞에서 Scale Factor를 2의 거듭제곱으로 설정하고 Tensor를 분해했기 때문에 다음 그룹의 계산으로 넘어가기 전에 1-bit만 Shift 해주면 된다. 따라서 Floating-Point 연산이 필요 없기 때문에 기존의 비효율성이 개선된다.  
 
@@ -176,7 +173,7 @@ Tender는 그래서 Row Chunking이라는 방법을 사용해서 채널 뿐만 �
 
 **1.Overview of Tender Architecture**  
 
-![Hardware](../images/hardware.png)  
+![Hardware]({{ '/docs/images/hardware.png' | relative_url }})
 
 이 그림이 Tender의 전반적인 구조를 보여준다. 메모리로는 HBM2랑 Scratchpad Memory, Output Buffer, 그리고 Index Buffer를 이용한다. HBM Controller가 온 칩 버퍼와 HBM2 사이의 데이터 전송을 담당한다. Execution Controller는 Scratchpad Memory에 주소를 보내서 온 칩 메모리에서 데이터를 읽어온 후 이를 Systolic Array로 전달한다. 그리고 Systolic Array에 컨트롤 신호를 보내서 어떤 연산을 할지 관리한다.  
 
@@ -184,7 +181,7 @@ Tender는 그래서 Row Chunking이라는 방법을 사용해서 채널 뿐만 �
 
 데이터 연산은 Multi-Scale Systolic Array와 VPU에서 진행된다. 먼저 MSA는 가운데 그림과 같은 구조로 이루어져 있다. 각 PE (Processing Element)는 매 사이클마다 4-bit의 연산을 수행할 수 있는데 Tender에서는 64 x 64의 PE들이 2D Mesh 형태로 배열되어 있다. 그렇기 때문에 만약 Model Precision이 INT8이라면, 한 데이터를 입력 받는데 2개의 PE가 필요하므로 2 x 2 해서 4개의 PE가 필요하다.
 
-![MSA](../images/MSA.png)  
+![MSA]({{ '/docs/images/MSA.png' | relative_url }})
 
 MSA는 Output Stationary한 모듈이어서 부분합들이 각 PE에 저장된다. 일반적인 행렬 계산 시에는 평범한 MAC Operation을 진행하고, Rescale이 필요할 때는 1 cycle 동안 Accumulator Register를 왼쪽으로 한 칸 움직여서 Re-quantization을 진행한다. Rescale Signal을 알맞은 타이밍에 내보내기 위해서 Execution Controller가 모든 메타 데이터들을 저장하고 있다.  
 
@@ -194,7 +191,7 @@ MSA는 Output Stationary한 모듈이어서 부분합들이 각 PE에 저장된�
 
 **4. Controllers & Index Buffer**  
 
-![Indirect Indexing](../images/Indirect_Indexing.png)  
+![Indirect Indexing]({{ '/docs/images/Indirect_Indexing.png' | relative_url }})
 
 Tender는 Tensor를 채널 별로 나눈 다음에 이를 Scale Factor가 큰 그룹부터 차례대로 연산을 실행해야 하므로 이를 위해서 Indirect Indexing을 이용한다. Calibration 단계 때 결정되는 연산 순서를 Index Buffer에 미리 저장해두면, Execution Controller가 이를 참조해서 Base와 Index로 구성된 주소를 Scratchpad Memory로 보내서 알맞은 데이터를 로드하고, 이 데이터를 MSA로 보내서 연산을 한다. HBM Controller는 HBM2에 있던 데이터를 Scratchpad Memory로 보내는 역할이다.  
 
@@ -206,32 +203,32 @@ Scratchpad Memory는 앞에서 Quantize된 input과 weight들이 저장되는 �
 
 **PTQ Performance on LLMs**  
 
-![PTQ Results](../images/PTQ_results.png)  
+![PTQ Results]({{ '/docs/images/PTQ_results.png' | relative_url }})
 
 여러가지 LLM 모델과 기존의 Quantization Scheme들을 이용해서 Perplexity를 비교한 결과이다. 초록 박스가 쳐진 부분이 FP16 Baseline인데, Tender는 이 Baseline과 거의 비슷한 Perplexity를 보이고 있다. 그리고 Llama-2 모델을 PTB Dataset으로 돌렸을 때는 Tender가 Baseline보다도 좋은 성능을 보이고 있다. INT8에서는 Quantization 에러가 상당히 작기 때문에 Quantization을 하면 Rounding을 할 때 불필요한 작은 값들이 제거되어 중요한 값에 집중한 결과라고 설명한다.  
 
 표에서 굵은 글씨로 표현된 것이 해당 모델과 데이터 셋에서 가장 좋은 Perplexity를 나타내는데 거의 대부분의 경우에서 Tender가 가장 좋은 Perplexity를 보여준다. 그리고 특히 INT4 Precision일 때 다른 Scheme들보다 성능이 훨씬 좋은 것도 확인할 수 있다.  
 
 **Sequence Length Sensitivity**  
-![sequence length](../images/sequence_length.png)  
+![sequence length]({{ '/docs/images/sequence_length.png' | relative_url }})
 
 시퀀스 길이에 대한 민감도를 보여준다. 여기서 Tender는 공정한 비교를 위해 Activation 사이에 있는 행렬 곱에 대해서는 Quantization을 적용하지 않은 Scheme이고 Tender(all)은 모든 행렬 곱에 대해 Quantization을 진행한 것이다.  
 여기서도 역시 Tender가 대부분의 경우에서 가장 좋은 퍼포먼스를 보이고 있고, FP16에 가까운 Perplexity를 유지하고 있다. 그리고 Tender(all)의 경우에도 Activation 사이에 행렬 곱을 Quantize하지 않는 다른 Scheme보다 나은 성능을 보이고 있다. 따라서 Tender가 여러가지 시퀀스 시나리오에서 Outlier들을 처리하는데 가장 적합하다.  
 
 **Quantization Accuracy on BERT (with GLUE benchmark)**  
 
-![accuracy](../images/accuracy.png)  
+![accuracy]({{ '/docs/images/accuracy.png' | relative_url }})
 
 Perplexity와 다르게 큰 값이 좋은 성능을 나타낸다. BERT-Large의 Outlier들은 다른 LLM 모델들보다 훨씬 작음에도 Tender가 가장 좋은 성능을 보이고 있다. 따라서 Tender의 알고리즘이 Encoder-only 모델이나 상대적으로 작은 모델에 대해서도 잘 작동하는 것을 확인할 수 있다.  
 
 **Multi-scale Quantization**  
 
-![num_groups](../images/num_groups.png)
+![num_groups]({{ '/docs/images/num_groups.png' | relative_url }})
 
 이 그래프는 Llama-2 모델에 PTB 데이터 셋을 적용한 후 Channel Decomposition 시에 그룹 수를 다르게 한 결과이다. 그룹의 수를 늘릴수록 성능이 급격하게 좋아지는 것을 볼 수 있다. 그래서 Tender처럼 Channel Decomposition을 해서 채널의 그룹 수를 늘리되, Re-scaling으로 인한 오버헤드를 줄여야 한다.  
 
 **Tender Performance**  
-![efficiency](../images/efficiency.png)
+![efficiency]({{ '/docs/images/efficiency.png' | relative_url }})
 
 다른 하드웨어 가속기들과의 Speedup과 에너지 효율을 비교한 것이다. Tender가 ANT, OLAccel, OliVe에 비해 각각 2.63배, 1.84배, 1.48배 더 빠른 속도를 보이고 있고 에너지 효율은 각각 1.84배, 1.53배, 1.24배로 좋은 효율을 보이고 있다.  
 

@@ -5,8 +5,6 @@ parent: Paper Review
 nav_order: 4
 ---
 
-### 논문 리뷰  
-
 ## ∆-DiT: A Training-Free Acceleration Method Tailored for Diffusion Transformers  
 
 ---
@@ -76,7 +74,7 @@ Feature을 재사용 하는 것은 training-free inference acceleration에서 �
 
 **Challenges**  
 
-![2](../images/Delta-DiT/2.png)
+![2]({{ '/docs/images/Delta-DiT/2.png' | relative_url }})
 
 1. **Faster Diffusion**는 U-Net 아키텍쳐의 D1-D3 모듈의 **Output**을 캐싱하여 재사용한다. 다음 단계에서 D1-D3 모듈의 재계산을 생략할 수 있지만 $x_{t-1}$에 해당하는 정보를 잃어버리기 때문에 샘플링 단계 간의 연속적인 정보 흐름이 끊기고 결과적으로 성능이 떨어질 수 있다.
 2. **DeepCache**는 5 위치에서 Output Feature Map을 캐싱하여 D2, D3, M, U3, U2의 계산을 생략한다. D1에서 U1으로 이어지는 경로를 통해 $x_{t-1}$의 정보가 유지되므로 Faster Diffusion보다 많은 정보를 보존한다.
@@ -94,7 +92,7 @@ $\Delta$-Cache는 Output Feature Map 간의 차이를 캐싱한다. 오른쪽 �
 **Qualitative**  
 DiT 블록의 Front, Middle, Back 부분을 Caching 한 결과를 비교한 것이다. I는 28개의 블록 중에서 몇 번째 블록을 기준으로 Caching 할지를 결정한다. 이 실험에서는 $I = 1, 4, 7$이고 $N_c = 21$이므로 1을 Caching 해서 2~22를 계산하고, 4를 Caching 해서 5~25를 계산하고, 7을 Caching 해서 8~28을 계산한다.   
 
-![3](../images/Delta-DiT/3.png)
+![3]({{ '/docs/images/Delta-DiT/3.png' | relative_url }})
 
 Front Blocks를 Caching하면 아웃라인의 정확도가 떨어진다. 반대로 Back Blocks를 Caching하면 디테일이 떨어진다. (a)와 비교했을 때 (b)는 파란색 차와 지붕의 아웃라인이 명확하지 않고 전체적으로 Smoother하다. (d)에서 아웃라인은 보존되었지만 (a)보다 pixel-level 디테일이 떨어진다.
 
@@ -102,14 +100,14 @@ Front Blocks를 Caching하면 아웃라인의 정확도가 떨어진다. 반대�
 
 위 연구 결과를 검증하기 위해 MS-COCO2017 데이터셋에 대해서도 정량적인 검증을 수행했다. Outline 생성 능력은 Sobel Operator 기반으로 이미지의 Average Gradient를 측정하였고, DFT를 이용해 High Frequency 손실을 평가하였다. 디테일 표현 능력은 블라인드 이미지 품질 평가 지표인 PIQE를 사용하였다.
 
-![Table 1](../images/Delta-DiT/table1.png)
+![Table 1]({{ '/docs/images/Delta-DiT/table1.png' | relative_url }})
 
 이 결과는 DiT 모델에서 앞 블록이 주로 아웃라인 생성과 관련이 있고, 후반부 블록이 디테일 표현과 밀접하다는 것을 추가적으로 확인시켜준다.  
   
 
 **4.3 State-adaptive Acceleration Method for DiT**  
 
-![4](../images/Delta-DiT/4.png)
+![4]({{ '/docs/images/Delta-DiT/4.png' | relative_url }})
 
 위쪽 그림은 타임 스텝에 따른 노이즈 제거 결과를 나타내고, 하단은 인접한 이미지 간의 차이에서 추출한 High Frequency 성분이다. High Frequency 신호는 각 시간 단계에서 모델이 집중하는 영역을 나타낸다.  
 
@@ -122,7 +120,7 @@ Hyperparameter인 b는 outline generation stage와 detail generation stage의 �
 $N$은 Cache Interval이고, $M_b$는 하나의 블록의 Computational Cost, $M_g$는 전체 Computational Cost이다. $N_b$는 DiT 블록의 개수이다. 일단, $N = \left\lceil \frac{T \times N_b \times M_b}{M_g} \right\rceil
 $로 roughly하게 결정하고, N이 결정되면 실제로 Cache 할 블록의 수인 $N_c$를 결정한다.
 
-![Nc](../images/Delta-DiT/Nc.png)
+![Nc]({{ '/docs/images/Delta-DiT/Nc.png' | relative_url }})
 
 ---
 
@@ -132,11 +130,11 @@ DiT 기반의 세 가지 변형 아키텍처인 DiT-XL, PIXART-α, PIXART-α-LCM
 
 **Comparison with the Baseline Model**  
 
-![Table 2](../images/Delta-DiT/table2.png)
+![Table 2]({{ '/docs/images/Delta-DiT/table2.png' | relative_url }})
 
 ∆-DiT는 PIXART-α와 DiT-XL에서 Faster Diffusion, TGATE보다 1.6배 빠르고, 이미지 품질도 우수하다. PIXART-α에서 FID 점수는 39.002에서 35.882로 향상되었고, CLIP-Score 또한 개선되었다.
 
-![Table 4](../images/Delta-DiT/table4.png)
+![Table 4]({{ '/docs/images/Delta-DiT/table4.png' | relative_url }})
 
  DiT-XL에서도 유사한 성과를 거두었으며, 특히 FID와 IS 점수에서 기존 가속화 방법보다 더 나은 성과를 보였다.  
 
@@ -144,7 +142,7 @@ DiT 기반의 세 가지 변형 아키텍처인 DiT-XL, PIXART-α, PIXART-α-LCM
 
 **Performance under the Consistent Model**  
 
-![Table 3](../images/Delta-DiT/table3.png)
+![Table 3]({{ '/docs/images/Delta-DiT/table3.png' | relative_url }})
 
 $T=4$로 타임 스텝이 몇 단계 밖에 없는 LCM 모델은 가속하기 어려움에도 불구하고 ∆-DiT는 Faster Diffusion 및 TGATE와 같은 기존 방법을 크게 능가했다. FID 점수에서 40.433에서 39.967로 성능 향상을 보였으며, 더 극단적인 1.12배 가속 조건에서도 탁월한 성과를 기록했다.
 
@@ -153,11 +151,11 @@ $T=4$로 타임 스텝이 몇 단계 밖에 없는 LCM 모델은 가속하기 �
 
 DEIS, EulerD에서도 ∆-DiT는 일관된 성능을 보이기 때문에 다양한 샘플링 기법과도 호환 가능하다.  
 
-![Table 5](../images/Delta-DiT/table5.png)
+![Table 5]({{ '/docs/images/Delta-DiT/table5.png' | relative_url }})
 
 Hyperparameter인 $b$와 $N_c$의 변화에 따른 성능 변화를 분석했으며, 적절한 값을 선택했을 때 가장 좋은 성능을 보였다.  
 
-![5](../images/Delta-DiT/5.png)
+![5]({{ '/docs/images/Delta-DiT/5.png' | relative_url }})
 
 
 ### **6. Conclusion**  

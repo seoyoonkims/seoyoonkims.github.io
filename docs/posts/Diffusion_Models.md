@@ -5,7 +5,6 @@ parent: Posts
 nav_order: 4
 ---
 
-## **Diffusion Models**  
   
 간단한 Point Diffusion 코드는 [GitHub](https://github.com/seoyoonkims/point-diffusion)에서 참고하실 수 있습니다.  
 
@@ -15,7 +14,7 @@ nav_order: 4
 
 Diffusion Model은 Encoder와 Decoder로 구성된다. Encoder는 Pre-specified 되는 과정이고, Decoder가 Learnable 한 과정이다. 
 
-![18.1](../images/Diffusion/18.1.png)  
+![18.1]({{ '/docs/images/Diffusion/18.1.png' | relative_url }})
 
 Encoder(Forward, Diffusion Process)는 $\mathbf{x}$를 latent variable인 $\mathbf{z}_1, \mathbf{z}_2, ... , \mathbf{z}_T$에 Mapping 한다. White Noise를 첨가하는 과정이라고 보면 된다. 이를 충분히 반복하면 $q(\mathbf{z}_T \vert \mathbf{x})$와 $q(\mathbf{z}_T)$가 Standard Normal Distribution이 되고, Noise만 남은 상태가 된다.  
 
@@ -52,7 +51,7 @@ $$
 q(\mathbf{z}_{1...T} \vert \mathbf{x}) = q(\mathbf{z}_1 \vert \mathbf{x}) \prod\limits_{t=2}^{T} q(\mathbf{z}_t \vert \mathbf{z}_{t-1})
 $$
 
-![18.2](../images/Diffusion/18.2.png)
+![18.2]({{ '/docs/images/Diffusion/18.2.png' | relative_url }})
 
 결국은 위 그림처럼 $x$는 0에 수렴하고, $q(\mathbf{z}_t \vert x)$는 mean이 0인 정규분포에 가까워진다. 
   
@@ -144,7 +143,7 @@ $$
 
 Marginal Distribution인 $q(\mathbf{z}_{t-1})$가 intractable 하므로 위 식 또한 intractable 하다. 하지만 Numerically 하게 근사하여 구할 수는 있다.  
 
-![18.5](../images/Diffusion/18.5.png)  
+![18.5]({{ '/docs/images/Diffusion/18.5.png' | relative_url }})
 
 
 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_{t}^{\ast})$$는 Bayes' Rule을 통해 $$q(\mathbf{z}_{t}^{\ast} \vert \mathbf{z}_{t-1})q(\mathbf{z}_{t-1})$$에 Proportional 하다는 점을 이용해 계산한다. Marginal Density(회색선)과 $$q(\mathbf{z}_t^{\ast} \vert \mathbf{z}_{t-1})$$(갈색선)의 곱으로 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_{t}^{\ast})$$(하늘색)를 구한 것이다. 
@@ -362,11 +361,11 @@ $$
 
 Loss Function은 각 Diffusion Time Step에 대해 네트워크를 훈련시키는데 사용된다. 예측한 $f_t[\mathbf{z}_{it}, \boldsymbol{\phi}_t]$ 값과 데이터 $\mathbf{x}$가 주어졌을 때 가장 나올 확률이 큰 값과의 차이를 최소화한다. 
 
-![18.7](../images/Diffusion/18.7.png)
+![18.7]({{ '/docs/images/Diffusion/18.7.png' | relative_url }})
 
 위에서 말했듯이 Ancestral Sampling으로 샘플을 생성할 수 있다. 왼쪽의 Estimated Marginal Densities 히트맵이 실제 Marginal Densities랑 비슷한 것을 확인할 수 있다. 그리고 점점 $$Pr(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$와 $$q(\mathbf{z}_{t-1} \vert \mathbf{z}_t)$$가 비슷해져가는 것도 확인할 수 있다. 또한, $Pr(\mathbf{z}_t)$와 $$q(\mathbf{z}_t)$$도 비슷하다.  
 
-![18.8](../images/Diffusion/18.8.png)
+![18.8]({{ '/docs/images/Diffusion/18.8.png' | relative_url }})
 
 각 수직 바들이 생성된 하나의 샘플이라고 보면 된다. 추정값과 실제 값이 비슷한 것을 볼 수 있다.  
 
@@ -460,7 +459,7 @@ $$
 
 Training 알고리즘은 구현하기도 쉽고 노이즈만 다르게 하면 원하는 만큼 인풋 이미지를 재사용할 수 있다. 하지만, Sampling 알고리즘은 여러 Neural Network의 연속이기 때문에 시간이 많이 걸린다.  
 
-![algorithm](../images/Diffusion/algorithm.png)
+![algorithm]({{ '/docs/images/Diffusion/algorithm.png' | relative_url }})
 
 ---
 
@@ -468,7 +467,7 @@ Training 알고리즘은 구현하기도 쉽고 노이즈만 다르게 하면 �
 
 디퓨전 네트워크는 노이즈 이미지를 받은 후, 이 이미지에 어떤 노이즈가 단계 별로 첨가되었을지 예측하는 모델이다. 전형적인 U-Net 구조로 이미지를 매핑하는데, 조건부 확률 $q(\mathbf{z}_t \vert \mathbf{z})$를 사용하기 때문에 타임 스탬프 T가 커졌을 때 Sampling 속도가 느려지는 문제가 있다.  
 
-![18.9](../images/Diffusion/18.9.png)
+![18.9]({{ '/docs/images/Diffusion/18.9.png' | relative_url }})
 
 
 
@@ -488,7 +487,7 @@ $$\mathbf{z}_t$$에서 $$\mathbf{z}_{t-1}$$로의 매핑에 c에 대한 정보�
 
 $Pr(c \vert \mathbf{z}_t)$를 학습하는 대신 메인 모델인 $$g_t[\mathbf{z}_{t}, \boldsymbol{\phi}_t, c]$$에 포함되도록 하는 것이다. 주로 임베딩의 형태로 U-Net의 레이어로 들어가게 되는데, 모델은 Conditional & Unconditional Objectives으로 랜덤하게 학습되기 때문에 GAN과 같은 효과를 얻어서 성능이 매우 좋아진다.  
 
-![18.11](../images/Diffusion/18.11.png)
+![18.11]({{ '/docs/images/Diffusion/18.11.png' | relative_url }})
 
 ---
 2024/09/06

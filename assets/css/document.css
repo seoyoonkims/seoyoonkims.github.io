@@ -1,0 +1,251 @@
+.document-page {
+  padding-top: 30px;
+}
+.document-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: #777;
+}
+.document-breadcrumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+}
+.document-header {
+  margin-bottom: 25px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.document-header h1 {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.document-content {
+  line-height: 1.85;
+  overflow-wrap: break-word;
+}
+.document-content h1,
+.document-content h2,
+.document-content h3,
+.document-content h4 {
+  margin: 30px 0 14px;
+  line-height: 1.5;
+  font-weight: 600;
+  scroll-margin-top: 24px;
+}
+.document-content h1,
+.document-content h2 {
+  font-size: 23px;
+}
+.document-content h3 {
+  font-size: 19px;
+}
+.document-content h4 {
+  font-size: 16px;
+}
+.document-content > :first-child {
+  margin-top: 0;
+}
+.document-content p,
+.document-content ul,
+.document-content ol,
+.document-content blockquote,
+.document-content table {
+  margin: 0 0 18px;
+}
+.document-content ul,
+.document-content ol {
+  padding-left: 24px;
+}
+.document-content li + li {
+  margin-top: 5px;
+}
+.document-content li > ul,
+.document-content li > ol {
+  margin-bottom: 0;
+}
+.document-content a {
+  text-decoration: underline;
+}
+.document-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 22px auto;
+}
+.document-content blockquote {
+  margin-left: 0;
+  padding: 3px 18px;
+  border-left: 3px solid #ddd;
+  color: #555;
+}
+.document-content blockquote > :last-child {
+  margin-bottom: 0;
+}
+.document-content hr {
+  margin: 28px 0;
+  border: 0;
+  border-top: 1px solid #e5e5e5;
+}
+.document-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.document-content th,
+.document-content td {
+  padding: 9px 13px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+.document-content th {
+  background: #f5f5f5;
+  font-weight: 600;
+}
+.document-content code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.88em;
+}
+.document-content :not(pre) > code {
+  padding: 2px 4px;
+  border-radius: 2px;
+  background: #f3f4f5;
+  overflow-wrap: anywhere;
+}
+.document-content pre {
+  margin: 0 0 18px;
+  padding: 16px;
+  overflow-x: auto;
+  border: 1px solid #e3e5e7;
+  border-radius: 3px;
+  background: #f7f8f9;
+  line-height: 1.6;
+}
+.document-content pre code {
+  padding: 0;
+  border: 0;
+  background: none;
+  white-space: pre;
+}
+.document-content .highlight {
+  max-width: 100%;
+}
+.document-content .highlight .c,
+.document-content .highlight .c1,
+.document-content .highlight .cm {
+  color: #5a686a;
+}
+.document-content .highlight .k,
+.document-content .highlight .kd,
+.document-content .highlight .kn {
+  color: #7137a5;
+}
+.document-content .highlight .s,
+.document-content .highlight .s1,
+.document-content .highlight .s2 {
+  color: #1c6639;
+}
+.document-content .highlight .nf,
+.document-content .highlight .nc {
+  color: #245a91;
+}
+.document-content .katex-display {
+  max-width: 100%;
+  padding: 4px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.document-content .katex {
+  font-size: 1.08em;
+}
+.document-content iframe,
+.document-content video {
+  max-width: 100%;
+}
+.code-block {
+  position: relative;
+}
+.document-content .code-block pre {
+  padding-right: 64px;
+}
+.copy-code {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  min-height: 28px;
+  padding: 3px 9px;
+  border: 1px solid #d5d8db;
+  border-radius: 3px;
+  background: white;
+  color: #555;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+.copy-code:hover {
+  border-color: #999;
+}
+.document-list {
+  padding: 0;
+  list-style: none;
+}
+.document-list li {
+  padding: 11px 0;
+  border-bottom: 1px solid #eee;
+}
+.document-list li:first-child {
+  padding-top: 0;
+}
+.document-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+}
+.document-archives {
+  margin-top: 36px;
+}
+.document-archives h2 {
+  margin-bottom: 18px;
+  font-size: 20px;
+  font-weight: 600;
+}
+@media (max-width: 520px) {
+  .document-page {
+    padding-top: 20px;
+  }
+  .document-header h1 {
+    font-size: 25px;
+  }
+  .document-content h1,
+  .document-content h2 {
+    font-size: 21px;
+  }
+  .document-content h3 {
+    font-size: 18px;
+  }
+  .document-content pre {
+    padding-inline: 12px;
+  }
+}
+@media print {
+  .document-breadcrumbs,
+  .copy-code {
+    display: none;
+  }
+  .document-page {
+    padding-top: 0;
+  }
+  .document-content pre {
+    white-space: pre-wrap;
+  }
+  .document-content pre code {
+    white-space: pre-wrap;
+  }
+}

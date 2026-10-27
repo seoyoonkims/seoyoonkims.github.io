@@ -1,0 +1,115 @@
+# Main-page content: publications, education, honors, experience, and navigation.
+# Official logo sources:
+# KAIST: https://www.kaist.ac.kr/site/kr/img/layout/logo.svg
+# KAIST AI: https://gsai.kaist.ac.kr/wp-content/uploads/2019/09/kaist_ai_logo-1.svg
+# HyperAccel: https://hyperaccel.ai/wp-content/uploads/2025/11/cropped-logo-favicon-192x192.png
+# NYU: inline SVG artwork from https://www.nyu.edu/
+# Dongsin: emblem from https://ddsciencehs.djsch.kr/images/template/02219/common/logo.gif
+publications:
+  - title: "Spatially Conditioned Diffusion Policy: Learning Precise and Robust Manipulation with a Single RGB Camera"
+    url: https://scdp-project.github.io/
+    authors:
+      - name: Seoyoon Kim
+        equal_contribution: true
+      - name: Kanghyun Kim
+        equal_contribution: true
+      - name: Dongwoo Ko
+      - name: Young Jin Heo
+      - name: Min Jun Kim
+    venue: CoRL 2026
+    note: "* Equal contribution"
+    preview:
+      image: /assets/images/publications/scdp.gif
+      poster: /assets/images/publications/scdp-poster.webp
+      alt: SCDP robot manipulation demonstration
+      source: https://irsl-robotics.github.io/assets/img/publication_preview/SCDP.gif
+    links:
+      - label: Project
+        url: https://scdp-project.github.io/
+      - label: Paper
+        url: https://arxiv.org/abs/2606.14535
+      - label: Code
+        url: https://github.com/IRSL-robotics/SCDP
+      - label: Video
+        url: https://youtu.be/PfSrRUp5z_k
+
+education:
+  - institution: KAIST
+    url: https://www.kaist.ac.kr/en/
+    logo: /assets/images/logos/kaist.svg
+    degree: M.S. candidate
+    field: Electrical Engineering
+    period: Aug 2025 — Present
+    details:
+      - Advisor · Prof. Min Jun Kim
+  - institution: New York University (NYU)
+    url: https://www.nyu.edu/
+    logo: /assets/images/logos/nyu.svg
+    degree: Minor in Mechanical Engineering
+    period: Aug 2023 — Dec 2023
+  - institution: KAIST
+    url: https://www.kaist.ac.kr/en/
+    logo: /assets/images/logos/kaist.svg
+    degree: B.S. in Electrical Engineering
+    period: Mar 2021 — Jul 2025
+    details:
+      - "GPA: 4.02 / 4.30"
+  - institution: Daejeon Dongsin Science High School
+    url: https://ddsciencehs.djsch.kr/main.do
+    logo: /assets/images/logos/dongsin.png
+    degree: High School
+    period: Mar 2019 — Feb 2021
+
+honors:
+  - title: Summa Cum Laude
+    institution: KAIST
+    period: Aug 2025
+  - title: Dean’s List (2023 Spring)
+    institution: KAIST
+    period: Aug 2023
+  - title: Honor Student
+    institution: KAIST
+    period: Aug 2023 — Aug 2025
+
+experience:
+  - organization: HuGe Lab
+    affiliation: KAIST Graduate School of AI
+    logo: /assets/images/logos/kaist-ai.svg
+    logo_alt: KAIST Graduate School of AI
+    logo_class: organization-logo--ai
+    role: Research Intern
+    period: Jan 2025 — Feb 2025
+    description: Developing humanoid robots using deep reinforcement learning.
+  - organization: CastLab
+    affiliation: KAIST
+    logo: /assets/images/logos/kaist.svg
+    logo_alt: KAIST
+    role: Individual Research
+    period: Sep 2024 — Dec 2025
+    description: Accelerating diffusion transformers with token merging and MX quantization.
+  - organization: HyperAccel
+    url: https://hyperaccel.ai/
+    logo: /assets/images/logos/hyperaccel.png
+    logo_alt: HyperAccel
+    logo_class: organization-logo--symbol
+    role: Research Intern
+    period: Jun 2024 — Aug 2024
+    description: Developing a hardware monitoring system and packaging HyperDex.
+    notes_url: /docs/HyperAccel/
+  - organization: USRG
+    affiliation: KAIST
+    logo: /assets/images/logos/kaist.svg
+    logo_alt: KAIST
+    role: Individual Research
+    period: Jun 2023 — Aug 2023
+    description: Building an AI-based autonomous drone for obstacle avoidance and human pose recognition.
+
+skills:
+  - category: Programming & hardware
+    items: [Python, C/C++, MATLAB, SystemVerilog]
+  - category: Robotics & machine learning
+    items: [PyTorch, ROS, Isaac Lab, CUDA]
+
+navigation:
+  - title: Post
+    url: /docs/posts/

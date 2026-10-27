@@ -5,8 +5,6 @@ parent: Paper Review
 nav_order: 5
 ---
 
-### 논문 리뷰  
-
 ## FORA: Fast-Forward Caching in Diffusion Transformer Acceleration
 
 ---
@@ -28,7 +26,7 @@ nav_order: 5
 
 **Efficiency Enhancements of Diffusion Model**  
 
-![2](../images/FORA/2.png)
+![2]({{ '/docs/images/FORA/2.png' | relative_url }})
 
 위 그림은 타임 스텝에 따른 어텐션과 MLP 레이어의 유사도를 나타낸 히트맵이다. **연속된 타임 스텝의 Feature 간의 유사도가 높고**, 나중 단계에서 특히 유사도가 큰 것을 확인할 수 있다. 이 점에 착안하여 캐싱을 활용하여 연산을 최적화하는 FORA를 제안한다. 
 
@@ -45,7 +43,7 @@ Feature caching은 이미 연산된 정보들을 저장하고 재사용해서 �
 
 **FORA**  
 
-![3](../images/FORA/3.png)
+![3]({{ '/docs/images/FORA/3.png' | relative_url }})
 
 FORA는 static caching 매커니즘을 이용한다. Hyperparameter인 N은 Cache Interval를 뜻하며 모델이 몇 타임 스텝마다 한 번씩 연산을 할지 결정한다. 해당 타임 스텝이 아니면 이전 단계에서 나온 값들을 재사용하게 된다. T가 총 타임 스텝이라고 하면, N은 1부터 T-1의 값을 가질 수 있다.  
 
@@ -64,7 +62,7 @@ N에 따라서 속도와 퀄리티 간의 Trade-off가 생기게 된다. 실험 
 
 ### **4. Experiments**  
 
-![Table 3](../images/FORA/Table3.png)
+![Table 3]({{ '/docs/images/FORA/Table3.png' | relative_url }})
 
 타임 스텝과 Cache Interval에 따른 성능을 나타낸 것이다. Cache Interval을 높여도 성능 저하가 크지는 않다.  
 

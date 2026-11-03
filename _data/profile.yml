@@ -1,4 +1,4 @@
-# Main-page content: publications, education, honors, experience, and navigation.
+# Main-page content: publications, education, honors, experience, projects, and navigation.
 # Official logo sources:
 # KAIST: https://www.kaist.ac.kr/site/kr/img/layout/logo.svg
 # KAIST AI: https://gsai.kaist.ac.kr/wp-content/uploads/2019/09/kaist_ai_logo-1.svg
@@ -72,6 +72,14 @@ honors:
     period: Aug 2023 — Aug 2025
 
 experience:
+  - organization: IRSL
+    url: https://irsl-robotics.github.io/
+    affiliation: KAIST
+    logo: /assets/images/logos/kaist.svg
+    logo_alt: KAIST
+    role: Research Intern
+    period: Jun 2025 — Aug 2025
+    description: Visual imitation learning for robot manipulation.
   - organization: HuGe Lab
     affiliation: KAIST Graduate School of AI
     logo: /assets/images/logos/kaist-ai.svg
@@ -103,6 +111,35 @@ experience:
     role: Individual Research
     period: Jun 2023 — Aug 2023
     description: Building an AI-based autonomous drone for obstacle avoidance and human pose recognition.
+
+projects:
+  - id: nature-conference-2026
+    title: "2026 Nature Conference: Autonomous Robotics"
+    url: /projects/nature-conference-2026/
+    description: A robot shell-game demonstration with visual tracking and manipulation.
+    preview:
+      image: /assets/images/projects/nature-conference-2026/preview.gif
+      poster: /assets/images/projects/nature-conference-2026/shell-game.webp
+      alt: A robot lifting a cup during a shell-game demonstration
+      width: 400
+      height: 225
+    videos:
+      - id: shell-game
+        title: Shell game
+        label: Main video
+        caption: Main demonstration · 2× playback speed
+        src: /assets/videos/projects/nature-conference-2026/shell-game.mp4
+        poster: /assets/images/projects/nature-conference-2026/shell-game.webp
+        width: 1920
+        height: 1080
+      - id: robot-view
+        title: Robot view
+        label: Robot view
+        caption: Cup tracking and manipulation from the robot’s perspective · 2× playback speed
+        src: /assets/videos/projects/nature-conference-2026/robot-view.mp4
+        poster: /assets/images/projects/nature-conference-2026/robot-view.webp
+        width: 2520
+        height: 1080
 
 skills:
   - category: Programming & hardware

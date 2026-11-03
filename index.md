@@ -14,7 +14,9 @@ permalink: /
     <p><strong>Research interests:</strong> Robot Manipulation &amp; Learning.</p>
     <p class="profile-location">South Korea</p>
     <p class="profile-email"><a href="mailto:seoyoonkims@kaist.ac.kr">seoyoonkims@kaist.ac.kr</a></p>
-    <div class="profile-links" aria-label="Social profiles">
+    <div class="profile-links" aria-label="CV and social profiles">
+      <a href="https://irsl-robotics.github.io/assets/pdf/cv/CV_Seoyoon_Kim.pdf">CV</a>
+      <span aria-hidden="true">/</span>
       <a href="https://github.com/seoyoonkims/">GitHub</a>
       <span aria-hidden="true">/</span>
       <a href="https://www.linkedin.com/in/kim-seoyoon-9085b3319/">LinkedIn</a>
@@ -37,6 +39,22 @@ permalink: /
     {% if publication.authors %}<p>{% for author in publication.authors %}{% if author.name == site.title %}<strong>{{ author.name | escape }}</strong>{% else %}{{ author.name | escape }}{% endif %}{% if author.equal_contribution %}*{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}{% if publication.note %} <span class="publication-note">({{ publication.note | escape }})</span>{% endif %}</p>{% endif %}
     {% if publication.venue %}<p class="publication-venue">{{ publication.venue | escape }}</p>{% endif %}
     {% if publication.links %}<div class="publication-links">{% for link in publication.links %}<a href="{{ link.url }}">{{ link.label | escape }}</a>{% endfor %}</div>{% endif %}
+    </div>
+  </article>
+  {% endfor %}
+</section>
+
+<section class="profile-section" id="projects" aria-labelledby="projects-heading">
+  <h2 id="projects-heading">Projects</h2>
+  {% for project in site.data.profile.projects %}
+  <article class="project-entry">
+    <a class="project-media" href="{{ project.url | relative_url }}" aria-label="View {{ project.title | escape }}">
+      <img src="{{ project.preview.poster | relative_url }}" data-animated-src="{{ project.preview.image | relative_url }}" data-still-src="{{ project.preview.poster | relative_url }}" alt="{{ project.preview.alt | escape }}" width="{{ project.preview.width }}" height="{{ project.preview.height }}" loading="lazy">
+    </a>
+    <div class="project-content">
+      <h3><a href="{{ project.url | relative_url }}">{{ project.title | escape }}</a></h3>
+      <p>{{ project.description | escape }}</p>
+      <div class="project-links">{% for video in project.videos %}<a href="{{ project.url | relative_url }}#{{ video.id }}">{{ video.label | escape }}</a>{% endfor %}</div>
     </div>
   </article>
   {% endfor %}

@@ -169,6 +169,25 @@
 .document-content video {
   max-width: 100%;
 }
+.project-video {
+  margin: 0;
+}
+.project-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  background: #111;
+}
+.project-video figcaption {
+  margin-top: 8px;
+  color: #666;
+  font-size: 13px;
+}
+.document-content .project-back {
+  margin-top: 30px;
+  font-size: 14px;
+}
 .code-block {
   position: relative;
 }

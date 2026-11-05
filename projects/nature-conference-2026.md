@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "2026 Nature Conference: Autonomous Robotics"
-description: "A robot shell-game demonstration with visual tracking and manipulation."
+description: "A robot that successfully plays the shell game regardless of tricks, shuffle speed, or shuffle length, showcased in a live demo at the 2026 Nature Conference."
 image: /assets/images/projects/nature-conference-2026/shell-game.webp
 permalink: /projects/nature-conference-2026/
 project_id: nature-conference-2026

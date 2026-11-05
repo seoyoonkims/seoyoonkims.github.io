@@ -116,7 +116,7 @@ projects:
   - id: nature-conference-2026
     title: "2026 Nature Conference: Autonomous Robotics"
     url: /projects/nature-conference-2026/
-    description: A robot shell-game demonstration with visual tracking and manipulation.
+    description: A robot that successfully plays the shell game regardless of tricks, shuffle speed, or shuffle length, showcased in a live demo at the 2026 Nature Conference.
     preview:
       image: /assets/images/projects/nature-conference-2026/preview.gif
       poster: /assets/images/projects/nature-conference-2026/shell-game.webp
@@ -135,7 +135,7 @@ projects:
       - id: robot-view
         title: Robot view
         label: Robot view
-        caption: Cup tracking and manipulation from the robot’s perspective · 2× playback speed
+        caption: The shell game from the robot’s perspective · 2× playback speed
         src: /assets/videos/projects/nature-conference-2026/robot-view.mp4
         poster: /assets/images/projects/nature-conference-2026/robot-view.webp
         width: 2520

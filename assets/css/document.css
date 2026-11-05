@@ -184,6 +184,20 @@
   color: #666;
   font-size: 13px;
 }
+.project-photo {
+  margin: 0 0 24px;
+}
+.project-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+.project-photo figcaption {
+  margin-top: 8px;
+  color: #666;
+  font-size: 13px;
+}
 .document-content .project-back {
   margin-top: 30px;
   font-size: 14px;

@@ -140,6 +140,17 @@ projects:
         poster: /assets/images/projects/nature-conference-2026/robot-view.webp
         width: 2520
         height: 1080
+    photos:
+      - src: /assets/images/projects/nature-conference-2026/conference-venue.webp
+        alt: Exhibition hall under the Nature Conferences Autonomous Robotics banner, with booths and attendees
+        caption: Nature Conferences — Autonomous Robotics · 13–15 October 2026
+        width: 1600
+        height: 1067
+      - src: /assets/images/projects/nature-conference-2026/irsl-booth.webp
+        alt: A dual-arm robot behind three metal cups on a green table, with a sign reading “Can you fool the robot?”
+        caption: Live shell-game demo at the Intelligent Robotic Systems Lab (IRSL) booth
+        width: 1600
+        height: 1200
 
 skills:
   - category: Programming & hardware

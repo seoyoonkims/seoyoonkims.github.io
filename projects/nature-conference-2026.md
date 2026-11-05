@@ -23,4 +23,16 @@ project_id: nature-conference-2026
 </section>
 {% endfor %}
 
+{% if project.photos %}
+<section aria-labelledby="photos">
+  <h2 id="photos">Photos</h2>
+  {% for photo in project.photos %}
+  <figure class="project-photo">
+    <img src="{{ photo.src | relative_url }}" alt="{{ photo.alt | escape }}" width="{{ photo.width }}" height="{{ photo.height }}" loading="lazy">
+    <figcaption>{{ photo.caption | escape }}</figcaption>
+  </figure>
+  {% endfor %}
+</section>
+{% endif %}
+
 <p class="project-back"><a href="{{ '/' | relative_url }}#projects">Back to Projects</a></p>

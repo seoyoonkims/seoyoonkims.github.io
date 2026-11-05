@@ -151,6 +151,11 @@ projects:
         caption: Live shell-game demo at the Intelligent Robotic Systems Lab (IRSL) booth
         width: 1600
         height: 1200
+      - src: /assets/images/projects/nature-conference-2026/demo-audience.webp
+        alt: Conference attendees crowding around the dual-arm robot and the three cups on the green table
+        caption: Attendees watching the robot play the shell game
+        width: 1600
+        height: 1200
 
 skills:
   - category: Programming & hardware

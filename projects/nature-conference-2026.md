@@ -14,7 +14,7 @@ project_id: nature-conference-2026
 <section aria-labelledby="{{ video.id }}">
   <h2 id="{{ video.id }}">{{ video.title | escape }}</h2>
   <figure class="project-video">
-    <video controls playsinline preload="none" poster="{{ video.poster | relative_url }}" width="{{ video.width }}" height="{{ video.height }}" aria-label="{{ video.title | escape }}" aria-describedby="{{ video.id }}-caption">
+    <video controls autoplay muted playsinline poster="{{ video.poster | relative_url }}" width="{{ video.width }}" height="{{ video.height }}" aria-label="{{ video.title | escape }}" aria-describedby="{{ video.id }}-caption">
       <source src="{{ video.src | relative_url }}" type="video/mp4">
       <a href="{{ video.src | relative_url }}">Download {{ video.title | escape }}</a>
     </video>
